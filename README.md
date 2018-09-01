@@ -48,7 +48,7 @@
 {
   "license": "10000000-2000-4000-8000-160000000001",
   "activation": {
-    "when": "1h3m | 2018-01-01 10:55:00",
+    "after": "1h", "xor": "^", "when": "2018-01-01 10:55:00",
     "duration": "24h"
   },
   "limits": {
@@ -56,6 +56,23 @@
     "request_limit": 1000,
     "workplace_limit": 10
   }
+}
+```
+
+### PUT `/api/v1/extend`
+
+```json
+{
+  "license": "10000000-2000-4000-8000-160000000001",
+  "activation": [
+    {"when": "2018-01-01 11:00:00"},
+    {"duration": "(+|-)?24h"}
+  ],
+  "limits": [
+    {"rate_limit": "1 rpm"},
+    {"request_limit": null},
+    {"workplace_limit": "+3"}
+  ]
 }
 ```
 
