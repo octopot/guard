@@ -17,11 +17,11 @@
 |  |  |
 |  |  |--/10000000-2000-4000-8000-160000000003
 |  |  |  |
-|  |  |  `--/workplace level limits (in future releases)
+|  |  |  `--...
 |  |  |
 |  |  `--/10000000-2000-4000-8000-160000000004
 |  |     |
-|  |     `--/workplace level limits (in future releases)
+|  |     `--...
 |  |
 |  |--creation date (UNIX timestamp)
 |  |
