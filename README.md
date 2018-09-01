@@ -66,12 +66,12 @@
   "license": "10000000-2000-4000-8000-160000000001",
   "activation": [
     {"when": "2018-01-01 11:00:00"},
-    {"duration": "(+|-)?24h"}
+    {"duration": "24h", "rel": "-"}
   ],
   "limits": [
     {"rate_limit": "1 rpm"},
     {"request_limit": null},
-    {"workplace_limit": "+3"}
+    {"workplace_limit": 3, "rel": "+"}
   ]
 }
 ```
