@@ -5,6 +5,14 @@
 ## Data structure
 
 ```
+/defaults
+|
+|--[rate limiting] (strings in format "%d (rps|rpm|rph)")
+|
+|--[request limiting] (integer)
+|
+|--[workplace limiting] (integer)
+|
 /licenses
 |
 |--/10000000-2000-4000-8000-160000000001
