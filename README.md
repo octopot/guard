@@ -1,6 +1,6 @@
-> # Paymaster
+> # Guard
 >
-> 👨‍💼 Payment Access as a Service. The prototype.
+> 💂‍♂️ Access Guard as a Service.
 
 ## Data structure
 
@@ -50,7 +50,7 @@
 
 ## API Specification
 
-### POST `/api/v1/register`
+### POST `/api/v1/license/register`
 
 ```json
 {
@@ -67,7 +67,7 @@
 }
 ```
 
-### PUT `/api/v1/extend`
+### PUT `/api/v1/license/extend`
 
 ```json
 {
@@ -84,7 +84,7 @@
 }
 ```
 
-### PROXY `/api/v1/check`
+### PROXY `/api/v1/license/check`
 
 ```
 X-Token: 10000000-2000-4000-8000-160000000001
