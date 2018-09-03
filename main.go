@@ -15,7 +15,6 @@ import (
 	_ "github.com/lib/pq"
 	_ "github.com/mailru/easyjson"
 	_ "github.com/pkg/errors"
-	_ "github.com/prometheus/client_golang/prometheus/promhttp"
 	_ "github.com/stretchr/testify"
 	_ "google.golang.org/grpc"
 )
