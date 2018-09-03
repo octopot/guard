@@ -1,3 +1,6 @@
+PACKAGE = github.com/kamilsk/guard
+
+
 .PHONY: docker-build-app
 docker-build-app:
 	docker build \
@@ -19,5 +22,16 @@ docker-build-service:
 	docker build \
 	             -t paymaster-service \
 	             -f env/docker/service/Dockerfile \
+	             --build-arg PACKAGE=$(PACKAGE) \
 	             --force-rm \
 	             .
+
+
+.PHONY: docker-run-service
+docker-run-service:
+	docker run --rm -it \
+	           -p 8080:80 \
+	           -p 8090:8090 \
+	           -p 8091:8091 \
+	           -p 8092:8092 \
+	           paymaster-service run --with-profiling --with-monitoring
