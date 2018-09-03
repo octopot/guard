@@ -7,8 +7,10 @@ import (
 	"net/http"
 	"net/http/pprof"
 	"runtime"
+	"strconv"
 
 	"github.com/kamilsk/go-kit/pkg/fn"
+	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
@@ -44,25 +46,34 @@ var runCmd = &cobra.Command{
 func init() {
 	v := viper.New()
 	fn.Must(
-		func() error { return v.BindEnv("max_cpus") },
-		func() error { return v.BindEnv("host") },
+		func() error { return v.BindEnv("bind") },
+		func() error { return v.BindEnv("http_port") },
+		func() error { return v.BindEnv("profiling_host") },
+		func() error { return v.BindEnv("monitoring_host") },
+		func() error { return v.BindEnv("grpc_host") },
 		func() error { return v.BindEnv("read_timeout") },
 		func() error { return v.BindEnv("read_header_timeout") },
 		func() error { return v.BindEnv("write_timeout") },
 		func() error { return v.BindEnv("idle_timeout") },
-		func() error { return v.BindEnv("profiling_host") },
-		func() error { return v.BindEnv("monitoring_host") },
-		func() error { return v.BindEnv("grpc_host") },
+		func() error { return v.BindEnv("max_cpus") },
 		func() error {
 			v.SetDefault("max_cpus", defaults["max_cpus"])
-			v.SetDefault("host", defaults["host"])
+			v.SetDefault("bind", defaults["bind"])
+			v.SetDefault("http_port", defaults["http_port"])
+			v.SetDefault("profiling_port", defaults["profiling_port"])
+			v.SetDefault("monitoring_port", defaults["monitoring_port"])
+			v.SetDefault("grpc_port", defaults["grpc_port"])
+
+			bind := v.GetString("bind")
+			v.SetDefault("host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("http_port"))))
+			v.SetDefault("profiling_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("profiling_port"))))
+			v.SetDefault("monitoring_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("monitoring_port"))))
+			v.SetDefault("grpc_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("grpc_port"))))
+
 			v.SetDefault("read_timeout", defaults["read_timeout"])
 			v.SetDefault("read_header_timeout", defaults["read_header_timeout"])
 			v.SetDefault("write_timeout", defaults["write_timeout"])
 			v.SetDefault("idle_timeout", defaults["idle_timeout"])
-			v.SetDefault("profiling_host", defaults["profiling_host"])
-			v.SetDefault("monitoring_host", defaults["monitoring_host"])
-			v.SetDefault("grpc_host", defaults["grpc_host"])
 			return nil
 		},
 		func() error {
