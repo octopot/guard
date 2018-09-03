@@ -84,11 +84,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5cc561c0f280b098d24dbaa192fa0c6409bbd0cbc06b6e4ac46f6e9b36077ca6"
+  digest = "1:caf232246c27105c302d27831d8d0834907188c0970cf24747dc007c74959e2f"
   name = "github.com/kamilsk/go-kit"
-  packages = ["pkg/fn"]
+  packages = [
+    "pkg/config",
+    "pkg/fn",
+  ]
   pruneopts = "UT"
-  revision = "c4a06f93eaecb1ce90c8246c1f7ed8af368e567d"
+  revision = "b459cbaf93ff901db6cf1157b8e5d95dc4688a66"
 
 [[projects]]
   branch = "master"
@@ -370,12 +373,12 @@
   version = "v1.14.0"
 
 [[projects]]
-  branch = "v2"
   digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "UT"
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  version = "v2.2.1"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -383,6 +386,7 @@
   input-imports = [
     "github.com/go-chi/chi",
     "github.com/golang/protobuf/proto",
+    "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
     "github.com/lib/pq",
     "github.com/mailru/easyjson",
@@ -392,7 +396,6 @@
     "github.com/spf13/viper",
     "github.com/stretchr/testify",
     "google.golang.org/grpc",
-    "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
