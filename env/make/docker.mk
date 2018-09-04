@@ -1,4 +1,5 @@
-PACKAGE = github.com/kamilsk/guard
+IMAGE_VERSION := latest
+PACKAGE       := github.com/kamilsk/guard
 
 
 .PHONY: docker-build-app
