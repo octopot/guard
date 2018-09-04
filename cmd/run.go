@@ -48,9 +48,9 @@ func init() {
 	fn.Must(
 		func() error { return v.BindEnv("bind") },
 		func() error { return v.BindEnv("http_port") },
-		func() error { return v.BindEnv("profiling_host") },
-		func() error { return v.BindEnv("monitoring_host") },
-		func() error { return v.BindEnv("grpc_host") },
+		func() error { return v.BindEnv("profiling_port") },
+		func() error { return v.BindEnv("monitoring_port") },
+		func() error { return v.BindEnv("grpc_port") },
 		func() error { return v.BindEnv("read_timeout") },
 		func() error { return v.BindEnv("read_header_timeout") },
 		func() error { return v.BindEnv("write_timeout") },
