@@ -1,6 +1,6 @@
 > # Guard
 >
-> 💂‍♂️ Access Guard as a Service.
+> 💂‍♂️ Access Guard as a Service &mdash; protect any API or sites you want.
 
 ## Data structure
 

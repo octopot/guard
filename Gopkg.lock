@@ -92,7 +92,7 @@
     "pkg/strings",
   ]
   pruneopts = "UT"
-  revision = "31cbd6f9b555d929891a764022aab916a6a93039"
+  revision = "0101ca8436fba89061a6961d864ae7fa731e5797"
 
 [[projects]]
   branch = "master"
@@ -168,7 +168,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5423af3e995a8d4cc5753845d80849c8df1ef1debcef4bf373b075a7c1ab8a23"
+  digest = "1:779b60df866a1d0c7a19d5988c86e4d5b0732d07fb6a047e5852ad4a038156b1"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -176,7 +176,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "UT"
-  revision = "a10423e9da491a85bad70ec36c4215a6b063a7c0"
+  revision = "d968d2292ed0d640ba2065d86a22ddee4bf009f1"
 
 [[projects]]
   branch = "master"
@@ -305,7 +305,7 @@
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "fa5fdf94c78965f1aa8423f0cc50b8b8d728b05a"
+  revision = "2b024373dcd9800f0cae693839fac6ede8d64a8c"
 
 [[projects]]
   digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"

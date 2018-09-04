@@ -1,0 +1,11 @@
+env
+
+.dockerignore
+.gitattributes
+.gitignore
+
+Makefile
+Gopkg.*
+*_test.go
+
+README.md
