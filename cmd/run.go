@@ -17,7 +17,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 )
 
 var runCmd = &cobra.Command{
@@ -132,13 +131,8 @@ func startGRPCServer(cnf config.GRPCConfig) error {
 	if err != nil {
 		return err
 	}
-	go func() {
-		srv := grpc.NewServer()
-		pb.RegisterLicenseServer(srv, pb.NewLicenseServer())
-		log.Println("start gRPC server at", listener.Addr())
-		_ = srv.Serve(listener)
-		listener.Close()
-	}()
+	log.Println("start gRPC server at", listener.Addr())
+	go func() { _ = pb.New().Serve(listener) }()
 	return nil
 }
 
