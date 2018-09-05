@@ -9,12 +9,15 @@ import (
 	"runtime"
 	"strconv"
 
+	pb "github.com/kamilsk/guard/pkg/transport/grpc"
+
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"google.golang.org/grpc"
 )
 
 var runCmd = &cobra.Command{
@@ -36,7 +39,6 @@ var runCmd = &cobra.Command{
 				return err
 			}
 		}
-
 		return startHTTPServer(cnf.Union.ServerConfig, http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 			rw.Write([]byte("hello world!\n"))
 		}))
@@ -125,7 +127,18 @@ func startHTTPServer(cnf config.ServerConfig, handler http.Handler) error {
 	return srv.Serve(listener)
 }
 
-func startGRPCServer(_ config.GRPCConfig) error {
+func startGRPCServer(cnf config.GRPCConfig) error {
+	listener, err := net.Listen("tcp", cnf.Interface)
+	if err != nil {
+		return err
+	}
+	go func() {
+		srv := grpc.NewServer()
+		pb.RegisterLicenseServer(srv, pb.NewLicenseServer())
+		log.Println("start gRPC server at", listener.Addr())
+		_ = srv.Serve(listener)
+		listener.Close()
+	}()
 	return nil
 }
 

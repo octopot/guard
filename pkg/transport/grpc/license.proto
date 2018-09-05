@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package grpc;
+
+message RegisterLicenseRequest {}
+
+message RegisterLicenseResponse {}
+
+message ExtendLicenseRequest {}
+
+message ExtendLicenseResponse {}
+
+message CheckLicenseRequest {}
+
+message CheckLicenseResponse {}
+
+service License {
+    rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {}
+    rpc Extend (ExtendLicenseRequest) returns (ExtendLicenseResponse) {}
+    rpc Check (CheckLicenseRequest) returns (CheckLicenseResponse) {}
+}
