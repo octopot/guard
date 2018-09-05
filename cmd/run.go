@@ -1,11 +1,9 @@
 package cmd
 
 import (
-	"expvar"
 	"log"
 	"net"
 	"net/http"
-	"net/http/pprof"
 	"runtime"
 	"strconv"
 
@@ -14,7 +12,8 @@ import (
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/kamilsk/guard/pkg/transport/http/monitor"
+	"github.com/kamilsk/guard/pkg/transport/http/profiler"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -141,14 +140,8 @@ func startMonitoring(cnf config.MonitoringConfig) error {
 	if err != nil {
 		return err
 	}
-	go func() {
-		mux := &http.ServeMux{}
-		mux.Handle("/monitoring", promhttp.Handler())
-		mux.Handle("/vars", expvar.Handler())
-		log.Println("start monitoring server at", listener.Addr())
-		_ = http.Serve(listener, mux)
-		listener.Close()
-	}()
+	log.Println("start monitoring server at", listener.Addr())
+	go func() { _ = monitor.New().Serve(listener) }()
 	return nil
 }
 
@@ -157,16 +150,7 @@ func startProfiler(cnf config.ProfilingConfig) error {
 	if err != nil {
 		return err
 	}
-	go func() {
-		mux := &http.ServeMux{}
-		mux.HandleFunc("/pprof/cmdline", pprof.Cmdline)
-		mux.HandleFunc("/pprof/profile", pprof.Profile)
-		mux.HandleFunc("/pprof/symbol", pprof.Symbol)
-		mux.HandleFunc("/pprof/trace", pprof.Trace)
-		mux.HandleFunc("/debug/pprof/", pprof.Index)
-		log.Println("start profiling server at", listener.Addr())
-		_ = http.Serve(listener, mux)
-		listener.Close()
-	}()
+	log.Println("start profiling server at", listener.Addr())
+	go func() { _ = profiler.New().Serve(listener) }()
 	return nil
 }
