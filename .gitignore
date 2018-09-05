@@ -1,0 +1,8 @@
+# go test and code quality report
+*.out
+
+# database
+/env/backup.db
+
+# environment
+*.env
