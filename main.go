@@ -10,7 +10,6 @@ import (
 	"github.com/kamilsk/guard/cmd"
 	"github.com/spf13/cobra"
 
-	_ "github.com/go-chi/chi"
 	_ "github.com/lib/pq"
 	_ "github.com/mailru/easyjson"
 	_ "github.com/pkg/errors"

@@ -5,11 +5,12 @@ import (
 	"net/http"
 	"net/http/pprof"
 
+	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 )
 
 // New TODO issue#docs
-func New() transport.Server {
+func New(_ config.ProfilingConfig) transport.Server {
 	return &server{}
 }
 

@@ -26,9 +26,12 @@
   version = "v1.4.7"
 
 [[projects]]
-  digest = "1:b9914f85d95a0968bafd1be1908ba29e2eafafd88d6fd13696be42bf5368c380"
+  digest = "1:a9fe0f8ff72c388d0128e88ce5f3c27d37dcd0950acd7cdb8323555f12463396"
   name = "github.com/go-chi/chi"
-  packages = ["."]
+  packages = [
+    ".",
+    "middleware",
+  ]
   pruneopts = "UT"
   revision = "b5294d10673813fac8558e7f47242bc9e61b4c25"
   version = "v3.3.3"
@@ -168,7 +171,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:779b60df866a1d0c7a19d5988c86e4d5b0732d07fb6a047e5852ad4a038156b1"
+  digest = "1:85e2aede1e81915ef1d12551ea082ce6aab0e0cfb70f7b29581ef496e1b0ec0d"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -176,7 +179,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "UT"
-  revision = "d968d2292ed0d640ba2065d86a22ddee4bf009f1"
+  revision = "3525612fea19680dd3d49c768802ec082ca853b2"
 
 [[projects]]
   branch = "master"
@@ -301,11 +304,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:4b487c782bc804d994e91adbd3d2a8a77a482671efd87b2fde0805adb01a39c0"
+  digest = "1:a9e9a5da9c877870b0feb5975c1e30dddb236562f912e9e9b0515ac9465f951b"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "2b024373dcd9800f0cae693839fac6ede8d64a8c"
+  revision = "ebe1bf3edb3325c393447059974de898d5133eb8"
 
 [[projects]]
   digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
@@ -386,6 +389,7 @@
   analyzer-version = 1
   input-imports = [
     "github.com/go-chi/chi",
+    "github.com/go-chi/chi/middleware",
     "github.com/golang/protobuf/proto",
     "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
@@ -397,6 +401,7 @@
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
     "github.com/stretchr/testify",
+    "golang.org/x/net/context",
     "google.golang.org/grpc",
   ]
   solver-name = "gps-cdcl"

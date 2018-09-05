@@ -3,15 +3,14 @@ package cmd
 import (
 	"log"
 	"net"
-	"net/http"
 	"runtime"
 	"strconv"
-
-	pb "github.com/kamilsk/guard/pkg/transport/grpc"
 
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
+	"github.com/kamilsk/guard/pkg/transport/grpc"
+	"github.com/kamilsk/guard/pkg/transport/http"
 	"github.com/kamilsk/guard/pkg/transport/http/monitor"
 	"github.com/kamilsk/guard/pkg/transport/http/profiler"
 	"github.com/spf13/cobra"
@@ -23,7 +22,6 @@ var runCmd = &cobra.Command{
 	Short: "Start HTTP server",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
-
 		if err := startGRPCServer(cnf.Union.GRPCConfig); err != nil {
 			return err
 		}
@@ -37,9 +35,7 @@ var runCmd = &cobra.Command{
 				return err
 			}
 		}
-		return startHTTPServer(cnf.Union.ServerConfig, http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
-			rw.Write([]byte("hello world!\n"))
-		}))
+		return startHTTPServer(cnf.Union.ServerConfig)
 	},
 }
 
@@ -110,19 +106,13 @@ func init() {
 	db(runCmd)
 }
 
-func startHTTPServer(cnf config.ServerConfig, handler http.Handler) error {
+func startHTTPServer(cnf config.ServerConfig) error {
 	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
-	srv := &http.Server{Addr: cnf.Interface, Handler: handler,
-		ReadTimeout:       cnf.ReadTimeout,
-		ReadHeaderTimeout: cnf.ReadHeaderTimeout,
-		WriteTimeout:      cnf.WriteTimeout,
-		IdleTimeout:       cnf.IdleTimeout,
-	}
-	log.Println("start web server at", listener.Addr())
-	return srv.Serve(listener)
+	log.Println("start HTTP server at", listener.Addr())
+	return http.New(cnf, nil).Serve(listener)
 }
 
 func startGRPCServer(cnf config.GRPCConfig) error {
@@ -131,7 +121,7 @@ func startGRPCServer(cnf config.GRPCConfig) error {
 		return err
 	}
 	log.Println("start gRPC server at", listener.Addr())
-	go func() { _ = pb.New().Serve(listener) }()
+	go func() { _ = grpc.New().Serve(listener) }()
 	return nil
 }
 
@@ -141,7 +131,7 @@ func startMonitoring(cnf config.MonitoringConfig) error {
 		return err
 	}
 	log.Println("start monitoring server at", listener.Addr())
-	go func() { _ = monitor.New().Serve(listener) }()
+	go func() { _ = monitor.New(cnf).Serve(listener) }()
 	return nil
 }
 
@@ -151,6 +141,6 @@ func startProfiler(cnf config.ProfilingConfig) error {
 		return err
 	}
 	log.Println("start profiling server at", listener.Addr())
-	go func() { _ = profiler.New().Serve(listener) }()
+	go func() { _ = profiler.New(cnf).Serve(listener) }()
 	return nil
 }
