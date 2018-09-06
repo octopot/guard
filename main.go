@@ -14,6 +14,19 @@ import (
 	_ "github.com/mailru/easyjson"
 	_ "github.com/pkg/errors"
 	_ "github.com/stretchr/testify"
+	_ "gopkg.in/yaml.v2"
+
+	_ "github.com/grpc-ecosystem/go-grpc-prometheus"
+	_ "go.etcd.io/etcd/clientv3"
+	_ "go.etcd.io/etcd/clientv3/clientv3util"
+	_ "go.etcd.io/etcd/clientv3/concurrency"
+	_ "go.etcd.io/etcd/clientv3/integration"
+	_ "go.etcd.io/etcd/clientv3/leasing"
+	_ "go.etcd.io/etcd/clientv3/mirror"
+	_ "go.etcd.io/etcd/clientv3/namespace"
+	_ "go.etcd.io/etcd/clientv3/naming"
+	_ "go.etcd.io/etcd/clientv3/ordering"
+	_ "go.etcd.io/etcd/clientv3/yaml"
 )
 
 const (
