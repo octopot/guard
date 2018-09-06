@@ -1,5 +1,14 @@
 version: "3"
 
-services: ~
+services:
 
-volumes: ~
+  db:
+    ports:
+    - ${LOCAL_DB_PORT}:5432
+    volumes:
+    - ../db/context/initdb.d:/docker-entrypoint-initdb.d
+    - pgdata:${PGDATA}
+
+volumes:
+
+  pgdata: { driver: local }

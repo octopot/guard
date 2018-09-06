@@ -5,4 +5,4 @@
 /env/backup.db
 
 # environment
-*.env
+/.env
