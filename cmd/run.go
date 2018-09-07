@@ -17,7 +17,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-var runCmd = &cobra.Command{
+// Run starts HTTP server.
+var Run = &cobra.Command{
 	Use:   "run",
 	Short: "Start HTTP server",
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -73,7 +74,7 @@ func init() {
 			return nil
 		},
 		func() error {
-			flags := runCmd.Flags()
+			flags := Run.Flags()
 			flags.UintVarP(&cnf.Union.ServerConfig.CPUCount,
 				"cpus", "C", uint(v.GetInt("max_cpus")), "maximum number of CPUs that can be executing simultaneously")
 			flags.StringVarP(&cnf.Union.ServerConfig.Interface,
@@ -103,7 +104,7 @@ func init() {
 			return nil
 		},
 	)
-	db(runCmd)
+	db(Run)
 }
 
 func startHTTPServer(cnf config.ServerConfig) error {

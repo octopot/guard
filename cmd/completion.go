@@ -10,7 +10,8 @@ const (
 	zshFormat  = "zsh"
 )
 
-var completionCmd = &cobra.Command{
+// Completion prints Bash or Zsh completion.
+var Completion = &cobra.Command{
 	Use:   "completion",
 	Short: "Print Bash or Zsh completion",
 	RunE: func(cmd *cobra.Command, args []string) error {
@@ -22,6 +23,6 @@ var completionCmd = &cobra.Command{
 }
 
 func init() {
-	completionCmd.Flags().StringVarP(new(string), "format", "f", zshFormat, "output format, one of: bash|zsh")
-	fn.Must(func() error { return completionCmd.MarkFlagRequired("format") })
+	Completion.Flags().StringVarP(new(string), "format", "f", zshFormat, "output format, one of: bash|zsh")
+	fn.Must(func() error { return Completion.MarkFlagRequired("format") })
 }
