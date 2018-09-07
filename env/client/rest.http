@@ -1,0 +1,73 @@
+### API v1
+
+POST http://localhost:8080/api/v1/license/check
+X-Token: 10000000-2000-4000-8000-160000000002
+X-UDID:  10000000-2000-4000-8000-160000000006
+
+###
+
+PUT http://localhost:8080/api/v1/license/extend
+Authorization: Bearer 10000000-2000-4000-8000-160000000000
+Content-Type: application/json
+
+{
+  "license": "10000000-2000-4000-8000-160000000001",
+  "activation": [
+    {"when": "2018-01-01 11:00:00"},
+    {"duration": "24h", "rel": "-"}
+  ],
+  "limits": [
+    {"rate_limit": "1 rpm"},
+    {"request_limit": null},
+    {"workplace_limit": 3, "rel": "+"}
+  ]
+}
+
+###
+
+POST http://localhost:8080/api/v1/license/register
+Authorization: Bearer 10000000-2000-4000-8000-160000000000
+Content-Type: application/json
+
+{
+  "license": "10000000-2000-4000-8000-160000000001",
+  "activation": {
+    "after": "1h", "xor": "^", "when": "2018-01-01 10:55:00",
+    "duration": "24h"
+  },
+  "limits": {
+    "rate_limit": "1 rps",
+    "request_limit": 1000,
+    "workplace_limit": 10
+  }
+}
+
+### Profiling
+
+GET http://localhost:8090/pprof/cmdline
+
+###
+
+GET http://localhost:8090/pprof/profile
+
+###
+
+GET http://localhost:8090/pprof/symbol
+
+###
+
+GET http://localhost:8090/pprof/trace
+
+###
+
+GET http://localhost:8090/debug/pprof/
+
+### Monitoring
+
+GET http://localhost:8091/monitoring
+
+###
+
+GET http://localhost:8091/vars
+
+###
