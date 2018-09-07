@@ -12,7 +12,6 @@ import (
 	_ "github.com/lib/pq"
 	_ "github.com/mailru/easyjson"
 	_ "github.com/pkg/errors"
-	_ "github.com/stretchr/testify"
 	_ "gopkg.in/yaml.v2"
 
 	_ "github.com/grpc-ecosystem/go-grpc-prometheus"
@@ -28,17 +27,17 @@ import (
 	_ "go.etcd.io/etcd/clientv3/yaml"
 )
 
-var server cli = func(executor commander, output io.Writer, shutdown func(code int)) {
+var service cli = func(executor commander, output io.Writer, shutdown func(code int)) {
 	defer func() {
 		if r := recover(); r != nil {
-			shutdown(failed)
+			shutdown(failure)
 		}
 	}()
 	executor.AddCommand(cmd.Completion, cmd.Run, cmd.Version)
 	if err := executor.Execute(); err != nil {
-		shutdown(failed)
+		shutdown(failure)
 	}
 	shutdown(success)
 }
 
-func main() { server(&cobra.Command{Use: "guard", Short: "Guard Service"}, os.Stderr, os.Exit) }
+func main() { service(&cobra.Command{Use: "guard", Short: "Guard Service"}, os.Stderr, os.Exit) }

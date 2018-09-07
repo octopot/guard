@@ -8,7 +8,7 @@ import (
 
 const (
 	success = 0
-	failed  = 1
+	failure = 1
 )
 
 type cli func(executor commander, output io.Writer, shutdown func(code int))
