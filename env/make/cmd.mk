@@ -14,6 +14,12 @@ SRV_BUILD = cli.go main.go
 __cmd__:
 	go run $(BUILD_FLAGS) $(BUILD_FILES) $(ARGS)
 
+.PHONY: __build__
+__build__:
+	go build -o $(BIN) -i $(BUILD_FLAGS) $(BUILD_FILES)
+	chmod +x $(BIN)
+	mv $(BIN) $(GOPATH)/bin/$(BIN)
+
 
 .PHONY: control-cmd-help
 control-cmd-help: BUILD_FLAGS = $(CTL_FLAGS)
@@ -26,6 +32,12 @@ control-cmd-version: BUILD_FLAGS = $(CTL_FLAGS)
 control-cmd-version: BUILD_FILES = $(CTL_BUILD)
 control-cmd-version: ARGS = version
 control-cmd-version: __cmd__
+
+.PHONY: control-install
+control-install: BIN = guardctl
+control-install: BUILD_FLAGS = $(CTL_FLAGS)
+control-install: BUILD_FILES = $(CTL_BUILD)
+control-install: __build__
 
 
 .PHONY: service-cmd-help
@@ -45,3 +57,9 @@ service-cmd-run: BUILD_FLAGS = $(SRV_FLAGS)
 service-cmd-run: BUILD_FILES = $(SRV_BUILD)
 service-cmd-run: ARGS = run -H 127.0.0.1:8080 --with-profiling --with-monitoring
 service-cmd-run: __cmd__
+
+.PHONY: service-install
+service-install: BIN = guard
+service-install: BUILD_FLAGS = $(SRV_FLAGS)
+service-install: BUILD_FILES = $(SRV_BUILD)
+service-install: __build__
