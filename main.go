@@ -41,4 +41,4 @@ var server cli = func(executor commander, output io.Writer, shutdown func(code i
 	shutdown(success)
 }
 
-func main() { server(&cobra.Command{Use: "guard", Short: "Guard Server"}, os.Stderr, os.Exit) }
+func main() { server(&cobra.Command{Use: "guard", Short: "Guard Service"}, os.Stderr, os.Exit) }

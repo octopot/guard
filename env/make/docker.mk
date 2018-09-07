@@ -1,11 +1,16 @@
-IMAGE_VERSION := latest
-PACKAGE       := github.com/kamilsk/guard
+ifndef PACKAGE
+$(error Please define PACKAGE variable)
+endif
+
+ifndef VERSION
+$(error Please define VERSION variable)
+endif
 
 
 .PHONY: docker-build-app
 docker-build-app:
 	docker build \
-	             -t paymaster-app \
+	             -t paymaster-app:$(VERSION) \
 	             -f env/docker/app/Dockerfile \
 	             --force-rm \
 	             env/docker/app/context
@@ -13,7 +18,7 @@ docker-build-app:
 .PHONY: docker-build-server
 docker-build-server:
 	docker build \
-	             -t paymaster-server \
+	             -t paymaster-server:$(VERSION) \
 	             -f env/docker/server/Dockerfile \
 	             --force-rm \
 	             env/docker/server/context
@@ -21,7 +26,7 @@ docker-build-server:
 .PHONY: docker-build-service
 docker-build-service:
 	docker build \
-	             -t paymaster-service \
+	             -t paymaster-service:$(VERSION) \
 	             -f env/docker/service/Dockerfile \
 	             --build-arg PACKAGE=$(PACKAGE) \
 	             --force-rm \
@@ -35,4 +40,4 @@ docker-run-service:
 	           -p 8090:8090 \
 	           -p 8091:8091 \
 	           -p 8092:8092 \
-	           paymaster-service run --with-profiling --with-monitoring
+	           paymaster-service:$(VERSION) run --with-profiling --with-monitoring

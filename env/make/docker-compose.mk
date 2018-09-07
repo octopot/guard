@@ -5,10 +5,10 @@ COMPOSE ?= docker-compose -f env/docker/compose/docker-compose.base.yml -f env/d
 env:
 	cp -n env/docker/compose/.env.example .env || true
 
+
 .PHONY: config
 config: env
 	$(COMPOSE) config
-
 
 .PHONY: up
 up: env
