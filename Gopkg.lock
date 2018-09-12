@@ -175,12 +175,12 @@
   version = "v1.0.1"
 
 [[projects]]
+  branch = "master"
   digest = "1:645110e089152bd0f4a011a2648fbb0e4df5977be73ca605781157ac297f50c4"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   pruneopts = "UT"
   revision = "fa473d140ef3c6adf42d6b391fe76707f1f243c8"
-  version = "v1.0.0"
 
 [[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
@@ -192,11 +192,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3891cc78541df6e4596b3e73978eb062d32967084069270ec881b959be5155ae"
+  digest = "1:dfaa0b3a26f4df00ac2edaa90d231d394ff58e040c25cbc4cea3255e07c904e4"
   name = "github.com/pkg/errors"
   packages = ["."]
   pruneopts = "UT"
-  revision = "816c9085562cd7ee03e7f8188a1cfd942858cded"
+  revision = "c059e472caf75dbe73903f6521a20abac245b17f"
 
 [[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
@@ -208,7 +208,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:85e2aede1e81915ef1d12551ea082ce6aab0e0cfb70f7b29581ef496e1b0ec0d"
+  digest = "1:f5145508934af40ee3442fa058a0cd4a1696ca8f9f3d8c3fdb4d7fb75c858cd8"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -216,7 +216,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "UT"
-  revision = "3525612fea19680dd3d49c768802ec082ca853b2"
+  revision = "7858729281ec582767b20e0d696b6041d995d5e0"
 
 [[projects]]
   branch = "master"
@@ -252,15 +252,15 @@
   revision = "05ee40e3a273f7245e8777337fc7b46e533a9a92"
 
 [[projects]]
-  digest = "1:bd1ae00087d17c5a748660b8e89e1043e1e5479d0fea743352cda2f8dd8c4f84"
+  digest = "1:6a4a11ba764a56d2758899ec6f3848d24698d48442ebce85ee7a3f63284526cd"
   name = "github.com/spf13/afero"
   packages = [
     ".",
     "mem",
   ]
   pruneopts = "UT"
-  revision = "787d034dfe70e44075ccc060d346146ef53270ad"
-  version = "v1.1.1"
+  revision = "d40851caa0d747393da1ffb28f7f9d8b4eeffebd"
+  version = "v1.1.2"
 
 [[projects]]
   digest = "1:516e71bed754268937f57d4ecb190e01958452336fa73dbac880894164e91c1f"
@@ -279,12 +279,12 @@
   revision = "99dc123558852f67743bd0b2caf8383cb3c6d720"
 
 [[projects]]
-  branch = "master"
-  digest = "1:8a020f916b23ff574845789daee6818daf8d25a4852419aae3f0b12378ba432a"
+  digest = "1:68ea4e23713989dc20b1bded5d9da2c5f9be14ff9885beef481848edd18c26cb"
   name = "github.com/spf13/jwalterweatherman"
   packages = ["."]
   pruneopts = "UT"
-  revision = "14d3d4c518341bea657dd8a226f5121c0ff8c9f2"
+  revision = "4a4406e478ca629068e7768fc33f3f044173c0a6"
+  version = "v1.0.0"
 
 [[projects]]
   digest = "1:dab83a1bbc7ad3d7a6ba1a1cc1760f25ac38cdf7d96a5cdd55cd915a4f5ceaf9"
@@ -295,12 +295,12 @@
   version = "v1.0.2"
 
 [[projects]]
-  digest = "1:4fc8a61287ccfb4286e1ca5ad2ce3b0b301d746053bf44ac38cf34e40ae10372"
+  digest = "1:6e30a27eac59a148b3f7a32e0ba54706b31dcde5a42f63b22cb47873b62fa343"
   name = "github.com/spf13/viper"
   packages = ["."]
   pruneopts = "UT"
-  revision = "907c19d40d9a6c9bb55f040ff4ae45271a4754b9"
-  version = "v1.1.0"
+  revision = "8fb642006536c8d3760c99d4fa2389f5e2205631"
+  version = "v1.2.0"
 
 [[projects]]
   digest = "1:ac83cf90d08b63ad5f7e020ef480d319ae890c208f8524622a2f3136e2686b02"
@@ -311,12 +311,10 @@
   version = "v0.1.1"
 
 [[projects]]
-  digest = "1:160984c58aab3af94b0a2a43b2ef7e2f3b16d5802cd35436819627fa259f3ffa"
+  digest = "1:15a4a7e5afac3cea801fa24831fce3bf3b5bd3620cbf8355a07b7dbf06877883"
   name = "github.com/stretchr/testify"
   packages = [
-    ".",
     "assert",
-    "http",
     "mock",
   ]
   pruneopts = "UT"
@@ -356,15 +354,15 @@
     "trace",
   ]
   pruneopts = "UT"
-  revision = "8a410e7b638dca158bf9e766925842f6651ff828"
+  revision = "26e67e76b6c3f6ce91f7c52def5af501b4e0f3a2"
 
 [[projects]]
   branch = "master"
-  digest = "1:a3e01ee03246312c2e186cc4dde0d639e2c269f430042a57cc1c795ae9902016"
+  digest = "1:6eb2645d74b43d9c87b51947df39f7c668a4f422cd512053f7f6f75bfaad0197"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "UT"
-  revision = "8cf3aee429924738c56c34bb819c4ea8273fc434"
+  revision = "d0be0721c37eeb5299f245a996a483160fc36940"
 
 [[projects]]
   digest = "1:a2ab62866c75542dd18d2b069fec854577a20211d7c0ea6ae746072a1dccdd18"
@@ -395,10 +393,10 @@
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
   pruneopts = "UT"
-  revision = "11092d34479b07829b72e10713b159248caf5dad"
+  revision = "36d5787dc5356b711fe8f3040271aaf51c35955b"
 
 [[projects]]
-  digest = "1:7ccedf0aab474a6aef9d7222cd2429a34fddb996bbd1f60ec0f9fe69d80b36ae"
+  digest = "1:c52f29435ecb5b76c37e7f0098b6a50dbe60f8624d820827d0fede75c40199a1"
   name = "google.golang.org/grpc"
   packages = [
     ".",
@@ -430,8 +428,8 @@
     "tap",
   ]
   pruneopts = "UT"
-  revision = "32fb0ac620c32ba40a4626ddf94d90d12cce3455"
-  version = "v1.14.0"
+  revision = "8dea3dc473e90c8179e519d91302d0597c0ca1d1"
+  version = "v1.15.0"
 
 [[projects]]
   branch = "v2"
@@ -454,11 +452,13 @@
     "github.com/kamilsk/go-kit/pkg/strings",
     "github.com/lib/pq",
     "github.com/mailru/easyjson",
+    "github.com/mitchellh/mapstructure",
     "github.com/pkg/errors",
     "github.com/prometheus/client_golang/prometheus/promhttp",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
-    "github.com/stretchr/testify",
+    "github.com/stretchr/testify/assert",
+    "github.com/stretchr/testify/mock",
     "go.etcd.io/etcd/clientv3",
     "go.etcd.io/etcd/clientv3/clientv3util",
     "go.etcd.io/etcd/clientv3/concurrency",
