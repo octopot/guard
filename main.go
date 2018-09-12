@@ -11,8 +11,6 @@ import (
 
 	_ "github.com/lib/pq"
 	_ "github.com/mailru/easyjson"
-	_ "github.com/pkg/errors"
-	_ "gopkg.in/yaml.v2"
 
 	_ "github.com/grpc-ecosystem/go-grpc-prometheus"
 	_ "go.etcd.io/etcd/clientv3"
