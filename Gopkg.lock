@@ -88,6 +88,18 @@
   version = "v1.2.0"
 
 [[projects]]
+  digest = "1:a93a4de7b00fb9cc952bc0483e9a32cd273adbbd7f3282bfe89656b2f88fb08c"
+  name = "github.com/grpc-ecosystem/go-grpc-middleware"
+  packages = [
+    ".",
+    "auth",
+    "util/metautils",
+  ]
+  pruneopts = "UT"
+  revision = "c250d6563d4d4c20252cd865923440e829844f4e"
+  version = "v1.0.0"
+
+[[projects]]
   digest = "1:9b7a07ac7577787a8ecc1334cb9f34df1c76ed82a917d556c5713d3ab84fbc43"
   name = "github.com/grpc-ecosystem/go-grpc-prometheus"
   packages = ["."]
@@ -208,7 +220,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:f5145508934af40ee3442fa058a0cd4a1696ca8f9f3d8c3fdb4d7fb75c858cd8"
+  digest = "1:2c5d590dd23116fb19e4a01352bfdfd4a3f8b98395a37828ef18e543e2a70927"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -216,7 +228,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "UT"
-  revision = "7858729281ec582767b20e0d696b6041d995d5e0"
+  revision = "b5bfa0eb2c8d46bd91dc58271e973c5f0bbebcfa"
 
 [[projects]]
   branch = "master"
@@ -446,6 +458,7 @@
     "github.com/go-chi/chi",
     "github.com/go-chi/chi/middleware",
     "github.com/golang/protobuf/proto",
+    "github.com/grpc-ecosystem/go-grpc-middleware/auth",
     "github.com/grpc-ecosystem/go-grpc-prometheus",
     "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
@@ -471,6 +484,9 @@
     "go.etcd.io/etcd/clientv3/yaml",
     "golang.org/x/net/context",
     "google.golang.org/grpc",
+    "google.golang.org/grpc/codes",
+    "google.golang.org/grpc/metadata",
+    "google.golang.org/grpc/status",
     "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"
