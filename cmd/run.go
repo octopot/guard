@@ -122,7 +122,7 @@ func startGRPCServer(cnf config.GRPCConfig) error {
 		return err
 	}
 	log.Println("start gRPC server at", listener.Addr())
-	go func() { _ = grpc.New().Serve(listener) }()
+	go func() { _ = grpc.New(cnf).Serve(listener) }()
 	return nil
 }
 

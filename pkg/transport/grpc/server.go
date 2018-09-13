@@ -4,6 +4,7 @@ import (
 	"net"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
 	"google.golang.org/grpc"
@@ -12,7 +13,7 @@ import (
 var secret = "secret"
 
 // New TODO issue#docs
-func New() transport.Server {
+func New(_ config.GRPCConfig) transport.Server {
 	return &server{}
 }
 
