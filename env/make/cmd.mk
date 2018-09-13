@@ -3,10 +3,11 @@ $(error Please define PACKAGE variable)
 endif
 
 _commit   = -X $(PACKAGE)/cmd.commit=$(shell git rev-parse --short HEAD)
+_date     = -X $(PACKAGE)/cmd.date=$(shell date -u +%FT%X%Z)
 _secret   = -X $(PACKAGE)/pkg/transport/grpc.secret=${GUARD_TOKEN}
 _version  = -X $(PACKAGE)/cmd.version=dev
 
-LDFLAGS   = -ldflags '-s -w $(_version) $(_commit) $(_secret)'
+LDFLAGS   = -ldflags '-s -w $(_commit) $(_date) $(_secret) $(_version)'
 CTL_FLAGS = -tags 'cli ctl' $(LDFLAGS)
 CTL_BUILD = cli.go guardctl.go
 SRV_FLAGS = $(LDFLAGS)
