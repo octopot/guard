@@ -2,8 +2,11 @@ ifndef PACKAGE
 $(error Please define PACKAGE variable)
 endif
 
+_commit   = -X $(PACKAGE)/cmd.commit=$(shell git rev-parse --short HEAD)
+_secret   = -X $(PACKAGE)/pkg/transport/grpc.secret=${GUARD_TOKEN}
+_version  = -X $(PACKAGE)/cmd.version=dev
 
-LDFLAGS   = -ldflags '-s -w -X $(PACKAGE)/cmd.version=dev -X $(PACKAGE)/cmd.commit=$(shell git rev-parse --short HEAD)'
+LDFLAGS   = -ldflags '-s -w $(_version) $(_commit) $(_secret)'
 CTL_FLAGS = -tags 'cli ctl' $(LDFLAGS)
 CTL_BUILD = cli.go guardctl.go
 SRV_FLAGS = $(LDFLAGS)
