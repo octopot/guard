@@ -3,7 +3,7 @@ COMPOSE ?= docker-compose -f env/docker/compose/docker-compose.base.yml -f env/d
 
 .PHONY: env
 env:
-	cp -n env/docker/compose/.env.example .env || true
+	cp -nrf env/docker/compose/.env.example .env
 
 
 .PHONY: config
