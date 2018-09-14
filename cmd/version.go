@@ -2,14 +2,13 @@ package cmd
 
 import (
 	"runtime"
-	"time"
 
 	"github.com/spf13/cobra"
 )
 
 var (
 	commit  = "none"
-	date    = time.Now().Format(time.UnixDate)
+	date    = "unknown"
 	version = "dev"
 )
 

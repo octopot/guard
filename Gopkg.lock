@@ -136,15 +136,16 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:09196f8417b28774ee5463e5a1f26f3ab89848170565539d84f478398efeefe0"
+  digest = "1:6115238ec0da9d8379ce21c8c0960960cf4b057ea2db8177b3ee0752157825ef"
   name = "github.com/kamilsk/go-kit"
   packages = [
     "pkg/config",
     "pkg/fn",
+    "pkg/service/types",
     "pkg/strings",
   ]
   pruneopts = "UT"
-  revision = "0101ca8436fba89061a6961d864ae7fa731e5797"
+  revision = "33c265dfc6659f357264b852d45d3de32a53aad6"
 
 [[projects]]
   branch = "master"
@@ -493,6 +494,7 @@
     "github.com/grpc-ecosystem/go-grpc-prometheus",
     "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
+    "github.com/kamilsk/go-kit/pkg/service/types",
     "github.com/kamilsk/go-kit/pkg/strings",
     "github.com/lib/pq",
     "github.com/mailru/easyjson",

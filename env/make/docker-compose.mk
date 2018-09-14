@@ -17,7 +17,7 @@ up: env
 
 .PHONY: fresh-up
 fresh-up: env
-	$(COMPOSE) up --build --force-recreate -d
+	$(COMPOSE) up -d --build --force-recreate
 	$(COMPOSE) rm -f
 
 .PHONY: clear

@@ -4,4 +4,11 @@ services:
 
   db:
     image: postgres:10-alpine # https://hub.docker.com/_/postgres/
-    env_file: ../db/context/.env
+    env_file: ../db/.env
+
+  service:
+    image: kamilsk/guard:latest # https://hub.docker.com/r/kamilsk/guard/
+    command: [ "run", "--with-profiling", "--with-monitoring" ]
+    depends_on:
+    - db
+    env_file: ../service/.env
