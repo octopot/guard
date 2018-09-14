@@ -13,3 +13,7 @@ test-control:
 .PHONY: test-service
 test-service:
 	go test -race -v ./...
+
+.PHONY: test-integration
+test-integration:
+	go test -tags integration -v ./env/test/...
