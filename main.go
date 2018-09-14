@@ -13,7 +13,6 @@ import (
 	_ "github.com/mailru/easyjson"
 	_ "go.uber.org/zap"
 
-	_ "github.com/grpc-ecosystem/go-grpc-prometheus"
 	_ "go.etcd.io/etcd/clientv3"
 	_ "go.etcd.io/etcd/clientv3/clientv3util"
 	_ "go.etcd.io/etcd/clientv3/concurrency"

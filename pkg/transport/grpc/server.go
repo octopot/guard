@@ -3,7 +3,9 @@ package grpc
 import (
 	"net"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
@@ -23,8 +25,14 @@ type server struct{}
 func (*server) Serve(listener net.Listener) error {
 	defer listener.Close()
 	srv := grpc.NewServer(
-		grpc.StreamInterceptor(grpc_auth.StreamServerInterceptor(middleware.TokenInjector)),
-		grpc.UnaryInterceptor(grpc_auth.UnaryServerInterceptor(middleware.TokenInjector)),
+		grpc_middleware.WithStreamServerChain(
+			grpc_auth.StreamServerInterceptor(middleware.TokenInjector),
+			grpc_prometheus.StreamServerInterceptor,
+		),
+		grpc_middleware.WithUnaryServerChain(
+			grpc_auth.UnaryServerInterceptor(middleware.TokenInjector),
+			grpc_prometheus.UnaryServerInterceptor,
+		),
 	)
 	RegisterLicenseServer(srv, NewLicenseServer())
 	return srv.Serve(listener)
