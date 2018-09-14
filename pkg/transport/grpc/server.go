@@ -1,11 +1,14 @@
 package grpc
 
 import (
+	"context"
 	"net"
+	"net/http"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
+	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
@@ -36,4 +39,29 @@ func (*server) Serve(listener net.Listener) error {
 	)
 	RegisterLicenseServer(srv, NewLicenseServer())
 	return srv.Serve(listener)
+}
+
+// Gateway TODO issue#docs
+func Gateway(cnf config.GRPCConfig) transport.Server {
+	return &gateway{config: cnf}
+}
+
+type gateway struct {
+	config config.GRPCConfig
+}
+
+// Serve TODO issue#docs
+func (gw *gateway) Serve(net.Listener) error {
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	mux := runtime.NewServeMux()
+	conn, err := grpc.DialContext(ctx, gw.config.Interface, grpc.WithInsecure())
+	if err != nil {
+		return err
+	}
+	if err = RegisterLicenseHandler(ctx, mux, conn); err != nil {
+		return err
+	}
+	return http.ListenAndServe(":8093", mux)
 }
