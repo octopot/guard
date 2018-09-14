@@ -2,11 +2,9 @@
 protobuf:
 	protoc -Ipkg/transport/grpc/ \
 	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-	       --go_out=plugins=grpc:pkg/transport/grpc \
-	       license.proto
-	protoc -Ipkg/transport/grpc/ \
-	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+	       --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc \
 	       --grpc-gateway_out=logtostderr=true:pkg/transport/grpc \
+	       --swagger_out=logtostderr=true,allow_merge=true,merge_file_name=guard:env/client \
 	       license.proto
 
 
