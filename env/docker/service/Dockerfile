@@ -17,7 +17,6 @@ RUN echo "os: ${GOOS}" "arch: ${GOARCH}" "cgo: ${CGO_ENABLED}" \
  && go build -o /go/bin/service \
              -ldflags "-s -w ${_commit} ${_date} ${_version}" .
 
-# ~~~
 
 FROM alpine:latest AS service
 
