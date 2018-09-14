@@ -2,6 +2,10 @@ ifndef PACKAGE
 $(error Please define PACKAGE variable)
 endif
 
+ifndef SECRET
+$(error Please define SECRET variable)
+endif
+
 ifndef VERSION
 $(error Please define VERSION variable)
 endif
@@ -37,6 +41,7 @@ docker-build-service:
 	             -t guard-service:$(VERSION) \
 	             -f env/docker/service/Dockerfile \
 	             --build-arg PACKAGE=$(PACKAGE) \
+	             --build-arg SECRET=$(SECRET) \
 	             --force-rm \
 	             .
 

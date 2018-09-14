@@ -13,7 +13,7 @@ services:
 
   service:
     build:
-      args:       { PACKAGE: "${PACKAGE}" }
+      args:       { PACKAGE: "${PACKAGE}", SECRET: "${SECRET}" }
       context:    ../../../.
       dockerfile: ./env/docker/service/Dockerfile
     ports:

@@ -1,4 +1,5 @@
 PACKAGE := github.com/kamilsk/guard
+SECRET  := 10000000-2000-4000-8000-160000000000
 VERSION := latest
 
 include env/make/cmd.mk

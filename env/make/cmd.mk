@@ -2,9 +2,13 @@ ifndef PACKAGE
 $(error Please define PACKAGE variable)
 endif
 
+ifndef SECRET
+$(error Please define SECRET variable)
+endif
+
 _commit   = -X $(PACKAGE)/cmd.commit=$(shell git rev-parse --short HEAD)
 _date     = -X $(PACKAGE)/cmd.date=$(shell date -u +%FT%X%Z)
-_secret   = -X $(PACKAGE)/pkg/transport/grpc.secret=${GUARD_TOKEN}
+_secret   = -X $(PACKAGE)/pkg/transport/grpc.secret=$(SECRET)
 _version  = -X $(PACKAGE)/cmd.version=dev
 
 LDFLAGS   = -ldflags '-s -w $(_commit) $(_date) $(_secret) $(_version)'
