@@ -1,3 +1,24 @@
+required = [
+  "github.com/lib/pq",
+  "github.com/mailru/easyjson",
+  "go.uber.org/zap",
+
+  "go.etcd.io/etcd/clientv3",
+  "go.etcd.io/etcd/clientv3/clientv3util",
+  "go.etcd.io/etcd/clientv3/concurrency",
+  "go.etcd.io/etcd/clientv3/integration",
+  "go.etcd.io/etcd/clientv3/leasing",
+  "go.etcd.io/etcd/clientv3/mirror",
+  "go.etcd.io/etcd/clientv3/namespace",
+  "go.etcd.io/etcd/clientv3/naming",
+  "go.etcd.io/etcd/clientv3/ordering",
+  "go.etcd.io/etcd/clientv3/yaml",
+
+  "github.com/grpc-ecosystem/grpc-gateway/runtime",
+  "github.com/grpc-ecosystem/grpc-gateway/utilities",
+  "google.golang.org/genproto/googleapis/api/annotations",
+]
+
 [[constraint]]
   name = "github.com/go-chi/chi"
   version = "^3.3.0"
@@ -5,6 +26,10 @@
 [[constraint]]
   name = "github.com/golang/protobuf"
   version = "^1.1.0"
+
+[[constraint]]
+  name = "github.com/grpc-ecosystem/grpc-gateway"
+  version = "^1.5.0"
 
 [[constraint]]
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
@@ -63,9 +88,19 @@
   version = "^1.13.0"
 
 [[constraint]]
+  name = "google.golang.org/genproto"
+  branch = "master"
+
+[[constraint]]
   name = "gopkg.in/yaml.v2"
   branch = "v2"
 
 [prune]
   go-tests = true
+  non-go = true
   unused-packages = true
+
+[[prune.project]]
+  name = "github.com/grpc-ecosystem/grpc-gateway"
+  non-go = false
+  unused-packages = false
