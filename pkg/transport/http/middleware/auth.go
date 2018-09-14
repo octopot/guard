@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/go-kit/pkg/service/types"
 	"github.com/pkg/errors"
 )
 

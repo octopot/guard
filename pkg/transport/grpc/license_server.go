@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/go-kit/pkg/service/types"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"

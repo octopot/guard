@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
-	"github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/go-kit/pkg/service/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
