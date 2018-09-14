@@ -11,6 +11,7 @@ import (
 
 	_ "github.com/lib/pq"
 	_ "github.com/mailru/easyjson"
+	_ "go.uber.org/zap"
 
 	_ "github.com/grpc-ecosystem/go-grpc-prometheus"
 	_ "go.etcd.io/etcd/clientv3"
