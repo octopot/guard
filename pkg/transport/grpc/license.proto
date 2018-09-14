@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package grpc;
 
+import "google/api/annotations.proto";
+
 message RegisterLicenseRequest {}
 
 message RegisterLicenseResponse {}
@@ -15,7 +17,19 @@ message CheckLicenseRequest {}
 message CheckLicenseResponse {}
 
 service License {
-    rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {}
-    rpc Extend (ExtendLicenseRequest) returns (ExtendLicenseResponse) {}
-    rpc Check (CheckLicenseRequest) returns (CheckLicenseResponse) {}
+    rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {
+        option (google.api.http) = {
+          post: "/api/v1/license/register"
+        };
+    }
+    rpc Extend (ExtendLicenseRequest) returns (ExtendLicenseResponse) {
+        option (google.api.http) = {
+          put: "/api/v1/license/extend"
+        };
+    }
+    rpc Check (CheckLicenseRequest) returns (CheckLicenseResponse) {
+        option (google.api.http) = {
+          post: "/api/v1/license/check"
+        };
+    }
 }

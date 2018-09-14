@@ -6,6 +6,7 @@ package grpc
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
+import _ "google.golang.org/genproto/googleapis/api/annotations"
 
 import (
 	context "golang.org/x/net/context"
@@ -33,7 +34,7 @@ func (m *RegisterLicenseRequest) Reset()         { *m = RegisterLicenseRequest{}
 func (m *RegisterLicenseRequest) String() string { return proto.CompactTextString(m) }
 func (*RegisterLicenseRequest) ProtoMessage()    {}
 func (*RegisterLicenseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_license_ba62cf06d07d94eb, []int{0}
+	return fileDescriptor_090c1f856632b222, []int{0}
 }
 func (m *RegisterLicenseRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterLicenseRequest.Unmarshal(m, b)
@@ -41,8 +42,8 @@ func (m *RegisterLicenseRequest) XXX_Unmarshal(b []byte) error {
 func (m *RegisterLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RegisterLicenseRequest.Marshal(b, m, deterministic)
 }
-func (dst *RegisterLicenseRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterLicenseRequest.Merge(dst, src)
+func (m *RegisterLicenseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterLicenseRequest.Merge(m, src)
 }
 func (m *RegisterLicenseRequest) XXX_Size() int {
 	return xxx_messageInfo_RegisterLicenseRequest.Size(m)
@@ -63,7 +64,7 @@ func (m *RegisterLicenseResponse) Reset()         { *m = RegisterLicenseResponse
 func (m *RegisterLicenseResponse) String() string { return proto.CompactTextString(m) }
 func (*RegisterLicenseResponse) ProtoMessage()    {}
 func (*RegisterLicenseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_license_ba62cf06d07d94eb, []int{1}
+	return fileDescriptor_090c1f856632b222, []int{1}
 }
 func (m *RegisterLicenseResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterLicenseResponse.Unmarshal(m, b)
@@ -71,8 +72,8 @@ func (m *RegisterLicenseResponse) XXX_Unmarshal(b []byte) error {
 func (m *RegisterLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_RegisterLicenseResponse.Marshal(b, m, deterministic)
 }
-func (dst *RegisterLicenseResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RegisterLicenseResponse.Merge(dst, src)
+func (m *RegisterLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterLicenseResponse.Merge(m, src)
 }
 func (m *RegisterLicenseResponse) XXX_Size() int {
 	return xxx_messageInfo_RegisterLicenseResponse.Size(m)
@@ -93,7 +94,7 @@ func (m *ExtendLicenseRequest) Reset()         { *m = ExtendLicenseRequest{} }
 func (m *ExtendLicenseRequest) String() string { return proto.CompactTextString(m) }
 func (*ExtendLicenseRequest) ProtoMessage()    {}
 func (*ExtendLicenseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_license_ba62cf06d07d94eb, []int{2}
+	return fileDescriptor_090c1f856632b222, []int{2}
 }
 func (m *ExtendLicenseRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ExtendLicenseRequest.Unmarshal(m, b)
@@ -101,8 +102,8 @@ func (m *ExtendLicenseRequest) XXX_Unmarshal(b []byte) error {
 func (m *ExtendLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ExtendLicenseRequest.Marshal(b, m, deterministic)
 }
-func (dst *ExtendLicenseRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ExtendLicenseRequest.Merge(dst, src)
+func (m *ExtendLicenseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ExtendLicenseRequest.Merge(m, src)
 }
 func (m *ExtendLicenseRequest) XXX_Size() int {
 	return xxx_messageInfo_ExtendLicenseRequest.Size(m)
@@ -123,7 +124,7 @@ func (m *ExtendLicenseResponse) Reset()         { *m = ExtendLicenseResponse{} }
 func (m *ExtendLicenseResponse) String() string { return proto.CompactTextString(m) }
 func (*ExtendLicenseResponse) ProtoMessage()    {}
 func (*ExtendLicenseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_license_ba62cf06d07d94eb, []int{3}
+	return fileDescriptor_090c1f856632b222, []int{3}
 }
 func (m *ExtendLicenseResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ExtendLicenseResponse.Unmarshal(m, b)
@@ -131,8 +132,8 @@ func (m *ExtendLicenseResponse) XXX_Unmarshal(b []byte) error {
 func (m *ExtendLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_ExtendLicenseResponse.Marshal(b, m, deterministic)
 }
-func (dst *ExtendLicenseResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ExtendLicenseResponse.Merge(dst, src)
+func (m *ExtendLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ExtendLicenseResponse.Merge(m, src)
 }
 func (m *ExtendLicenseResponse) XXX_Size() int {
 	return xxx_messageInfo_ExtendLicenseResponse.Size(m)
@@ -153,7 +154,7 @@ func (m *CheckLicenseRequest) Reset()         { *m = CheckLicenseRequest{} }
 func (m *CheckLicenseRequest) String() string { return proto.CompactTextString(m) }
 func (*CheckLicenseRequest) ProtoMessage()    {}
 func (*CheckLicenseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_license_ba62cf06d07d94eb, []int{4}
+	return fileDescriptor_090c1f856632b222, []int{4}
 }
 func (m *CheckLicenseRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckLicenseRequest.Unmarshal(m, b)
@@ -161,8 +162,8 @@ func (m *CheckLicenseRequest) XXX_Unmarshal(b []byte) error {
 func (m *CheckLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CheckLicenseRequest.Marshal(b, m, deterministic)
 }
-func (dst *CheckLicenseRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckLicenseRequest.Merge(dst, src)
+func (m *CheckLicenseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CheckLicenseRequest.Merge(m, src)
 }
 func (m *CheckLicenseRequest) XXX_Size() int {
 	return xxx_messageInfo_CheckLicenseRequest.Size(m)
@@ -183,7 +184,7 @@ func (m *CheckLicenseResponse) Reset()         { *m = CheckLicenseResponse{} }
 func (m *CheckLicenseResponse) String() string { return proto.CompactTextString(m) }
 func (*CheckLicenseResponse) ProtoMessage()    {}
 func (*CheckLicenseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_license_ba62cf06d07d94eb, []int{5}
+	return fileDescriptor_090c1f856632b222, []int{5}
 }
 func (m *CheckLicenseResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CheckLicenseResponse.Unmarshal(m, b)
@@ -191,8 +192,8 @@ func (m *CheckLicenseResponse) XXX_Unmarshal(b []byte) error {
 func (m *CheckLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	return xxx_messageInfo_CheckLicenseResponse.Marshal(b, m, deterministic)
 }
-func (dst *CheckLicenseResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CheckLicenseResponse.Merge(dst, src)
+func (m *CheckLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CheckLicenseResponse.Merge(m, src)
 }
 func (m *CheckLicenseResponse) XXX_Size() int {
 	return xxx_messageInfo_CheckLicenseResponse.Size(m)
@@ -350,20 +351,24 @@ var _License_serviceDesc = grpc.ServiceDesc{
 	Metadata: "license.proto",
 }
 
-func init() { proto.RegisterFile("license.proto", fileDescriptor_license_ba62cf06d07d94eb) }
+func init() { proto.RegisterFile("license.proto", fileDescriptor_090c1f856632b222) }
 
-var fileDescriptor_license_ba62cf06d07d94eb = []byte{
-	// 187 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0xcd, 0xc9, 0x4c, 0x4e,
-	0xcd, 0x2b, 0x4e, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x49, 0x2f, 0x2a, 0x48, 0x56,
-	0x92, 0xe0, 0x12, 0x0b, 0x4a, 0x4d, 0xcf, 0x2c, 0x2e, 0x49, 0x2d, 0xf2, 0x81, 0x48, 0x07, 0xa5,
-	0x16, 0x96, 0xa6, 0x16, 0x97, 0x28, 0x49, 0x72, 0x89, 0x63, 0xc8, 0x14, 0x17, 0xe4, 0xe7, 0x15,
-	0xa7, 0x2a, 0x89, 0x71, 0x89, 0xb8, 0x56, 0x94, 0xa4, 0xe6, 0xa5, 0xa0, 0x69, 0x11, 0xe7, 0x12,
-	0x45, 0x13, 0x87, 0x6a, 0x10, 0xe5, 0x12, 0x76, 0xce, 0x48, 0x4d, 0xce, 0x46, 0x53, 0x2f, 0xc6,
-	0x25, 0x82, 0x2a, 0x0c, 0x51, 0x6e, 0x74, 0x9b, 0x91, 0x8b, 0x1d, 0x2a, 0x26, 0xe4, 0xc9, 0xc5,
-	0x01, 0x73, 0x86, 0x90, 0x8c, 0x1e, 0xc8, 0xcd, 0x7a, 0xd8, 0x1d, 0x2c, 0x25, 0x8b, 0x43, 0x16,
-	0xea, 0x06, 0x06, 0x21, 0x67, 0x2e, 0x36, 0x88, 0xf3, 0x84, 0xa4, 0x20, 0x4a, 0xb1, 0x79, 0x42,
-	0x4a, 0x1a, 0xab, 0x1c, 0xdc, 0x10, 0x07, 0x2e, 0x56, 0xb0, 0x9b, 0x85, 0x24, 0x21, 0xea, 0xb0,
-	0xf8, 0x4b, 0x4a, 0x0a, 0x9b, 0x14, 0xcc, 0x84, 0x24, 0x36, 0x70, 0xf8, 0x1b, 0x03, 0x02, 0x00,
-	0x00, 0xff, 0xff, 0xc8, 0x17, 0x8e, 0x9d, 0x90, 0x01, 0x00, 0x00,
+var fileDescriptor_090c1f856632b222 = []byte{
+	// 254 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x91, 0x4d, 0x4e, 0x03, 0x31,
+	0x0c, 0x85, 0xa5, 0x0a, 0x0a, 0xb2, 0xc4, 0x26, 0x74, 0x7e, 0x6a, 0x5a, 0x84, 0x72, 0x80, 0x19,
+	0x01, 0x47, 0x40, 0xec, 0x58, 0x75, 0xcf, 0x62, 0x18, 0xac, 0x10, 0x51, 0x25, 0x21, 0x09, 0x88,
+	0x35, 0x57, 0xe0, 0x2e, 0x5c, 0x84, 0x2b, 0x70, 0x10, 0xd4, 0x24, 0xb3, 0x20, 0xa4, 0x5b, 0xbf,
+	0xe7, 0xcf, 0xcf, 0x36, 0x9c, 0x6c, 0xe5, 0x48, 0xca, 0x51, 0x67, 0xac, 0xf6, 0x9a, 0x1d, 0x08,
+	0x6b, 0x46, 0x5c, 0x09, 0xad, 0xc5, 0x96, 0xfa, 0xc1, 0xc8, 0x7e, 0x50, 0x4a, 0xfb, 0xc1, 0x4b,
+	0xad, 0x5c, 0xf4, 0xf0, 0x16, 0xea, 0x0d, 0x09, 0xe9, 0x3c, 0xd9, 0xbb, 0xd8, 0xbc, 0xa1, 0x97,
+	0x57, 0x72, 0x9e, 0x2f, 0xa1, 0xf9, 0xa7, 0x38, 0xa3, 0x95, 0x23, 0x5e, 0xc3, 0xe2, 0xf6, 0xdd,
+	0x93, 0x7a, 0xcc, 0x5a, 0x1a, 0xa8, 0xb2, 0x7a, 0x6a, 0xa8, 0xe0, 0xf4, 0xe6, 0x89, 0xc6, 0xe7,
+	0xcc, 0x5f, 0xc3, 0xe2, 0x6f, 0x39, 0xda, 0xaf, 0xbe, 0x66, 0x70, 0x94, 0x6a, 0x4c, 0xc2, 0xf1,
+	0x14, 0x83, 0xad, 0xba, 0xdd, 0x46, 0x5d, 0x39, 0x30, 0xae, 0xf7, 0xa8, 0x29, 0xc3, 0xc5, 0xc7,
+	0xf7, 0xcf, 0xe7, 0x0c, 0x79, 0x1b, 0x2e, 0xf1, 0x76, 0xd9, 0xa7, 0x63, 0xf5, 0x76, 0xc2, 0x0f,
+	0x30, 0x8f, 0xf1, 0x19, 0x46, 0x54, 0x69, 0x49, 0x3c, 0x2b, 0x6a, 0x69, 0xc8, 0x79, 0x18, 0xd2,
+	0x62, 0x9d, 0x0f, 0xa1, 0x08, 0xbe, 0x87, 0xc3, 0xb0, 0x31, 0x5b, 0x46, 0x4a, 0xe1, 0x2a, 0x88,
+	0x25, 0x29, 0xf1, 0xd7, 0x81, 0xdf, 0xf0, 0x2a, 0xe7, 0x8f, 0x3b, 0xf7, 0xc3, 0x3c, 0x3c, 0xf5,
+	0xfa, 0x37, 0x00, 0x00, 0xff, 0xff, 0xee, 0x3f, 0x92, 0xa8, 0x09, 0x02, 0x00, 0x00,
 }
