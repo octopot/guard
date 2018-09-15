@@ -9,6 +9,7 @@ import (
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
+	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/transport/grpc"
 	"github.com/kamilsk/guard/pkg/transport/http"
 	"github.com/kamilsk/guard/pkg/transport/http/monitor"
@@ -23,6 +24,9 @@ var Run = &cobra.Command{
 	Short: "Start HTTP server",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
+		var (
+			service = guard.New()
+		)
 		if err := startGRPCServer(cnf.Union.GRPCConfig); err != nil {
 			return err
 		}
@@ -36,7 +40,7 @@ var Run = &cobra.Command{
 				return err
 			}
 		}
-		return startHTTPServer(cnf.Union.ServerConfig)
+		return startHTTPServer(cnf.Union.ServerConfig, service)
 	},
 }
 
@@ -107,13 +111,13 @@ func init() {
 	db(Run)
 }
 
-func startHTTPServer(cnf config.ServerConfig) error {
+func startHTTPServer(cnf config.ServerConfig, service *guard.Guard) error {
 	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
 	log.Println("start HTTP server at", listener.Addr())
-	return http.New(cnf, nil).Serve(listener)
+	return http.New(cnf, service).Serve(listener)
 }
 
 func startGRPCServer(cnf config.GRPCConfig) error {

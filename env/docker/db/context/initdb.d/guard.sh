@@ -27,7 +27,7 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
     LANGUAGE plpgsql;
     CREATE TABLE "token" (
       "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
-      "user_id"    UUID      NULL                 DEFAULT NULL,
+      "user_id"    UUID      NOT NULL,
       "expired_at" TIMESTAMP NULL                 DEFAULT NULL,
       "created_at" TIMESTAMP NOT NULL             DEFAULT now()
     );
@@ -35,16 +35,16 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
       BEFORE UPDATE
       ON "token"
       FOR EACH ROW EXECUTE PROCEDURE ignore_update();
-    INSERT INTO "token" ("id") VALUES ('10000000-2000-4000-8000-160000000000');
-    CREATE TABLE "license_token" (
+    INSERT INTO "token" ("id", "user_id") VALUES ('10000000-2000-4000-8000-160000000000', '10000000-2000-4000-8000-160000000001');
+    CREATE TABLE "license_user" (
       "license"    UUID      NOT NULL,
-      "token"      UUID      NOT NULL,
+      "user_id"    UUID      NOT NULL,
       "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
-      UNIQUE ("license", "token")
+      UNIQUE ("license", "user_id")
     );
-    INSERT INTO "license_token" ("license", "token")
+    INSERT INTO "license_user" ("user_id", "license")
     VALUES
       ('10000000-2000-4000-8000-160000000001', '10000000-2000-4000-8000-160000000002'),
-      ('10000000-2000-4000-8000-160000000001', '10000000-2000-4000-8000-160000000003'),
-      ('10000000-2000-4000-8000-160000000004', '10000000-2000-4000-8000-160000000005');
+      ('10000000-2000-4000-8000-160000000003', '10000000-2000-4000-8000-160000000002'),
+      ('10000000-2000-4000-8000-160000000005', '10000000-2000-4000-8000-160000000004');
 EOSQL

@@ -8,8 +8,15 @@ import (
 	"testing"
 
 	"github.com/kamilsk/guard/cmd"
+	"github.com/kamilsk/guard/pkg/service/guard"
+	"github.com/kamilsk/guard/pkg/transport/http"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+)
+
+// invariant
+var (
+	_ http.Service = guard.New()
 )
 
 func TestService(t *testing.T) {
