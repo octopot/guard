@@ -11,6 +11,11 @@ services:
     volumes:
     - pgdata:${PGDATA}
 
+  legacy:
+    build:
+      context:    ../legacy/context
+      dockerfile: ../Dockerfile
+
   service:
     build:
       args:       { PACKAGE: "${PACKAGE}", SECRET: "${SECRET}" }

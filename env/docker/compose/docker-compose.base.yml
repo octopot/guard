@@ -6,6 +6,10 @@ services:
     image: guard-db:latest
     env_file: ../db/.env
 
+  legacy:
+    image: guard-legacy:latest
+    env_file: ../legacy/.env
+
   service:
     image: guard-service:latest
     command: [ "run", "--with-profiling", "--with-monitoring" ]
@@ -16,5 +20,6 @@ services:
   server:
     image: guard-server:latest
     depends_on:
+    - legacy
     - service
     env_file: ../server/.env
