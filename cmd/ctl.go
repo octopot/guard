@@ -19,9 +19,9 @@ const (
 var (
 	// License TODO issue#docs
 	License         = &cobra.Command{Use: "license", Short: "Guard License"}
-	registerLicense = &cobra.Command{Use: "register", Short: "Register user license", RunE: communicate}
 	extendLicense   = &cobra.Command{Use: "extend", Short: "Extend user license", RunE: communicate}
-	checkLicense    = &cobra.Command{Use: "check", Short: "Check user license", RunE: communicate}
+	readLicense     = &cobra.Command{Use: "read", Short: "Read user license", RunE: communicate}
+	registerLicense = &cobra.Command{Use: "register", Short: "Register user license", RunE: communicate}
 )
 
 func init() {
@@ -53,5 +53,5 @@ func init() {
 			return nil
 		},
 	)
-	License.AddCommand(registerLicense, extendLicense, checkLicense)
+	License.AddCommand(extendLicense, readLicense, registerLicense)
 }

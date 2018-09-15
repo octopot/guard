@@ -1,6 +1,7 @@
 .PHONY: protobuf
 protobuf:
-	protoc -Ipkg/transport/grpc/ \
+	protoc -Ipkg/transport/grpc \
+	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway \
 	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
 	       --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc \
 	       --grpc-gateway_out=logtostderr=true:pkg/transport/grpc \

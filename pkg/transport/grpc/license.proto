@@ -3,33 +3,58 @@ syntax = "proto3";
 package grpc;
 
 import "google/api/annotations.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
-message RegisterLicenseRequest {}
+option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
+    info: {
+        title: "Access Guard as a Service";
+        version: "dev";
+        contact: {
+            name:  "Guard project of Hugs Platform";
+            url:   "https://github.com/kamilsk/guard";
+            email: "info@octolab.org";
+        };
+    };
+};
+
+message ReadLicenseRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
+
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+}
+
+message ReadLicenseResponse {}
+
+message RegisterLicenseRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
+
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+}
 
 message RegisterLicenseResponse {}
 
-message ExtendLicenseRequest {}
+message ExtendLicenseRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
+
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+}
 
 message ExtendLicenseResponse {}
 
-message CheckLicenseRequest {}
-
-message CheckLicenseResponse {}
-
 service License {
+    rpc Read (ReadLicenseRequest) returns (ReadLicenseResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/license/{id}"
+        };
+    }
     rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {
         option (google.api.http) = {
-          post: "/api/v1/license/register"
+            post: "/api/v1/license/register"
         };
     }
     rpc Extend (ExtendLicenseRequest) returns (ExtendLicenseResponse) {
         option (google.api.http) = {
-          put: "/api/v1/license/extend"
-        };
-    }
-    rpc Check (CheckLicenseRequest) returns (CheckLicenseResponse) {
-        option (google.api.http) = {
-          post: "/api/v1/license/check"
+            put: "/api/v1/license/extend"
         };
     }
 }

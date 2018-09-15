@@ -1,8 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "license.proto",
-    "version": "version not set"
+    "title": "Access Guard as a Service",
+    "version": "dev",
+    "contact": {
+      "name": "Guard project of Hugs Platform",
+      "url": "https://github.com/kamilsk/guard",
+      "email": "info@octolab.org"
+    }
   },
   "schemes": [
     "http",
@@ -15,22 +20,6 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/license/check": {
-      "post": {
-        "operationId": "Check",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/grpcCheckLicenseResponse"
-            }
-          }
-        },
-        "tags": [
-          "License"
-        ]
-      }
-    },
     "/api/v1/license/extend": {
       "put": {
         "operationId": "Extend",
@@ -62,13 +51,37 @@
           "License"
         ]
       }
+    },
+    "/api/v1/license/{id}": {
+      "get": {
+        "operationId": "Read",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/grpcReadLicenseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "License"
+        ]
+      }
     }
   },
   "definitions": {
-    "grpcCheckLicenseResponse": {
+    "grpcExtendLicenseResponse": {
       "type": "object"
     },
-    "grpcExtendLicenseResponse": {
+    "grpcReadLicenseResponse": {
       "type": "object"
     },
     "grpcRegisterLicenseResponse": {

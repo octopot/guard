@@ -24,7 +24,7 @@ var entities factory
 
 func init() {
 	entities = factory{
-		checkLicense:    {"License": func() pb.Proxy { return pb.CheckLicenseRequestProxy{} }},
+		readLicense:     {"License": func() pb.Proxy { return pb.ReadLicenseRequestProxy{} }},
 		extendLicense:   {"License": func() pb.Proxy { return pb.ExtendLicenseRequestProxy{} }},
 		registerLicense: {"License": func() pb.Proxy { return pb.RegisterLicenseRequestProxy{} }},
 	}
@@ -116,8 +116,8 @@ func call(cnf config.GRPCConfig, entity pb.Proxy) (interface{}, error) {
 		middleware.AuthHeader,
 		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
 	switch request := entity.Convert().(type) {
-	case *pb.CheckLicenseRequest:
-		return client.Check(ctx, request)
+	case *pb.ReadLicenseRequest:
+		return client.Read(ctx, request)
 	case *pb.ExtendLicenseRequest:
 		return client.Extend(ctx, request)
 	case *pb.RegisterLicenseRequest:

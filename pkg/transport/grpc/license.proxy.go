@@ -6,14 +6,6 @@ type Proxy interface {
 	Convert() interface{}
 }
 
-// RegisterLicenseRequestProxy TODO issue#docs
-type RegisterLicenseRequestProxy struct{}
-
-// Convert TODO issue#docs
-func (proxy RegisterLicenseRequestProxy) Convert() interface{} {
-	return &RegisterLicenseRequest{}
-}
-
 // ExtendLicenseRequestProxy TODO issue#docs
 type ExtendLicenseRequestProxy struct{}
 
@@ -22,10 +14,18 @@ func (proxy ExtendLicenseRequestProxy) Convert() interface{} {
 	return &ExtendLicenseRequest{}
 }
 
-// CheckLicenseRequestProxy TODO issue#docs
-type CheckLicenseRequestProxy struct{}
+// ReadLicenseRequestProxy TODO issue#docs
+type ReadLicenseRequestProxy struct{}
 
 // Convert TODO issue#docs
-func (proxy CheckLicenseRequestProxy) Convert() interface{} {
-	return &CheckLicenseRequest{}
+func (proxy ReadLicenseRequestProxy) Convert() interface{} {
+	return &ReadLicenseRequest{}
+}
+
+// RegisterLicenseRequestProxy TODO issue#docs
+type RegisterLicenseRequestProxy struct{}
+
+// Convert TODO issue#docs
+func (proxy RegisterLicenseRequestProxy) Convert() interface{} {
+	return &RegisterLicenseRequest{}
 }

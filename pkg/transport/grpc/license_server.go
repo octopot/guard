@@ -17,19 +17,6 @@ func NewLicenseServer() LicenseServer {
 
 type licenseServer struct{}
 
-// Check TODO issue#docs
-func (*licenseServer) Check(ctx context.Context, req *CheckLicenseRequest) (*CheckLicenseResponse, error) {
-	tokenID, err := middleware.TokenExtractor(ctx)
-	if err != nil {
-		return nil, err
-	}
-	if tokenID != types.ID(secret) {
-		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", tokenID)
-	}
-	log.Printf("LicenseServer.Check was called with token %q\n", tokenID)
-	return &CheckLicenseResponse{}, nil
-}
-
 // Extend TODO issue#docs
 func (*licenseServer) Extend(ctx context.Context, req *ExtendLicenseRequest) (*ExtendLicenseResponse, error) {
 	tokenID, err := middleware.TokenExtractor(ctx)
@@ -41,6 +28,19 @@ func (*licenseServer) Extend(ctx context.Context, req *ExtendLicenseRequest) (*E
 	}
 	log.Printf("LicenseServer.Extend was called with token %q\n", tokenID)
 	return &ExtendLicenseResponse{}, nil
+}
+
+// Read TODO issue#docs
+func (*licenseServer) Read(ctx context.Context, req *ReadLicenseRequest) (*ReadLicenseResponse, error) {
+	tokenID, err := middleware.TokenExtractor(ctx)
+	if err != nil {
+		return nil, err
+	}
+	if tokenID != types.ID(secret) {
+		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", tokenID)
+	}
+	log.Printf("LicenseServer.Read was called with token %q\n", tokenID)
+	return &ReadLicenseResponse{}, nil
 }
 
 // Register TODO issue#docs
