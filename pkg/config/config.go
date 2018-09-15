@@ -30,7 +30,7 @@ type DBConfig struct {
 }
 
 // DriverName returns database driver name.
-// Not thread-safe call.
+// Not thread-safe call. Error ignored.
 func (cnf *DBConfig) DriverName() string {
 	if cnf.dsn == nil {
 		cnf.dsn, _ = url.Parse(string(cnf.DSN))
@@ -40,9 +40,16 @@ func (cnf *DBConfig) DriverName() string {
 
 // GRPCConfig contains configuration related to gRPC server.
 type GRPCConfig struct {
-	Interface string        `json:"interface" xml:"interface" yaml:"interface"`
-	Timeout   time.Duration `json:"timeout"   xml:"timeout"   yaml:"timeout"`
-	Token     config.Secret `json:"token"     xml:"token"     yaml:"token"`
+	Interface string            `json:"interface" xml:"interface" yaml:"interface"`
+	Timeout   time.Duration     `json:"timeout"   xml:"timeout"   yaml:"timeout"`
+	Token     config.Secret     `json:"token"     xml:"token"     yaml:"token"`
+	Gateway   GRPCGatewayConfig `json:"gateway"   xml:"gateway"   yaml:"gateway"`
+}
+
+// GRPCGatewayConfig contains configuration related to RESTful JSON API above gRPC.
+type GRPCGatewayConfig struct {
+	Enabled   bool   `json:"enabled"   xml:"enabled"   yaml:"enabled"`
+	Interface string `json:"interface" xml:"interface" yaml:"interface"`
 }
 
 // MigrationConfig contains configuration related to migrations.

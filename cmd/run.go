@@ -105,6 +105,12 @@ func init() {
 				"monitoring-host", "", v.GetString("monitoring_host"), "monitoring host")
 			flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
 				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
+
+			flags.BoolVarP(&cnf.Union.GRPCConfig.Gateway.Enabled,
+				"with-grpc-gateway", "", false, "enable RESTful JSON API above gRPC")
+			flags.StringVarP(&cnf.Union.GRPCConfig.Gateway.Interface,
+				"grpc-gateway-host", "", v.GetString("grpc_gateway_host"), "gRPC gateway server host")
+
 			return nil
 		},
 	)
@@ -126,9 +132,17 @@ func startGRPCServer(cnf config.GRPCConfig) error {
 		return err
 	}
 	log.Println("start gRPC server at", listener.Addr())
-	log.Println("start gRPC gateway server at :8093")
-	go func() { _ = grpc.New(cnf).Serve(listener) }()
-	go func() { _ = grpc.Gateway(cnf).Serve(nil) }()
+	go func() {
+		serveErr := grpc.New(cnf).Serve(listener)
+		if serveErr == nil && cnf.Gateway.Enabled {
+			listener, err = net.Listen("tcp", cnf.Gateway.Interface)
+			if err != nil {
+				return
+			}
+			log.Println("start gRPC gateway server at", listener.Addr())
+			_ = grpc.Gateway(cnf).Serve(nil)
+		}
+	}()
 	return nil
 }
 
