@@ -1,12 +1,27 @@
+### Legacy
+
+POST http://localhost/legacy/protected
+X-Token:      10000000-2000-4000-8000-160000000002
+X-UDID:       10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000007
+
+### the same effect
+
+POST http://localhost/legacy/protected
+X-License:    10000000-2000-4000-8000-160000000001
+X-UDID:       10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000007
+
 ### API v1
 
 POST http://localhost:8080/api/v1/license/check
-X-Token: 10000000-2000-4000-8000-160000000002
-X-UDID:  10000000-2000-4000-8000-160000000006
+X-Token:      10000000-2000-4000-8000-160000000002
+X-UDID:       10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000007
 
 ###
 
-PUT http://localhost:8080/api/v1/license/extend
+PUT http://localhost:8093/api/v1/license/extend
 Authorization: Bearer 10000000-2000-4000-8000-160000000000
 Content-Type: application/json
 
@@ -25,7 +40,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:8080/api/v1/license/register
+POST http://localhost:8093/api/v1/license/register
 Authorization: Bearer 10000000-2000-4000-8000-160000000000
 Content-Type: application/json
 
