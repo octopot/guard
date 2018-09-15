@@ -13,12 +13,10 @@ config: env
 .PHONY: up
 up: env
 	$(COMPOSE) up -d
-	$(COMPOSE) rm -f
 
 .PHONY: fresh-up
 fresh-up: env
 	$(COMPOSE) up -d --build --force-recreate
-	$(COMPOSE) rm -f
 
 .PHONY: clear
 clear: env
