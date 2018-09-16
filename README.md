@@ -1,6 +1,6 @@
-> # Guard <img align="right" width="100" height="100" src=".github/character.png">
+> # 💂‍♂️ Guard [![Tweet][icon_twitter]][publish_twitter] <img align="right" width="100" src=".github/character.png">
 >
-> 💂‍♂️ Access Control as a Service &mdash; protect any API or sites you want.
+> Access Control as a Service &mdash; protect any API or sites you want.
 
 ## Data structure
 
@@ -91,3 +91,7 @@ X-User: 10000000-2000-4000-8000-160000000001
 [![@octolab](https://img.shields.io/badge/sponsor-%40octolab-blue.svg)](https://twitter.com/octolab_inc)
 
 made with ❤️ by [OctoLab](https://www.octolab.org/)
+
+[icon_twitter]:    https://img.shields.io/twitter/url/http/shields.io.svg?style=social
+
+[publish_twitter]: https://twitter.com/intent/tweet?text=Access%20Control%20as%20a%20Service&url=https://kamilsk.github.io/guard/&via=ikamilsk&hashtags=go,service
