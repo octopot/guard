@@ -1,4 +1,4 @@
-> # Guard
+> # Guard <img align="right" width="100" height="100" src=".github/logo.png">
 >
 > 💂‍♂️ Access Guard as a Service &mdash; protect any API or sites you want.
 
