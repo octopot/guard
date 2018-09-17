@@ -21,7 +21,7 @@ type server struct{}
 func (*server) Serve(listener net.Listener) error {
 	defer listener.Close()
 	mux := &http.ServeMux{}
-	mux.Handle("/monitoring", promhttp.Handler())
+	mux.Handle("/metrics", promhttp.Handler())
 	mux.Handle("/vars", expvar.Handler())
 	return http.Serve(listener, mux)
 }
