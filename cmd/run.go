@@ -65,6 +65,7 @@ func init() {
 			v.SetDefault("profiling_port", defaults["profiling_port"])
 			v.SetDefault("monitoring_port", defaults["monitoring_port"])
 			v.SetDefault("grpc_port", defaults["grpc_port"])
+			v.SetDefault("grpc_gateway_port", defaults["grpc_gateway_port"])
 
 			bind := v.GetString("bind")
 			v.SetDefault("host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("http_port"))))

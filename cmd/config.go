@@ -18,6 +18,7 @@ var (
 		"profiling_port":      8090,
 		"monitoring_port":     8091,
 		"grpc_port":           8092,
+		"grpc_gateway_port":   8093,
 		"read_timeout":        time.Duration(0),
 		"read_header_timeout": time.Duration(0),
 		"write_timeout":       time.Duration(0),
