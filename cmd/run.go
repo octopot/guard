@@ -52,6 +52,7 @@ func init() {
 		func() error { return v.BindEnv("profiling_port") },
 		func() error { return v.BindEnv("monitoring_port") },
 		func() error { return v.BindEnv("grpc_port") },
+		func() error { return v.BindEnv("grpc_gateway_port") },
 		func() error { return v.BindEnv("read_timeout") },
 		func() error { return v.BindEnv("read_header_timeout") },
 		func() error { return v.BindEnv("write_timeout") },
@@ -70,6 +71,7 @@ func init() {
 			v.SetDefault("profiling_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("profiling_port"))))
 			v.SetDefault("monitoring_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("monitoring_port"))))
 			v.SetDefault("grpc_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("grpc_port"))))
+			v.SetDefault("grpc_gateway_host", strings.Concat(bind, ":", strconv.Itoa(v.GetInt("grpc_gateway_port"))))
 
 			v.SetDefault("read_timeout", defaults["read_timeout"])
 			v.SetDefault("read_header_timeout", defaults["read_header_timeout"])
@@ -105,12 +107,10 @@ func init() {
 				"monitoring-host", "", v.GetString("monitoring_host"), "monitoring host")
 			flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
 				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
-
 			flags.BoolVarP(&cnf.Union.GRPCConfig.Gateway.Enabled,
 				"with-grpc-gateway", "", false, "enable RESTful JSON API above gRPC")
 			flags.StringVarP(&cnf.Union.GRPCConfig.Gateway.Interface,
 				"grpc-gateway-host", "", v.GetString("grpc_gateway_host"), "gRPC gateway server host")
-
 			return nil
 		},
 	)
@@ -131,18 +131,23 @@ func startGRPCServer(cnf config.GRPCConfig) error {
 	if err != nil {
 		return err
 	}
-	log.Println("start gRPC server at", listener.Addr())
-	go func() {
-		serveErr := grpc.New(cnf).Serve(listener)
-		if serveErr == nil && cnf.Gateway.Enabled {
-			listener, err = net.Listen("tcp", cnf.Gateway.Interface)
-			if err != nil {
-				return
-			}
-			log.Println("start gRPC gateway server at", listener.Addr())
-			_ = grpc.Gateway(cnf).Serve(nil)
+	cascade := make(chan struct{})
+	go func(listener net.Listener) {
+		close(cascade)
+		log.Println("start gRPC server at", listener.Addr())
+		_ = grpc.New(cnf).Serve(listener)
+	}(listener)
+	if cnf.Gateway.Enabled {
+		listener, err = net.Listen("tcp", cnf.Gateway.Interface)
+		if err != nil {
+			return err
 		}
-	}()
+		go func(listener net.Listener) {
+			<-cascade
+			log.Println("start gRPC gateway server at", listener.Addr())
+			_ = grpc.Gateway(cnf).Serve(listener)
+		}(listener)
+	}
 	return nil
 }
 
@@ -151,8 +156,10 @@ func startMonitoring(cnf config.MonitoringConfig) error {
 	if err != nil {
 		return err
 	}
-	log.Println("start monitoring server at", listener.Addr())
-	go func() { _ = monitor.New(cnf).Serve(listener) }()
+	go func(listener net.Listener) {
+		log.Println("start monitoring server at", listener.Addr())
+		_ = monitor.New(cnf).Serve(listener)
+	}(listener)
 	return nil
 }
 
@@ -161,7 +168,9 @@ func startProfiler(cnf config.ProfilingConfig) error {
 	if err != nil {
 		return err
 	}
-	log.Println("start profiling server at", listener.Addr())
-	go func() { _ = profiler.New(cnf).Serve(listener) }()
+	go func(listener net.Listener) {
+		log.Println("start profiling server at", listener.Addr())
+		_ = profiler.New(cnf).Serve(listener)
+	}(listener)
 	return nil
 }

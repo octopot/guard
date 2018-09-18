@@ -51,9 +51,9 @@ type gateway struct {
 }
 
 // Serve TODO issue#docs
-func (gw *gateway) Serve(net.Listener) error {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
+func (gw *gateway) Serve(listener net.Listener) error {
+	defer listener.Close()
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	mux := runtime.NewServeMux()
 	conn, err := grpc.DialContext(ctx, gw.config.Interface, grpc.WithInsecure())
@@ -63,5 +63,5 @@ func (gw *gateway) Serve(net.Listener) error {
 	if err = RegisterLicenseHandler(ctx, mux, conn); err != nil {
 		return err
 	}
-	return http.ListenAndServe(":8093", mux)
+	return http.Serve(listener, mux)
 }
