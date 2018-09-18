@@ -9,17 +9,17 @@ import (
 )
 
 // NewUserContext TODO issue#docs
-func NewUserContext(ctx context.Context, conn *sql.Conn) manager {
-	return manager{ctx, conn}
+func NewUserContext(ctx context.Context, conn *sql.Conn) userManager {
+	return userManager{ctx, conn}
 }
 
-type manager struct {
+type userManager struct {
 	ctx  context.Context
 	conn *sql.Conn
 }
 
 // Token TODO issue#docs
-func (scope manager) Token(id domain.ID) (*repository.Token, error) {
+func (scope userManager) Token(id domain.ID) (*repository.Token, error) {
 	var (
 		token   = repository.Token{ID: id}
 		user    = repository.User{}
