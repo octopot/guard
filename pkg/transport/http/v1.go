@@ -4,33 +4,31 @@ import (
 	"log"
 	"net/http"
 
-	kit "github.com/kamilsk/go-kit/pkg/service/types"
-
 	"github.com/kamilsk/guard/pkg/service/types"
 )
 
 // CheckLicenseV1 TODO issue#docs
 func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	type metadata struct {
-		Forward string `json:"forward"`
-		ID      kit.ID `json:"id"`
-		IP      string `json:"ip"`
-		URI     string `json:"uri"`
+		Forward string   `json:"forward"`
+		ID      types.ID `json:"id"`
+		IP      string   `json:"ip"`
+		URI     string   `json:"uri"`
 	}
 	type scope struct {
-		License  kit.ID `json:"license"`
-		UDID     kit.ID `json:"udid"`
-		User     kit.ID `json:"user"`
+		License  types.ID `json:"license"`
+		UDID     types.ID `json:"udid"`
+		User     types.ID `json:"user"`
 		Metadata metadata
 	}
 
 	request := scope{
-		License: kit.ID(req.Header.Get("X-License")),
-		UDID:    kit.ID(req.Header.Get("X-UDID")),
-		User:    kit.ID(req.Header.Get("X-User")),
+		License: types.ID(req.Header.Get("X-License")),
+		UDID:    types.ID(req.Header.Get("X-UDID")),
+		User:    types.ID(req.Header.Get("X-User")),
 		Metadata: metadata{
 			Forward: req.Header.Get("X-Forwarded-For"),
-			ID:      kit.ID(req.Header.Get("X-Request-ID")),
+			ID:      types.ID(req.Header.Get("X-Request-ID")),
 			IP:      req.Header.Get("X-Real-IP"),
 			URI:     req.Header.Get("X-Original-URI"),
 		},
