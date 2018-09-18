@@ -1,5 +1,4 @@
 required = [
-  "github.com/lib/pq",
   "go.uber.org/zap",
 
   "go.etcd.io/etcd/clientv3",

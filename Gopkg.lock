@@ -152,12 +152,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6115238ec0da9d8379ce21c8c0960960cf4b057ea2db8177b3ee0752157825ef"
+  digest = "1:09196f8417b28774ee5463e5a1f26f3ab89848170565539d84f478398efeefe0"
   name = "github.com/kamilsk/go-kit"
   packages = [
     "pkg/config",
     "pkg/fn",
-    "pkg/service/types",
     "pkg/strings",
   ]
   pruneopts = "NUT"
@@ -224,7 +223,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:75b94c0e10446cab5844975db50a1deed8136918999b7f4b937f0de69ba9a2ee"
+  digest = "1:cfa8aa49949ef9e612512736234abd8023cffd7bc76865afcfeec9846b246daf"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -232,7 +231,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "NUT"
-  revision = "b7b390014bf2ea0679a8e477638afa1b706cbd70"
+  revision = "e637cec7d9c8990247098639ebc6d43dd34ddd49"
 
 [[projects]]
   branch = "master"
@@ -292,7 +291,7 @@
   name = "github.com/spf13/cobra"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "99dc123558852f67743bd0b2caf8383cb3c6d720"
+  revision = "8d114be902bc9f08717804830a55c48378108a28"
 
 [[projects]]
   digest = "1:f29f83301ed096daed24a90f4af591b7560cb14b9cc3e1827abbf04db7269ab5"
@@ -504,7 +503,6 @@
     "github.com/grpc-ecosystem/grpc-gateway/utilities",
     "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
-    "github.com/kamilsk/go-kit/pkg/service/types",
     "github.com/kamilsk/go-kit/pkg/strings",
     "github.com/lib/pq",
     "github.com/mitchellh/mapstructure",
