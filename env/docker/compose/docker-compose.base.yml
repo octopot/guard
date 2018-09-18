@@ -12,7 +12,7 @@ services:
 
   service:
     image: guard-service:latest
-    command: [ "run", "--with-profiling", "--with-monitoring" ]
+    command: [ "run", "--with-profiling", "--with-monitoring", "--with-grpc-gateway" ]
     depends_on:
     - db
     env_file: ../service/.env
