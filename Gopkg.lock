@@ -10,16 +10,13 @@
   revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
 
 [[projects]]
-  digest = "1:b9c457d8841bfcaa2e1c6b540657d3ea17667e2a2de82438850614e379a6429d"
+  digest = "1:4fc0107e9c20e76bf57ba2ddea4f96e9b6aa04ae7c7714598a87d08ab839e7aa"
   name = "github.com/coreos/etcd"
   packages = [
     "auth/authpb",
-    "clientv3",
-    "clientv3/concurrency",
     "etcdserver/api/v3rpc/rpctypes",
     "etcdserver/etcdserverpb",
     "mvcc/mvccpb",
-    "pkg/tlsutil",
     "pkg/types",
   ]
   pruneopts = "NUT"
@@ -41,14 +38,6 @@
   pruneopts = "NUT"
   revision = "c2828203cd70a50dcccfb2761f8b1f8ceef9a8e9"
   version = "v1.4.7"
-
-[[projects]]
-  digest = "1:81466b4218bf6adddac2572a30ac733a9255919bc2f470b4827a317bd4ee1756"
-  name = "github.com/ghodss/yaml"
-  packages = ["."]
-  pruneopts = "NUT"
-  revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
-  version = "v1.0.0"
 
 [[projects]]
   digest = "1:c38144c2e2d2cf5592dc55f08f69b491b15f4449c54e293710fe19ea0874fa90"
@@ -337,20 +326,9 @@
   version = "v1.2.2"
 
 [[projects]]
-  digest = "1:3aaab21de3d51a0f4d0c0fd0d785b632c415be8b9b2aaa819da94d76639735f7"
+  digest = "1:336f9121bbc00200c58e5ff6496ce8fdb57af61d6d9ee58d45968e05bebafd32"
   name = "go.etcd.io/etcd"
-  packages = [
-    "clientv3",
-    "clientv3/clientv3util",
-    "clientv3/concurrency",
-    "clientv3/integration",
-    "clientv3/leasing",
-    "clientv3/mirror",
-    "clientv3/namespace",
-    "clientv3/naming",
-    "clientv3/ordering",
-    "clientv3/yaml",
-  ]
+  packages = ["clientv3"]
   pruneopts = "NUT"
   revision = "fca8add78a9d926166eb739b8e4a124434025ba3"
   version = "v3.3.9"
@@ -404,11 +382,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5c2d57086d29bf60bf5fc8a1e6550650034f8b26177dced9b16d1f673311ab40"
+  digest = "1:e87594335f7fc5df850c2673c46896af42963d497be3e2a358d43e5b1163e852"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "d0be0721c37eeb5299f245a996a483160fc36940"
+  revision = "ee1b12c67af419cf5a9be3bdbeea7fc1c5f32f11"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -513,15 +491,6 @@
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/mock",
     "go.etcd.io/etcd/clientv3",
-    "go.etcd.io/etcd/clientv3/clientv3util",
-    "go.etcd.io/etcd/clientv3/concurrency",
-    "go.etcd.io/etcd/clientv3/integration",
-    "go.etcd.io/etcd/clientv3/leasing",
-    "go.etcd.io/etcd/clientv3/mirror",
-    "go.etcd.io/etcd/clientv3/namespace",
-    "go.etcd.io/etcd/clientv3/naming",
-    "go.etcd.io/etcd/clientv3/ordering",
-    "go.etcd.io/etcd/clientv3/yaml",
     "go.uber.org/zap",
     "golang.org/x/net/context",
     "google.golang.org/genproto/googleapis/api/annotations",

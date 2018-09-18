@@ -1,17 +1,6 @@
 required = [
   "go.uber.org/zap",
 
-  "go.etcd.io/etcd/clientv3",
-  "go.etcd.io/etcd/clientv3/clientv3util",
-  "go.etcd.io/etcd/clientv3/concurrency",
-  "go.etcd.io/etcd/clientv3/integration",
-  "go.etcd.io/etcd/clientv3/leasing",
-  "go.etcd.io/etcd/clientv3/mirror",
-  "go.etcd.io/etcd/clientv3/namespace",
-  "go.etcd.io/etcd/clientv3/naming",
-  "go.etcd.io/etcd/clientv3/ordering",
-  "go.etcd.io/etcd/clientv3/yaml",
-
   "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
   "github.com/grpc-ecosystem/grpc-gateway/utilities",
   "google.golang.org/genproto/googleapis/api/annotations",
