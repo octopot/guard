@@ -6,6 +6,10 @@ services:
     image: guard-db:latest
     env_file: ../db/.env
 
+  etcd:
+    image: guard-etcd:latest
+    env_file: ../etcd/.env
+
   legacy:
     image: guard-legacy:latest
     env_file: ../legacy/.env
