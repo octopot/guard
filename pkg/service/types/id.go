@@ -15,7 +15,7 @@ func (s ID) IsEmpty() bool {
 
 // IsValid returns true if the ID is not empty and compatible with RFC 4122.
 func (s ID) IsValid() bool {
-	return !(s == "") && uuid.MatchString(string(s)) // IsEmpty and String were inlined manually
+	return !s.IsEmpty() && uuid.MatchString(string(s))
 }
 
 // String implements built-in `fmt.Stringer` interface and returns the underlying string value.
