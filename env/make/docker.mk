@@ -19,6 +19,14 @@ docker-build-db:
 	             --force-rm \
 	             env/docker/db/context
 
+.PHONY: docker-build-etcd
+docker-build-etcd:
+	docker build \
+	             -t guard-etcd:$(VERSION) \
+	             -f env/docker/etcd/Dockerfile \
+	             --force-rm \
+	             env/docker/etcd/context
+
 .PHONY: docker-build-legacy
 docker-build-legacy:
 	docker build \
@@ -51,6 +59,13 @@ docker-run-db:
 	docker run --rm -it \
 	           -p 5432:5432 \
 	           guard-db:$(VERSION)
+
+.PHONY: docker-run-etcd
+docker-run-etcd:
+	docker run --rm -it \
+	           -p 2379:2379 \
+	           -p 2380:2380 \
+	           guard-etcd:$(VERSION)
 
 .PHONY: docker-run-service
 docker-run-service:
