@@ -16,16 +16,16 @@ func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 		URI     string   `json:"uri"`
 	}
 	type scope struct {
-		License  types.ID `json:"license"`
-		UDID     types.ID `json:"udid"`
-		User     types.ID `json:"user"`
-		Metadata metadata
+		License   types.ID `json:"license"`
+		User      types.ID `json:"user"`
+		Workplace types.ID `json:"workplace"`
+		Metadata  metadata
 	}
 
 	request := scope{
-		License: types.ID(req.Header.Get("X-License")),
-		UDID:    types.ID(req.Header.Get("X-UDID")),
-		User:    types.ID(req.Header.Get("X-User")),
+		License:   types.ID(req.Header.Get("X-License")),
+		User:      types.ID(req.Header.Get("X-User")),
+		Workplace: types.ID(req.Header.Get("X-Workplace")),
 		Metadata: metadata{
 			Forward: req.Header.Get("X-Forwarded-For"),
 			ID:      types.ID(req.Header.Get("X-Request-ID")),
@@ -35,7 +35,7 @@ func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	}
 	log.Println(request) // TODO issue#7
 
-	license := types.License{Number: request.License, User: request.User, Workplace: request.UDID}
+	license := types.License{Number: request.License, User: request.User, Workplace: request.Workplace}
 	// TODO issue#6
 	if err := srv.service.CheckLicense(license); err != nil {
 		// TODO http.StatusUnauthorized and http.StatusForbidden must be have different logic
