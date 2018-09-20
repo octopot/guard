@@ -1,6 +1,6 @@
 > # 💂‍♂️ Guard [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="100" src=".github/character.png">
 >
-> Access Control as a Service &mdash; protect any API or sites you want.
+> Access Control as a Service &mdash; protect any API or sites and content you want.
 
 [![Patreon][icon_patreon]](https://www.patreon.com/octolab)
 [![License][icon_license]](LICENSE)
@@ -13,11 +13,30 @@
 
 ## Motivation
 
-...
+- We have to limit access to some part of our content.
 
 ## Quick start
 
-...
+Requirements:
+
+- Docker 18.06.0-ce or above
+- Docker Compose 1.22.0 or above
+- Go 1.11 or above
+- GNU Make 3.81 or above
+
+```bash
+$ make up status
+
+     Name                    Command               State                              Ports
+------------------------------------------------------------------------------------------------------------------------
+guard_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
+guard_etcd_1      /usr/local/bin/etcd              Up      0.0.0.0:2379->2379/tcp, 2380/tcp
+guard_legacy_1    docker-php-entrypoint php-fpm    Up      9000/tcp
+guard_server_1    nginx -g daemon off;             Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
+guard_service_1   service run --with-profili ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp,
+                                                           0.0.0.0:8091->8091/tcp, 0.0.0.0:8092->8092/tcp,
+                                                           0.0.0.0:8093->8093/tcp
+```
 
 ## Specification
 
@@ -27,36 +46,95 @@ You can find API specification [here](env/client/rest.http).
 
 ### CLI
 
-...
+You can use `guard` to start the HTTP server and `guardctl` to execute
+[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
+
+<details>
+<summary><strong>CLI interface</strong></summary>
+
+```bash
+$ make service-install
+$ guard --help
+  Guard Service
+  
+  Usage:
+    guard [command]
+  
+  Available Commands:
+    completion  Print Bash or Zsh completion
+    help        Help about any command
+    run         Start HTTP server
+    version     Show application version
+  
+  Flags:
+    -h, --help   help for guard
+  
+  Use "guard [command] --help" for more information about a command.
+$
+$ make control-install
+$ guardctl --help
+  Guard Control
+  
+  Usage:
+    guardctl [command]
+  
+  Available Commands:
+    completion  Print Bash or Zsh completion
+    help        Help about any command
+    license     Guard License
+    version     Show application version
+  
+  Flags:
+    -h, --help   help for guardctl
+  
+  Use "guardctl [command] --help" for more information about a command.
+```
+</details>
 
 #### Bash and Zsh completions
 
-...
+You can find completion files [here](https://github.com/kamilsk/shared/tree/dotfiles/bash_completion.d) or
+build your own using these commands
+
+```bash
+$ guard completion -f bash > /path/to/bash_completion.d/guard.sh
+$ guard completion -f zsh  > /path/to/zsh-completions/_guard.zsh
+$
+$ guardctl completion -f bash > /path/to/bash_completion.d/guardctl.sh
+$ guardctl completion -f zsh  > /path/to/zsh-completions/_guardctl.zsh
+```
 
 ## Installation
 
 ### Brew
 
-...
+```bash
+$ brew install kamilsk/tap/guard
+```
 
 ### Binary
 
-...
+```bash
+$ export VER=latest     # all available versions are on https://github.com/kamilsk/guard/releases/
+$ export REQ_OS=Linux   # macOS and Windows are also available
+$ export REQ_ARCH=64bit # 32bit is also available
+$ wget -q -O guard.tar.gz \
+       https://github.com/kamilsk/guard/releases/download/"${VER}/guard_${VER}_${REQ_OS}-${REQ_ARCH}".tar.gz
+$ tar xf guard.tar.gz -C "${GOPATH}"/bin/ && rm guard.tar.gz
+```
 
 ### Docker Hub
 
-...
+```bash
+$ docker pull kamilsk/guard:latest
+```
 
 ### From source code
 
 ```bash
-$ egg github.com/kamilsk/guard^1.0.0 -- make test install
-```
-
-#### Mirror
-
-```bash
-$ egg bitbucket.org/kamilsk/guard^1.0.0 -- make test install
+$ egg github.com/kamilsk/guard -- make test install
+$ # or use mirror
+$ egg bitbucket.org/kamilsk/guard -- make test install
 ```
 
 > [egg](https://github.com/kamilsk/egg)<sup id="anchor-egg">[1](#egg)</sup> is an `extended go get`.
