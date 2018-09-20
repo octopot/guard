@@ -1,0 +1,61 @@
+archive:
+  files:
+  - LICENSE
+  format: tar.gz
+  format_overrides:
+  - goos:   windows
+    format: zip
+  name_template: "{{.Binary}}_{{.Version}}_{{.Os}}-{{.Arch}}"
+  replacements:
+    386:    32bit
+    amd64:  64bit
+
+    darwin:  macOS
+    linux:   Linux
+    windows: Windows
+
+brew:
+  caveats: Use `guard --help` to see detailed help message
+  commit_author:
+    name:  Kamil Samigullin
+    email: kamil@samigullin.info
+  description: Access Control as a Service
+  folder: Formula
+  github:
+    name:  homebrew-tap
+    owner: kamilsk
+  homepage: https://kamilsk.github.io/guard/
+
+build:
+- binary: guard
+  env:
+  - CGO_ENABLED=0
+  goarch:
+  - 386
+  - amd64
+  goos:
+  - darwin
+  - linux
+  - windows
+  ldflags: -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  main: cli.go main.go
+- binary: guardctl
+  env:
+  - CGO_ENABLED=0
+  goarch:
+  - 386
+  - amd64
+  goos:
+  - darwin
+  - linux
+  - windows
+  ldflags: -tags 'cli ctl' -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  main: cli.go guardctl.go
+
+checksum: { name_template: checksums.txt }
+
+release:
+  draft: false
+  github:
+    name:  guard
+    owner: kamilsk
