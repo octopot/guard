@@ -110,12 +110,14 @@ $ guardctl completion -f zsh  > /path/to/zsh-completions/_guardctl.zsh
 
 ```bash
 $ brew install kamilsk/tap/guard
+$
+$ brew install kamilsk/tap/guardctl
 ```
 
 ### Binary
 
 ```bash
-$ export VER=latest     # all available versions are on https://github.com/kamilsk/guard/releases/
+$ export VER=0.0.1      # all available versions are on https://github.com/kamilsk/guard/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
 $ wget -q -O guard.tar.gz \
