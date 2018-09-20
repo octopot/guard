@@ -1,4 +1,4 @@
-// +build cli ctl
+// +build ctl
 
 package main
 
