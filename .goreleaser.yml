@@ -38,20 +38,21 @@ builds:
   - windows
   ldflags:
   - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
-- binary: guardctl
-  env:
-  - CGO_ENABLED=0
-  flags:
-  - -tags ctl
-  goarch:
-  - 386
-  - amd64
-  goos:
-  - darwin
-  - linux
-  - windows
-  ldflags:
-  - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+# TODO issue#github.com/goreleaser/goreleaser/issues/810
+#- binary: guardctl
+#  env:
+#  - CGO_ENABLED=0
+#  flags:
+#  - -tags ctl
+#  goarch:
+#  - 386
+#  - amd64
+#  goos:
+#  - darwin
+#  - linux
+#  - windows
+#  ldflags:
+#  - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
 
 checksum: { name_template: checksums.txt }
 

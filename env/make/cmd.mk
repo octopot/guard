@@ -6,23 +6,24 @@ ifndef SECRET
 $(error Please define SECRET variable)
 endif
 
-_commit   = -X $(PACKAGE)/cmd.commit=$(shell git rev-parse --short HEAD)
-_date     = -X $(PACKAGE)/cmd.date=$(shell date -u +%FT%X%Z)
-_secret   = -X $(PACKAGE)/pkg/transport/grpc.secret=$(SECRET)
-_version  = -X $(PACKAGE)/cmd.version=dev
-LDFLAGS   = -ldflags '-s -w $(_commit) $(_date) $(_secret) $(_version)'
+_commit     = -X $(PACKAGE)/cmd.commit=$(shell git rev-parse --short HEAD)
+_date       = -X $(PACKAGE)/cmd.date=$(shell date -u +%FT%X%Z)
+_secret     = -X $(PACKAGE)/pkg/transport/grpc.secret=$(SECRET)
+_version    = -X $(PACKAGE)/cmd.version=dev
+LDFLAGS     = -ldflags '-s -w $(_commit) $(_date) $(_secret) $(_version)'
 
-CTL_FLAGS = -tags 'cli ctl' $(LDFLAGS)
-SRV_FLAGS = $(LDFLAGS)
+CTL_FLAGS   = -tags ctl $(LDFLAGS)
+SRV_FLAGS   = $(LDFLAGS)
+BUILD_FILES = .
 
 
 .PHONY: __cmd__
 __cmd__:
-	go run $(BUILD_FLAGS) . $(ARGS)
+	go run $(BUILD_FLAGS) $(BUILD_FILES) $(ARGS)
 
 .PHONY: __build__
 __build__:
-	go build -o $(BIN) -i $(BUILD_FLAGS) .
+	go build -o $(BIN) -i $(BUILD_FLAGS) $(BUILD_FILES)
 	chmod +x $(BIN)
 	mv $(BIN) $(GOPATH)/bin/$(BIN)
 
@@ -55,7 +56,7 @@ service-cmd-version: __cmd__
 
 .PHONY: service-cmd-run
 service-cmd-run: BUILD_FLAGS = $(SRV_FLAGS)
-service-cmd-run: ARGS = run -H 127.0.0.1:8080 --with-profiling --with-monitoring
+service-cmd-run: ARGS = run -H 127.0.0.1:8080 --with-profiling --with-monitoring --with-grpc-gateway
 service-cmd-run: __cmd__
 
 .PHONY: service-install
