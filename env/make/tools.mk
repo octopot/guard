@@ -14,7 +14,7 @@ test: test-control test-service
 
 .PHONY: test-control
 test-control:
-	go test -race -tags 'cli ctl' -v .
+	go test -race -tags ctl -v .
 
 .PHONY: test-service
 test-service:
