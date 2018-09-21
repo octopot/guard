@@ -37,7 +37,7 @@ builds:
   - linux
   - windows
   ldflags:
-  - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  - -s -w -X {{.Env.META}}.version={{.Version}} -X {{.Env.META}}.commit={{.Commit}} -X {{.Env.META}}.date={{.Date}}
 - binary: guardctl
   env:
   - CGO_ENABLED=0
@@ -54,6 +54,8 @@ builds:
   - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
 
 checksum: { name_template: checksums.txt }
+
+project_name: Guard
 
 release:
   draft: false

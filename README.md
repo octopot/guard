@@ -50,7 +50,7 @@ You can use `guard` to start the HTTP server and `guardctl` to execute
 [CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
 
 <details>
-<summary><strong>CLI interface</strong></summary>
+<summary><strong>Service command-line interface</strong></summary>
 
 ```bash
 $ make service-install
@@ -70,7 +70,13 @@ $ guard --help
     -h, --help   help for guard
   
   Use "guard [command] --help" for more information about a command.
-$
+```
+</details>
+
+<details>
+<summary><strong>Client command-line interface</strong></summary>
+
+```bash
 $ make control-install
 $ guardctl --help
   Guard Control
@@ -96,10 +102,16 @@ $ guardctl --help
 You can find completion files [here](https://github.com/kamilsk/shared/tree/dotfiles/bash_completion.d) or
 build your own using these commands
 
+Service:
+
 ```bash
 $ guard completion -f bash > /path/to/bash_completion.d/guard.sh
 $ guard completion -f zsh  > /path/to/zsh-completions/_guard.zsh
-$
+```
+
+Client:
+
+```bash
 $ guardctl completion -f bash > /path/to/bash_completion.d/guardctl.sh
 $ guardctl completion -f zsh  > /path/to/zsh-completions/_guardctl.zsh
 ```
@@ -108,9 +120,15 @@ $ guardctl completion -f zsh  > /path/to/zsh-completions/_guardctl.zsh
 
 ### Brew
 
+Service:
+
 ```bash
 $ brew install kamilsk/tap/guard
-$
+```
+
+Client:
+
+```bash
 $ brew install kamilsk/tap/guardctl
 ```
 
@@ -120,7 +138,8 @@ $ brew install kamilsk/tap/guardctl
 $ export VER=0.0.1      # all available versions are on https://github.com/kamilsk/guard/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
-$ wget -q -O guard.tar.gz \
+$ # wget -q -O guard.tar.gz
+$ curl -sL -o guard.tar.gz \
        https://github.com/kamilsk/guard/releases/download/"${VER}/guard_${VER}_${REQ_OS}-${REQ_ARCH}".tar.gz
 $ tar xf guard.tar.gz -C "${GOPATH}"/bin/ && rm guard.tar.gz
 ```

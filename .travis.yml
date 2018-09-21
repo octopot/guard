@@ -14,6 +14,9 @@ sudo: false
 script:
 - make test
 
+env:
+- META=github.com/kamilsk/guard/cmd
+
 after_success:
 - echo $TRAVIS_GO_VERSION ":" $TRAVIS_TAG
 - if [[ $TRAVIS_GO_VERSION == 1.11* ]] && [ -n "$TRAVIS_TAG" ]; then curl -sL https://git.io/goreleaser | bash; fi
