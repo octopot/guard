@@ -1,5 +1,5 @@
-> # 💂‍♂️ Guard [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="100" src=".github/character.png">
->
+> # 💂‍♂️ Guard [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="126" src=".github/character.png">
+> [![Analytics][analytics_pixel]][page_promo]
 > Access Control as a Service &mdash; protect any API or sites and content you want.
 
 [![Patreon][icon_patreon]](https://www.patreon.com/octolab)
@@ -135,12 +135,12 @@ $ brew install kamilsk/tap/guardctl
 ### Binary
 
 ```bash
-$ export VER=0.0.1      # all available versions are on https://github.com/kamilsk/guard/releases/
+$ export REQ_VER=0.0.1  # all available versions are on https://github.com/kamilsk/guard/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
 $ # wget -q -O guard.tar.gz
 $ curl -sL -o guard.tar.gz \
-       https://github.com/kamilsk/guard/releases/download/"${VER}/guard_${VER}_${REQ_OS}-${REQ_ARCH}".tar.gz
+       https://github.com/kamilsk/guard/releases/download/"${REQ_VER}/guard_${REQ_VER}_${REQ_OS}-${REQ_ARCH}".tar.gz
 $ tar xf guard.tar.gz -C "${GOPATH}"/bin/ && rm guard.tar.gz
 ```
 
@@ -175,12 +175,16 @@ but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compat
 
 made with ❤️ by [OctoLab](https://www.octolab.org/)
 
+[analytics_pixel]: https://ga-beacon.appspot.com/UA-109817251-26/guard/readme?pixel
+
 [icon_gitter]:     https://badges.gitter.im/Join%20Chat.svg
 [icon_license]:    https://img.shields.io/badge/license-MIT-blue.svg
 [icon_patreon]:    https://img.shields.io/badge/patreon-donate-orange.svg
 [icon_tw_author]:  https://img.shields.io/badge/author-%40kamilsk-blue.svg
 [icon_tw_sponsor]: https://img.shields.io/badge/sponsor-%40octolab-blue.svg
 [icon_twitter]:    https://img.shields.io/twitter/url/http/shields.io.svg?style=social
+
+[page_promo]:      https://github.com/kamilsk/guard
 
 [project_v1]:      https://github.com/kamilsk/guard/projects/1
 [project_v1_dl]:   https://github.com/kamilsk/guard/milestone/1
