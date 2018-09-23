@@ -28,6 +28,8 @@ $ignore_update$
 LANGUAGE plpgsql;
 -- +migrate StatementEnd
 
+CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete');
+
 
 
 -- +migrate Down
@@ -35,3 +37,5 @@ LANGUAGE plpgsql;
 DROP FUNCTION ignore_update();
 
 DROP FUNCTION update_timestamp();
+
+DROP TYPE ACTION;
