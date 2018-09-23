@@ -1,26 +1,21 @@
 -- +migrate Up
 
 CREATE TABLE "license" (
-  "number"       UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
-  "active_since" TIMESTAMP NULL                 DEFAULT NULL,
-  "active_until" TIMESTAMP NULL                 DEFAULT NULL,
-  -- {"rate_limits":"%d (rps|rpm|rph|rpw)", "request_limits": uint, "workplace_limits": uint}
-  "contract"     JSONB     NULL                 DEFAULT NULL,
-  "created_at"   TIMESTAMP NOT NULL             DEFAULT now(),
-  "updated_at"   TIMESTAMP NULL                 DEFAULT NULL,
-  "deleted_at"   TIMESTAMP NULL                 DEFAULT NULL
+  "number"     UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  -- {"since": ts, "until": ts, "rate_limits":"%d (rps|rpm|rph|rpw)", "request_limits": uint, "workplace_limits": uint}
+  "contract"   JSONB     NULL                 DEFAULT NULL,
+  "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
+  "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
+  "deleted_at" TIMESTAMP NULL                 DEFAULT NULL
 );
 
 CREATE TABLE "license_audit" (
-  "id"           BIGSERIAL PRIMARY KEY,
-  "number"       UUID      NOT NULL,
-  "what"         ACTION    NOT NULL,
-  "when"         TIMESTAMP NOT NULL,
-  "who"          UUID      NOT NULL,
-  -- before
-  "active_since" TIMESTAMP NULL,
-  "active_until" TIMESTAMP NULL,
-  "contract"     JSONB     NULL
+  "id"       BIGSERIAL PRIMARY KEY,
+  "number"   UUID      NOT NULL,
+  "what"     ACTION    NOT NULL,
+  "when"     TIMESTAMP NOT NULL,
+  "who"      UUID      NOT NULL,
+  "contract" JSONB     NULL -- what was before
 );
 
 CREATE TABLE "license_user" (
