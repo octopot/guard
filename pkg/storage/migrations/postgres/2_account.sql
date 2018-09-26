@@ -20,8 +20,8 @@ CREATE TABLE "user" (
 CREATE TABLE "token" (
   "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   "user_id"    UUID      NOT NULL,
-  "expired_at" TIMESTAMP NULL                 DEFAULT NULL,
   "revoked"    BOOLEAN   NOT NULL             DEFAULT FALSE,
+  "expired_at" TIMESTAMP NULL                 DEFAULT NULL,
   "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
   "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
   "deleted_at" TIMESTAMP NULL                 DEFAULT NULL
