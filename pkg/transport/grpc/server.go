@@ -15,8 +15,6 @@ import (
 	"google.golang.org/grpc"
 )
 
-var secret = "secret"
-
 // New TODO issue#docs
 func New(_ config.GRPCConfig, storage ProtectedStorage) transport.Server {
 	return &server{storage}

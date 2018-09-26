@@ -25,7 +25,7 @@ services:
 
   service:
     build:
-      args:       { PACKAGE: "${PACKAGE}", SECRET: "${SECRET}" }
+      args:       { PACKAGE: "${PACKAGE}" }
       context:    ../../../.
       dockerfile: ./env/docker/service/Dockerfile
     ports:
