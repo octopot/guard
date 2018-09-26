@@ -21,7 +21,7 @@ const (
 func TokenInjector(req *http.Request) (*http.Request, error) {
 	header := req.Header.Get(AuthHeader)
 	if header == "" {
-		return nil, errors.New("auth token not found")
+		return nil, errors.New("user access token not found")
 	}
 	splits := strings.SplitN(header, " ", 2)
 	if len(splits) < 2 {
@@ -33,7 +33,7 @@ func TokenInjector(req *http.Request) (*http.Request, error) {
 	}
 	value := domain.Token(token)
 	if !value.IsValid() {
-		return nil, errors.Errorf("invalid auth token: %s", token)
+		return nil, errors.Errorf("invalid user access token: %s", token)
 	}
 	return req.WithContext(context.WithValue(req.Context(), tokenKey{}, value)), nil
 }
@@ -42,7 +42,7 @@ func TokenInjector(req *http.Request) (*http.Request, error) {
 func TokenExtractor(req *http.Request) (domain.ID, error) {
 	value, found := req.Context().Value(tokenKey{}).(domain.ID)
 	if !found {
-		return value, errors.New("auth token not found")
+		return value, errors.New("user access token not found")
 	}
 	return value, nil
 }

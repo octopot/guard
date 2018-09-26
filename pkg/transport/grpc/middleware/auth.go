@@ -25,7 +25,7 @@ func TokenInjector(ctx context.Context) (context.Context, error) {
 	}
 	value := domain.Token(token)
 	if !value.IsValid() {
-		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", token)
+		return nil, status.Errorf(codes.Unauthenticated, "invalid user access token: %s", token)
 	}
 	return context.WithValue(ctx, tokenKey{}, value), nil
 }
@@ -34,7 +34,7 @@ func TokenInjector(ctx context.Context) (context.Context, error) {
 func TokenExtractor(ctx context.Context) (domain.Token, error) {
 	value, found := ctx.Value(tokenKey{}).(domain.Token)
 	if !found {
-		return value, status.Error(codes.Unauthenticated, "auth token not found")
+		return value, status.Error(codes.Unauthenticated, "user access token not found")
 	}
 	return value, nil
 }
