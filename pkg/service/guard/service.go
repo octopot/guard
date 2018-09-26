@@ -1,6 +1,6 @@
 package guard
 
-import "github.com/kamilsk/guard/pkg/service/types"
+import domain "github.com/kamilsk/guard/pkg/service/types"
 
 // New TODO issue#docs
 func New(storage Storage) *Guard {
@@ -13,6 +13,6 @@ type Guard struct {
 }
 
 // CheckLicense TODO issue#docs
-func (service Guard) CheckLicense(license types.License) error {
+func (service Guard) CheckLicense(license domain.License) error {
 	return service.licenseManager.Check(license)
 }

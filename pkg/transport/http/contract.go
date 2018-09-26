@@ -1,9 +1,9 @@
 package http
 
-import "github.com/kamilsk/guard/pkg/service/types"
+import domain "github.com/kamilsk/guard/pkg/service/types"
 
 // Service TODO issue#docs
 type Service interface {
 	// CheckLicense TODO issue#docs
-	CheckLicense(types.License) error
+	CheckLicense(domain.License) error
 }

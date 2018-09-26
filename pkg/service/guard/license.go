@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/kamilsk/guard/pkg/service/types"
+	domain "github.com/kamilsk/guard/pkg/service/types"
 )
 
 type licenseManager struct {
@@ -13,7 +13,7 @@ type licenseManager struct {
 }
 
 // Check TODO issue#docs
-func (service *licenseManager) Check(license types.License) error {
+func (service *licenseManager) Check(license domain.License) error {
 	if rand.New(rand.NewSource(time.Now().Unix())).Intn(5) > 2 {
 		return errors.New("stub")
 	}
