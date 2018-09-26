@@ -39,6 +39,7 @@ func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	// TODO issue#6
 	if err := srv.service.CheckLicense(license); err != nil {
 		// TODO http.StatusUnauthorized and http.StatusForbidden must be have different logic
+		rw.Header().Set("X-Reason", http.StatusText(http.StatusPaymentRequired))
 		http.Error(rw, http.StatusText(http.StatusPaymentRequired), http.StatusForbidden)
 		return
 	}

@@ -26,7 +26,7 @@ func (server *licenseServer) Extend(ctx context.Context, req *ExtendLicenseReque
 		return nil, authErr
 	}
 	if _, err := server.storage.ExtendLicense(ctx, token, query.ExtendLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "invalid user access token: %s", token)
+		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
 	}
 	log.Printf("LicenseServer.Extend was called with token %q\n", token)
 	return &ExtendLicenseResponse{}, nil
@@ -39,7 +39,7 @@ func (server *licenseServer) Read(ctx context.Context, req *ReadLicenseRequest) 
 		return nil, authErr
 	}
 	if _, err := server.storage.ReadLicense(ctx, token, query.ReadLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "invalid user access token: %s", token)
+		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
 	}
 	log.Printf("LicenseServer.Read was called with token %q\n", token)
 	return &ReadLicenseResponse{}, nil
@@ -52,7 +52,7 @@ func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseR
 		return nil, authErr
 	}
 	if _, err := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "invalid user access token: %s", token)
+		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
 	}
 	log.Printf("LicenseServer.Register was called with token %q\n", token)
 	return &RegisterLicenseResponse{}, nil
