@@ -10,7 +10,7 @@ import (
 
 func TestID(t *testing.T) {
 	type entity struct {
-		value ID
+		ID
 		valid bool
 	}
 
@@ -26,7 +26,7 @@ func TestID(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.entity.valid, test.entity.value.IsValid(), test.name)
-		assert.Equal(t, test.entity.value, ID(test.entity.value.String()), test.name)
+		assert.Equal(t, test.entity.valid, test.entity.IsValid(), test.name)
+		assert.Equal(t, test.entity.ID, ID(test.entity.String()), test.name)
 	}
 }

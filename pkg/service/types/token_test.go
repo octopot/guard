@@ -10,7 +10,7 @@ import (
 
 func TestToken(t *testing.T) {
 	type entity struct {
-		value Token
+		Token
 		valid bool
 	}
 
@@ -26,7 +26,7 @@ func TestToken(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.entity.valid, test.entity.value.IsValid(), test.name)
-		assert.Equal(t, test.entity.value, Token(test.entity.value.String()), test.name)
+		assert.Equal(t, test.entity.valid, test.entity.IsValid(), test.name)
+		assert.Equal(t, test.entity.Token, Token(test.entity.String()), test.name)
 	}
 }

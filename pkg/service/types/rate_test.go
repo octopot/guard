@@ -3,27 +3,32 @@ package types_test
 import (
 	"testing"
 
-	"github.com/kamilsk/guard/pkg/service/types"
 	"github.com/stretchr/testify/assert"
+
+	. "github.com/kamilsk/guard/pkg/service/types"
 )
 
 func TestRate(t *testing.T) {
-	tests := []struct {
-		name    string
-		rate    types.Rate
+	type entity struct {
+		Rate
 		measure uint
 		unit    string
+	}
+
+	tests := []struct {
+		name   string
+		entity entity
 	}{
-		{"rate is empty", "", 0, ""},
-		{"rate is invalid", "abc-def-ghi", 0, ""},
-		{"rate in lowercase", "10 rpm", 10, "rpm"},
-		{"rate in uppercase", "10 RPM", 10, "rpm"},
+		{"rate is empty", entity{"", 0, ""}},
+		{"rate is invalid", entity{"abc-def-ghi", 0, ""}},
+		{"rate in lowercase", entity{"10 rpm", 10, "rpm"}},
+		{"rate in uppercase", entity{"10 RPM", 10, "rpm"}},
 	}
 
 	for _, test := range tests {
-		measure, unit := test.rate.Value()
-		assert.Equal(t, test.measure, measure)
-		assert.Equal(t, test.unit, unit)
-		assert.Equal(t, test.rate, types.Rate(test.rate.String()), test.name)
+		measure, unit := test.entity.Value()
+		assert.Equal(t, test.entity.measure, measure)
+		assert.Equal(t, test.entity.unit, unit)
+		assert.Equal(t, test.entity.Rate, Rate(test.entity.String()), test.name)
 	}
 }
