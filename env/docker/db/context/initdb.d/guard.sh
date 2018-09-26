@@ -26,6 +26,7 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
     END;
     \$ignore_update\$
     LANGUAGE plpgsql;
+    CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete');
 
     CREATE TABLE "account" (
       "id"         UUID         NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -46,7 +47,10 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
       "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
       "user_id"    UUID      NOT NULL,
       "expired_at" TIMESTAMP NULL                 DEFAULT NULL,
-      "created_at" TIMESTAMP NOT NULL             DEFAULT now()
+      "revoked"    BOOLEAN   NOT NULL             DEFAULT FALSE,
+      "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
+      "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
+      "deleted_at" TIMESTAMP NULL                 DEFAULT NULL
     );
     CREATE TRIGGER "account_updated"
       BEFORE UPDATE
@@ -56,10 +60,6 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
       BEFORE UPDATE
       ON "user"
       FOR EACH ROW EXECUTE PROCEDURE update_timestamp();
-    CREATE TRIGGER "immutable_token"
-      BEFORE UPDATE
-      ON "token"
-      FOR EACH ROW EXECUTE PROCEDURE ignore_update();
 
     CREATE TABLE "license_user" (
       "license"    UUID      NOT NULL,
