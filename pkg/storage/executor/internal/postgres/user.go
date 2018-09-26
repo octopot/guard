@@ -31,7 +31,7 @@ func (scope userManager) Token(id domain.ID) (*repository.Token, error) {
 	        FROM "token" "t"
 	  INNER JOIN "user" "u" ON "u"."id" = "t"."user_id"
 	  INNER JOIN "account" "a" ON "a"."id" = "u"."account_id"
-	       WHERE "t"."id" = $1 AND ("t"."expired_at" IS NULL OR "t"."expired_at" > now())
+	       WHERE "t"."id" = $1 AND ("t"."expired_at" IS NULL OR "t"."expired_at" > now()) AND NOT "t"."revoked"
 	         AND "u"."deleted_at" IS NULL
 	         AND "a"."deleted_at" IS NULL`
 	row := scope.conn.QueryRowContext(scope.ctx, q, token.ID)

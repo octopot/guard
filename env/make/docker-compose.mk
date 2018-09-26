@@ -56,6 +56,12 @@ up-$(1):           #| Builds, (re)creates, starts, and attaches to a container f
                    #| For example `make up-server`. See `make services`.
 	@($$(COMPOSE) up -d $(1))
 #|
+.PHONY: fresh-up-$(1)
+fresh-up-$(1):     #| Builds images before starting containers,
+                   #| (re)creates containers even if their configuration and image haven't changed,
+                   #| starts, and attaches to containers for the service $(1).
+	@($$(COMPOSE) up -d --build --force-recreate $(1))
+#|
 .PHONY: container-$(1)
 container-$(1):    #| Enter to a running container of the service $(1).
                    #| For example `make container-server`. See `make services`.

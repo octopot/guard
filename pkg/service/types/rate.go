@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var rate = regexp.MustCompile(`(?i:(\d+) (rps|rpm|rph)$)`)
+var rate = regexp.MustCompile(`(?i:(\d+) (rps|rpm|rph|rpd|rpw)$)`)
 
 // Rate TODO issue#docs
 type Rate string
