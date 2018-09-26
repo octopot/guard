@@ -3,8 +3,8 @@ package guard
 import "github.com/kamilsk/guard/pkg/service/types"
 
 // New TODO issue#docs
-func New() *Guard {
-	return &Guard{&licenseManager{}}
+func New(storage Storage) *Guard {
+	return &Guard{&licenseManager{storage: storage}}
 }
 
 // Guard TODO issue#docs

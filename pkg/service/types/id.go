@@ -22,3 +22,6 @@ func (s ID) IsValid() bool {
 func (s ID) String() string {
 	return string(s)
 }
+
+// Token represents user access token.
+type Token ID

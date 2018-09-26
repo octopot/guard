@@ -10,6 +10,7 @@ import (
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/guard"
+	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/kamilsk/guard/pkg/transport/grpc"
 	"github.com/kamilsk/guard/pkg/transport/http"
 	"github.com/kamilsk/guard/pkg/transport/http/monitor"
@@ -25,9 +26,12 @@ var Run = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
 		var (
-			service = guard.New()
+			repository = storage.Must(
+				storage.Database(cnf.Union.DBConfig),
+			)
+			service = guard.New(repository)
 		)
-		if err := startGRPCServer(cnf.Union.GRPCConfig); err != nil {
+		if err := startGRPCServer(cnf.Union.GRPCConfig, repository); err != nil {
 			return err
 		}
 		if cnf.Union.MonitoringConfig.Enabled {
@@ -127,7 +131,7 @@ func startHTTPServer(cnf config.ServerConfig, service *guard.Guard) error {
 	return http.New(cnf, service).Serve(listener)
 }
 
-func startGRPCServer(cnf config.GRPCConfig) error {
+func startGRPCServer(cnf config.GRPCConfig, repository *storage.Storage) error {
 	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
@@ -136,7 +140,7 @@ func startGRPCServer(cnf config.GRPCConfig) error {
 	go func(listener net.Listener) {
 		close(cascade)
 		log.Println("start gRPC server at", listener.Addr())
-		_ = grpc.New(cnf).Serve(listener)
+		_ = grpc.New(cnf, repository).Serve(listener)
 	}(listener)
 	if cnf.Gateway.Enabled {
 		listener, err = net.Listen("tcp", cnf.Gateway.Interface)

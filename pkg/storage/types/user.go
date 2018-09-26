@@ -3,13 +3,13 @@ package types
 import (
 	"time"
 
-	"github.com/kamilsk/guard/pkg/service/types"
+	domain "github.com/kamilsk/guard/pkg/service/types"
 )
 
 // User TODO issue#docs
 type User struct {
-	ID        types.ID   `db:"id"`
-	AccountID types.ID   `db:"account_id"`
+	ID        domain.ID  `db:"id"`
+	AccountID domain.ID  `db:"account_id"`
 	Name      string     `db:"name"`
 	CreatedAt time.Time  `db:"created_at"`
 	UpdatedAt *time.Time `db:"updated_at"`

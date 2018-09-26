@@ -18,8 +18,8 @@ type userManager struct {
 	conn *sql.Conn
 }
 
-// Token TODO issue#docs
-func (scope userManager) Token(id domain.ID) (*repository.Token, error) {
+// AccessToken TODO issue#docs
+func (scope userManager) AccessToken(id domain.Token) (*repository.Token, error) {
 	var (
 		token   = repository.Token{ID: id}
 		user    = repository.User{}

@@ -9,6 +9,8 @@ import (
 
 	"github.com/kamilsk/guard/cmd"
 	"github.com/kamilsk/guard/pkg/service/guard"
+	"github.com/kamilsk/guard/pkg/storage"
+	"github.com/kamilsk/guard/pkg/transport/grpc"
 	"github.com/kamilsk/guard/pkg/transport/http"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -16,7 +18,8 @@ import (
 
 // invariant
 var (
-	_ http.Service = guard.New()
+	_ grpc.ProtectedStorage = storage.Must()
+	_ http.Service          = guard.New(nil)
 )
 
 func TestService(t *testing.T) {

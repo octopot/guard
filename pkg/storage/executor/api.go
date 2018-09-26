@@ -31,7 +31,7 @@ func New(dialect string) *Executor {
 
 // UserManager TODO issue#docs
 type UserManager interface {
-	Token(domain.ID) (*repository.Token, error)
+	AccessToken(domain.Token) (*repository.Token, error)
 }
 
 // Executor TODO issue#docs

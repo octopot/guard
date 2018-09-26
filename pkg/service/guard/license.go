@@ -8,7 +8,9 @@ import (
 	"github.com/kamilsk/guard/pkg/service/types"
 )
 
-type licenseManager struct{}
+type licenseManager struct {
+	storage Storage
+}
 
 // Check TODO issue#docs
 func (service *licenseManager) Check(license types.License) error {

@@ -18,14 +18,16 @@ import (
 var secret = "secret"
 
 // New TODO issue#docs
-func New(_ config.GRPCConfig) transport.Server {
-	return &server{}
+func New(_ config.GRPCConfig, storage ProtectedStorage) transport.Server {
+	return &server{storage}
 }
 
-type server struct{}
+type server struct {
+	storage ProtectedStorage
+}
 
 // Serve TODO issue#docs
-func (*server) Serve(listener net.Listener) error {
+func (server *server) Serve(listener net.Listener) error {
 	defer listener.Close()
 	srv := grpc.NewServer(
 		grpc_middleware.WithStreamServerChain(
@@ -37,7 +39,7 @@ func (*server) Serve(listener net.Listener) error {
 			grpc_prometheus.UnaryServerInterceptor,
 		),
 	)
-	RegisterLicenseServer(srv, NewLicenseServer())
+	RegisterLicenseServer(srv, NewLicenseServer(server.storage))
 	return srv.Serve(listener)
 }
 
@@ -51,12 +53,12 @@ type gateway struct {
 }
 
 // Serve TODO issue#docs
-func (gw *gateway) Serve(listener net.Listener) error {
+func (gateway *gateway) Serve(listener net.Listener) error {
 	defer listener.Close()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	mux := runtime.NewServeMux()
-	conn, err := grpc.DialContext(ctx, gw.config.Interface, grpc.WithInsecure())
+	conn, err := grpc.DialContext(ctx, gateway.config.Interface, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
