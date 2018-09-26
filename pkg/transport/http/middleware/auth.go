@@ -31,18 +31,18 @@ func TokenInjector(req *http.Request) (*http.Request, error) {
 	if !strings.EqualFold(scheme, AuthScheme) {
 		return nil, errors.Errorf("request unauthenticated with %s", AuthScheme)
 	}
-	tokenID := domain.Token(token)
-	if !tokenID.IsValid() {
+	value := domain.Token(token)
+	if !value.IsValid() {
 		return nil, errors.Errorf("invalid auth token: %s", token)
 	}
-	return req.WithContext(context.WithValue(req.Context(), tokenKey{}, tokenID)), nil
+	return req.WithContext(context.WithValue(req.Context(), tokenKey{}, value)), nil
 }
 
 // TokenExtractor TODO issue#docs
 func TokenExtractor(req *http.Request) (domain.ID, error) {
-	tokenID, found := req.Context().Value(tokenKey{}).(domain.ID)
+	value, found := req.Context().Value(tokenKey{}).(domain.ID)
 	if !found {
-		return tokenID, errors.New("auth token not found")
+		return value, errors.New("auth token not found")
 	}
-	return tokenID, nil
+	return value, nil
 }

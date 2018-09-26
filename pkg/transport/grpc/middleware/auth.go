@@ -23,18 +23,18 @@ func TokenInjector(ctx context.Context) (context.Context, error) {
 	if err != nil {
 		return nil, err
 	}
-	tokenID := domain.Token(token)
-	if !tokenID.IsValid() {
+	value := domain.Token(token)
+	if !value.IsValid() {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", token)
 	}
-	return context.WithValue(ctx, tokenKey{}, tokenID), nil
+	return context.WithValue(ctx, tokenKey{}, value), nil
 }
 
 // TokenExtractor TODO issue#docs
 func TokenExtractor(ctx context.Context) (domain.Token, error) {
-	tokenID, found := ctx.Value(tokenKey{}).(domain.Token)
+	value, found := ctx.Value(tokenKey{}).(domain.Token)
 	if !found {
-		return tokenID, status.Error(codes.Unauthenticated, "auth token not found")
+		return value, status.Error(codes.Unauthenticated, "auth token not found")
 	}
-	return tokenID, nil
+	return value, nil
 }
