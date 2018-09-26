@@ -3,8 +3,9 @@ package middleware
 import (
 	"context"
 
+	domain "github.com/kamilsk/guard/pkg/service/types"
+
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
-	"github.com/kamilsk/guard/pkg/service/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -22,7 +23,7 @@ func TokenInjector(ctx context.Context) (context.Context, error) {
 	if err != nil {
 		return nil, err
 	}
-	tokenID := types.ID(token)
+	tokenID := domain.Token(token)
 	if !tokenID.IsValid() {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", token)
 	}
@@ -30,8 +31,8 @@ func TokenInjector(ctx context.Context) (context.Context, error) {
 }
 
 // TokenExtractor TODO issue#docs
-func TokenExtractor(ctx context.Context) (types.ID, error) {
-	tokenID, found := ctx.Value(tokenKey{}).(types.ID)
+func TokenExtractor(ctx context.Context) (domain.Token, error) {
+	tokenID, found := ctx.Value(tokenKey{}).(domain.Token)
 	if !found {
 		return tokenID, status.Error(codes.Unauthenticated, "auth token not found")
 	}

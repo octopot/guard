@@ -4,8 +4,6 @@ import (
 	"context"
 	"log"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
 	"google.golang.org/grpc/codes"
@@ -27,7 +25,7 @@ func (server *licenseServer) Extend(ctx context.Context, req *ExtendLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.ExtendLicense(ctx, domain.Token(token), query.ExtendLicense{}); err != nil {
+	if _, err := server.storage.ExtendLicense(ctx, token, query.ExtendLicense{}); err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", token)
 	}
 	log.Printf("LicenseServer.Extend was called with token %q\n", token)
@@ -40,7 +38,7 @@ func (server *licenseServer) Read(ctx context.Context, req *ReadLicenseRequest) 
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.ReadLicense(ctx, domain.Token(token), query.ReadLicense{}); err != nil {
+	if _, err := server.storage.ReadLicense(ctx, token, query.ReadLicense{}); err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", token)
 	}
 	log.Printf("LicenseServer.Read was called with token %q\n", token)
@@ -53,7 +51,7 @@ func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseR
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.RegisterLicense(ctx, domain.Token(token), query.RegisterLicense{}); err != nil {
+	if _, err := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{}); err != nil {
 		return nil, status.Errorf(codes.Unauthenticated, "invalid auth token: %s", token)
 	}
 	log.Printf("LicenseServer.Register was called with token %q\n", token)

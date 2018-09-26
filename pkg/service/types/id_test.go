@@ -3,14 +3,15 @@ package types_test
 import (
 	"testing"
 
-	"github.com/kamilsk/guard/pkg/service/types"
 	"github.com/stretchr/testify/assert"
+
+	. "github.com/kamilsk/guard/pkg/service/types"
 )
 
 func TestID(t *testing.T) {
 	tests := []struct {
 		name    string
-		uuid    types.ID
+		id      ID
 		isValid bool
 	}{
 		{"ID is empty", "", false},
@@ -21,7 +22,7 @@ func TestID(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		assert.Equal(t, test.isValid, test.uuid.IsValid(), test.name)
-		assert.Equal(t, test.uuid, types.ID(test.uuid.String()), test.name)
+		assert.Equal(t, test.isValid, test.id.IsValid(), test.name)
+		assert.Equal(t, test.id, ID(test.id.String()), test.name)
 	}
 }

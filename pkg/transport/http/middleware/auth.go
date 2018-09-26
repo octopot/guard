@@ -5,7 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kamilsk/guard/pkg/service/types"
+	domain "github.com/kamilsk/guard/pkg/service/types"
+
 	"github.com/pkg/errors"
 )
 
@@ -30,7 +31,7 @@ func TokenInjector(req *http.Request) (*http.Request, error) {
 	if !strings.EqualFold(scheme, AuthScheme) {
 		return nil, errors.Errorf("request unauthenticated with %s", AuthScheme)
 	}
-	tokenID := types.ID(token)
+	tokenID := domain.Token(token)
 	if !tokenID.IsValid() {
 		return nil, errors.Errorf("invalid auth token: %s", token)
 	}
@@ -38,8 +39,8 @@ func TokenInjector(req *http.Request) (*http.Request, error) {
 }
 
 // TokenExtractor TODO issue#docs
-func TokenExtractor(req *http.Request) (types.ID, error) {
-	tokenID, found := req.Context().Value(tokenKey{}).(types.ID)
+func TokenExtractor(req *http.Request) (domain.ID, error) {
+	tokenID, found := req.Context().Value(tokenKey{}).(domain.ID)
 	if !found {
 		return tokenID, errors.New("auth token not found")
 	}
