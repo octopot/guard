@@ -1,7 +1,7 @@
 -- +migrate Up
 
 CREATE TABLE "license" (
-  "number"     UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   "contract"   JSONB     NOT NULL,
   "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
   "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
@@ -9,13 +9,13 @@ CREATE TABLE "license" (
 );
 
 CREATE TABLE "license_audit" (
-  "id"       BIGSERIAL PRIMARY KEY,
-  "number"   UUID      NOT NULL,
-  "contract" JSONB     NOT NULL,
-  "what"     ACTION    NOT NULL,
-  "who"      UUID      NOT NULL,
-  "when"     TIMESTAMP NOT NULL DEFAULT now(),
-  "with"     UUID      NOT NULL
+  "id"         BIGSERIAL PRIMARY KEY,
+  "license_id" UUID      NOT NULL,
+  "contract"   JSONB     NOT NULL,
+  "what"       ACTION    NOT NULL,
+  "who"        UUID      NOT NULL,
+  "when"       TIMESTAMP NOT NULL DEFAULT now(),
+  "with"       UUID      NOT NULL
 );
 
 CREATE TRIGGER "license_updated"

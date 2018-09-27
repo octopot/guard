@@ -8,7 +8,7 @@ import (
 
 // License TODO issue#docs
 type License struct {
-	Number    domain.ID       `db:"number"`
+	ID        domain.ID       `db:"id"`
 	Contract  domain.Contract `db:"contract"`
 	CreatedAt time.Time       `db:"created_at"`
 	UpdatedAt *time.Time      `db:"updated_at"`

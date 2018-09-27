@@ -33,19 +33,19 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 		return entity, encodeErr
 	}
 	{
-		q := `INSERT INTO "license_audit" ("number", "contract", "what", "who", "with")
+		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "who", "with")
 		      VALUES ($1, $2, $3, $4, $5)
 		   RETURNING "when"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, entity.Number, before,
+		row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, before,
 			repository.Create, token.UserID, token.ID)
 		if err := row.Scan(&entity.CreatedAt); err != nil {
 			return entity, err
 		}
 	}
-	q := `INSERT INTO "license" ("number", "contract", "created_at")
+	q := `INSERT INTO "license" ("id", "contract", "created_at")
 	      VALUES ($1, $2, $3)
-	   RETURNING "number", "created_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, data.Number, after, entity.CreatedAt)
+	   RETURNING "id", "created_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, after, entity.CreatedAt)
 	if err := row.Scan(&entity.CreatedAt); err != nil {
 		return entity, err
 	}
@@ -54,11 +54,11 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 
 // Read TODO issue#docs
 func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense) (repository.License, error) {
-	entity, encoded := repository.License{Number: data.Number}, []byte(nil)
+	entity, encoded := repository.License{ID: data.ID}, []byte(nil)
 	q := `SELECT "contract", "created_at", "updated_at", "deleted_at"
 	        FROM "license"
-	       WHERE "number" = $1`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.Number)
+	       WHERE "id" = $1`
+	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
 	if err := row.Scan(&encoded, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); err != nil {
 		return entity, err
 	}
@@ -70,7 +70,7 @@ func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense
 
 // Update TODO issue#docs
 func (scope licenseManager) Update(token *repository.Token, data query.UpdateLicense) (repository.License, error) {
-	entity, readErr := scope.Read(token, query.ReadLicense{Number: data.Number})
+	entity, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return entity, readErr
 	}
@@ -83,10 +83,10 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 		return entity, encodeErr
 	}
 	{
-		q := `INSERT INTO "license_audit" ("number", "contract", "what", "who", "with")
+		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "who", "with")
 		      VALUES ($1, $2, $3, $4, $5)
 		   RETURNING "when"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, entity.Number, before,
+		row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, before,
 			repository.Update, token.UserID, token.ID)
 		if err := row.Scan(&entity.UpdatedAt); err != nil {
 			return entity, err
@@ -94,9 +94,9 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 	}
 	q := `UPDATE "license"
 	         SET "contract" = $1, "updated_at" = $2
-	       WHERE "number" = $3
+	       WHERE "id" = $3
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, after, entity.UpdatedAt, entity.Number)
+	row := scope.conn.QueryRowContext(scope.ctx, q, after, entity.UpdatedAt, entity.ID)
 	if err := row.Scan(&entity.UpdatedAt); err != nil {
 		return entity, err
 	}
@@ -105,7 +105,7 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 
 // Delete TODO issue#docs
 func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLicense) (repository.License, error) {
-	entity, readErr := scope.Read(token, query.ReadLicense{Number: data.Number})
+	entity, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return entity, readErr
 	}
@@ -114,10 +114,10 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 		return entity, encodeErr
 	}
 	{
-		q := `INSERT INTO "license_audit" ("number", "contract", "what", "who", "with")
+		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "who", "with")
 		      VALUES ($1, $2, $3, $4, $5)
 		   RETURNING "when"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, entity.Number, before,
+		row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, before,
 			repository.Delete, token.UserID, token.ID)
 		if err := row.Scan(&entity.DeletedAt); err != nil {
 			return entity, err
@@ -125,9 +125,9 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 	}
 	q := `UPDATE "license"
 	         SET "updated_at" = $1, "deleted_at" = $2
-	       WHERE "number" = $3
+	       WHERE "id" = $3
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.DeletedAt, entity.DeletedAt, entity.Number)
+	row := scope.conn.QueryRowContext(scope.ctx, q, entity.DeletedAt, entity.DeletedAt, entity.ID)
 	if err := row.Scan(&entity.UpdatedAt); err != nil {
 		return entity, err
 	}

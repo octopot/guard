@@ -62,20 +62,21 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
       FOR EACH ROW EXECUTE PROCEDURE update_timestamp();
 
     CREATE TABLE "license" (
-      "number"     UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+      "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
       "contract"   JSONB     NOT NULL,
       "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
       "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
       "deleted_at" TIMESTAMP NULL                 DEFAULT NULL
     );
+
     CREATE TABLE "license_audit" (
-      "id"       BIGSERIAL PRIMARY KEY,
-      "number"   UUID      NOT NULL,
-      "contract" JSONB     NOT NULL,
-      "what"     ACTION    NOT NULL,
-      "who"      UUID      NOT NULL,
-      "when"     TIMESTAMP NOT NULL DEFAULT now(),
-      "with"     UUID      NOT NULL
+      "id"         BIGSERIAL PRIMARY KEY,
+      "license_id" UUID      NOT NULL,
+      "contract"   JSONB     NOT NULL,
+      "what"       ACTION    NOT NULL,
+      "who"        UUID      NOT NULL,
+      "when"       TIMESTAMP NOT NULL DEFAULT now(),
+      "with"       UUID      NOT NULL
     );
     CREATE TRIGGER "license_updated"
       BEFORE UPDATE

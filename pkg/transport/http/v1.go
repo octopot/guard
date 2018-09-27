@@ -11,7 +11,7 @@ import (
 // CheckLicenseV1 TODO issue#docs
 func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	if response := srv.service.CheckLicense(request.License{
-		Number:    domain.ID(req.Header.Get("X-License")),
+		ID:        domain.ID(req.Header.Get("X-License")),
 		Employee:  domain.ID(req.Header.Get("X-Employee")),
 		Workplace: domain.ID(req.Header.Get("X-Workplace")),
 		Metadata: request.Metadata{

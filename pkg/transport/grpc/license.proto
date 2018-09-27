@@ -20,7 +20,7 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
 message CreateLicenseRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
 
-    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
 }
 
 message CreateLicenseResponse {}
@@ -28,7 +28,7 @@ message CreateLicenseResponse {}
 message ReadLicenseRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
 
-    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
 }
 
 message ReadLicenseResponse {}
@@ -36,7 +36,7 @@ message ReadLicenseResponse {}
 message UpdateLicenseRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
 
-    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
 }
 
 message UpdateLicenseResponse {}
@@ -44,7 +44,7 @@ message UpdateLicenseResponse {}
 message DeleteLicenseRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
 
-    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
 }
 
 message DeleteLicenseResponse {}
@@ -65,17 +65,17 @@ service License {
     }
     rpc Read (ReadLicenseRequest) returns (ReadLicenseResponse) {
         option (google.api.http) = {
-            get: "/api/v1/license/{number}"
+            get: "/api/v1/license/{id}"
         };
     }
     rpc Update (UpdateLicenseRequest) returns (UpdateLicenseResponse) {
         option (google.api.http) = {
-            put: "/api/v1/license/{number}"
+            put: "/api/v1/license/{id}"
         };
     }
     rpc Delete (DeleteLicenseRequest) returns (DeleteLicenseResponse) {
         option (google.api.http) = {
-            delete: "/api/v1/license/{number}"
+            delete: "/api/v1/license/{id}"
         };
     }
 

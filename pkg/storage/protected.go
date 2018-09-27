@@ -113,5 +113,5 @@ func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data
 
 // RegisterLicense TODO issue#docs
 func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (repository.License, error) {
-	return storage.CreateLicense(ctx, id, query.CreateLicense{Number: &data.Number, Contract: data.Contract})
+	return storage.CreateLicense(ctx, id, query.CreateLicense{ID: &data.ID, Contract: data.Contract})
 }

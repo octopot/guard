@@ -12,7 +12,7 @@ type Contract struct {
 
 // License TODO issue#docs
 type License struct {
-	Number   ID `json:"number"`
+	ID       ID `json:"id"`
 	Contract `json:"contract"`
 }
 

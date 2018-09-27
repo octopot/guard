@@ -18,11 +18,11 @@ const (
 
 // LicenseAudit TODO issue#docs
 type LicenseAudit struct {
-	ID       uint64          `db:"id"`
-	Number   domain.ID       `db:"number"`
-	Contract domain.Contract `db:"contract"`
-	What     Action          `db:"what"`
-	Who      domain.ID       `db:"who"`
-	When     time.Time       `db:"when"`
-	With     domain.Token    `db:"with"`
+	ID        uint64          `db:"id"`
+	LicenseID domain.ID       `db:"license_id"`
+	Contract  domain.Contract `db:"contract"`
+	What      Action          `db:"what"`
+	Who       domain.ID       `db:"who"`
+	When      time.Time       `db:"when"`
+	With      domain.Token    `db:"with"`
 }

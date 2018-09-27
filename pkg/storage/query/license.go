@@ -4,23 +4,23 @@ import domain "github.com/kamilsk/guard/pkg/service/types"
 
 // CreateLicense TODO issue#docs
 type CreateLicense struct {
-	Number   *domain.ID
+	ID       *domain.ID
 	Contract domain.Contract
 }
 
 // DeleteLicense TODO issue#docs
 type DeleteLicense struct {
-	Number domain.ID
+	ID domain.ID
 }
 
 // ReadLicense TODO issue#docs
 type ReadLicense struct {
-	Number domain.ID
+	ID domain.ID
 }
 
 // UpdateLicense TODO issue#docs
 type UpdateLicense struct {
-	Number   domain.ID
+	ID       domain.ID
 	Contract domain.Contract
 }
 
@@ -28,6 +28,6 @@ type UpdateLicense struct {
 
 // RegisterLicense TODO issue#docs
 type RegisterLicense struct {
-	Number   domain.ID
+	ID       domain.ID
 	Contract domain.Contract
 }

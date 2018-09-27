@@ -52,7 +52,7 @@
         ]
       }
     },
-    "/api/v1/license/{number}": {
+    "/api/v1/license/{id}": {
       "get": {
         "operationId": "Read",
         "responses": {
@@ -65,7 +65,7 @@
         },
         "parameters": [
           {
-            "name": "number",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -87,7 +87,7 @@
         },
         "parameters": [
           {
-            "name": "number",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -109,7 +109,7 @@
         },
         "parameters": [
           {
-            "name": "number",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"

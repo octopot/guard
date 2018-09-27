@@ -4,7 +4,7 @@ import domain "github.com/kamilsk/guard/pkg/service/types"
 
 // License TODO issue#docs
 type License struct {
-	Number    domain.ID
+	ID        domain.ID
 	Employee  domain.ID
 	Workplace domain.ID
 	Metadata
