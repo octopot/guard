@@ -11,11 +11,11 @@ CREATE TABLE "license" (
 CREATE TABLE "license_audit" (
   "id"       BIGSERIAL PRIMARY KEY,
   "number"   UUID      NOT NULL,
+  "contract" JSONB     NOT NULL,
   "what"     ACTION    NOT NULL,
   "who"      UUID      NOT NULL,
   "when"     TIMESTAMP NOT NULL DEFAULT now(),
-  "with"     UUID      NOT NULL,
-  "contract" JSONB     NOT NULL
+  "with"     UUID      NOT NULL
 );
 
 CREATE TRIGGER "license_updated"
