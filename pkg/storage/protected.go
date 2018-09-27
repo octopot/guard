@@ -2,6 +2,7 @@ package storage
 
 import (
 	"context"
+	"database/sql"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
 	repository "github.com/kamilsk/guard/pkg/storage/types"
@@ -9,26 +10,109 @@ import (
 	"github.com/kamilsk/guard/pkg/storage/query"
 )
 
-// ExtendLicense TODO issue#docs
-func (storage *Storage) ExtendLicense(ctx context.Context, id domain.Token, data query.ExtendLicense) (repository.License, error) {
+// CreateLicense TODO issue#docs
+func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (repository.License, error) {
 	var license repository.License
 
-	conn, closer, err := storage.connection(ctx)
-	if err != nil {
-		return license, err
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return license, connErr
 	}
 	defer closer()
 
-	_, err = storage.exec.UserManager(ctx, conn).AccessToken(id)
-	if err != nil {
-		return license, err
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return license, authErr
 	}
 
-	return license, nil
+	tx, txErr := conn.BeginTx(ctx, &sql.TxOptions{})
+	if txErr != nil {
+		return license, txErr
+	}
+	license, execErr := storage.exec.LicenseManager(ctx, conn).Create(token, data)
+	if execErr != nil {
+		_ = tx.Rollback() // TODO issue#composite
+		return license, execErr
+	}
+	return license, tx.Commit()
 }
 
 // ReadLicense TODO issue#docs
 func (storage *Storage) ReadLicense(ctx context.Context, id domain.Token, data query.ReadLicense) (repository.License, error) {
+	var license repository.License
+
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return license, connErr
+	}
+	defer closer()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return license, authErr
+	}
+
+	return storage.exec.LicenseManager(ctx, conn).Read(token, data)
+}
+
+// UpdateLicense TODO issue#docs
+func (storage *Storage) UpdateLicense(ctx context.Context, id domain.Token, data query.UpdateLicense) (repository.License, error) {
+	var license repository.License
+
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return license, connErr
+	}
+	defer closer()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return license, authErr
+	}
+
+	tx, txErr := conn.BeginTx(ctx, &sql.TxOptions{})
+	if txErr != nil {
+		return license, txErr
+	}
+	license, execErr := storage.exec.LicenseManager(ctx, conn).Update(token, data)
+	if execErr != nil {
+		_ = tx.Rollback() // TODO issue#composite
+		return license, execErr
+	}
+	return license, tx.Commit()
+}
+
+// DeleteLicense TODO issue#docs
+func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data query.DeleteLicense) (repository.License, error) {
+	var license repository.License
+
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return license, connErr
+	}
+	defer closer()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return license, authErr
+	}
+
+	tx, txErr := conn.BeginTx(ctx, &sql.TxOptions{})
+	if txErr != nil {
+		return license, txErr
+	}
+	license, execErr := storage.exec.LicenseManager(ctx, conn).Delete(token, data)
+	if execErr != nil {
+		_ = tx.Rollback() // TODO issue#composite
+		return license, execErr
+	}
+	return license, tx.Commit()
+}
+
+// ---
+
+// ExtendLicense TODO issue#docs
+func (storage *Storage) ExtendLicense(ctx context.Context, id domain.Token, data query.UpdateLicense) (repository.License, error) {
 	var license repository.License
 
 	conn, closer, err := storage.connection(ctx)
@@ -46,7 +130,7 @@ func (storage *Storage) ReadLicense(ctx context.Context, id domain.Token, data q
 }
 
 // RegisterLicense TODO issue#docs
-func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (repository.License, error) {
+func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (repository.License, error) {
 	var license repository.License
 
 	conn, closer, err := storage.connection(ctx)
