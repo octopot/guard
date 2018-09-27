@@ -1,72 +1,66 @@
 ### Legacy
 
 POST http://localhost/legacy/protected
-X-Token:      10000000-2000-4000-8000-160000000001
-X-UDID:       10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
+X-Token:      10000000-2000-4000-8000-160000000004
+X-UDID:       10000000-2000-4000-8000-160000000005
+X-Request-ID: 10000000-2000-4000-8000-160000000006
 
 ### the same effect request
 
 POST http://localhost/legacy/protected
-X-User:       10000000-2000-4000-8000-160000000001
-X-Workplace:  10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
+X-Employee:   10000000-2000-4000-8000-160000000004
+X-Workplace:  10000000-2000-4000-8000-160000000005
+X-Request-ID: 10000000-2000-4000-8000-160000000006
 
 ### the same effect request
 
 POST http://localhost/legacy/protected
-X-License:    10000000-2000-4000-8000-160000000002
-X-Workplace:  10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
+X-License:    10000000-2000-4000-8000-160000000003
+X-Workplace:  10000000-2000-4000-8000-160000000005
+X-Request-ID: 10000000-2000-4000-8000-160000000006
 
 ### API v1
 
 POST http://localhost:8080/api/v1/license/check
-X-User:       10000000-2000-4000-8000-160000000001
-X-Workplace:  10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
+X-Employee:   10000000-2000-4000-8000-160000000004
+X-Workplace:  10000000-2000-4000-8000-160000000005
+X-Request-ID: 10000000-2000-4000-8000-160000000006
 
 ###
 
-GET http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000002
-Authorization: Bearer 10000000-2000-4000-8000-160000000000
-
-###
-
-PUT http://localhost:8093/api/v1/license/extend
-Authorization: Bearer 10000000-2000-4000-8000-160000000000
+POST http://localhost:8093/api/v1/license
+Authorization: Bearer 10000000-2000-4000-8000-160000000002
 Content-Type: application/json
 
 {
-  "license": "10000000-2000-4000-8000-160000000002",
-  "activation": [
-    {"when": "2018-01-01 11:00:00"},
-    {"duration": "24h", "rel": "-"}
-  ],
-  "limits": [
-    {"rate_limit": "1 rpm"},
-    {"request_limit": null},
-    {"workplace_limit": 3, "rel": "+"}
-  ]
 }
 
 ###
 
-POST http://localhost:8093/api/v1/license/register
-Authorization: Bearer 10000000-2000-4000-8000-160000000000
+GET http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000003
+Authorization: Bearer 10000000-2000-4000-8000-160000000002
+
+###
+
+PUT http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000003
+Authorization: Bearer 10000000-2000-4000-8000-160000000002
 Content-Type: application/json
 
 {
-  "license": "10000000-2000-4000-8000-160000000002",
-  "activation": {
-    "after": "1h", "xor": "^", "when": "2018-01-01 10:55:00",
-    "duration": "24h"
-  },
-  "limits": {
-    "rate_limit": "1 rps",
-    "request_limit": 1000,
-    "workplace_limit": 10
-  }
+}
+
+###
+
+DELETE http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000003
+Authorization: Bearer 10000000-2000-4000-8000-160000000002
+
+###
+
+POST http://localhost:8093/api/v1/license/register
+Authorization: Bearer 10000000-2000-4000-8000-160000000002
+Content-Type: application/json
+
+{
 }
 
 ### Profiling
