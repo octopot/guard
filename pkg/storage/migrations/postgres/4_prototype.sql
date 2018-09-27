@@ -1,10 +1,10 @@
 -- +migrate Up
 
-CREATE TABLE "license_user" (
+CREATE TABLE "license_employee" (
   "license"    UUID      NOT NULL,
-  "user_id"    UUID      NOT NULL,
+  "employee"   UUID      NOT NULL,
   "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
-  UNIQUE ("license", "user_id")
+  UNIQUE ("license", "employee")
 );
 
 CREATE TABLE "license_workplace" (
@@ -21,4 +21,4 @@ CREATE TABLE "license_workplace" (
 
 DROP TABLE "license_workplace";
 
-DROP TABLE "license_user";
+DROP TABLE "license_employee";
