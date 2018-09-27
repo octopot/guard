@@ -71,11 +71,11 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
     CREATE TABLE "license_audit" (
       "id"       BIGSERIAL PRIMARY KEY,
       "number"   UUID      NOT NULL,
+      "contract" JSONB     NOT NULL,
       "what"     ACTION    NOT NULL,
       "who"      UUID      NOT NULL,
       "when"     TIMESTAMP NOT NULL DEFAULT now(),
-      "with"     UUID      NOT NULL,
-      "contract" JSONB     NOT NULL
+      "with"     UUID      NOT NULL
     );
     CREATE TRIGGER "license_updated"
       BEFORE UPDATE
@@ -86,11 +86,11 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
       ON "license_audit"
       FOR EACH ROW EXECUTE PROCEDURE ignore_update();
 
-    CREATE TABLE "license_user" (
+    CREATE TABLE "license_employee" (
       "license"    UUID      NOT NULL,
-      "user_id"    UUID      NOT NULL,
+      "employee"   UUID      NOT NULL,
       "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
-      UNIQUE ("license", "user_id")
+      UNIQUE ("license", "employee")
     );
     CREATE TABLE "license_workplace" (
       "license"    UUID      NOT NULL,
