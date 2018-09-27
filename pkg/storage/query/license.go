@@ -2,8 +2,14 @@ package query
 
 import domain "github.com/kamilsk/guard/pkg/service/types"
 
-// ExtendLicense TODO issue#docs
-type ExtendLicense struct {
+// CreateLicense TODO issue#docs
+type CreateLicense struct {
+	Number   *domain.ID
+	Contract domain.Contract
+}
+
+// DeleteLicense TODO issue#docs
+type DeleteLicense struct {
 	Number domain.ID
 }
 
@@ -12,7 +18,8 @@ type ReadLicense struct {
 	Number domain.ID
 }
 
-// RegisterLicense TODO issue#docs
-type RegisterLicense struct {
-	Number domain.ID
+// UpdateLicense TODO issue#docs
+type UpdateLicense struct {
+	Number   domain.ID
+	Contract domain.Contract
 }
