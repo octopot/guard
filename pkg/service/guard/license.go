@@ -3,9 +3,11 @@ package guard
 import (
 	"errors"
 	"math/rand"
+	"net/http"
 	"time"
 
-	"github.com/kamilsk/guard/pkg/service/request"
+	"github.com/kamilsk/guard/pkg/service/types/request"
+	"github.com/kamilsk/guard/pkg/service/types/response"
 )
 
 type licenseManager struct {
@@ -13,9 +15,11 @@ type licenseManager struct {
 }
 
 // Check TODO issue#docs
-func (service *licenseManager) Check(license request.License) error {
+func (service *licenseManager) Check(request request.License) (response response.License) {
 	if rand.New(rand.NewSource(time.Now().Unix())).Intn(5) > 2 {
-		return errors.New("stub")
+		// TODO issue#6
+		// TODO issue#35
+		return response.With(errors.New(http.StatusText(http.StatusPaymentRequired)))
 	}
-	return nil
+	return
 }

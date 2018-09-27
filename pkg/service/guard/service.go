@@ -1,6 +1,9 @@
 package guard
 
-import "github.com/kamilsk/guard/pkg/service/request"
+import (
+	"github.com/kamilsk/guard/pkg/service/types/request"
+	"github.com/kamilsk/guard/pkg/service/types/response"
+)
 
 // New TODO issue#docs
 func New(storage Storage) *Guard {
@@ -13,6 +16,6 @@ type Guard struct {
 }
 
 // CheckLicense TODO issue#docs
-func (service Guard) CheckLicense(license request.License) error {
-	return service.licenseManager.Check(license)
+func (service Guard) CheckLicense(request request.License) response.License {
+	return service.licenseManager.Check(request)
 }

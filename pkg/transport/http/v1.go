@@ -5,12 +5,12 @@ import (
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
 
-	"github.com/kamilsk/guard/pkg/service/request"
+	"github.com/kamilsk/guard/pkg/service/types/request"
 )
 
 // CheckLicenseV1 TODO issue#docs
 func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
-	if err := srv.service.CheckLicense(request.License{
+	if response := srv.service.CheckLicense(request.License{
 		Number:    domain.ID(req.Header.Get("X-License")),
 		Employee:  domain.ID(req.Header.Get("X-Employee")),
 		Workplace: domain.ID(req.Header.Get("X-Workplace")),
@@ -20,12 +20,10 @@ func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 			IP:      req.Header.Get("X-Real-IP"),
 			URI:     req.Header.Get("X-Original-URI"),
 		},
-	}); err != nil {
-		// TODO issue#6
-		// TODO issue#34
-		// TODO issue#35
-		rw.Header().Set("X-Reason", http.StatusText(http.StatusPaymentRequired))
-		http.Error(rw, http.StatusText(http.StatusPaymentRequired), http.StatusForbidden)
+	}); response.HasError() {
+		rw.Header().Set("X-Reason", response.Error())
+		// TODO issue#34 http.{StatusUnauthorized StatusForbidden StatusInternalServerError StatusServiceUnavailable}
+		rw.WriteHeader(http.StatusForbidden)
 		return
 	}
 	rw.WriteHeader(http.StatusOK)
