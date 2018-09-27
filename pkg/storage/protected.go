@@ -111,38 +111,7 @@ func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data
 
 // ---
 
-// ExtendLicense TODO issue#docs
-func (storage *Storage) ExtendLicense(ctx context.Context, id domain.Token, data query.UpdateLicense) (repository.License, error) {
-	var license repository.License
-
-	conn, closer, err := storage.connection(ctx)
-	if err != nil {
-		return license, err
-	}
-	defer closer()
-
-	_, err = storage.exec.UserManager(ctx, conn).AccessToken(id)
-	if err != nil {
-		return license, err
-	}
-
-	return license, nil
-}
-
 // RegisterLicense TODO issue#docs
-func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (repository.License, error) {
-	var license repository.License
-
-	conn, closer, err := storage.connection(ctx)
-	if err != nil {
-		return license, err
-	}
-	defer closer()
-
-	_, err = storage.exec.UserManager(ctx, conn).AccessToken(id)
-	if err != nil {
-		return license, err
-	}
-
-	return license, nil
+func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (repository.License, error) {
+	return storage.CreateLicense(ctx, id, query.CreateLicense{Number: &data.Number, Contract: data.Contract})
 }

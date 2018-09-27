@@ -7,7 +7,7 @@ import "protoc-gen-swagger/options/annotations.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
     info: {
-        title: "Access Guard as a Service";
+        title: "Access Control as a Service";
         version: "dev";
         contact: {
             name:  "Guard project of Hugs Platform";
@@ -17,13 +17,37 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
     };
 };
 
+message CreateLicenseRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
+
+    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+}
+
+message CreateLicenseResponse {}
+
 message ReadLicenseRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
 
-    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
 }
 
 message ReadLicenseResponse {}
+
+message UpdateLicenseRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
+
+    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+}
+
+message UpdateLicenseResponse {}
+
+message DeleteLicenseRequest {
+    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
+
+    string number = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
+}
+
+message DeleteLicenseResponse {}
 
 message RegisterLicenseRequest {
     option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
@@ -33,28 +57,33 @@ message RegisterLicenseRequest {
 
 message RegisterLicenseResponse {}
 
-message ExtendLicenseRequest {
-    option (grpc.gateway.protoc_gen_swagger.options.openapiv2_schema) = {};
-
-    string id = 1 [(grpc.gateway.protoc_gen_swagger.options.openapiv2_field) = {pattern: "[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}"}];
-}
-
-message ExtendLicenseResponse {}
-
 service License {
-    rpc Read (ReadLicenseRequest) returns (ReadLicenseResponse) {
+    rpc Create (CreateLicenseRequest) returns (CreateLicenseResponse) {
         option (google.api.http) = {
-            get: "/api/v1/license/{id}"
+            post: "/api/v1/license"
         };
     }
+    rpc Read (ReadLicenseRequest) returns (ReadLicenseResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/license/{number}"
+        };
+    }
+    rpc Update (UpdateLicenseRequest) returns (UpdateLicenseResponse) {
+        option (google.api.http) = {
+            put: "/api/v1/license/{number}"
+        };
+    }
+    rpc Delete (DeleteLicenseRequest) returns (DeleteLicenseResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/license/{number}"
+        };
+    }
+
+    // ---
+
     rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {
         option (google.api.http) = {
             post: "/api/v1/license/register"
-        };
-    }
-    rpc Extend (ExtendLicenseRequest) returns (ExtendLicenseResponse) {
-        option (google.api.http) = {
-            put: "/api/v1/license/extend"
         };
     }
 }

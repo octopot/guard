@@ -24,8 +24,13 @@ var entities factory
 
 func init() {
 	entities = factory{
-		readLicense:     {"License": func() pb.Proxy { return pb.ReadLicenseRequestProxy{} }},
-		extendLicense:   {"License": func() pb.Proxy { return pb.ExtendLicenseRequestProxy{} }},
+		createLicense: {"License": func() pb.Proxy { return pb.CreateLicenseRequestProxy{} }},
+		readLicense:   {"License": func() pb.Proxy { return pb.ReadLicenseRequestProxy{} }},
+		updateLicense: {"License": func() pb.Proxy { return pb.UpdateLicenseRequestProxy{} }},
+		deleteLicense: {"License": func() pb.Proxy { return pb.DeleteLicenseRequestProxy{} }},
+
+		// ---
+
 		registerLicense: {"License": func() pb.Proxy { return pb.RegisterLicenseRequestProxy{} }},
 	}
 }
@@ -116,10 +121,14 @@ func call(cnf config.GRPCConfig, entity pb.Proxy) (interface{}, error) {
 		middleware.AuthHeader,
 		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
 	switch request := entity.Convert().(type) {
+	case *pb.CreateLicenseRequest:
+		return client.Create(ctx, request)
 	case *pb.ReadLicenseRequest:
 		return client.Read(ctx, request)
-	case *pb.ExtendLicenseRequest:
-		return client.Extend(ctx, request)
+	case *pb.UpdateLicenseRequest:
+		return client.Update(ctx, request)
+	case *pb.DeleteLicenseRequest:
+		return client.Delete(ctx, request)
 	case *pb.RegisterLicenseRequest:
 		return client.Register(ctx, request)
 	default:

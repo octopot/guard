@@ -23,3 +23,11 @@ type UpdateLicense struct {
 	Number   domain.ID
 	Contract domain.Contract
 }
+
+// ---
+
+// RegisterLicense TODO issue#docs
+type RegisterLicense struct {
+	Number   domain.ID
+	Contract domain.Contract
+}

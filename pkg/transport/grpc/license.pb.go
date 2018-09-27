@@ -25,8 +25,76 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
+type CreateLicenseRequest struct {
+	Number               string   `protobuf:"bytes,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateLicenseRequest) Reset()         { *m = CreateLicenseRequest{} }
+func (m *CreateLicenseRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateLicenseRequest) ProtoMessage()    {}
+func (*CreateLicenseRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_090c1f856632b222, []int{0}
+}
+func (m *CreateLicenseRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateLicenseRequest.Unmarshal(m, b)
+}
+func (m *CreateLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateLicenseRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateLicenseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateLicenseRequest.Merge(m, src)
+}
+func (m *CreateLicenseRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateLicenseRequest.Size(m)
+}
+func (m *CreateLicenseRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateLicenseRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateLicenseRequest proto.InternalMessageInfo
+
+func (m *CreateLicenseRequest) GetNumber() string {
+	if m != nil {
+		return m.Number
+	}
+	return ""
+}
+
+type CreateLicenseResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateLicenseResponse) Reset()         { *m = CreateLicenseResponse{} }
+func (m *CreateLicenseResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateLicenseResponse) ProtoMessage()    {}
+func (*CreateLicenseResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_090c1f856632b222, []int{1}
+}
+func (m *CreateLicenseResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateLicenseResponse.Unmarshal(m, b)
+}
+func (m *CreateLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateLicenseResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateLicenseResponse.Merge(m, src)
+}
+func (m *CreateLicenseResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateLicenseResponse.Size(m)
+}
+func (m *CreateLicenseResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateLicenseResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateLicenseResponse proto.InternalMessageInfo
+
 type ReadLicenseRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Number               string   `protobuf:"bytes,1,opt,name=number,proto3" json:"number,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -36,7 +104,7 @@ func (m *ReadLicenseRequest) Reset()         { *m = ReadLicenseRequest{} }
 func (m *ReadLicenseRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadLicenseRequest) ProtoMessage()    {}
 func (*ReadLicenseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_090c1f856632b222, []int{0}
+	return fileDescriptor_090c1f856632b222, []int{2}
 }
 func (m *ReadLicenseRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadLicenseRequest.Unmarshal(m, b)
@@ -56,9 +124,9 @@ func (m *ReadLicenseRequest) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ReadLicenseRequest proto.InternalMessageInfo
 
-func (m *ReadLicenseRequest) GetId() string {
+func (m *ReadLicenseRequest) GetNumber() string {
 	if m != nil {
-		return m.Id
+		return m.Number
 	}
 	return ""
 }
@@ -73,7 +141,7 @@ func (m *ReadLicenseResponse) Reset()         { *m = ReadLicenseResponse{} }
 func (m *ReadLicenseResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadLicenseResponse) ProtoMessage()    {}
 func (*ReadLicenseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_090c1f856632b222, []int{1}
+	return fileDescriptor_090c1f856632b222, []int{3}
 }
 func (m *ReadLicenseResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadLicenseResponse.Unmarshal(m, b)
@@ -93,6 +161,142 @@ func (m *ReadLicenseResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ReadLicenseResponse proto.InternalMessageInfo
 
+type UpdateLicenseRequest struct {
+	Number               string   `protobuf:"bytes,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateLicenseRequest) Reset()         { *m = UpdateLicenseRequest{} }
+func (m *UpdateLicenseRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateLicenseRequest) ProtoMessage()    {}
+func (*UpdateLicenseRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_090c1f856632b222, []int{4}
+}
+func (m *UpdateLicenseRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateLicenseRequest.Unmarshal(m, b)
+}
+func (m *UpdateLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateLicenseRequest.Marshal(b, m, deterministic)
+}
+func (m *UpdateLicenseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateLicenseRequest.Merge(m, src)
+}
+func (m *UpdateLicenseRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateLicenseRequest.Size(m)
+}
+func (m *UpdateLicenseRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateLicenseRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateLicenseRequest proto.InternalMessageInfo
+
+func (m *UpdateLicenseRequest) GetNumber() string {
+	if m != nil {
+		return m.Number
+	}
+	return ""
+}
+
+type UpdateLicenseResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateLicenseResponse) Reset()         { *m = UpdateLicenseResponse{} }
+func (m *UpdateLicenseResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateLicenseResponse) ProtoMessage()    {}
+func (*UpdateLicenseResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_090c1f856632b222, []int{5}
+}
+func (m *UpdateLicenseResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateLicenseResponse.Unmarshal(m, b)
+}
+func (m *UpdateLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateLicenseResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateLicenseResponse.Merge(m, src)
+}
+func (m *UpdateLicenseResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateLicenseResponse.Size(m)
+}
+func (m *UpdateLicenseResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateLicenseResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateLicenseResponse proto.InternalMessageInfo
+
+type DeleteLicenseRequest struct {
+	Number               string   `protobuf:"bytes,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteLicenseRequest) Reset()         { *m = DeleteLicenseRequest{} }
+func (m *DeleteLicenseRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteLicenseRequest) ProtoMessage()    {}
+func (*DeleteLicenseRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_090c1f856632b222, []int{6}
+}
+func (m *DeleteLicenseRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteLicenseRequest.Unmarshal(m, b)
+}
+func (m *DeleteLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteLicenseRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteLicenseRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteLicenseRequest.Merge(m, src)
+}
+func (m *DeleteLicenseRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteLicenseRequest.Size(m)
+}
+func (m *DeleteLicenseRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteLicenseRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteLicenseRequest proto.InternalMessageInfo
+
+func (m *DeleteLicenseRequest) GetNumber() string {
+	if m != nil {
+		return m.Number
+	}
+	return ""
+}
+
+type DeleteLicenseResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteLicenseResponse) Reset()         { *m = DeleteLicenseResponse{} }
+func (m *DeleteLicenseResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteLicenseResponse) ProtoMessage()    {}
+func (*DeleteLicenseResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_090c1f856632b222, []int{7}
+}
+func (m *DeleteLicenseResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteLicenseResponse.Unmarshal(m, b)
+}
+func (m *DeleteLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteLicenseResponse.Marshal(b, m, deterministic)
+}
+func (m *DeleteLicenseResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteLicenseResponse.Merge(m, src)
+}
+func (m *DeleteLicenseResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteLicenseResponse.Size(m)
+}
+func (m *DeleteLicenseResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteLicenseResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteLicenseResponse proto.InternalMessageInfo
+
 type RegisterLicenseRequest struct {
 	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -104,7 +308,7 @@ func (m *RegisterLicenseRequest) Reset()         { *m = RegisterLicenseRequest{}
 func (m *RegisterLicenseRequest) String() string { return proto.CompactTextString(m) }
 func (*RegisterLicenseRequest) ProtoMessage()    {}
 func (*RegisterLicenseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_090c1f856632b222, []int{2}
+	return fileDescriptor_090c1f856632b222, []int{8}
 }
 func (m *RegisterLicenseRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterLicenseRequest.Unmarshal(m, b)
@@ -141,7 +345,7 @@ func (m *RegisterLicenseResponse) Reset()         { *m = RegisterLicenseResponse
 func (m *RegisterLicenseResponse) String() string { return proto.CompactTextString(m) }
 func (*RegisterLicenseResponse) ProtoMessage()    {}
 func (*RegisterLicenseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_090c1f856632b222, []int{3}
+	return fileDescriptor_090c1f856632b222, []int{9}
 }
 func (m *RegisterLicenseResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_RegisterLicenseResponse.Unmarshal(m, b)
@@ -161,81 +365,17 @@ func (m *RegisterLicenseResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RegisterLicenseResponse proto.InternalMessageInfo
 
-type ExtendLicenseRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ExtendLicenseRequest) Reset()         { *m = ExtendLicenseRequest{} }
-func (m *ExtendLicenseRequest) String() string { return proto.CompactTextString(m) }
-func (*ExtendLicenseRequest) ProtoMessage()    {}
-func (*ExtendLicenseRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_090c1f856632b222, []int{4}
-}
-func (m *ExtendLicenseRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ExtendLicenseRequest.Unmarshal(m, b)
-}
-func (m *ExtendLicenseRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ExtendLicenseRequest.Marshal(b, m, deterministic)
-}
-func (m *ExtendLicenseRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ExtendLicenseRequest.Merge(m, src)
-}
-func (m *ExtendLicenseRequest) XXX_Size() int {
-	return xxx_messageInfo_ExtendLicenseRequest.Size(m)
-}
-func (m *ExtendLicenseRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ExtendLicenseRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ExtendLicenseRequest proto.InternalMessageInfo
-
-func (m *ExtendLicenseRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-type ExtendLicenseResponse struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ExtendLicenseResponse) Reset()         { *m = ExtendLicenseResponse{} }
-func (m *ExtendLicenseResponse) String() string { return proto.CompactTextString(m) }
-func (*ExtendLicenseResponse) ProtoMessage()    {}
-func (*ExtendLicenseResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_090c1f856632b222, []int{5}
-}
-func (m *ExtendLicenseResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ExtendLicenseResponse.Unmarshal(m, b)
-}
-func (m *ExtendLicenseResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ExtendLicenseResponse.Marshal(b, m, deterministic)
-}
-func (m *ExtendLicenseResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ExtendLicenseResponse.Merge(m, src)
-}
-func (m *ExtendLicenseResponse) XXX_Size() int {
-	return xxx_messageInfo_ExtendLicenseResponse.Size(m)
-}
-func (m *ExtendLicenseResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ExtendLicenseResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ExtendLicenseResponse proto.InternalMessageInfo
-
 func init() {
+	proto.RegisterType((*CreateLicenseRequest)(nil), "grpc.CreateLicenseRequest")
+	proto.RegisterType((*CreateLicenseResponse)(nil), "grpc.CreateLicenseResponse")
 	proto.RegisterType((*ReadLicenseRequest)(nil), "grpc.ReadLicenseRequest")
 	proto.RegisterType((*ReadLicenseResponse)(nil), "grpc.ReadLicenseResponse")
+	proto.RegisterType((*UpdateLicenseRequest)(nil), "grpc.UpdateLicenseRequest")
+	proto.RegisterType((*UpdateLicenseResponse)(nil), "grpc.UpdateLicenseResponse")
+	proto.RegisterType((*DeleteLicenseRequest)(nil), "grpc.DeleteLicenseRequest")
+	proto.RegisterType((*DeleteLicenseResponse)(nil), "grpc.DeleteLicenseResponse")
 	proto.RegisterType((*RegisterLicenseRequest)(nil), "grpc.RegisterLicenseRequest")
 	proto.RegisterType((*RegisterLicenseResponse)(nil), "grpc.RegisterLicenseResponse")
-	proto.RegisterType((*ExtendLicenseRequest)(nil), "grpc.ExtendLicenseRequest")
-	proto.RegisterType((*ExtendLicenseResponse)(nil), "grpc.ExtendLicenseResponse")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -250,9 +390,11 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type LicenseClient interface {
+	Create(ctx context.Context, in *CreateLicenseRequest, opts ...grpc.CallOption) (*CreateLicenseResponse, error)
 	Read(ctx context.Context, in *ReadLicenseRequest, opts ...grpc.CallOption) (*ReadLicenseResponse, error)
+	Update(ctx context.Context, in *UpdateLicenseRequest, opts ...grpc.CallOption) (*UpdateLicenseResponse, error)
+	Delete(ctx context.Context, in *DeleteLicenseRequest, opts ...grpc.CallOption) (*DeleteLicenseResponse, error)
 	Register(ctx context.Context, in *RegisterLicenseRequest, opts ...grpc.CallOption) (*RegisterLicenseResponse, error)
-	Extend(ctx context.Context, in *ExtendLicenseRequest, opts ...grpc.CallOption) (*ExtendLicenseResponse, error)
 }
 
 type licenseClient struct {
@@ -263,9 +405,36 @@ func NewLicenseClient(cc *grpc.ClientConn) LicenseClient {
 	return &licenseClient{cc}
 }
 
+func (c *licenseClient) Create(ctx context.Context, in *CreateLicenseRequest, opts ...grpc.CallOption) (*CreateLicenseResponse, error) {
+	out := new(CreateLicenseResponse)
+	err := c.cc.Invoke(ctx, "/grpc.License/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *licenseClient) Read(ctx context.Context, in *ReadLicenseRequest, opts ...grpc.CallOption) (*ReadLicenseResponse, error) {
 	out := new(ReadLicenseResponse)
 	err := c.cc.Invoke(ctx, "/grpc.License/Read", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *licenseClient) Update(ctx context.Context, in *UpdateLicenseRequest, opts ...grpc.CallOption) (*UpdateLicenseResponse, error) {
+	out := new(UpdateLicenseResponse)
+	err := c.cc.Invoke(ctx, "/grpc.License/Update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *licenseClient) Delete(ctx context.Context, in *DeleteLicenseRequest, opts ...grpc.CallOption) (*DeleteLicenseResponse, error) {
+	out := new(DeleteLicenseResponse)
+	err := c.cc.Invoke(ctx, "/grpc.License/Delete", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -281,24 +450,35 @@ func (c *licenseClient) Register(ctx context.Context, in *RegisterLicenseRequest
 	return out, nil
 }
 
-func (c *licenseClient) Extend(ctx context.Context, in *ExtendLicenseRequest, opts ...grpc.CallOption) (*ExtendLicenseResponse, error) {
-	out := new(ExtendLicenseResponse)
-	err := c.cc.Invoke(ctx, "/grpc.License/Extend", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // LicenseServer is the server API for License service.
 type LicenseServer interface {
+	Create(context.Context, *CreateLicenseRequest) (*CreateLicenseResponse, error)
 	Read(context.Context, *ReadLicenseRequest) (*ReadLicenseResponse, error)
+	Update(context.Context, *UpdateLicenseRequest) (*UpdateLicenseResponse, error)
+	Delete(context.Context, *DeleteLicenseRequest) (*DeleteLicenseResponse, error)
 	Register(context.Context, *RegisterLicenseRequest) (*RegisterLicenseResponse, error)
-	Extend(context.Context, *ExtendLicenseRequest) (*ExtendLicenseResponse, error)
 }
 
 func RegisterLicenseServer(s *grpc.Server, srv LicenseServer) {
 	s.RegisterService(&_License_serviceDesc, srv)
+}
+
+func _License_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLicenseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LicenseServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.License/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LicenseServer).Create(ctx, req.(*CreateLicenseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _License_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -315,6 +495,42 @@ func _License_Read_Handler(srv interface{}, ctx context.Context, dec func(interf
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LicenseServer).Read(ctx, req.(*ReadLicenseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _License_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateLicenseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LicenseServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.License/Update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LicenseServer).Update(ctx, req.(*UpdateLicenseRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _License_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteLicenseRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LicenseServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.License/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LicenseServer).Delete(ctx, req.(*DeleteLicenseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -337,39 +553,29 @@ func _License_Register_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _License_Extend_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ExtendLicenseRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(LicenseServer).Extend(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpc.License/Extend",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LicenseServer).Extend(ctx, req.(*ExtendLicenseRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 var _License_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "grpc.License",
 	HandlerType: (*LicenseServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
+			MethodName: "Create",
+			Handler:    _License_Create_Handler,
+		},
+		{
 			MethodName: "Read",
 			Handler:    _License_Read_Handler,
 		},
 		{
-			MethodName: "Register",
-			Handler:    _License_Register_Handler,
+			MethodName: "Update",
+			Handler:    _License_Update_Handler,
 		},
 		{
-			MethodName: "Extend",
-			Handler:    _License_Extend_Handler,
+			MethodName: "Delete",
+			Handler:    _License_Delete_Handler,
+		},
+		{
+			MethodName: "Register",
+			Handler:    _License_Register_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -379,34 +585,38 @@ var _License_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("license.proto", fileDescriptor_090c1f856632b222) }
 
 var fileDescriptor_090c1f856632b222 = []byte{
-	// 451 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xbc, 0x93, 0x41, 0x6f, 0xd3, 0x30,
-	0x14, 0xc7, 0x69, 0x37, 0x0d, 0xb0, 0x84, 0x84, 0xcc, 0xd6, 0xb5, 0xa6, 0x4c, 0x56, 0x4e, 0x1c,
-	0x48, 0xcc, 0xba, 0x1d, 0xb6, 0x9d, 0x48, 0xa5, 0xc1, 0x24, 0x38, 0xa0, 0xc2, 0x05, 0x55, 0x3b,
-	0xb8, 0xce, 0xab, 0x67, 0x96, 0xc6, 0xc1, 0x76, 0x43, 0x45, 0x95, 0x0b, 0x47, 0x8e, 0xe5, 0x9b,
-	0xf0, 0x55, 0xf8, 0x0a, 0x7c, 0x10, 0xd4, 0x24, 0x9d, 0xb4, 0x36, 0xbb, 0xee, 0x14, 0xe7, 0xbd,
-	0x7f, 0xde, 0xef, 0xf9, 0xff, 0x5e, 0xd0, 0x93, 0x58, 0x09, 0x48, 0x2c, 0x04, 0xa9, 0xd1, 0x4e,
-	0xe3, 0x6d, 0x69, 0x52, 0x41, 0xba, 0x52, 0x6b, 0x19, 0x03, 0xe3, 0xa9, 0x62, 0x3c, 0x49, 0xb4,
-	0xe3, 0x4e, 0xe9, 0xc4, 0x96, 0x1a, 0xf2, 0xaa, 0x78, 0x08, 0x5f, 0x42, 0xe2, 0xdb, 0xef, 0x5c,
-	0x4a, 0x30, 0x4c, 0xa7, 0x85, 0x62, 0x53, 0xed, 0x65, 0x08, 0x0f, 0x80, 0x47, 0x1f, 0x4a, 0xcc,
-	0x00, 0xbe, 0x4d, 0xc1, 0x3a, 0x3c, 0x44, 0x4d, 0x15, 0xb5, 0x1b, 0xb4, 0xf1, 0xf2, 0x71, 0xff,
-	0xfd, 0x22, 0xbc, 0xf8, 0xd5, 0x38, 0x1f, 0xbe, 0xf6, 0x4f, 0x43, 0xff, 0xed, 0xe5, 0xfc, 0x24,
-	0xf7, 0x6f, 0xce, 0xc7, 0xb9, 0x3f, 0x3c, 0xbe, 0xbc, 0x79, 0x3d, 0xca, 0xfd, 0xe1, 0xc9, 0x69,
-	0xd8, 0xbf, 0x1d, 0x59, 0x9d, 0x0f, 0x7b, 0xf9, 0xa0, 0xa9, 0xa2, 0xb3, 0xad, 0x45, 0xf8, 0xc0,
-	0xdb, 0x43, 0xcf, 0x6e, 0x71, 0x6d, 0xaa, 0x13, 0x0b, 0xde, 0x0f, 0xd4, 0x1a, 0x80, 0x54, 0xd6,
-	0x81, 0xb9, 0xf7, 0x96, 0x3a, 0x68, 0x7f, 0x83, 0x5d, 0xb5, 0x35, 0x43, 0xbb, 0xe7, 0x33, 0x07,
-	0xc9, 0xfd, 0xfb, 0xb4, 0x8f, 0xf6, 0xd6, 0xc8, 0x65, 0x4b, 0xbd, 0x3f, 0x4d, 0xf4, 0xb0, 0x8a,
-	0xe1, 0x2f, 0x68, 0x7b, 0x69, 0x26, 0x6e, 0x07, 0xcb, 0xfd, 0x08, 0x36, 0x07, 0x4a, 0x3a, 0x35,
-	0x99, 0xea, 0x6e, 0xdd, 0x9f, 0x7f, 0xff, 0xfd, 0x6e, 0xb6, 0xf0, 0x6e, 0xb1, 0x4f, 0xd9, 0x21,
-	0xab, 0x56, 0x8e, 0xcd, 0x55, 0x94, 0x63, 0x85, 0x1e, 0xad, 0x4c, 0xc1, 0xdd, 0x55, 0x91, 0xba,
-	0x01, 0x91, 0x17, 0x77, 0x64, 0x2b, 0x0c, 0x2d, 0x30, 0xc4, 0x6b, 0xaf, 0x63, 0xcc, 0xaa, 0x3c,
-	0x47, 0x3b, 0xe5, 0x55, 0x31, 0x29, 0x4b, 0xd5, 0x59, 0x4e, 0x9e, 0xd7, 0xe6, 0x2a, 0xc8, 0x41,
-	0x01, 0x69, 0x93, 0xd6, 0x3a, 0x04, 0x0a, 0x79, 0x7f, 0xbe, 0x08, 0x67, 0x38, 0x43, 0x9d, 0x50,
-	0x08, 0xb0, 0x96, 0xbe, 0x9b, 0x72, 0x13, 0x51, 0x6e, 0x29, 0xa7, 0x9f, 0xc0, 0x64, 0x4a, 0x80,
-	0xf7, 0x19, 0x1d, 0x94, 0xd1, 0xd4, 0xe8, 0xaf, 0x20, 0x1c, 0xd5, 0x63, 0x7a, 0x31, 0x95, 0x96,
-	0x7e, 0x8c, 0xb9, 0x1b, 0x6b, 0x33, 0xc1, 0xf4, 0xca, 0xb9, 0xd4, 0x9e, 0x31, 0x26, 0x95, 0xbb,
-	0x9a, 0x8e, 0x02, 0xa1, 0x27, 0xec, 0x9a, 0x4f, 0x54, 0x6c, 0xaf, 0x99, 0x5c, 0x7e, 0x4a, 0x9e,
-	0xaa, 0x64, 0xac, 0xdf, 0x68, 0xe1, 0x74, 0xcc, 0x47, 0x81, 0x36, 0xb2, 0xb7, 0x15, 0x41, 0x36,
-	0xda, 0x29, 0xfe, 0xb8, 0xa3, 0xff, 0x01, 0x00, 0x00, 0xff, 0xff, 0x2f, 0x86, 0x88, 0xfa, 0xd4,
-	0x03, 0x00, 0x00,
+	// 522 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xc4, 0x94, 0xcf, 0x6f, 0xd3, 0x30,
+	0x14, 0xc7, 0x69, 0x3b, 0x15, 0xb0, 0x84, 0x00, 0xc3, 0x68, 0x97, 0x0d, 0x64, 0xe5, 0x84, 0x10,
+	0x69, 0x58, 0xb7, 0xc3, 0xb6, 0x13, 0xe9, 0xf8, 0x31, 0x09, 0x0e, 0xa8, 0xc0, 0x85, 0xaa, 0x07,
+	0xd7, 0x79, 0xf5, 0xcc, 0xd2, 0x38, 0xd8, 0x6e, 0x41, 0x9b, 0x82, 0x10, 0x47, 0x8e, 0xe5, 0x4f,
+	0xe3, 0x5f, 0xe0, 0x9f, 0xe0, 0x86, 0xda, 0x38, 0x13, 0x4d, 0x33, 0x6e, 0x53, 0x4f, 0x71, 0x6c,
+	0xbf, 0xf7, 0xfd, 0xe4, 0xbd, 0xef, 0x0b, 0xba, 0x11, 0x09, 0x06, 0xb1, 0x86, 0x56, 0xa2, 0xa4,
+	0x91, 0x78, 0x8d, 0xab, 0x84, 0x39, 0x5b, 0x5c, 0x4a, 0x1e, 0x81, 0x4f, 0x13, 0xe1, 0xd3, 0x38,
+	0x96, 0x86, 0x1a, 0x21, 0x63, 0x9d, 0xdd, 0x71, 0x1e, 0xcf, 0x1f, 0xcc, 0xe3, 0x10, 0x7b, 0xfa,
+	0x33, 0xe5, 0x1c, 0x94, 0x2f, 0x93, 0xf9, 0x8d, 0xe5, 0xdb, 0xee, 0xb7, 0x0a, 0xba, 0x7b, 0xa8,
+	0x80, 0x1a, 0x78, 0x9d, 0x29, 0x75, 0xe1, 0xd3, 0x18, 0xb4, 0xc1, 0x0c, 0xd5, 0xe3, 0xf1, 0x68,
+	0x00, 0xaa, 0x59, 0x21, 0x95, 0x87, 0xd7, 0x3b, 0xaf, 0xa6, 0xc1, 0xd1, 0x8f, 0xca, 0xf3, 0xde,
+	0x13, 0x6f, 0x3f, 0xf0, 0x5e, 0xf4, 0xcf, 0xf6, 0x52, 0xef, 0x7c, 0xbd, 0x9b, 0x7a, 0xbd, 0xdd,
+	0xfe, 0xf9, 0xeb, 0x4e, 0xea, 0xf5, 0xf6, 0xf6, 0x83, 0xce, 0xe2, 0x4e, 0xbe, 0xde, 0x6e, 0xa7,
+	0x5d, 0x9b, 0xfa, 0xa0, 0x36, 0x0d, 0xae, 0xb8, 0x0d, 0xb4, 0x5e, 0x20, 0xd0, 0x89, 0x8c, 0x35,
+	0xb8, 0x5f, 0x11, 0xee, 0x02, 0x0d, 0x57, 0x06, 0xb6, 0x8e, 0xee, 0x2c, 0xe8, 0x5b, 0xac, 0x59,
+	0xc9, 0xde, 0x27, 0xe1, 0x8a, 0x4b, 0x56, 0x20, 0xf8, 0x87, 0xed, 0x19, 0x44, 0xb0, 0x5a, 0xb6,
+	0x02, 0x81, 0x65, 0x3b, 0x45, 0xf7, 0xba, 0xc0, 0x85, 0x36, 0xa0, 0x0a, 0x70, 0x3d, 0x54, 0x15,
+	0xe1, 0x65, 0x80, 0x55, 0x45, 0x98, 0x41, 0x6d, 0xa0, 0xc6, 0x92, 0x76, 0x86, 0xd5, 0xfe, 0x53,
+	0x43, 0x57, 0xed, 0x1e, 0xfe, 0x80, 0xea, 0x99, 0x15, 0xb1, 0xd3, 0x9a, 0x8d, 0x5a, 0xab, 0x6c,
+	0x34, 0x9c, 0xcd, 0xd2, 0x33, 0xfb, 0x95, 0x8d, 0xef, 0xbf, 0x7e, 0xff, 0xac, 0xde, 0x76, 0x6f,
+	0xce, 0xc7, 0x73, 0xb2, 0xed, 0xdb, 0x09, 0xc6, 0x7d, 0xb4, 0x36, 0x73, 0x13, 0x6e, 0x66, 0xd1,
+	0xcb, 0xce, 0x76, 0x36, 0x4a, 0x4e, 0x6c, 0x56, 0x32, 0xcf, 0xea, 0xe0, 0x66, 0x21, 0xab, 0x7f,
+	0x96, 0x95, 0x3e, 0x9d, 0x35, 0x38, 0xb3, 0x44, 0x8e, 0x5e, 0x66, 0xd1, 0x1c, 0xbd, 0xdc, 0x3c,
+	0x56, 0xc4, 0xf9, 0xaf, 0x48, 0xd6, 0xdb, 0x5c, 0xa4, 0xcc, 0x6b, 0xb9, 0x48, 0xb9, 0x0b, 0xac,
+	0xc8, 0xa3, 0x8b, 0x45, 0x04, 0xba, 0x96, 0xf7, 0x0a, 0x6f, 0xe5, 0x25, 0x29, 0xf3, 0x8d, 0x73,
+	0xff, 0x82, 0xd3, 0x45, 0x29, 0x77, 0x49, 0x4a, 0xd9, 0x80, 0x4e, 0x3a, 0x0d, 0x4e, 0xf1, 0x17,
+	0xb4, 0x19, 0x30, 0x06, 0x5a, 0x93, 0x43, 0x19, 0x1b, 0x25, 0x23, 0x42, 0x35, 0xa1, 0xe4, 0x2d,
+	0xa8, 0x89, 0x60, 0xe0, 0xbe, 0x43, 0x0f, 0x5e, 0x8e, 0xa9, 0x0a, 0x49, 0xa2, 0xe4, 0x47, 0x60,
+	0x86, 0xc8, 0x21, 0x39, 0x1a, 0x73, 0x4d, 0xde, 0x44, 0xd4, 0x0c, 0xa5, 0x1a, 0x61, 0x72, 0x6c,
+	0x4c, 0xa2, 0x0f, 0x7c, 0x9f, 0x0b, 0x73, 0x3c, 0x1e, 0xb4, 0x98, 0x1c, 0xf9, 0x27, 0x74, 0x24,
+	0x22, 0x7d, 0xe2, 0xf3, 0x59, 0xa8, 0x73, 0x4b, 0xc4, 0x43, 0xf9, 0x54, 0x32, 0x23, 0x23, 0x3a,
+	0x68, 0x49, 0xc5, 0xdb, 0xb5, 0x10, 0x26, 0x83, 0xfa, 0xfc, 0x1f, 0xbc, 0xf3, 0x37, 0x00, 0x00,
+	0xff, 0xff, 0x39, 0x4a, 0x27, 0x03, 0xe6, 0x05, 0x00, 0x00,
 }

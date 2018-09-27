@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Access Guard as a Service",
+    "title": "Access Control as a Service",
     "version": "dev",
     "contact": {
       "name": "Guard project of Hugs Platform",
@@ -20,14 +20,14 @@
     "application/json"
   ],
   "paths": {
-    "/api/v1/license/extend": {
-      "put": {
-        "operationId": "Extend",
+    "/api/v1/license": {
+      "post": {
+        "operationId": "Create",
         "responses": {
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcExtendLicenseResponse"
+              "$ref": "#/definitions/grpcCreateLicenseResponse"
             }
           }
         },
@@ -52,7 +52,7 @@
         ]
       }
     },
-    "/api/v1/license/{id}": {
+    "/api/v1/license/{number}": {
       "get": {
         "operationId": "Read",
         "responses": {
@@ -65,7 +65,51 @@
         },
         "parameters": [
           {
-            "name": "id",
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "License"
+        ]
+      },
+      "delete": {
+        "operationId": "Delete",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/grpcDeleteLicenseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "number",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "License"
+        ]
+      },
+      "put": {
+        "operationId": "Update",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/grpcUpdateLicenseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "number",
             "in": "path",
             "required": true,
             "type": "string"
@@ -78,13 +122,19 @@
     }
   },
   "definitions": {
-    "grpcExtendLicenseResponse": {
+    "grpcCreateLicenseResponse": {
+      "type": "object"
+    },
+    "grpcDeleteLicenseResponse": {
       "type": "object"
     },
     "grpcReadLicenseResponse": {
       "type": "object"
     },
     "grpcRegisterLicenseResponse": {
+      "type": "object"
+    },
+    "grpcUpdateLicenseResponse": {
       "type": "object"
     }
   }
