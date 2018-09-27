@@ -6,21 +6,11 @@ import (
 	domain "github.com/kamilsk/guard/pkg/service/types"
 )
 
-// Contract TODO issue#docs
-type Contract struct {
-	Since      time.Time `db:"since"`
-	Until      time.Time `db:"until"`
-	Workplaces uint      `db:"workplace_limits"`
-	Limits
-}
-
-// Limits TODO issue#docs
-type Limits struct {
-	Rate    domain.Rate `db:"rate_limits"`
-	Request uint        `db:"request_limits"`
-}
-
 // License TODO issue#docs
 type License struct {
-	Number domain.ID
+	Number    domain.ID       `db:"number"`
+	Contract  domain.Contract `db:"contract"`
+	CreatedAt time.Time       `db:"created_at"`
+	UpdatedAt *time.Time      `db:"updated_at"`
+	DeletedAt *time.Time      `db:"deleted_at"`
 }
