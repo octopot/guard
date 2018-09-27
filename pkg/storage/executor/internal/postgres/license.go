@@ -42,10 +42,10 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 			return entity, err
 		}
 	}
-	q := `INSERT INTO "license" ("id", "contract", "created_at")
-	      VALUES ($1, $2, $3)
+	q := `INSERT INTO "license" ("id", "account_id", "contract", "created_at")
+	      VALUES ($1, $2, $3, $4)
 	   RETURNING "id", "created_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, after, entity.CreatedAt)
+	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, token.User.AccountID, after, entity.CreatedAt)
 	if err := row.Scan(&entity.CreatedAt); err != nil {
 		return entity, err
 	}
@@ -57,8 +57,8 @@ func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense
 	entity, encoded := repository.License{ID: data.ID}, []byte(nil)
 	q := `SELECT "contract", "created_at", "updated_at", "deleted_at"
 	        FROM "license"
-	       WHERE "id" = $1`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
+	       WHERE "id" = $1 AND "account_id" = $2`
+	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, token.User.AccountID)
 	if err := row.Scan(&encoded, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); err != nil {
 		return entity, err
 	}

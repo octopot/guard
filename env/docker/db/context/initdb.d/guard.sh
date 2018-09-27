@@ -63,12 +63,12 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
 
     CREATE TABLE "license" (
       "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+      "account_id" UUID      NOT NULL,
       "contract"   JSONB     NOT NULL,
       "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
       "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
       "deleted_at" TIMESTAMP NULL                 DEFAULT NULL
     );
-
     CREATE TABLE "license_audit" (
       "id"         BIGSERIAL PRIMARY KEY,
       "license_id" UUID      NOT NULL,

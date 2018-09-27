@@ -2,6 +2,7 @@
 
 CREATE TABLE "license" (
   "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  "account_id" UUID      NOT NULL,
   "contract"   JSONB     NOT NULL,
   "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
   "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
