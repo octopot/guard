@@ -1,44 +1,29 @@
 package http
 
 import (
-	"log"
 	"net/http"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
+
+	"github.com/kamilsk/guard/pkg/service/request"
 )
 
 // CheckLicenseV1 TODO issue#docs
 func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
-	type metadata struct {
-		Forward string    `json:"forward"`
-		ID      domain.ID `json:"id"`
-		IP      string    `json:"ip"`
-		URI     string    `json:"uri"`
-	}
-	type scope struct {
-		License   domain.ID `json:"license"`
-		User      domain.ID `json:"user"`
-		Workplace domain.ID `json:"workplace"`
-		Metadata  metadata
-	}
-
-	request := scope{
-		License:   domain.ID(req.Header.Get("X-License")),
-		User:      domain.ID(req.Header.Get("X-User")),
+	if err := srv.service.CheckLicense(request.License{
+		Number:    domain.ID(req.Header.Get("X-License")),
+		Employee:  domain.ID(req.Header.Get("X-Employee")),
 		Workplace: domain.ID(req.Header.Get("X-Workplace")),
-		Metadata: metadata{
+		Metadata: request.Metadata{
 			Forward: req.Header.Get("X-Forwarded-For"),
 			ID:      domain.ID(req.Header.Get("X-Request-ID")),
 			IP:      req.Header.Get("X-Real-IP"),
 			URI:     req.Header.Get("X-Original-URI"),
 		},
-	}
-	log.Println(request) // TODO issue#7
-
-	license := domain.License{Number: request.License, User: request.User, Workplace: request.Workplace}
-	// TODO issue#6
-	if err := srv.service.CheckLicense(license); err != nil {
-		// TODO http.StatusUnauthorized and http.StatusForbidden must be have different logic
+	}); err != nil {
+		// TODO issue#6
+		// TODO issue#34
+		// TODO issue#35
 		rw.Header().Set("X-Reason", http.StatusText(http.StatusPaymentRequired))
 		http.Error(rw, http.StatusText(http.StatusPaymentRequired), http.StatusForbidden)
 		return
