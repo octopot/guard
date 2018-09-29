@@ -113,6 +113,7 @@ service License {
     rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {
         option (google.api.http) = {
             post: "/api/v1/license/register"
+            body: "*"
         };
     }
 }

@@ -57,6 +57,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/grpcRegisterLicenseRequest"
+            }
+          }
+        ],
         "tags": [
           "License"
         ]
@@ -239,6 +249,17 @@
         "deleted_at": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "grpcRegisterLicenseRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "contract": {
+          "$ref": "#/definitions/grpcContract"
         }
       }
     },

@@ -25,10 +25,10 @@ func (server *licenseServer) Create(ctx context.Context, req *CreateLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.CreateLicense(ctx, token, query.CreateLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
-	}
 	log.Printf("LicenseServer.Create was called with token %q and request %#+v\n", token, req)
+	if _, err := server.storage.CreateLicense(ctx, token, query.CreateLicense{}); err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	}
 	return &CreateLicenseResponse{}, nil
 }
 
@@ -38,10 +38,10 @@ func (server *licenseServer) Read(ctx context.Context, req *ReadLicenseRequest) 
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.ReadLicense(ctx, token, query.ReadLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
-	}
 	log.Printf("LicenseServer.Read was called with token %q and request %#+v\n", token, req)
+	if _, err := server.storage.ReadLicense(ctx, token, query.ReadLicense{}); err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	}
 	return &ReadLicenseResponse{}, nil
 }
 
@@ -51,10 +51,10 @@ func (server *licenseServer) Update(ctx context.Context, req *UpdateLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.UpdateLicense(ctx, token, query.UpdateLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
-	}
 	log.Printf("LicenseServer.Update was called with token %q and request %#+v\n", token, req)
+	if _, err := server.storage.UpdateLicense(ctx, token, query.UpdateLicense{}); err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	}
 	return &UpdateLicenseResponse{}, nil
 }
 
@@ -64,10 +64,10 @@ func (server *licenseServer) Delete(ctx context.Context, req *DeleteLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
+	log.Printf("LicenseServer.Delete was called with token %q and request %#+v\n", token, req)
 	if _, err := server.storage.DeleteLicense(ctx, token, query.DeleteLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
+		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
 	}
-	log.Printf("LicenseServer.Update was called with token %q and request %#+v\n", token, req)
 	return &DeleteLicenseResponse{}, nil
 }
 
@@ -79,9 +79,9 @@ func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseR
 	if authErr != nil {
 		return nil, authErr
 	}
-	if _, err := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "token: %s; something happen: %v", token, err)
-	}
 	log.Printf("LicenseServer.Register was called with token %q and request %#+v\n", token, req)
+	if _, err := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{}); err != nil {
+		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	}
 	return &RegisterLicenseResponse{}, nil
 }
