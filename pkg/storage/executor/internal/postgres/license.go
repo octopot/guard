@@ -33,21 +33,21 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 		return entity, encodeErr
 	}
 	{
-		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "who", "with")
-		      VALUES ($1, $2, $3, $4, $5)
-		   RETURNING "when"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, before,
-			repository.Create, token.UserID, token.ID)
-		if err := row.Scan(&entity.CreatedAt); err != nil {
-			return entity, err
+		q := `INSERT INTO "license" ("id", "account_id", "contract")
+		      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
+		   RETURNING "id", "created_at"`
+		row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, token.User.AccountID, after)
+		if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
+			return entity, scanErr
 		}
 	}
-	q := `INSERT INTO "license" ("id", "account_id", "contract", "created_at")
-	      VALUES ($1, $2, $3, $4)
-	   RETURNING "id", "created_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, token.User.AccountID, after, entity.CreatedAt)
-	if err := row.Scan(&entity.CreatedAt); err != nil {
-		return entity, err
+	{
+		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
+		      VALUES ($1, $2, $3, $4, $5, $6)`
+		if _, execErr := scope.conn.ExecContext(scope.ctx, q, entity.ID, before,
+			repository.Create, entity.CreatedAt, token.UserID, token.ID); execErr != nil {
+			return entity, execErr
+		}
 	}
 	return entity, nil
 }
