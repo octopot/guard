@@ -252,8 +252,7 @@
           "type": "string"
         },
         "contract": {
-          "type": "string",
-          "format": "byte"
+          "$ref": "#/definitions/grpcContract"
         }
       }
     },

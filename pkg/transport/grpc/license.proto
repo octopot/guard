@@ -62,7 +62,7 @@ message ReadLicenseResponse {
 
 message UpdateLicenseRequest {
     string id = 1;
-    bytes contract = 2;
+    Contract contract = 2;
 }
 
 message UpdateLicenseResponse {
