@@ -68,13 +68,13 @@ func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, token.User.AccountID)
 	if scanErr := row.Scan(&encoded, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+			"user %q of account %q with token %q tried to read license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.ID)
 	}
 	if decodeErr := json.Unmarshal(encoded, &entity.Contract); decodeErr != nil {
 		return entity, errors.Wrapf(decodeErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+			"user %q of account %q with token %q tried to decode contract %s of license %q from JSON",
+			token.UserID, token.User.AccountID, token.UserID, encoded, entity.ID)
 	}
 	return entity, nil
 }
