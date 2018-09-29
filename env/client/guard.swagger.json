@@ -122,20 +122,108 @@
     }
   },
   "definitions": {
+    "RateUnit": {
+      "type": "string",
+      "enum": [
+        "rps",
+        "rpm",
+        "rph",
+        "rpd",
+        "rpw"
+      ],
+      "default": "rps"
+    },
+    "grpcContract": {
+      "type": "object",
+      "properties": {
+        "since": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "until": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rate": {
+          "$ref": "#/definitions/grpcRate"
+        },
+        "requests": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "workplaces": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "grpcCreateLicenseResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "grpcDeleteLicenseResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "grpcRate": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "unit": {
+          "$ref": "#/definitions/RateUnit"
+        }
+      }
     },
     "grpcReadLicenseResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "contract": {
+          "$ref": "#/definitions/grpcContract"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "grpcRegisterLicenseResponse": {
       "type": "object"
     },
     "grpcUpdateLicenseResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     }
   }
 }
