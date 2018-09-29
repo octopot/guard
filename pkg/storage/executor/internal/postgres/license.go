@@ -83,43 +83,39 @@ func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense
 func (scope licenseManager) Update(token *repository.Token, data query.UpdateLicense) (repository.License, error) {
 	entity, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
-		return entity, errors.Wrapf(readErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+		return entity, errors.Wrapf(readErr, "while updating")
 	}
 	before, encodeErr := json.Marshal(entity.Contract)
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+			"user %q of account %q with token %q tried to encode to JSON current contract %+v of license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
 	}
 	after, encodeErr := json.Marshal(data.Contract)
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
-	}
-	{
-		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "who", "with")
-		      VALUES ($1, $2, $3, $4, $5)
-		   RETURNING "when"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, before,
-			repository.Update, token.UserID, token.ID)
-		if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
-			return entity, errors.Wrapf(scanErr,
-				"user %q of account %q with token %q tried to ...",
-				token.UserID, token.User.AccountID, token.UserID)
-		}
+			"user %q of account %q with token %q tried to encode to JSON new contract %+v of license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
 	}
 	q := `UPDATE "license"
-	         SET "contract" = $1, "updated_at" = $2
-	       WHERE "id" = $3
+	         SET "contract" = $1
+	       WHERE "id" = $2
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, after, entity.UpdatedAt, entity.ID)
+	row := scope.conn.QueryRowContext(scope.ctx, q, after, entity.ID)
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+			"user %q of account %q with token %q tried to update license %q with new contract %s",
+			token.UserID, token.User.AccountID, token.UserID, entity.ID, after)
+	}
+	{
+		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
+		          VALUES ($1, $2, $3, $4, $5, $6)`
+		if _, execErr := scope.conn.ExecContext(scope.ctx, audit, entity.ID, before,
+			repository.Update, entity.UpdatedAt, token.UserID, token.ID); execErr != nil {
+			return entity, errors.Wrapf(execErr,
+				"audit: user %q of account %q with token %q tried to update license %q with new contract %s",
+				token.UserID, token.User.AccountID, token.UserID, entity.ID, after)
+		}
 	}
 	return entity, nil
 }
@@ -128,9 +124,7 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLicense) (repository.License, error) {
 	entity, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
-		return entity, errors.Wrapf(readErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+		return entity, errors.Wrapf(readErr, "while deleting")
 	}
 	before, encodeErr := json.Marshal(entity.Contract)
 	if encodeErr != nil {
