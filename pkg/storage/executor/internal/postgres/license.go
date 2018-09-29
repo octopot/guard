@@ -129,30 +129,28 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 	before, encodeErr := json.Marshal(entity.Contract)
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
-	}
-	{
-		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "who", "with")
-		      VALUES ($1, $2, $3, $4, $5)
-		   RETURNING "when"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, before,
-			repository.Delete, token.UserID, token.ID)
-		if scanErr := row.Scan(&entity.DeletedAt); scanErr != nil {
-			return entity, errors.Wrapf(scanErr,
-				"user %q of account %q with token %q tried to ...",
-				token.UserID, token.User.AccountID, token.UserID)
-		}
+			"user %q of account %q with token %q tried to encode to JSON current contract %+v of license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
 	}
 	q := `UPDATE "license"
-	         SET "updated_at" = $1, "deleted_at" = $2
-	       WHERE "id" = $3
-	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.DeletedAt, entity.DeletedAt, entity.ID)
-	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
+	         SET "deleted_at" = now()
+	       WHERE "id" = $1
+	   RETURNING "deleted_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
+	if scanErr := row.Scan(&entity.DeletedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
-			"user %q of account %q with token %q tried to ...",
-			token.UserID, token.User.AccountID, token.UserID)
+			"user %q of account %q with token %q tried to delete license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.ID)
+	}
+	{
+		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
+		          VALUES ($1, $2, $3, $4, $5, $6)`
+		if _, execErr := scope.conn.ExecContext(scope.ctx, audit, entity.ID, before,
+			repository.Delete, entity.DeletedAt, token.UserID, token.ID); execErr != nil {
+			return entity, errors.Wrapf(execErr,
+				"audit: user %q of account %q with token %q tried to delete license %q",
+				token.UserID, token.User.AccountID, token.UserID, entity.ID)
+		}
 	}
 	return entity, nil
 }
