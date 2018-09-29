@@ -6,6 +6,8 @@ import (
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
 	repository "github.com/kamilsk/guard/pkg/storage/types"
+
+	"github.com/pkg/errors"
 )
 
 // NewUserContext TODO issue#docs
@@ -21,9 +23,9 @@ type userManager struct {
 // AccessToken TODO issue#docs
 func (scope userManager) AccessToken(id domain.Token) (*repository.Token, error) {
 	var (
+		account = repository.Account{}
 		token   = repository.Token{ID: id}
 		user    = repository.User{}
-		account = repository.Account{}
 	)
 	q := `SELECT "t"."user_id", "t"."expired_at", "t"."created_at",
 	             "u"."account_id", "u"."name", "u"."created_at", "u"."updated_at",
@@ -35,12 +37,12 @@ func (scope userManager) AccessToken(id domain.Token) (*repository.Token, error)
 	         AND "u"."deleted_at" IS NULL
 	         AND "a"."deleted_at" IS NULL`
 	row := scope.conn.QueryRowContext(scope.ctx, q, token.ID)
-	if err := row.Scan(
+	if scanErr := row.Scan(
 		&token.UserID, &token.ExpiredAt, &token.CreatedAt,
 		&user.AccountID, &user.Name, &user.CreatedAt, &user.UpdatedAt,
 		&account.Name, &account.CreatedAt, &account.UpdatedAt,
-	); err != nil {
-		return nil, err
+	); scanErr != nil {
+		return nil, errors.Wrapf(scanErr, "trying to get token by its id %q", id)
 	}
 	user.ID, account.ID = token.UserID, user.AccountID
 	token.User, user.Account = &user, &account
