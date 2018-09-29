@@ -26,6 +26,13 @@ type UpdateLicense struct {
 
 // ---
 
+// ExtendLicense TODO issue#docs
+// TODO issue#future
+type ExtendLicense struct {
+	ID    domain.ID
+	Patch interface{}
+}
+
 // RegisterLicense TODO issue#docs
 type RegisterLicense struct {
 	ID       domain.ID
