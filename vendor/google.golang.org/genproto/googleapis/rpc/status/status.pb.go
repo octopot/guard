@@ -5,9 +5,10 @@ package status
 
 import (
 	fmt "fmt"
+	math "math"
+
 	proto "github.com/golang/protobuf/proto"
 	any "github.com/golang/protobuf/ptypes/any"
-	math "math"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -94,6 +95,7 @@ func (*Status) ProtoMessage()    {}
 func (*Status) Descriptor() ([]byte, []int) {
 	return fileDescriptor_24d244abaf643bfe, []int{0}
 }
+
 func (m *Status) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_Status.Unmarshal(m, b)
 }

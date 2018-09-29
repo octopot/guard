@@ -1,5 +1,6 @@
 required = [
   "go.uber.org/zap",
+  "go.etcd.io/etcd/client",
 
   "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
   "github.com/grpc-ecosystem/grpc-gateway/utilities",

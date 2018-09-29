@@ -10,18 +10,25 @@
   revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
 
 [[projects]]
-  digest = "1:4fc0107e9c20e76bf57ba2ddea4f96e9b6aa04ae7c7714598a87d08ab839e7aa"
+  digest = "1:226183a5c2611b739e115edb1265da1eb675712a5cba464854da17fa4201fd93"
   name = "github.com/coreos/etcd"
   packages = [
-    "auth/authpb",
-    "etcdserver/api/v3rpc/rpctypes",
-    "etcdserver/etcdserverpb",
-    "mvcc/mvccpb",
+    "pkg/pathutil",
+    "pkg/srv",
     "pkg/types",
+    "version",
   ]
   pruneopts = "NUT"
   revision = "fca8add78a9d926166eb739b8e4a124434025ba3"
   version = "v3.3.9"
+
+[[projects]]
+  digest = "1:0ef770954bca104ee99b3b6b7f9b240605ac03517d9f98cbc1893daa03f3c038"
+  name = "github.com/coreos/go-semver"
+  packages = ["semver"]
+  pruneopts = "NUT"
+  revision = "8ab6407b697782a06568d4b7f1db25550ec2e4c6"
+  version = "v0.2.0"
 
 [[projects]]
   digest = "1:ffe9824d294da03b391f44e1ae8281281b4afc1bdaa9588c9097785e3af10cec"
@@ -49,18 +56,6 @@
   pruneopts = "NUT"
   revision = "b5294d10673813fac8558e7f47242bc9e61b4c25"
   version = "v3.3.3"
-
-[[projects]]
-  digest = "1:700c0988d24fac04439828af2aab8e7d1638cea3bc91ff20d2a2befc970ff165"
-  name = "github.com/gogo/protobuf"
-  packages = [
-    "gogoproto",
-    "proto",
-    "protoc-gen-gogo/descriptor",
-  ]
-  pruneopts = "NUT"
-  revision = "636bf0302bc95575d69441b25a2603156ffdddf1"
-  version = "v1.1.1"
 
 [[projects]]
   digest = "1:9b117ac202b9de210a7093bca0c29d0d2424e4c9235c9e025ae0d6ef6b121c82"
@@ -149,7 +144,7 @@
     "pkg/strings",
   ]
   pruneopts = "NUT"
-  revision = "33c265dfc6659f357264b852d45d3de32a53aad6"
+  revision = "bcfc2c1707dec83bb1aad27c5547093a90be5efc"
 
 [[projects]]
   branch = "master"
@@ -180,11 +175,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5fe20cfe4ef484c237cec9f947b2a6fa90bad4b8610fd014f0e4211e13d82d5d"
+  digest = "1:4f0a99a8d8e324a0de88c699b62b5f7bca7720bcab72f6c8f22c07120d8332b6"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "fa473d140ef3c6adf42d6b391fe76707f1f243c8"
+  revision = "ce2ff0c13ce509e36e9254c08ea0bca90ed5af6c"
 
 [[projects]]
   digest = "1:51ea800cff51752ff68e12e04106f5887b4daec6f9356721238c28019f0b42db"
@@ -212,7 +207,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:cfa8aa49949ef9e612512736234abd8023cffd7bc76865afcfeec9846b246daf"
+  digest = "1:c5f30fae05c4108623b471f241086fce7f56cbc78e747b1b85ecdf54d25bb06c"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -220,7 +215,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "NUT"
-  revision = "e637cec7d9c8990247098639ebc6d43dd34ddd49"
+  revision = "daeaac0cfb9c64220f9bf35be463c47420b581b8"
 
 [[projects]]
   branch = "master"
@@ -244,7 +239,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6621142cd60b7150ab66f38ff36303ca55843dc5a635c1f9a28f95ecddab72b4"
+  digest = "1:26a2f5e891cc4d2321f18a0caa84c8e788663c17bed6a487f3cbe2c4295292d0"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
@@ -253,7 +248,7 @@
     "xfs",
   ]
   pruneopts = "NUT"
-  revision = "05ee40e3a273f7245e8777337fc7b46e533a9a92"
+  revision = "418d78d0b9a7b7de3a6bbc8a23def624cc977bb2"
 
 [[projects]]
   digest = "1:330e9062b308ac597e28485699c02223bd052437a6eed32a173c9227dcb9d95a"
@@ -299,12 +294,12 @@
   version = "v1.0.2"
 
 [[projects]]
-  digest = "1:e37ec5ec59746bb63bda84331b5ff892e1a301648c1736364e78ec5df468ad72"
+  digest = "1:9caed8c7c05e8927f5bc6eec5698119b2b63a7cf304effc6c9b818bc864a10d3"
   name = "github.com/spf13/viper"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "8fb642006536c8d3760c99d4fa2389f5e2205631"
-  version = "v1.2.0"
+  revision = "2c12c60302a5a0e62ee102ca9bc996277c2f64f5"
+  version = "v1.2.1"
 
 [[projects]]
   digest = "1:60a46e2410edbf02b419f833372dd1d24d7aa1b916a990a7370e792fada1eadd"
@@ -326,9 +321,17 @@
   version = "v1.2.2"
 
 [[projects]]
-  digest = "1:336f9121bbc00200c58e5ff6496ce8fdb57af61d6d9ee58d45968e05bebafd32"
+  digest = "1:919fc2a81add8ac4a7a236dceaf3e4c29ba4df96d13c3f2ce13a4d0132ebefb8"
+  name = "github.com/ugorji/go"
+  packages = ["codec"]
+  pruneopts = "NUT"
+  revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
+  version = "v1.1.1"
+
+[[projects]]
+  digest = "1:a11c56464074b4370128f7725adaae2b5f99d7ce256be9be65ef4b9510c82d92"
   name = "go.etcd.io/etcd"
-  packages = ["clientv3"]
+  packages = ["client"]
   pruneopts = "NUT"
   revision = "fca8add78a9d926166eb739b8e4a124434025ba3"
   version = "v3.3.9"
@@ -366,7 +369,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a2707daa031e6db5fcaae8a9b30eaa503a0d7d8aa72cd50b27fa394ef6c3f7fe"
+  digest = "1:d39e451e542c7c064d7e29050eb50993a7484d4a3b538387c0f2ac32b5b9cdd8"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -378,15 +381,15 @@
     "trace",
   ]
   pruneopts = "NUT"
-  revision = "26e67e76b6c3f6ce91f7c52def5af501b4e0f3a2"
+  revision = "4dfa2610cdf3b287375bbba5b8f2a14d3b01d8de"
 
 [[projects]]
   branch = "master"
-  digest = "1:e87594335f7fc5df850c2673c46896af42963d497be3e2a358d43e5b1163e852"
+  digest = "1:79325523c76a32a00daae41a018570653948212a2b93838c83c571f6a68e48ef"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "ee1b12c67af419cf5a9be3bdbeea7fc1c5f32f11"
+  revision = "e4b3c5e9061176387e7cea65e4dc5853801f3fb7"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -413,17 +416,17 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:42448f154e7d40907ae03cbdf99dbcfa3feb927c4521e0f01c52c6142e4891d5"
+  digest = "1:a712641f7061b9639d08b2e39f309180aefc9ec6a0349f0d4fb6db3b5075e489"
   name = "google.golang.org/genproto"
   packages = [
     "googleapis/api/annotations",
     "googleapis/rpc/status",
   ]
   pruneopts = "NUT"
-  revision = "4b56f30a1fd96a133a036b62cdd2a249883dd89b"
+  revision = "c7e5094acea1ca1b899e2259d80a6b0f882f81f8"
 
 [[projects]]
-  digest = "1:16b89ca20eda0a2103ea08cbe266bcb04814254dac3d5045b6ed81e4e45bddd5"
+  digest = "1:5b805b8e03b29399b344655cac16873f026e54dc0a7c17b381f6f4d4c7b6d741"
   name = "google.golang.org/grpc"
   packages = [
     ".",
@@ -436,7 +439,6 @@
     "encoding",
     "encoding/proto",
     "grpclog",
-    "health/grpc_health_v1",
     "internal",
     "internal/backoff",
     "internal/channelz",
@@ -490,7 +492,7 @@
     "github.com/spf13/viper",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/mock",
-    "go.etcd.io/etcd/clientv3",
+    "go.etcd.io/etcd/client",
     "go.uber.org/zap",
     "golang.org/x/net/context",
     "google.golang.org/genproto/googleapis/api/annotations",
