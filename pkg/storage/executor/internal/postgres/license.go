@@ -37,25 +37,23 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 			"user %q of account %q with token %q tried to encode to JSON license contract %+v",
 			token.UserID, token.User.AccountID, token.UserID, entity.Contract)
 	}
-	{
-		q := `INSERT INTO "license" ("id", "account_id", "contract")
-		      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
-		   RETURNING "id", "created_at"`
-		row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, token.User.AccountID, after)
-		if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
-			return entity, errors.Wrapf(scanErr,
-				"user %q of account %q with token %q tried to ...",
-				token.UserID, token.User.AccountID, token.UserID)
-		}
+	q := `INSERT INTO "license" ("id", "account_id", "contract")
+	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
+	   RETURNING "id", "created_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, token.User.AccountID, after)
+	if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
+		return entity, errors.Wrapf(scanErr,
+			"user %q of account %q with token %q tried to create new license with contract %s",
+			token.UserID, token.User.AccountID, token.UserID, after)
 	}
 	{
-		q := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
-		      VALUES ($1, $2, $3, $4, $5, $6)`
-		if _, execErr := scope.conn.ExecContext(scope.ctx, q, entity.ID, before,
+		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
+		          VALUES ($1, $2, $3, $4, $5, $6)`
+		if _, execErr := scope.conn.ExecContext(scope.ctx, audit, entity.ID, before,
 			repository.Create, entity.CreatedAt, token.UserID, token.ID); execErr != nil {
 			return entity, errors.Wrapf(execErr,
-				"user %q of account %q with token %q tried to ...",
-				token.UserID, token.User.AccountID, token.UserID)
+				"audit: user %q of account %q with token %q tried to create new license with contract %s",
+				token.UserID, token.User.AccountID, token.UserID, after)
 		}
 	}
 	return entity, nil
