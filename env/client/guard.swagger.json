@@ -31,6 +31,16 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/grpcCreateLicenseRequest"
+            }
+          }
+        ],
         "tags": [
           "License"
         ]
@@ -113,6 +123,14 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/grpcUpdateLicenseRequest"
+            }
           }
         ],
         "tags": [
@@ -154,6 +172,17 @@
         "workplaces": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "grpcCreateLicenseRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "contract": {
+          "$ref": "#/definitions/grpcContract"
         }
       }
     },
@@ -215,6 +244,18 @@
     },
     "grpcRegisterLicenseResponse": {
       "type": "object"
+    },
+    "grpcUpdateLicenseRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "contract": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
     },
     "grpcUpdateLicenseResponse": {
       "type": "object",
