@@ -75,7 +75,7 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
       "contract"   JSONB     NOT NULL,
       "what"       ACTION    NOT NULL,
       "who"        UUID      NOT NULL,
-      "when"       TIMESTAMP NOT NULL DEFAULT now(),
+      "when"       TIMESTAMP NOT NULL,
       "with"       UUID      NOT NULL
     );
     CREATE TRIGGER "license_updated"

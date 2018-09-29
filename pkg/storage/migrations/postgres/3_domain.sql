@@ -15,7 +15,7 @@ CREATE TABLE "license_audit" (
   "contract"   JSONB     NOT NULL,
   "what"       ACTION    NOT NULL,
   "who"        UUID      NOT NULL,
-  "when"       TIMESTAMP NOT NULL DEFAULT now(),
+  "when"       TIMESTAMP NOT NULL,
   "with"       UUID      NOT NULL
 );
 
