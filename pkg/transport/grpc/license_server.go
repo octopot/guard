@@ -74,11 +74,11 @@ func (server *licenseServer) Delete(ctx context.Context, req *DeleteLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	_, deleteErr := server.storage.DeleteLicense(ctx, token, query.DeleteLicense{})
+	license, deleteErr := server.storage.DeleteLicense(ctx, token, query.DeleteLicense{ID: domain.ID(req.Id)})
 	if deleteErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", deleteErr) // TODO issue#6
 	}
-	return &DeleteLicenseResponse{}, nil
+	return &DeleteLicenseResponse{DeletedAt: Timestamp(license.DeletedAt)}, nil
 }
 
 // ---
