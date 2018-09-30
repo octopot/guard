@@ -3,6 +3,8 @@ package grpc
 import (
 	"context"
 
+	domain "github.com/kamilsk/guard/pkg/service/types"
+
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
 	"google.golang.org/grpc/codes"
@@ -26,7 +28,7 @@ func (server *licenseServer) Create(ctx context.Context, req *CreateLicenseReque
 	}
 	license, createErr := server.storage.CreateLicense(ctx, token, query.CreateLicense{
 		ID:       ptrToID(req.Id),
-		Contract: toDomainContract(req.Contract),
+		Contract: convertToDomainContract(req.Contract),
 	})
 	if createErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", createErr) // TODO issue#6
@@ -81,7 +83,10 @@ func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseR
 	if authErr != nil {
 		return nil, authErr
 	}
-	_, registerErr := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{})
+	_, registerErr := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{
+		ID:       domain.ID(req.Id),
+		Contract: convertToDomainContract(req.Contract),
+	})
 	if registerErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", registerErr) // TODO issue#6
 	}

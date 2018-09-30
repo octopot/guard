@@ -45,19 +45,19 @@ func ptrToID(id string) *domain.ID {
 	return ptr
 }
 
-func toDomainContract(from *Contract) (to domain.Contract) {
+func convertToDomainContract(from *Contract) (to domain.Contract) {
 	if from == nil {
 		return
 	}
 	to.Request, to.Workplaces = from.Requests, from.Workplaces
 	to.Since, to.Until = Time(from.Since), Time(from.Until)
 	if from.Rate != nil {
-		to.Rate = domain.PackRate(domain.RateValue(from.Rate.Value), unit(from.Rate.Unit))
+		to.Rate = domain.PackRate(domain.RateValue(from.Rate.Value), convertToDomainRateUnit(from.Rate.Unit))
 	}
 	return
 }
 
-func unit(enum Rate_Unit) domain.RateUnit {
+func convertToDomainRateUnit(enum Rate_Unit) domain.RateUnit {
 	switch enum {
 	case Rate_rps:
 		return domain.RPS
