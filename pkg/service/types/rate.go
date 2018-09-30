@@ -28,12 +28,6 @@ func PackRate(value RateValue, unit RateUnit) Rate {
 	return Rate(fmt.Sprintf("%d %s", value, unit))
 }
 
-// UnpackRate TODO issue#docs
-func UnpackRate(r Rate) (RateValue, RateUnit) {
-	v, u := r.Value()
-	return RateValue(v), RateUnit(u)
-}
-
 // Rate TODO issue#docs
 type Rate string
 

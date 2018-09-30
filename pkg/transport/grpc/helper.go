@@ -45,16 +45,41 @@ func ptrToID(id string) *domain.ID {
 	return ptr
 }
 
+func convertFromDomainContract(from domain.Contract) *Contract {
+	to := &Contract{Requests: from.Requests, Workplaces: from.Workplaces}
+	to.Since, to.Until = Timestamp(from.Since), Timestamp(from.Until)
+	value, unit := from.Rate.Value()
+	to.Rate = &Rate{Value: value, Unit: convertFromDomainRateUnit(domain.RateUnit(unit))}
+	return to
+}
+
 func convertToDomainContract(from *Contract) (to domain.Contract) {
 	if from == nil {
 		return
 	}
-	to.Request, to.Workplaces = from.Requests, from.Workplaces
+	to.Requests, to.Workplaces = from.Requests, from.Workplaces
 	to.Since, to.Until = Time(from.Since), Time(from.Until)
 	if from.Rate != nil {
 		to.Rate = domain.PackRate(domain.RateValue(from.Rate.Value), convertToDomainRateUnit(from.Rate.Unit))
 	}
 	return
+}
+
+func convertFromDomainRateUnit(unit domain.RateUnit) Rate_Unit {
+	switch unit {
+	case domain.RPS:
+		return Rate_rps
+	case domain.RPM:
+		return Rate_rpm
+	case domain.RPH:
+		return Rate_rph
+	case domain.RPD:
+		return Rate_rpd
+	case domain.RPW:
+		return Rate_rpw
+	default:
+		panic(errors.Errorf("unexpected domain rate unit %v", unit))
+	}
 }
 
 func convertToDomainRateUnit(enum Rate_Unit) domain.RateUnit {
@@ -70,6 +95,6 @@ func convertToDomainRateUnit(enum Rate_Unit) domain.RateUnit {
 	case Rate_rpw:
 		return domain.RPW
 	default:
-		panic(errors.Errorf("unknown protobuf unit %v", enum))
+		panic(errors.Errorf("unexpected protobuf rate unit %v", enum))
 	}
 }

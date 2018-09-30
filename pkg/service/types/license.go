@@ -18,6 +18,6 @@ type License struct {
 
 // Limits TODO issue#docs
 type Limits struct {
-	Rate    Rate   `json:"rate_limits,omitempty"`
-	Request uint32 `json:"request_limits,omitempty"`
+	Rate     Rate   `json:"rate_limits,omitempty"`
+	Requests uint32 `json:"request_limits,omitempty"`
 }

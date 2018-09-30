@@ -42,11 +42,17 @@ func (server *licenseServer) Read(ctx context.Context, req *ReadLicenseRequest) 
 	if authErr != nil {
 		return nil, authErr
 	}
-	license, readErr := server.storage.ReadLicense(ctx, token, query.ReadLicense{})
+	license, readErr := server.storage.ReadLicense(ctx, token, query.ReadLicense{ID: domain.ID(req.Id)})
 	if readErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", readErr) // TODO issue#6
 	}
-	return &ReadLicenseResponse{Id: license.ID.String()}, nil
+	return &ReadLicenseResponse{
+		Id:        license.ID.String(),
+		Contract:  convertFromDomainContract(license.Contract),
+		CreatedAt: Timestamp(&license.CreatedAt),
+		UpdatedAt: Timestamp(license.UpdatedAt),
+		DeletedAt: Timestamp(license.DeletedAt),
+	}, nil
 }
 
 // Update TODO issue#docs
