@@ -56,6 +56,7 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 				token.UserID, token.User.AccountID, token.UserID, after)
 		}
 	}
+	entity.Account = token.User.Account
 	return entity, nil
 }
 
@@ -76,6 +77,7 @@ func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense
 			"user %q of account %q with token %q tried to decode contract %s of license %q from JSON",
 			token.UserID, token.User.AccountID, token.UserID, encoded, entity.ID)
 	}
+	entity.Account = token.User.Account
 	return entity, nil
 }
 
@@ -117,6 +119,7 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 				token.UserID, token.User.AccountID, token.UserID, entity.ID, after)
 		}
 	}
+	entity.Account = token.User.Account
 	return entity, nil
 }
 
@@ -152,5 +155,6 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 				token.UserID, token.User.AccountID, token.UserID, entity.ID)
 		}
 	}
+	entity.Account = token.User.Account
 	return entity, nil
 }
