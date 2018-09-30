@@ -61,11 +61,14 @@ func (server *licenseServer) Update(ctx context.Context, req *UpdateLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	_, updateErr := server.storage.UpdateLicense(ctx, token, query.UpdateLicense{})
+	license, updateErr := server.storage.UpdateLicense(ctx, token, query.UpdateLicense{
+		ID:       domain.ID(req.Id),
+		Contract: convertToDomainContract(req.Contract),
+	})
 	if updateErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", updateErr) // TODO issue#6
 	}
-	return &UpdateLicenseResponse{}, nil
+	return &UpdateLicenseResponse{UpdatedAt: Timestamp(license.UpdatedAt)}, nil
 }
 
 // Delete TODO issue#docs

@@ -1,38 +1,45 @@
-### Legacy
+### Protect Legacy
 
 POST http://localhost/legacy/protected
 X-Token:      10000000-2000-4000-8000-160000000004
 X-UDID:       10000000-2000-4000-8000-160000000005
 X-Request-ID: 10000000-2000-4000-8000-160000000006
 
-### the same effect request
+### - the same effect request
 
 POST http://localhost/legacy/protected
 X-Employee:   10000000-2000-4000-8000-160000000004
 X-Workplace:  10000000-2000-4000-8000-160000000005
 X-Request-ID: 10000000-2000-4000-8000-160000000006
 
-### the same effect request
+### - the same effect request
 
 POST http://localhost/legacy/protected
 X-License:    10000000-2000-4000-8000-160000000003
 X-Workplace:  10000000-2000-4000-8000-160000000005
 X-Request-ID: 10000000-2000-4000-8000-160000000006
 
-### API v1
+### - under the hood
 
 POST http://localhost:8080/api/v1/license/check
 X-Employee:   10000000-2000-4000-8000-160000000004
 X-Workplace:  10000000-2000-4000-8000-160000000005
 X-Request-ID: 10000000-2000-4000-8000-160000000006
 
-###
+### API v1
 
 POST http://localhost:8093/api/v1/license
 Authorization: Bearer 10000000-2000-4000-8000-160000000002
 Content-Type: application/json
 
 {
+  "contract": {
+    "since": "2018-09-29T17:11:43.264Z",
+    "until": null,
+    "rate": { "value": 10, "unit": "rph" },
+    "requests": 1000,
+    "workplaes": 100
+  }
 }
 
 ###
@@ -47,6 +54,13 @@ Authorization: Bearer 10000000-2000-4000-8000-160000000002
 Content-Type: application/json
 
 {
+  "contract": {
+    "since": "2018-09-29T17:11:43.264Z",
+    "until": "2018-09-29T17:11:43.264Z",
+    "rate": { "value": 10, "unit": "rpd" },
+    "requests": 1000,
+    "workplaes": 100
+  }
 }
 
 ###
@@ -61,6 +75,14 @@ Authorization: Bearer 10000000-2000-4000-8000-160000000002
 Content-Type: application/json
 
 {
+  "id": "10000000-2000-4000-8000-160000000003",
+  "contract": {
+    "since": "2018-09-29T17:11:43.264Z",
+    "until": null,
+    "rate": { "value": 10, "unit": "rph" },
+    "requests": 1000,
+    "workplaes": 100
+  }
 }
 
 ### Profiling
