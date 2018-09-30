@@ -2,7 +2,8 @@ package grpc
 
 import (
 	"context"
-	"log"
+
+	domain "github.com/kamilsk/guard/pkg/service/types"
 
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
@@ -25,11 +26,22 @@ func (server *licenseServer) Create(ctx context.Context, req *CreateLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	log.Printf("LicenseServer.Create was called with token %q and request %#+v\n", token, req)
-	if _, err := server.storage.CreateLicense(ctx, token, query.CreateLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	license, createErr := server.storage.CreateLicense(ctx, token, query.CreateLicense{
+		ID: nil, // req.Id,
+		Contract: domain.Contract{
+			Since:      nil, // req.Contract.Since,
+			Until:      nil, // req.Contract.Until,
+			Workplaces: req.Contract.Workplaces,
+			Limits: domain.Limits{
+				Rate:    "", // req.Contract.Rate.Value + req.Contract.Rate.Unit,
+				Request: req.Contract.Requests,
+			},
+		},
+	})
+	if createErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", createErr) // TODO issue#6
 	}
-	return &CreateLicenseResponse{}, nil
+	return &CreateLicenseResponse{Id: license.ID.String(), CreatedAt: Timestamp(&license.CreatedAt)}, nil
 }
 
 // Read TODO issue#docs
@@ -38,11 +50,11 @@ func (server *licenseServer) Read(ctx context.Context, req *ReadLicenseRequest) 
 	if authErr != nil {
 		return nil, authErr
 	}
-	log.Printf("LicenseServer.Read was called with token %q and request %#+v\n", token, req)
-	if _, err := server.storage.ReadLicense(ctx, token, query.ReadLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	license, readErr := server.storage.ReadLicense(ctx, token, query.ReadLicense{})
+	if readErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", readErr) // TODO issue#6
 	}
-	return &ReadLicenseResponse{}, nil
+	return &ReadLicenseResponse{Id: license.ID.String()}, nil
 }
 
 // Update TODO issue#docs
@@ -51,9 +63,9 @@ func (server *licenseServer) Update(ctx context.Context, req *UpdateLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	log.Printf("LicenseServer.Update was called with token %q and request %#+v\n", token, req)
-	if _, err := server.storage.UpdateLicense(ctx, token, query.UpdateLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	_, updateErr := server.storage.UpdateLicense(ctx, token, query.UpdateLicense{})
+	if updateErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", updateErr) // TODO issue#6
 	}
 	return &UpdateLicenseResponse{}, nil
 }
@@ -64,9 +76,9 @@ func (server *licenseServer) Delete(ctx context.Context, req *DeleteLicenseReque
 	if authErr != nil {
 		return nil, authErr
 	}
-	log.Printf("LicenseServer.Delete was called with token %q and request %#+v\n", token, req)
-	if _, err := server.storage.DeleteLicense(ctx, token, query.DeleteLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	_, deleteErr := server.storage.DeleteLicense(ctx, token, query.DeleteLicense{})
+	if deleteErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", deleteErr) // TODO issue#6
 	}
 	return &DeleteLicenseResponse{}, nil
 }
@@ -79,9 +91,9 @@ func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseR
 	if authErr != nil {
 		return nil, authErr
 	}
-	log.Printf("LicenseServer.Register was called with token %q and request %#+v\n", token, req)
-	if _, err := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{}); err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "something happen: %v", err)
+	_, registerErr := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{})
+	if registerErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", registerErr) // TODO issue#6
 	}
 	return &RegisterLicenseResponse{}, nil
 }

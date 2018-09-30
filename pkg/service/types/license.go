@@ -6,7 +6,7 @@ import "time"
 type Contract struct {
 	Since      *time.Time `json:"since,omitempty"`
 	Until      *time.Time `json:"until,omitempty"`
-	Workplaces uint       `json:"workplace_limits,omitempty"`
+	Workplaces uint32     `json:"workplace_limits,omitempty"`
 	Limits
 }
 
@@ -18,6 +18,6 @@ type License struct {
 
 // Limits TODO issue#docs
 type Limits struct {
-	Rate    Rate `json:"rate_limits,omitempty"`
-	Request uint `json:"request_limits,omitempty"`
+	Rate    Rate   `json:"rate_limits,omitempty"`
+	Request uint32 `json:"request_limits,omitempty"`
 }
