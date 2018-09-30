@@ -1,6 +1,7 @@
 package types
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -9,18 +10,29 @@ import (
 // Units of rate limits.
 const (
 	// RPS - requests per second.
-	RPS = "rps"
+	RPS RateUnit = "rps"
 	// RPM - requests per minute.
-	RPM = "rpm"
+	RPM RateUnit = "rpm"
 	// RPH - requests per hour.
-	RPH = "rph"
+	RPH RateUnit = "rph"
 	// RPD - requests per day.
-	RPD = "rpd"
+	RPD RateUnit = "rpd"
 	// RPW - requests per week.
-	RPW = "rpw"
+	RPW RateUnit = "rpw"
 )
 
 var rate = regexp.MustCompile(`(?i:(\d+) (rps|rpm|rph|rpd|rpw)$)`)
+
+// PackRate TODO issue#docs
+func PackRate(value RateValue, unit RateUnit) Rate {
+	return Rate(fmt.Sprintf("%d %s", value, unit))
+}
+
+// UnpackRate TODO issue#docs
+func UnpackRate(r Rate) (RateValue, RateUnit) {
+	v, u := r.Value()
+	return RateValue(v), RateUnit(u)
+}
 
 // Rate TODO issue#docs
 type Rate string
@@ -41,11 +53,17 @@ func (r Rate) String() string {
 }
 
 // Value TODO issue#docs
-func (r Rate) Value() (uint, string) {
+func (r Rate) Value() (uint32, string) {
 	if !r.IsValid() {
 		return 0, ""
 	}
 	matches := rate.FindStringSubmatch(string(r))
 	val, _ := strconv.Atoi(matches[1])
-	return uint(val), strings.ToLower(matches[2])
+	return uint32(val), strings.ToLower(matches[2])
 }
+
+// RateValue TODO issue#docs
+type RateValue uint32
+
+// RateUnit TODO issue#docs
+type RateUnit string

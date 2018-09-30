@@ -11,7 +11,7 @@ import (
 func TestRate(t *testing.T) {
 	type entity struct {
 		Rate
-		measure uint
+		measure uint32
 		unit    string
 	}
 
