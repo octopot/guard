@@ -6,6 +6,20 @@ import (
 	"strings"
 )
 
+// Units of rate limits.
+const (
+	// RPS - requests per second.
+	RPS = "rps"
+	// RPM - requests per minute.
+	RPM = "rpm"
+	// RPH - requests per hour.
+	RPH = "rph"
+	// RPD - requests per day.
+	RPD = "rpd"
+	// RPW - requests per week.
+	RPW = "rpw"
+)
+
 var rate = regexp.MustCompile(`(?i:(\d+) (rps|rpm|rph|rpd|rpw)$)`)
 
 // Rate TODO issue#docs

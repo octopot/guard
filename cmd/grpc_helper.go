@@ -119,7 +119,7 @@ func call(cnf config.GRPCConfig, entity pb.Proxy) (interface{}, error) {
 	defer cancel()
 	ctx = metadata.AppendToOutgoingContext(ctx,
 		middleware.AuthHeader,
-		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
+		strings.Concat(middleware.AuthScheme, " ", cnf.Token.String()))
 	switch request := entity.Convert().(type) {
 	case *pb.CreateLicenseRequest:
 		return client.Create(ctx, request)
