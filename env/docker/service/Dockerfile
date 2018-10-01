@@ -24,18 +24,18 @@ LABEL maintainer="Kamil Samigullin <kamil@samigullin.info>"
 
 COPY --from=build /go/bin/service /usr/local/bin/
 
-ENV BIND              "0.0.0.0"
-ENV HTTP_PORT         "80"
-ENV PROFILING_PORT    "8090"
-ENV MONITORING_PORT   "8091"
-ENV GRPC_PORT         "8092"
-ENV GRPC_GATEWAY_PORT "8093"
+ENV BIND=0.0.0.0 \
+    HTTP_PORT=80 \
+    PROFILING_PORT=8090 \
+    MONITORING_PORT=8091 \
+    GRPC_PORT=8092 \
+    GRPC_GATEWAY_PORT=8093
 
-EXPOSE ${HTTP_PORT}
-EXPOSE ${PROFILING_PORT}
-EXPOSE ${MONITORING_PORT}
-EXPOSE ${GRPC_PORT}
-EXPOSE ${GRPC_GATEWAY_PORT}
+EXPOSE ${HTTP_PORT} \
+       ${PROFILING_PORT} \
+       ${MONITORING_PORT} \
+       ${GRPC_PORT} \
+       ${GRPC_GATEWAY_PORT}
 
 ENTRYPOINT [ "service" ]
 CMD        [ "run" ]
