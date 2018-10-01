@@ -6,4 +6,4 @@ payload:
     until: ~
     rate: { value: 10, unit: rph }
     requests: 1000
-    workplaes: 100
+    workplaces: 10

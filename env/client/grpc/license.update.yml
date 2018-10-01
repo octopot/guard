@@ -6,4 +6,4 @@ payload:
     until: 2018-09-29T17:11:43.264Z
     rate: { value: 10, unit: rpd }
     requests: 1000
-    workplaes: 100
+    workplaces: 10
