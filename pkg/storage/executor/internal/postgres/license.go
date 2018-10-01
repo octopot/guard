@@ -129,6 +129,9 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 	if readErr != nil {
 		return entity, errors.Wrapf(readErr, "while deleting")
 	}
+	if entity.DeletedAt != nil {
+		return entity, nil
+	}
 	before, encodeErr := json.Marshal(entity.Contract)
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
