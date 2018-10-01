@@ -103,13 +103,13 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 	         SET "contract" = $1
 	       WHERE "id" = $2
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, after, entity.ID)
+	prev, row := entity.UpdatedAt, scope.conn.QueryRowContext(scope.ctx, q, after, entity.ID)
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
 			"user %q of account %q with token %q tried to update license %q with new contract %s",
 			token.UserID, token.User.AccountID, token.UserID, entity.ID, after)
 	}
-	{
+	if prev == nil || !prev.Equal(*entity.UpdatedAt) {
 		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
 		          VALUES ($1, $2, $3, $4, $5, $6)`
 		if _, execErr := scope.conn.ExecContext(scope.ctx, audit, entity.ID, before,
