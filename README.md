@@ -30,7 +30,6 @@ $ make up status
      Name                    Command               State                              Ports
 ------------------------------------------------------------------------------------------------------------------------
 guard_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
-guard_etcd_1      /usr/local/bin/etcd              Up      0.0.0.0:2379->2379/tcp, 2380/tcp
 guard_legacy_1    docker-php-entrypoint php-fpm    Up      9000/tcp
 guard_server_1    nginx -g daemon off;             Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
 guard_service_1   service run --with-profili ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp,

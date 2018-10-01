@@ -49,7 +49,7 @@ func convertFromDomainContract(from domain.Contract) *Contract {
 	to := &Contract{Requests: from.Requests, Workplaces: from.Workplaces}
 	to.Since, to.Until = Timestamp(from.Since), Timestamp(from.Until)
 	value, unit := from.Rate.Value()
-	to.Rate = &Rate{Value: value, Unit: convertFromDomainRateUnit(domain.RateUnit(unit))}
+	to.Rate = &Rate{Value: value, Unit: units.convert(domain.RateUnit(unit))}
 	return to
 }
 
@@ -60,41 +60,34 @@ func convertToDomainContract(from *Contract) (to domain.Contract) {
 	to.Requests, to.Workplaces = from.Requests, from.Workplaces
 	to.Since, to.Until = Time(from.Since), Time(from.Until)
 	if from.Rate != nil {
-		to.Rate = domain.PackRate(domain.RateValue(from.Rate.Value), convertToDomainRateUnit(from.Rate.Unit))
+		to.Rate = domain.PackRate(domain.RateValue(from.Rate.Value), units.invert(from.Rate.Unit))
 	}
 	return
 }
 
-func convertFromDomainRateUnit(unit domain.RateUnit) Rate_Unit {
-	switch unit {
-	case domain.RPS:
-		return Rate_rps
-	case domain.RPM:
-		return Rate_rpm
-	case domain.RPH:
-		return Rate_rph
-	case domain.RPD:
-		return Rate_rpd
-	case domain.RPW:
-		return Rate_rpw
-	default:
-		panic(errors.Errorf("unexpected domain rate unit %v", unit))
+type unitMap map[domain.RateUnit]Rate_Unit
+
+func (m unitMap) convert(from domain.RateUnit) Rate_Unit {
+	to, found := m[from]
+	if !found {
+		panic(errors.Errorf("unexpected domain rate unit %v", from))
 	}
+	return to
 }
 
-func convertToDomainRateUnit(enum Rate_Unit) domain.RateUnit {
-	switch enum {
-	case Rate_rps:
-		return domain.RPS
-	case Rate_rpm:
-		return domain.RPM
-	case Rate_rph:
-		return domain.RPH
-	case Rate_rpd:
-		return domain.RPD
-	case Rate_rpw:
-		return domain.RPW
-	default:
-		panic(errors.Errorf("unexpected protobuf rate unit %v", enum))
+func (m unitMap) invert(from Rate_Unit) domain.RateUnit {
+	for to, v := range m {
+		if v == from {
+			return to
+		}
 	}
+	panic(errors.Errorf("unexpected protobuf rate unit %v", from))
+}
+
+var units = unitMap{
+	domain.RPS: Rate_rps,
+	domain.RPM: Rate_rpm,
+	domain.RPH: Rate_rph,
+	domain.RPD: Rate_rpd,
+	domain.RPW: Rate_rpw,
 }
