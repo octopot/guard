@@ -47,6 +47,14 @@
   version = "v1.4.7"
 
 [[projects]]
+  branch = "master"
+  digest = "1:0b86d0877c1b5a5d518f5bb51d7a27878f0c2a1e05dd96ab8790dee49d4eb5bf"
+  name = "github.com/ghodss/yaml"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "c7ce16629ff4cd059ed96ed06419dd3856fd3577"
+
+[[projects]]
   digest = "1:c38144c2e2d2cf5592dc55f08f69b491b15f4449c54e293710fe19ea0874fa90"
   name = "github.com/go-chi/chi"
   packages = [
@@ -174,12 +182,12 @@
   version = "v1.0.1"
 
 [[projects]]
-  branch = "master"
-  digest = "1:4f0a99a8d8e324a0de88c699b62b5f7bca7720bcab72f6c8f22c07120d8332b6"
+  digest = "1:7ab17345d3ff52cee65e3f0494b5a53976955b090b8a99f93cb65f3d3322b2df"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "ce2ff0c13ce509e36e9254c08ea0bca90ed5af6c"
+  revision = "fe40af7a9c397fa3ddba203c38a5042c5d0475ad"
+  version = "v1.1.1"
 
 [[projects]]
   digest = "1:51ea800cff51752ff68e12e04106f5887b4daec6f9356721238c28019f0b42db"
@@ -207,7 +215,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c5f30fae05c4108623b471f241086fce7f56cbc78e747b1b85ecdf54d25bb06c"
+  digest = "1:aa2da1df3327c3a338bb42f978407c07de74cd0a5bef35e9411881dffd444214"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -215,7 +223,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "NUT"
-  revision = "daeaac0cfb9c64220f9bf35be463c47420b581b8"
+  revision = "0a8115f42e037a6e327f9a269a26ff6603fb8472"
 
 [[projects]]
   branch = "master"
@@ -472,9 +480,12 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/ghodss/yaml",
     "github.com/go-chi/chi",
     "github.com/go-chi/chi/middleware",
     "github.com/golang/protobuf/proto",
+    "github.com/golang/protobuf/ptypes",
+    "github.com/golang/protobuf/ptypes/timestamp",
     "github.com/grpc-ecosystem/go-grpc-middleware",
     "github.com/grpc-ecosystem/go-grpc-middleware/auth",
     "github.com/grpc-ecosystem/go-grpc-prometheus",
@@ -485,7 +496,6 @@
     "github.com/kamilsk/go-kit/pkg/fn",
     "github.com/kamilsk/go-kit/pkg/strings",
     "github.com/lib/pq",
-    "github.com/mitchellh/mapstructure",
     "github.com/pkg/errors",
     "github.com/prometheus/client_golang/prometheus/promhttp",
     "github.com/spf13/cobra",
@@ -501,7 +511,6 @@
     "google.golang.org/grpc/grpclog",
     "google.golang.org/grpc/metadata",
     "google.golang.org/grpc/status",
-    "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

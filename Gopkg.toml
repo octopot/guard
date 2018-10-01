@@ -8,6 +8,10 @@ required = [
 ]
 
 [[constraint]]
+  name = "github.com/ghodss/yaml"
+  branch = "master"
+
+[[constraint]]
   name = "github.com/go-chi/chi"
   version = "^3.3.0"
 
@@ -33,10 +37,6 @@ required = [
 
 [[constraint]]
   name = "github.com/lib/pq"
-  branch = "master"
-
-[[constraint]]
-  name = "github.com/mitchellh/mapstructure"
   branch = "master"
 
 [[constraint]]
@@ -75,7 +75,7 @@ required = [
   name = "google.golang.org/genproto"
   branch = "master"
 
-[[constraint]]
+[[override]]
   name = "gopkg.in/yaml.v2"
   branch = "v2"
 
