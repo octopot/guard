@@ -77,6 +77,14 @@ message DeleteLicenseResponse {
     google.protobuf.Timestamp deleted_at = 1;
 }
 
+message RestoreLicenseRequest {
+    string id = 1;
+}
+
+message RestoreLicenseResponse {
+    google.protobuf.Timestamp updated_at = 1;
+}
+
 message RegisterLicenseRequest {
     string id = 1;
     Contract contract = 2;
@@ -105,6 +113,11 @@ service License {
     rpc Delete (DeleteLicenseRequest) returns (DeleteLicenseResponse) {
         option (google.api.http) = {
             delete: "/api/v1/license/{id}"
+        };
+    }
+    rpc Restore (RestoreLicenseRequest) returns (RestoreLicenseResponse) {
+        option (google.api.http) = {
+            patch: "/api/v1/license/{id}"
         };
     }
 

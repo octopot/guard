@@ -109,6 +109,33 @@ func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data
 	return license, tx.Commit()
 }
 
+// RestoreLicense TODO issue#docs
+func (storage *Storage) RestoreLicense(ctx context.Context, id domain.Token, data query.RestoreLicense) (repository.License, error) {
+	var license repository.License
+
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return license, connErr
+	}
+	defer closer()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return license, authErr
+	}
+
+	tx, txErr := conn.BeginTx(ctx, &sql.TxOptions{})
+	if txErr != nil {
+		return license, txErr
+	}
+	license, execErr := storage.exec.LicenseManager(ctx, conn).Restore(token, data)
+	if execErr != nil {
+		_ = tx.Rollback() // TODO issue#composite
+		return license, execErr
+	}
+	return license, tx.Commit()
+}
+
 // ---
 
 // RegisterLicense TODO issue#docs

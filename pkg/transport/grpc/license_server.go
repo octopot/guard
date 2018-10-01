@@ -84,6 +84,19 @@ func (server *licenseServer) Delete(ctx context.Context, req *DeleteLicenseReque
 	return &DeleteLicenseResponse{DeletedAt: Timestamp(license.DeletedAt)}, nil
 }
 
+// Restore TODO issue#docs
+func (server *licenseServer) Restore(ctx context.Context, req *RestoreLicenseRequest) (*RestoreLicenseResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	license, restoreErr := server.storage.RestoreLicense(ctx, token, query.RestoreLicense{ID: domain.ID(req.Id)})
+	if restoreErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", restoreErr) // TODO issue#6
+	}
+	return &RestoreLicenseResponse{UpdatedAt: Timestamp(license.UpdatedAt)}, nil
+}
+
 // ---
 
 // Register TODO issue#docs

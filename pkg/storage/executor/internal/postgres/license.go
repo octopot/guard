@@ -161,3 +161,42 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 	entity.Account = token.User.Account
 	return entity, nil
 }
+
+// Restore TODO issue#docs
+func (scope licenseManager) Restore(token *repository.Token, data query.RestoreLicense) (repository.License, error) {
+	entity, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
+	if readErr != nil {
+		return entity, errors.Wrapf(readErr, "while restoring")
+	}
+	if entity.DeletedAt == nil {
+		return entity, nil
+	}
+	before, encodeErr := json.Marshal(entity.Contract)
+	if encodeErr != nil {
+		return entity, errors.Wrapf(encodeErr,
+			"user %q of account %q with token %q tried to encode to JSON current contract %+v of license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
+	}
+	q := `UPDATE "license"
+	         SET "deleted_at" = NULL
+	       WHERE "id" = $1
+	   RETURNING "updated_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
+	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
+		return entity, errors.Wrapf(scanErr,
+			"user %q of account %q with token %q tried to restore license %q",
+			token.UserID, token.User.AccountID, token.UserID, entity.ID)
+	}
+	{
+		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
+		          VALUES ($1, $2, $3, $4, $5, $6)`
+		if _, execErr := scope.conn.ExecContext(scope.ctx, audit, entity.ID, before,
+			repository.Restore, entity.UpdatedAt, token.UserID, token.ID); execErr != nil {
+			return entity, errors.Wrapf(execErr,
+				"audit: user %q of account %q with token %q tried to restore license %q",
+				token.UserID, token.User.AccountID, token.UserID, entity.ID)
+		}
+	}
+	entity.Account = token.User.Account
+	return entity, nil
+}

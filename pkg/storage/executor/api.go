@@ -39,6 +39,7 @@ type LicenseManager interface {
 	Read(*repository.Token, query.ReadLicense) (repository.License, error)
 	Update(*repository.Token, query.UpdateLicense) (repository.License, error)
 	Delete(*repository.Token, query.DeleteLicense) (repository.License, error)
+	Restore(*repository.Token, query.RestoreLicense) (repository.License, error)
 }
 
 // UserManager TODO issue#docs

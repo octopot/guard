@@ -19,6 +19,8 @@ type ProtectedStorage interface {
 	UpdateLicense(context.Context, domain.Token, query.UpdateLicense) (repository.License, error)
 	// DeleteLicense TODO issue#docs
 	DeleteLicense(context.Context, domain.Token, query.DeleteLicense) (repository.License, error)
+	// RestoreLicense TODO issue#docs
+	RestoreLicense(context.Context, domain.Token, query.RestoreLicense) (repository.License, error)
 
 	// ---
 

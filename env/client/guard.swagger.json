@@ -146,6 +146,28 @@
         "tags": [
           "License"
         ]
+      },
+      "patch": {
+        "operationId": "Restore",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/grpcRestoreLicenseResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "License"
+        ]
       }
     }
   },
@@ -265,6 +287,15 @@
     },
     "grpcRegisterLicenseResponse": {
       "type": "object"
+    },
+    "grpcRestoreLicenseResponse": {
+      "type": "object",
+      "properties": {
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "grpcUpdateLicenseRequest": {
       "type": "object",

@@ -11,9 +11,10 @@ type Action string
 
 // Create, Update, Delete defines Action set.
 const (
-	Create Action = "create"
-	Update Action = "update"
-	Delete Action = "delete"
+	Create  Action = "create"
+	Update  Action = "update"
+	Delete  Action = "delete"
+	Restore Action = "restore"
 )
 
 // LicenseAudit TODO issue#docs

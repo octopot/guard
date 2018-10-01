@@ -18,6 +18,11 @@ type ReadLicense struct {
 	ID domain.ID
 }
 
+// RestoreLicense TODO issue#docs
+type RestoreLicense struct {
+	ID domain.ID
+}
+
 // UpdateLicense TODO issue#docs
 type UpdateLicense struct {
 	ID       domain.ID
