@@ -136,23 +136,26 @@ func startGRPCServer(cnf config.GRPCConfig, repository *storage.Storage) error {
 	if err != nil {
 		return err
 	}
-	cascade := make(chan struct{})
+	gateway, cascade := net.Listener(nil), make(chan struct{})
+	if cnf.Gateway.Enabled {
+		gateway, err = net.Listen("tcp", cnf.Gateway.Interface)
+		if err != nil {
+			return err
+		}
+	}
 	go func(listener net.Listener) {
 		close(cascade)
 		log.Println("start gRPC server at", listener.Addr())
 		_ = grpc.New(cnf, repository).Serve(listener)
 	}(listener)
-	if cnf.Gateway.Enabled {
-		listener, err = net.Listen("tcp", cnf.Gateway.Interface)
-		if err != nil {
-			return err
+	go func(listener net.Listener) {
+		if listener == nil {
+			return
 		}
-		go func(listener net.Listener) {
-			<-cascade
-			log.Println("start gRPC gateway server at", listener.Addr())
-			_ = grpc.Gateway(cnf).Serve(listener)
-		}(listener)
-	}
+		<-cascade
+		log.Println("start gRPC gateway server at", listener.Addr())
+		_ = grpc.Gateway(cnf).Serve(listener)
+	}(gateway)
 	return nil
 }
 
