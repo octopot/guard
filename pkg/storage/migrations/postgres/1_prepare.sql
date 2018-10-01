@@ -28,7 +28,7 @@ $ignore_update$
 LANGUAGE plpgsql;
 -- +migrate StatementEnd
 
-CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete');
+CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete', 'restore');
 
 
 

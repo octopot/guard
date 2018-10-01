@@ -26,7 +26,7 @@ psql -v ON_ERROR_STOP=1 --username "${POSTGRES_USER}" <<-EOSQL
     END;
     \$ignore_update\$
     LANGUAGE plpgsql;
-    CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete');
+    CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete', 'restore');
 
     CREATE TABLE "account" (
       "id"         UUID         NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
