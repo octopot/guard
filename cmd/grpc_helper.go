@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 	"io"
 	"io/ioutil"
 	"os"
@@ -20,19 +20,27 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
+const (
+	licenseKind kind = "License"
+
+	nl = 10 // \n
+)
+
 var entities factory
 
 func init() {
 	entities = factory{
-		createLicense:  {"License": func() interface{} { return &pb.CreateLicenseRequest{} }},
-		readLicense:    {"License": func() interface{} { return &pb.ReadLicenseRequest{} }},
-		updateLicense:  {"License": func() interface{} { return &pb.UpdateLicenseRequest{} }},
-		deleteLicense:  {"License": func() interface{} { return &pb.DeleteLicenseRequest{} }},
-		restoreLicense: {"License": func() interface{} { return &pb.RestoreLicenseRequest{} }},
+		licenseKind: {
+			createLicense:  func() interface{} { return &pb.CreateLicenseRequest{} },
+			readLicense:    func() interface{} { return &pb.ReadLicenseRequest{} },
+			updateLicense:  func() interface{} { return &pb.UpdateLicenseRequest{} },
+			deleteLicense:  func() interface{} { return &pb.DeleteLicenseRequest{} },
+			restoreLicense: func() interface{} { return &pb.RestoreLicenseRequest{} },
 
-		// ---
+			// ---
 
-		registerLicense: {"License": func() interface{} { return &pb.RegisterLicenseRequest{} }},
+			registerLicense: func() interface{} { return &pb.RegisterLicenseRequest{} },
+		},
 	}
 }
 
@@ -41,8 +49,6 @@ func communicate(cmd *cobra.Command, _ []string) error {
 	if resolveErr != nil {
 		return resolveErr
 	}
-
-	fmt.Printf("%+v \n", request)
 
 	encoder := &runtime.JSONPb{OrigName: true}
 	writer := func(w io.Writer) writerFunc {
@@ -59,22 +65,22 @@ func communicate(cmd *cobra.Command, _ []string) error {
 			return err
 		}
 		if cmd.Flag("output").Value.String() == jsonFormat {
-			return writer.Write(output)
+			return writer.Write(append(output, nl))
 		}
 		output, err = yaml.JSONToYAML(output)
 		if err != nil {
 			return err
 		}
-		return writer.Write(output)
+		return writer.Write(append([]byte{nl}, output...))
 	}
 
 	response, err := call(cnf.Union.GRPCConfig, request)
 	if err != nil {
-		return err
+		return writer.Write(append([]byte(err.Error()), nl))
 	}
 	output, err := encoder.Marshal(response)
 	if cmd.Flag("output").Value.String() == jsonFormat {
-		return writer.Write(output)
+		return writer.Write(append(output, nl))
 	}
 	output, err = yaml.JSONToYAML(output)
 	if err != nil {
@@ -93,35 +99,29 @@ type builder func() interface{}
 
 type kind string
 
-type schema struct {
-	Kind    kind        `json:"kind"`
-	Payload interface{} `json:"payload"`
-}
-
-type factory map[*cobra.Command]map[kind]builder
+type factory map[kind]map[*cobra.Command]builder
 
 func (f factory) request(cmd *cobra.Command) (interface{}, error) {
 	data, err := f.data(cmd.Flag("filename").Value.String())
 	if err != nil {
 		return nil, err
 	}
+
 	var t struct {
-		Kind kind `json:"kind"`
+		Kind    kind            `json:"kind"`
+		Payload json.RawMessage `json:"payload"`
 	}
 	if decodeErr := yaml.Unmarshal(data, &t); decodeErr != nil {
 		return nil, errors.Wrap(decodeErr, "trying to decode YAML")
 	}
-	build, ok := f[cmd][t.Kind]
+	build, ok := f[t.Kind][cmd]
 	if !ok {
 		return nil, errors.Errorf("unknown payload type %q", t.Kind)
 	}
-	data, err = yaml.YAMLToJSON(data)
-	if err != nil {
-		return nil, errors.Wrap(err, "trying to convert YAML into JSON")
-	}
-	encoder, scheme := &runtime.JSONPb{OrigName: true}, schema{Payload: build()}
-	encoder.Unmarshal(data, &scheme)
-	return scheme.Payload, nil
+
+	encoder, request := &runtime.JSONPb{OrigName: true}, build()
+	encoder.Unmarshal(t.Payload, request)
+	return request, nil
 }
 
 func (factory) data(filename string) ([]byte, error) {
@@ -132,13 +132,13 @@ func (factory) data(filename string) ([]byte, error) {
 	)
 	if filename != "" {
 		if src, err = os.Open(filename); err != nil {
-			return nil, errors.Wrapf(err, "trying to open file %q", filename)
+			return nil, errors.Wrapf(err, "opening the file %q", filename)
 		}
 	} else {
 		filename = "/dev/stdin"
 	}
 	if raw, err = ioutil.ReadAll(src); err != nil {
-		return nil, errors.Wrapf(err, "trying to read file %q", filename)
+		return nil, errors.Wrapf(err, "reading the file %q", filename)
 	}
 	return raw, nil
 }
@@ -148,15 +148,17 @@ func call(cnf config.GRPCConfig, request interface{}) (interface{}, error) {
 	conn, err := grpc.DialContext(deadline, cnf.Interface, grpc.WithInsecure())
 	cancel()
 	if err != nil {
-		return nil, errors.Wrapf(err, "trying to connect to the gRPC server at %q", cnf.Interface)
+		return nil, errors.Wrapf(err, "connecting to the gRPC server at %q", cnf.Interface)
 	}
 	defer conn.Close()
-	client := pb.NewLicenseClient(conn)
+
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	ctx = metadata.AppendToOutgoingContext(ctx,
 		middleware.AuthHeader,
-		strings.Concat(middleware.AuthScheme, " ", cnf.Token.String()))
+		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
+
+	client := pb.NewLicenseClient(conn)
 	switch in := request.(type) {
 	case *pb.CreateLicenseRequest:
 		return client.Create(ctx, in)
