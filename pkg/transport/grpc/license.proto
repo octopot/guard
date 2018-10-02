@@ -14,8 +14,24 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
             name:  "Guard project of Hugs Platform";
             url:   "https://github.com/kamilsk/guard";
             email: "info@octolab.org";
-        };
-    };
+        }
+    }
+    security_definitions: {
+        security: {
+            key: "Token";
+            value: {
+                type: TYPE_API_KEY;
+                in: IN_HEADER;
+                name: "Authorization";
+                description: "value = <strong>Bearer $(GuardToken)</strong>"
+            }
+        }
+    }
+    security: {
+        security_requirement: {
+            key: "Token";
+        }
+    }
 };
 
 message Contract {

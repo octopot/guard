@@ -317,5 +317,18 @@
         }
       }
     }
-  }
+  },
+  "securityDefinitions": {
+    "Token": {
+      "type": "apiKey",
+      "description": "value = \u003cstrong\u003eBearer $(GuardToken)\u003c/strong\u003e",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "Token": []
+    }
+  ]
 }
