@@ -1,4 +1,5 @@
-COMPOSE ?= docker-compose -f env/docker/compose/docker-compose.base.yml -f env/docker/compose/docker-compose.dev.yml -p guard
+_base   = docker-compose -p guard -f env/docker/compose/docker-compose.base.yml
+COMPOSE = $(_base) -f env/docker/compose/docker-compose.dev.yml
 
 
 .PHONY: __env__
@@ -6,6 +7,16 @@ __env__:
 	@(cp -nrf env/docker/compose/.env.example .env)
 #|
 #|                    ---
+#|
+.PHONY: ci
+ci:                #| Switch docker compose to CI/CD configuration.
+	$(eval COMPOSE = $(_base) -f env/docker/compose/docker-compose.ci.yml)
+	@(echo $(COMPOSE))
+#|
+.PHONY: demo
+demo:              #| Switch docker compose to demo configuration.
+	$(eval COMPOSE = $(_base) -f env/docker/compose/docker-compose.demo.yml)
+	@(echo $(COMPOSE))
 #|
 .PHONY: config
 config: __env__    #| Validate and view the Compose file.

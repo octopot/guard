@@ -11,13 +11,6 @@ services:
     volumes:
     - pgdata:${PGDATA}
 
-  etcd:
-    build:
-      context:    ../etcd/context
-      dockerfile: ../Dockerfile
-    ports:
-    - ${LOCAL_ETCD_PORT}:2379
-
   legacy:
     build:
       context:    ../legacy/context
