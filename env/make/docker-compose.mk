@@ -51,10 +51,10 @@ status: __env__    #| List containers and their status.
 #|                    ---
 #|
 SERVICES = db \
-           etcd \
            legacy \
            service \
-           server
+           server \
+           spec
 
 .PHONY: services
 services:          #| Shows available services.

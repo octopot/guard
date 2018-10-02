@@ -2,10 +2,30 @@ version: "3"
 
 services:
 
-  db: {}
+  db:
+    volumes:
+    - pgdata:${PGDATA}
 
   legacy: {}
 
   service: {}
 
-  server: {}
+  server:
+    depends_on:
+    - spec
+    ports:
+    - ${LOCAL_SERVER_HTTP_PORT}:80
+    - ${LOCAL_SERVER_HTTPS_PORT}:443
+    volumes:
+    - ../server/context/conf.d/spec.conf:/etc/nginx/conf.d/spec.conf:ro
+
+  spec:
+    image: swaggerapi/swagger-ui:latest
+    depends_on:
+    - service
+    volumes:
+    - ../../client/guard.swagger.json:/app/swagger.json:ro
+
+volumes:
+
+  pgdata: { driver: local }
