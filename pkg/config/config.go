@@ -54,11 +54,10 @@ type GRPCGatewayConfig struct {
 
 // MigrationConfig contains configuration related to migrations.
 type MigrationConfig struct {
-	Table    string `json:"table"     xml:"table"     yaml:"table"`
-	Schema   string `json:"schema"    xml:"schema"    yaml:"schema"`
-	Limit    uint   `json:"limit"     xml:"limit"     yaml:"limit"`
-	DryRun   bool   `json:"dry-run"   xml:"dry-run"   yaml:"dry-run"`
-	WithDemo bool   `json:"with-demo" xml:"with-demo" yaml:"with-demo"`
+	Table  string `json:"table"     xml:"table"     yaml:"table"`
+	Schema string `json:"schema"    xml:"schema"    yaml:"schema"`
+	Limit  uint   `json:"limit"     xml:"limit"     yaml:"limit"`
+	DryRun bool   `json:"dry-run"   xml:"dry-run"   yaml:"dry-run"`
 }
 
 // MonitoringConfig contains configuration related to monitoring.
