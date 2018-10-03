@@ -8,6 +8,8 @@ services:
 
   legacy: {}
 
+  migration: {}
+
   service: {}
 
   server:

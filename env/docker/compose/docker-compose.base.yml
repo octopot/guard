@@ -10,11 +10,18 @@ services:
     image: guard-legacy:latest
     env_file: ../legacy/.env
 
+  migration:
+    image: guard-service:latest
+    command: [ "migrate" ]
+    depends_on:
+    - db
+    env_file: ../service/.env
+
   service:
     image: guard-service:latest
     command: [ "run", "--with-profiling", "--with-monitoring", "--with-grpc-gateway" ]
     depends_on:
-    - db
+    - migration
     env_file: ../service/.env
 
   server:

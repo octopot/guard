@@ -52,6 +52,7 @@ status: __env__    #| List containers and their status.
 #|
 SERVICES = db \
            legacy \
+           migration \
            service \
            server \
            spec
