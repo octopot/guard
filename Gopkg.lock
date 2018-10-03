@@ -259,6 +259,25 @@
   revision = "418d78d0b9a7b7de3a6bbc8a23def624cc977bb2"
 
 [[projects]]
+  branch = "master"
+  digest = "1:ea0700160aca4ef099f4e06686a665a87691f4248dddd40796925eda2e46bd64"
+  name = "github.com/rakyll/statik"
+  packages = ["fs"]
+  pruneopts = "NUT"
+  revision = "1355192d24db2566a83c3914e187e2a7e7679832"
+
+[[projects]]
+  branch = "master"
+  digest = "1:31ec59331b363458da45d6be29fefd94d07d9393eb402280bf764601ae7cb421"
+  name = "github.com/rubenv/sql-migrate"
+  packages = [
+    ".",
+    "sqlparse",
+  ]
+  pruneopts = "NUT"
+  revision = "3f452fc0ebebbb784fdab91f7bc79a31dcacab5c"
+
+[[projects]]
   digest = "1:330e9062b308ac597e28485699c02223bd052437a6eed32a173c9227dcb9d95a"
   name = "github.com/spf13/afero"
   packages = [
@@ -393,11 +412,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:79325523c76a32a00daae41a018570653948212a2b93838c83c571f6a68e48ef"
+  digest = "1:2a630d2aef0ae4ee50c2006745a43d854ded9dcb8bce0f181181d88d13da2614"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "e4b3c5e9061176387e7cea65e4dc5853801f3fb7"
+  revision = "219bb53033fb8511ee74a8375a3bc672a727bdce"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -469,6 +488,14 @@
   version = "v1.15.0"
 
 [[projects]]
+  digest = "1:05eff2c4f2ce868b5c9ced8b96607201155a812920eac4d30a85b6b9b72338ce"
+  name = "gopkg.in/gorp.v1"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "c87af80f3cc5036b55b83d77171e156791085e2e"
+  version = "v1.7.1"
+
+[[projects]]
   branch = "v2"
   digest = "1:7c95b35057a0ff2e19f707173cc1a947fa43a6eb5c4d300d196ece0334046082"
   name = "gopkg.in/yaml.v2"
@@ -498,6 +525,8 @@
     "github.com/lib/pq",
     "github.com/pkg/errors",
     "github.com/prometheus/client_golang/prometheus/promhttp",
+    "github.com/rakyll/statik/fs",
+    "github.com/rubenv/sql-migrate",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
     "github.com/stretchr/testify/assert",

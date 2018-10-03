@@ -1,3 +1,9 @@
+# TODO
+# - gomock
+# - protoc
+# - statik
+
+
 .PHONY: protobuf
 protobuf:
 	protoc -Ipkg/transport/grpc \

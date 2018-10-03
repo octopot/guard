@@ -2,10 +2,26 @@ required = [
   "go.uber.org/zap",
   "go.etcd.io/etcd/client",
 
+
+  "github.com/rakyll/statik/fs",
+
+
   "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
   "github.com/grpc-ecosystem/grpc-gateway/utilities",
   "google.golang.org/genproto/googleapis/api/annotations",
 ]
+
+
+
+[[constraint]]
+  name = "github.com/rubenv/sql-migrate"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/rakyll/statik"
+  branch = "master"
+
+
 
 [[constraint]]
   name = "github.com/ghodss/yaml"
