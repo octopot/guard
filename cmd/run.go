@@ -51,6 +51,7 @@ var Run = &cobra.Command{
 func init() {
 	v := viper.New()
 	fn.Must(
+		func() error { return v.BindEnv("max_cpus") },
 		func() error { return v.BindEnv("bind") },
 		func() error { return v.BindEnv("http_port") },
 		func() error { return v.BindEnv("profiling_port") },
@@ -61,7 +62,6 @@ func init() {
 		func() error { return v.BindEnv("read_header_timeout") },
 		func() error { return v.BindEnv("write_timeout") },
 		func() error { return v.BindEnv("idle_timeout") },
-		func() error { return v.BindEnv("max_cpus") },
 		func() error {
 			v.SetDefault("max_cpus", defaults["max_cpus"])
 			v.SetDefault("bind", defaults["bind"])

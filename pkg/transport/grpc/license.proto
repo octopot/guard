@@ -23,7 +23,7 @@ option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
                 type: TYPE_API_KEY;
                 in: IN_HEADER;
                 name: "Authorization";
-                description: "value = <strong>Bearer $(GuardToken)</strong>"
+                description: "value = <strong>Bearer $(GUARD_TOKEN)</strong>"
             }
         }
     }

@@ -15,10 +15,17 @@ var Completion = &cobra.Command{
 	Use:   "completion",
 	Short: "Print Bash or Zsh completion",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		if cmd.Flag("format").Value.String() == bashFormat {
-			return cmd.Parent().GenBashCompletion(cmd.OutOrStdout())
+		root := cmd
+		for {
+			if !root.HasParent() {
+				break
+			}
+			root = root.Parent()
 		}
-		return cmd.Parent().GenZshCompletion(cmd.OutOrStdout())
+		if cmd.Flag("format").Value.String() == bashFormat {
+			return root.GenBashCompletion(cmd.OutOrStdout())
+		}
+		return root.GenZshCompletion(cmd.OutOrStdout())
 	},
 }
 
