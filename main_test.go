@@ -32,7 +32,7 @@ func TestService(t *testing.T) {
 			name: "success",
 			executor: func() commander {
 				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.Run, cmd.Version)
+				executor.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
 				executor.On("Execute").Return(nil)
 				return executor
 			}(),
@@ -42,7 +42,7 @@ func TestService(t *testing.T) {
 			name: "failure",
 			executor: func() commander {
 				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.Run, cmd.Version)
+				executor.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
 				executor.On("Execute").Return(errors.New("test"))
 				return executor
 			}(),
@@ -52,7 +52,7 @@ func TestService(t *testing.T) {
 			name: "panic",
 			executor: func() commander {
 				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.Run, cmd.Version)
+				executor.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
 				executor.On("Execute").Run(func(mock.Arguments) { panic("test") })
 				return executor
 			}(),

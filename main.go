@@ -16,7 +16,7 @@ var service cli = func(executor commander, output io.Writer, shutdown func(code 
 			shutdown(failure)
 		}
 	}()
-	executor.AddCommand(cmd.Completion, cmd.Run, cmd.Version)
+	executor.AddCommand(cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
 	if err := executor.Execute(); err != nil {
 		shutdown(failure)
 	}
