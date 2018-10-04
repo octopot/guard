@@ -53,6 +53,7 @@ You can use `guard` to start the HTTP server and `guardctl` to execute
 
 ```bash
 $ make service-install
+
 $ guard --help
   Guard Service
   
@@ -77,6 +78,7 @@ $ guard --help
 
 ```bash
 $ make control-install
+
 $ guardctl --help
   Guard Control
   
@@ -93,8 +95,10 @@ $ guardctl --help
     -h, --help   help for guardctl
   
   Use "guardctl [command] --help" for more information about a command.
+
 $ guardctl license register -f env/client/grpc/license.register.yml
 id: 10000000-2000-4000-8000-160000000004
+
 $ echo '{id: 10000000-2000-4000-8000-160000000004}' | guardctl license read
 contract:
   rate:
@@ -105,9 +109,11 @@ contract:
   workplaces: 10
 created_at: "2018-10-04T09:32:19.102216Z"
 id: 10000000-2000-4000-8000-160000000004
+
 $ cat env/client/grpc/license.update.yml | guardctl license update
 id: 10000000-2000-4000-8000-160000000004
 updated_at: "2018-10-04T09:33:32.487454Z"
+
 $ guardctl license create -f env/client/grpc/license.create.yml | guardctl license delete | guardctl license read
 contract:
   rate:
@@ -120,9 +126,11 @@ created_at: "2018-10-04T09:57:16.656346Z"
 deleted_at: "2018-10-04T09:57:16.666664Z"
 id: 9ba7b564-3248-4401-b853-9dc32559b95b
 updated_at: "2018-10-04T09:57:16.666664Z"
+
 $ guardctl license delete -f env/client/grpc/license.delete.yml
 deleted_at: "2018-10-04T09:58:27.365193Z"
 id: 10000000-2000-4000-8000-160000000004
+
 $ echo '{id: 10000000-2000-4000-8000-160000000004}' | guardctl license restore | guardctl license read
 contract:
   rate:
@@ -179,7 +187,7 @@ $ brew install kamilsk/tap/guardctl
 $ export REQ_VER=0.0.1  # all available versions are on https://github.com/kamilsk/guard/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
-$ # wget -q -O guard.tar.gz
+# wget -q -O guard.tar.gz
 $ curl -sL -o guard.tar.gz \
        https://github.com/kamilsk/guard/releases/download/"${REQ_VER}/guard_${REQ_VER}_${REQ_OS}-${REQ_ARCH}".tar.gz
 $ tar xf guard.tar.gz -C "${GOPATH}"/bin/ && rm guard.tar.gz
@@ -195,7 +203,7 @@ $ docker pull kamilsk/guard:latest
 
 ```bash
 $ egg github.com/kamilsk/guard -- make test install
-$ # or use mirror
+# or use mirror
 $ egg bitbucket.org/kamilsk/guard -- make test install
 ```
 
