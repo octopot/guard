@@ -8,6 +8,7 @@ import (
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/spf13/cobra"
+	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 )
 
@@ -31,6 +32,20 @@ var (
 
 func init() {
 	v := viper.New()
+
+	configure := func(flags *pflag.FlagSet) *pflag.FlagSet {
+		flags.StringVarP(new(string), "filename", "f", "", "entity source (default is standard input)")
+		flags.StringVarP(new(string), "output", "o", yamlFormat, fmt.Sprintf(
+			"output format, one of: %s|%s",
+			jsonFormat, yamlFormat))
+		flags.Bool("dry-run", false, "if true, only print the object that would be sent, without sending it")
+		flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
+			"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
+		flags.DurationVarP(&cnf.Union.GRPCConfig.Timeout,
+			"timeout", "t", time.Second, "connection timeout")
+		return flags
+	}
+
 	fn.Must(
 		func() error { return v.BindEnv("bind") },
 		func() error { return v.BindEnv("grpc_port") },
@@ -43,35 +58,13 @@ func init() {
 			return nil
 		},
 		func() error {
-			flags := License.PersistentFlags()
-
-			flags.StringVarP(new(string), "filename", "f", "", "entity source (default is standard input)")
-			flags.StringVarP(new(string), "output", "o", yamlFormat, fmt.Sprintf(
-				"output format, one of: %s|%s",
-				jsonFormat, yamlFormat))
-			flags.Bool("dry-run", false, "if true, only print the object that would be sent, without sending it")
-			flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
-				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
-			flags.DurationVarP(&cnf.Union.GRPCConfig.Timeout,
-				"timeout", "t", time.Second, "connection timeout")
-
-			flags.StringVarP((*string)(&cnf.Union.GRPCConfig.Token),
-				"token", "", v.GetString("guard_token"), "user access token")
+			configure(License.PersistentFlags()).
+				StringVarP((*string)(&cnf.Union.GRPCConfig.Token),
+					"token", "", v.GetString("guard_token"), "user access token")
 			return nil
 		},
 		func() error {
-			flags := Install.Flags()
-
-			flags.StringVarP(new(string), "filename", "f", "", "entity source (default is standard input)")
-			flags.StringVarP(new(string), "output", "o", yamlFormat, fmt.Sprintf(
-				"output format, one of: %s|%s",
-				jsonFormat, yamlFormat))
-			flags.Bool("dry-run", false, "if true, only print the object that would be sent, without sending it")
-			flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
-				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
-			flags.DurationVarP(&cnf.Union.GRPCConfig.Timeout,
-				"timeout", "t", time.Second, "connection timeout")
-
+			configure(Install.Flags())
 			return nil
 		},
 	)
