@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"github.com/kamilsk/guard/cmd"
+	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/kamilsk/guard/pkg/transport/grpc"
@@ -19,7 +20,7 @@ import (
 // invariant
 var (
 	_ grpc.ProtectedStorage = storage.Must()
-	_ http.Service          = guard.New(nil)
+	_ http.Service          = guard.New(config.ServiceConfig{}, nil)
 )
 
 func TestService(t *testing.T) {
