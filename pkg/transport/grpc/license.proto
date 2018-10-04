@@ -4,35 +4,6 @@ package grpc;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
-import "protoc-gen-swagger/options/annotations.proto";
-
-option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
-    info: {
-        title: "Access Control as a Service";
-        version: "dev";
-        contact: {
-            name:  "Guard project of Hugs Platform";
-            url:   "https://github.com/kamilsk/guard";
-            email: "info@octolab.org";
-        }
-    }
-    security_definitions: {
-        security: {
-            key: "Token";
-            value: {
-                type: TYPE_API_KEY;
-                in: IN_HEADER;
-                name: "Authorization";
-                description: "value = <strong>Bearer $(GUARD_TOKEN)</strong>"
-            }
-        }
-    }
-    security: {
-        security_requirement: {
-            key: "Token";
-        }
-    }
-};
 
 message Contract {
     google.protobuf.Timestamp since = 1;

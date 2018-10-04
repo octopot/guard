@@ -169,6 +169,32 @@
           "License"
         ]
       }
+    },
+    "/install": {
+      "post": {
+        "operationId": "Install",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/grpcInstallResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/grpcInstallRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Maintenance"
+        ]
+      }
     }
   },
   "definitions": {
@@ -239,6 +265,154 @@
         "deleted_at": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "grpcInstallRequest": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/grpcInstallRequestAccount"
+        }
+      }
+    },
+    "grpcInstallRequestAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/grpcInstallRequestUser"
+          }
+        }
+      }
+    },
+    "grpcInstallRequestToken": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "expired_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "grpcInstallRequestUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/grpcInstallRequestToken"
+          }
+        }
+      }
+    },
+    "grpcInstallResponse": {
+      "type": "object",
+      "properties": {
+        "account": {
+          "$ref": "#/definitions/grpcInstallResponseAccount"
+        }
+      }
+    },
+    "grpcInstallResponseAccount": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/grpcInstallResponseUser"
+          }
+        }
+      }
+    },
+    "grpcInstallResponseToken": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "revoked": {
+          "type": "boolean",
+          "format": "boolean"
+        },
+        "expired_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "grpcInstallResponseUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "deleted_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tokens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/grpcInstallResponseToken"
+          }
         }
       }
     },

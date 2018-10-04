@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package grpc;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+message InstallRequest {
+    message Account {
+        string id = 1;
+        string name = 2;
+        repeated User users = 3;
+    }
+    message User {
+        string id = 1;
+        string name = 2;
+        repeated Token tokens = 3;
+    }
+    message Token {
+        string id = 1;
+        google.protobuf.Timestamp expired_at = 2;
+    }
+    Account account = 1;
+}
+
+message InstallResponse {
+    message Account {
+        string id = 1;
+        string name = 2;
+        google.protobuf.Timestamp created_at = 3;
+        google.protobuf.Timestamp updated_at = 4;
+        google.protobuf.Timestamp deleted_at = 5;
+        repeated User users = 6;
+    }
+    message User {
+        string id = 1;
+        string name = 2;
+        google.protobuf.Timestamp created_at = 3;
+        google.protobuf.Timestamp updated_at = 4;
+        google.protobuf.Timestamp deleted_at = 5;
+        repeated Token tokens = 6;
+    }
+    message Token {
+        string id = 1;
+        bool revoked = 2;
+        google.protobuf.Timestamp expired_at = 3;
+        google.protobuf.Timestamp created_at = 4;
+        google.protobuf.Timestamp updated_at = 5;
+        google.protobuf.Timestamp deleted_at = 6;
+    }
+    Account account = 1;
+}
+
+service Maintenance {
+    rpc Install (InstallRequest) returns (InstallResponse) {
+        option (google.api.http) = {
+            post: "/install"
+            body: "*"
+        };
+    }
+}

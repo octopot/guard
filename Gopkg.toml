@@ -2,6 +2,7 @@ required = [
   "go.uber.org/zap",
   "go.etcd.io/etcd/client",
 
+  "github.com/golang/protobuf/proto",
   "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
   "github.com/grpc-ecosystem/grpc-gateway/utilities",
   "github.com/rakyll/statik/fs",

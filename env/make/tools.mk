@@ -12,7 +12,7 @@ protobuf:
 	       --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc \
 	       --grpc-gateway_out=logtostderr=true:pkg/transport/grpc \
 	       --swagger_out=logtostderr=true,allow_merge=true,merge_file_name=guard:env/client \
-	       license.proto
+	       common.proto license.proto maintenance.proto
 
 
 .PHONY: test
