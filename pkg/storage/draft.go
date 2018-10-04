@@ -9,6 +9,6 @@ import (
 )
 
 // RegisterAccount TODO issue#docs
-func (storage Storage) RegisterAccount(ctx context.Context, data query.RegisterAccount) (repository.Account, error) {
+func (storage Storage) RegisterAccount(ctx context.Context, data *query.RegisterAccount) (repository.Account, error) {
 	return repository.Account{}, nil
 }

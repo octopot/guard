@@ -44,15 +44,20 @@ service-cmd-help: BUILD_FLAGS = $(SRV_FLAGS)
 service-cmd-help: ARGS = help
 service-cmd-help: __cmd__
 
-.PHONY: service-cmd-version
-service-cmd-version: BUILD_FLAGS = $(SRV_FLAGS)
-service-cmd-version: ARGS = version
-service-cmd-version: __cmd__
+.PHONY: service-cmd-migrate
+service-cmd-migrate: BUILD_FLAGS = $(SRV_FLAGS)
+service-cmd-migrate: ARGS = migrate
+service-cmd-migrate: __cmd__
 
 .PHONY: service-cmd-run
 service-cmd-run: BUILD_FLAGS = $(SRV_FLAGS)
 service-cmd-run: ARGS = run -H 127.0.0.1:8080 --with-profiling --with-monitoring --with-grpc-gateway
 service-cmd-run: __cmd__
+
+.PHONY: service-cmd-version
+service-cmd-version: BUILD_FLAGS = $(SRV_FLAGS)
+service-cmd-version: ARGS = version
+service-cmd-version: __cmd__
 
 .PHONY: service-install
 service-install: BIN = guard
