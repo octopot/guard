@@ -83,11 +83,12 @@
   version = "v1.2.0"
 
 [[projects]]
-  digest = "1:d4daa8cd5126258c151c2f9d888547e4167c622aff634f6241a7c490d244f8c2"
+  digest = "1:c3e3170b4be575540c21aab612ea623f20de36cc17aacff7487cc213b3c668ca"
   name = "github.com/grpc-ecosystem/go-grpc-middleware"
   packages = [
     ".",
     "auth",
+    "recovery",
     "util/metautils",
   ]
   pruneopts = "NUT"
@@ -412,11 +413,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2a630d2aef0ae4ee50c2006745a43d854ded9dcb8bce0f181181d88d13da2614"
+  digest = "1:5f5dd22d92eccb0792de09b46a5b5b2634a90c278dd580a3ca0c2d60029ee81f"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "219bb53033fb8511ee74a8375a3bc672a727bdce"
+  revision = "af653ce8b74f808d092db8ca9741fbb63d2a469d"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -443,14 +444,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a712641f7061b9639d08b2e39f309180aefc9ec6a0349f0d4fb6db3b5075e489"
+  digest = "1:ec1919b8b80839559effbe3eabcebf92238d12d3dd9182e51deb5da3ed12e5e9"
   name = "google.golang.org/genproto"
   packages = [
     "googleapis/api/annotations",
     "googleapis/rpc/status",
   ]
   pruneopts = "NUT"
-  revision = "c7e5094acea1ca1b899e2259d80a6b0f882f81f8"
+  revision = "af9cb2a35e7f169ec875002c1829c9b315cddc04"
 
 [[projects]]
   digest = "1:5b805b8e03b29399b344655cac16873f026e54dc0a7c17b381f6f4d4c7b6d741"
@@ -515,6 +516,7 @@
     "github.com/golang/protobuf/ptypes/timestamp",
     "github.com/grpc-ecosystem/go-grpc-middleware",
     "github.com/grpc-ecosystem/go-grpc-middleware/auth",
+    "github.com/grpc-ecosystem/go-grpc-middleware/recovery",
     "github.com/grpc-ecosystem/go-grpc-prometheus",
     "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
     "github.com/grpc-ecosystem/grpc-gateway/runtime",
