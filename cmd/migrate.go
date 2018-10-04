@@ -14,6 +14,8 @@ import (
 	"github.com/rubenv/sql-migrate"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	_ "github.com/kamilsk/guard/pkg/storage/migrations"
 )
 
 // Migrate applies database migrations.
