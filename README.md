@@ -93,6 +93,19 @@ $ guardctl --help
     -h, --help   help for guardctl
   
   Use "guardctl [command] --help" for more information about a command.
+$ guardctl license register -f env/client/grpc/license.register.yml
+$ echo '{id: 10000000-2000-4000-8000-160000000004}' | guardctl license read
+contract:
+  rate:
+    unit: rph
+    value: 10
+  requests: 1000
+  since: "2018-09-29T17:11:43.264Z"
+  workplaces: 10
+created_at: "2018-10-04T09:32:19.102216Z"
+id: 10000000-2000-4000-8000-160000000004
+$ cat env/client/grpc/license.update.yml | guardctl license update
+updated_at: "2018-10-04T09:33:32.487454Z"
 ```
 </details>
 

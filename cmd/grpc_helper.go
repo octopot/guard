@@ -20,27 +20,21 @@ import (
 	"google.golang.org/grpc/metadata"
 )
 
-const (
-	licenseKind kind = "License"
-
-	nl = 10 // \n
-)
+const nl = 10 // \n
 
 var entities factory
 
 func init() {
 	entities = factory{
-		licenseKind: {
-			createLicense:  func() interface{} { return &pb.CreateLicenseRequest{} },
-			readLicense:    func() interface{} { return &pb.ReadLicenseRequest{} },
-			updateLicense:  func() interface{} { return &pb.UpdateLicenseRequest{} },
-			deleteLicense:  func() interface{} { return &pb.DeleteLicenseRequest{} },
-			restoreLicense: func() interface{} { return &pb.RestoreLicenseRequest{} },
+		createLicense:  func() interface{} { return &pb.CreateLicenseRequest{} },
+		readLicense:    func() interface{} { return &pb.ReadLicenseRequest{} },
+		updateLicense:  func() interface{} { return &pb.UpdateLicenseRequest{} },
+		deleteLicense:  func() interface{} { return &pb.DeleteLicenseRequest{} },
+		restoreLicense: func() interface{} { return &pb.RestoreLicenseRequest{} },
 
-			// ---
+		// ---
 
-			registerLicense: func() interface{} { return &pb.RegisterLicenseRequest{} },
-		},
+		registerLicense: func() interface{} { return &pb.RegisterLicenseRequest{} },
 	}
 }
 
@@ -97,9 +91,7 @@ func (fn writerFunc) Write(p []byte) error {
 
 type builder func() interface{}
 
-type kind string
-
-type factory map[kind]map[*cobra.Command]builder
+type factory map[*cobra.Command]builder
 
 func (f factory) request(cmd *cobra.Command) (interface{}, error) {
 	data, err := f.data(cmd.Flag("filename").Value.String())
@@ -107,20 +99,13 @@ func (f factory) request(cmd *cobra.Command) (interface{}, error) {
 		return nil, err
 	}
 
-	var t struct {
-		Kind    kind            `json:"kind"`
-		Payload json.RawMessage `json:"payload"`
-	}
+	var t json.RawMessage
 	if decodeErr := yaml.Unmarshal(data, &t); decodeErr != nil {
 		return nil, errors.Wrap(decodeErr, "trying to decode YAML")
 	}
-	build, ok := f[t.Kind][cmd]
-	if !ok {
-		return nil, errors.Errorf("unknown payload type %q", t.Kind)
-	}
 
-	encoder, request := &runtime.JSONPb{OrigName: true}, build()
-	encoder.Unmarshal(t.Payload, request)
+	encoder, request := &runtime.JSONPb{OrigName: true}, f[cmd]()
+	encoder.Unmarshal(t, request)
 	return request, nil
 }
 

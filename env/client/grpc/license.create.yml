@@ -1,8 +1,6 @@
-kind: License
-payload:
-  contract:
-    since: 2018-09-29T17:11:43.264Z
-    until: ~
-    rate: { value: 10, unit: rph }
-    requests: 1000
-    workplaces: 10
+contract:
+  since: 2018-09-29T17:11:43.264Z
+  until: ~
+  rate: { value: 10, unit: rph }
+  requests: 1000
+  workplaces: 10
