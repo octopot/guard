@@ -9,6 +9,12 @@ import (
 	"github.com/kamilsk/guard/pkg/storage/query"
 )
 
+// Maintenance TODO issue#docs
+type Maintenance interface {
+	// RegisterAccount TODO issue#docs
+	RegisterAccount(context.Context, *query.RegisterAccount) (repository.Account, error)
+}
+
 // ProtectedStorage TODO issue#docs
 type ProtectedStorage interface {
 	// RegisterLicense TODO issue#docs
@@ -23,10 +29,4 @@ type ProtectedStorage interface {
 	DeleteLicense(context.Context, domain.Token, query.DeleteLicense) (repository.License, error)
 	// RestoreLicense TODO issue#docs
 	RestoreLicense(context.Context, domain.Token, query.RestoreLicense) (repository.License, error)
-}
-
-// Maintenance TODO issue#docs
-type Maintenance interface {
-	// RegisterAccount TODO issue#docs
-	RegisterAccount(context.Context, query.RegisterAccount) (repository.Account, error)
 }
