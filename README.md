@@ -94,6 +94,7 @@ $ guardctl --help
   
   Use "guardctl [command] --help" for more information about a command.
 $ guardctl license register -f env/client/grpc/license.register.yml
+id: 10000000-2000-4000-8000-160000000004
 $ echo '{id: 10000000-2000-4000-8000-160000000004}' | guardctl license read
 contract:
   rate:
@@ -105,7 +106,35 @@ contract:
 created_at: "2018-10-04T09:32:19.102216Z"
 id: 10000000-2000-4000-8000-160000000004
 $ cat env/client/grpc/license.update.yml | guardctl license update
+id: 10000000-2000-4000-8000-160000000004
 updated_at: "2018-10-04T09:33:32.487454Z"
+$ guardctl license create -f env/client/grpc/license.create.yml | guardctl license delete | guardctl license read
+contract:
+  rate:
+    unit: rph
+    value: 10
+  requests: 1000
+  since: "2018-09-29T17:11:43.264Z"
+  workplaces: 10
+created_at: "2018-10-04T09:57:16.656346Z"
+deleted_at: "2018-10-04T09:57:16.666664Z"
+id: 9ba7b564-3248-4401-b853-9dc32559b95b
+updated_at: "2018-10-04T09:57:16.666664Z"
+$ guardctl license delete -f env/client/grpc/license.delete.yml
+deleted_at: "2018-10-04T09:58:27.365193Z"
+id: 10000000-2000-4000-8000-160000000004
+$ echo '{id: 10000000-2000-4000-8000-160000000004}' | guardctl license restore | guardctl license read
+contract:
+  rate:
+    unit: rpd
+    value: 10
+  requests: 1000
+  since: "2018-09-29T17:11:43.264Z"
+  until: "2018-09-29T17:11:43.264Z"
+  workplaces: 10
+created_at: "2018-10-04T09:54:57.643041Z"
+id: 10000000-2000-4000-8000-160000000004
+updated_at: "2018-10-04T09:59:18.833134Z"
 ```
 </details>
 

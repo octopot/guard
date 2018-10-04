@@ -20,6 +20,22 @@ type licenseServer struct {
 	storage ProtectedStorage
 }
 
+// Register TODO issue#docs
+func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseRequest) (*RegisterLicenseResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	license, registerErr := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{
+		ID:       domain.ID(req.Id),
+		Contract: convertToDomainContract(req.Contract),
+	})
+	if registerErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", registerErr) // TODO issue#6
+	}
+	return &RegisterLicenseResponse{Id: license.ID.String()}, nil
+}
+
 // Create TODO issue#docs
 func (server *licenseServer) Create(ctx context.Context, req *CreateLicenseRequest) (*CreateLicenseResponse, error) {
 	token, authErr := middleware.TokenExtractor(ctx)
@@ -68,7 +84,7 @@ func (server *licenseServer) Update(ctx context.Context, req *UpdateLicenseReque
 	if updateErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", updateErr) // TODO issue#6
 	}
-	return &UpdateLicenseResponse{UpdatedAt: Timestamp(license.UpdatedAt)}, nil
+	return &UpdateLicenseResponse{Id: license.ID.String(), UpdatedAt: Timestamp(license.UpdatedAt)}, nil
 }
 
 // Delete TODO issue#docs
@@ -81,7 +97,7 @@ func (server *licenseServer) Delete(ctx context.Context, req *DeleteLicenseReque
 	if deleteErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", deleteErr) // TODO issue#6
 	}
-	return &DeleteLicenseResponse{DeletedAt: Timestamp(license.DeletedAt)}, nil
+	return &DeleteLicenseResponse{Id: license.ID.String(), DeletedAt: Timestamp(license.DeletedAt)}, nil
 }
 
 // Restore TODO issue#docs
@@ -94,23 +110,5 @@ func (server *licenseServer) Restore(ctx context.Context, req *RestoreLicenseReq
 	if restoreErr != nil {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", restoreErr) // TODO issue#6
 	}
-	return &RestoreLicenseResponse{UpdatedAt: Timestamp(license.UpdatedAt)}, nil
-}
-
-// ---
-
-// Register TODO issue#docs
-func (server *licenseServer) Register(ctx context.Context, req *RegisterLicenseRequest) (*RegisterLicenseResponse, error) {
-	token, authErr := middleware.TokenExtractor(ctx)
-	if authErr != nil {
-		return nil, authErr
-	}
-	_, registerErr := server.storage.RegisterLicense(ctx, token, query.RegisterLicense{
-		ID:       domain.ID(req.Id),
-		Contract: convertToDomainContract(req.Contract),
-	})
-	if registerErr != nil {
-		return nil, status.Errorf(codes.Internal, "something happen: %v", registerErr) // TODO issue#6
-	}
-	return &RegisterLicenseResponse{}, nil
+	return &RestoreLicenseResponse{Id: license.ID.String(), UpdatedAt: Timestamp(license.UpdatedAt)}, nil
 }

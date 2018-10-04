@@ -10,6 +10,11 @@ import (
 	"github.com/kamilsk/guard/pkg/storage/query"
 )
 
+// RegisterLicense TODO issue#docs
+func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (repository.License, error) {
+	return storage.CreateLicense(ctx, id, query.CreateLicense{ID: &data.ID, Contract: data.Contract})
+}
+
 // CreateLicense TODO issue#docs
 func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (repository.License, error) {
 	var license repository.License
@@ -134,11 +139,4 @@ func (storage *Storage) RestoreLicense(ctx context.Context, id domain.Token, dat
 		return license, execErr
 	}
 	return license, tx.Commit()
-}
-
-// ---
-
-// RegisterLicense TODO issue#docs
-func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (repository.License, error) {
-	return storage.CreateLicense(ctx, id, query.CreateLicense{ID: &data.ID, Contract: data.Contract})
 }

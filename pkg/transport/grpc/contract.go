@@ -11,6 +11,8 @@ import (
 
 // ProtectedStorage TODO issue#docs
 type ProtectedStorage interface {
+	// RegisterLicense TODO issue#docs
+	RegisterLicense(context.Context, domain.Token, query.RegisterLicense) (repository.License, error)
 	// CreateLicense TODO issue#docs
 	CreateLicense(context.Context, domain.Token, query.CreateLicense) (repository.License, error)
 	// ReadLicense TODO issue#docs
@@ -21,9 +23,4 @@ type ProtectedStorage interface {
 	DeleteLicense(context.Context, domain.Token, query.DeleteLicense) (repository.License, error)
 	// RestoreLicense TODO issue#docs
 	RestoreLicense(context.Context, domain.Token, query.RestoreLicense) (repository.License, error)
-
-	// ---
-
-	// RegisterLicense TODO issue#docs
-	RegisterLicense(context.Context, domain.Token, query.RegisterLicense) (repository.License, error)
 }

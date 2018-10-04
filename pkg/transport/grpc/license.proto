@@ -54,6 +54,15 @@ message Rate {
     Unit unit = 2;
 }
 
+message RegisterLicenseRequest {
+    string id = 1;
+    Contract contract = 2;
+}
+
+message RegisterLicenseResponse {
+    string id = 1;
+}
+
 message CreateLicenseRequest {
     string id = 1;
     Contract contract = 2;
@@ -82,7 +91,8 @@ message UpdateLicenseRequest {
 }
 
 message UpdateLicenseResponse {
-    google.protobuf.Timestamp updated_at = 1;
+    string id = 1;
+    google.protobuf.Timestamp updated_at = 2;
 }
 
 message DeleteLicenseRequest {
@@ -90,7 +100,8 @@ message DeleteLicenseRequest {
 }
 
 message DeleteLicenseResponse {
-    google.protobuf.Timestamp deleted_at = 1;
+    string id = 1;
+    google.protobuf.Timestamp deleted_at = 2;
 }
 
 message RestoreLicenseRequest {
@@ -98,17 +109,17 @@ message RestoreLicenseRequest {
 }
 
 message RestoreLicenseResponse {
-    google.protobuf.Timestamp updated_at = 1;
-}
-
-message RegisterLicenseRequest {
     string id = 1;
-    Contract contract = 2;
+    google.protobuf.Timestamp updated_at = 2;
 }
-
-message RegisterLicenseResponse {}
 
 service License {
+    rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/license/register"
+            body: "*"
+        };
+    }
     rpc Create (CreateLicenseRequest) returns (CreateLicenseResponse) {
         option (google.api.http) = {
             post: "/api/v1/license"
@@ -134,15 +145,6 @@ service License {
     rpc Restore (RestoreLicenseRequest) returns (RestoreLicenseResponse) {
         option (google.api.http) = {
             patch: "/api/v1/license/{id}"
-        };
-    }
-
-    // ---
-
-    rpc Register (RegisterLicenseRequest) returns (RegisterLicenseResponse) {
-        option (google.api.http) = {
-            post: "/api/v1/license/register"
-            body: "*"
         };
     }
 }

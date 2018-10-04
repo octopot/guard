@@ -233,6 +233,9 @@
     "grpcDeleteLicenseResponse": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "deleted_at": {
           "type": "string",
           "format": "date-time"
@@ -286,11 +289,19 @@
       }
     },
     "grpcRegisterLicenseResponse": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
     },
     "grpcRestoreLicenseResponse": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "updated_at": {
           "type": "string",
           "format": "date-time"
@@ -311,6 +322,9 @@
     "grpcUpdateLicenseResponse": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "updated_at": {
           "type": "string",
           "format": "date-time"

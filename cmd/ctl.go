@@ -18,16 +18,13 @@ const (
 
 var (
 	// License TODO issue#docs
-	License        = &cobra.Command{Use: "license", Short: "Guard License"}
-	createLicense  = &cobra.Command{Use: "create", Short: "Create client license", RunE: communicate}
-	readLicense    = &cobra.Command{Use: "read", Short: "Read client license", RunE: communicate}
-	updateLicense  = &cobra.Command{Use: "update", Short: "Update client license", RunE: communicate}
-	deleteLicense  = &cobra.Command{Use: "delete", Short: "Delete client license", RunE: communicate}
-	restoreLicense = &cobra.Command{Use: "restore", Short: "Restore client license", RunE: communicate}
-
-	// ---
-
+	License         = &cobra.Command{Use: "license", Short: "Guard License"}
 	registerLicense = &cobra.Command{Use: "register", Short: "Register client license", RunE: communicate}
+	createLicense   = &cobra.Command{Use: "create", Short: "Create client license", RunE: communicate}
+	readLicense     = &cobra.Command{Use: "read", Short: "Read client license", RunE: communicate}
+	updateLicense   = &cobra.Command{Use: "update", Short: "Update client license", RunE: communicate}
+	deleteLicense   = &cobra.Command{Use: "delete", Short: "Delete client license", RunE: communicate}
+	restoreLicense  = &cobra.Command{Use: "restore", Short: "Restore client license", RunE: communicate}
 )
 
 func init() {
@@ -59,5 +56,5 @@ func init() {
 			return nil
 		},
 	)
-	License.AddCommand(createLicense, readLicense, updateLicense, deleteLicense, restoreLicense, registerLicense)
+	License.AddCommand(registerLicense, createLicense, readLicense, updateLicense, deleteLicense, restoreLicense)
 }

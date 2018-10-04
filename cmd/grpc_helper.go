@@ -26,15 +26,12 @@ var entities factory
 
 func init() {
 	entities = factory{
-		createLicense:  func() interface{} { return &pb.CreateLicenseRequest{} },
-		readLicense:    func() interface{} { return &pb.ReadLicenseRequest{} },
-		updateLicense:  func() interface{} { return &pb.UpdateLicenseRequest{} },
-		deleteLicense:  func() interface{} { return &pb.DeleteLicenseRequest{} },
-		restoreLicense: func() interface{} { return &pb.RestoreLicenseRequest{} },
-
-		// ---
-
 		registerLicense: func() interface{} { return &pb.RegisterLicenseRequest{} },
+		createLicense:   func() interface{} { return &pb.CreateLicenseRequest{} },
+		readLicense:     func() interface{} { return &pb.ReadLicenseRequest{} },
+		updateLicense:   func() interface{} { return &pb.UpdateLicenseRequest{} },
+		deleteLicense:   func() interface{} { return &pb.DeleteLicenseRequest{} },
+		restoreLicense:  func() interface{} { return &pb.RestoreLicenseRequest{} },
 	}
 }
 

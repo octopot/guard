@@ -18,6 +18,12 @@ type ReadLicense struct {
 	ID domain.ID
 }
 
+// RegisterLicense TODO issue#docs
+type RegisterLicense struct {
+	ID       domain.ID
+	Contract domain.Contract
+}
+
 // RestoreLicense TODO issue#docs
 type RestoreLicense struct {
 	ID domain.ID
@@ -29,17 +35,14 @@ type UpdateLicense struct {
 	Contract domain.Contract
 }
 
-// ---
+/*
+ *
+ * TODO issue#future
+ *
+ */
 
 // ExtendLicense TODO issue#docs
-// TODO issue#future
 type ExtendLicense struct {
 	ID    domain.ID
 	Patch interface{}
-}
-
-// RegisterLicense TODO issue#docs
-type RegisterLicense struct {
-	ID       domain.ID
-	Contract domain.Contract
 }
