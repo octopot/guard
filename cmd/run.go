@@ -27,7 +27,7 @@ var Run = &cobra.Command{
 		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
 		var (
 			repository = storage.Must(
-				storage.Database(cnf.Union.DBConfig),
+				storage.Database(cnf.Union.DatabaseConfig),
 			)
 			service = guard.New(repository)
 		)

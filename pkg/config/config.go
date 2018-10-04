@@ -10,35 +10,37 @@ import (
 // ApplicationConfig holds all configurations of the application.
 type ApplicationConfig struct {
 	Union struct {
-		DBConfig         `json:"db"         xml:"db"         yaml:"db"`
+		DatabaseConfig   `json:"db"         xml:"db"         yaml:"db"`
 		GRPCConfig       `json:"grpc"       xml:"grpc"       yaml:"grpc"`
 		MigrationConfig  `json:"migration"  xml:"migration"  yaml:"migration"`
 		MonitoringConfig `json:"monitoring" xml:"monitoring" yaml:"monitoring"`
 		ProfilingConfig  `json:"profiling"  xml:"profiling"  yaml:"profiling"`
 		ServerConfig     `json:"server"     xml:"server"     yaml:"server"`
+		ServiceConfig    `json:"service"    xml:"service"    yaml:"service"`
 	} `json:"config" xml:"config" yaml:"config"`
 }
 
-// DBConfig contains configuration related to database.
-type DBConfig struct {
-	DSN         config.Secret `json:"dsn"      xml:"dsn"      yaml:"dsn"`
-	MaxIdle     int           `json:"idle"     xml:"idle"     yaml:"idle"`
-	MaxOpen     int           `json:"open"     xml:"open"     yaml:"open"`
-	MaxLifetime time.Duration `json:"lifetime" xml:"lifetime" yaml:"lifetime"`
+// DatabaseConfig contains configuration related to a database.
+type DatabaseConfig struct {
+	DSN             config.Secret `json:"dsn"      xml:"dsn"      yaml:"dsn"`
+	MaxIdleConns    int           `json:"idle"     xml:"idle"     yaml:"idle"`
+	MaxOpenConns    int           `json:"open"     xml:"open"     yaml:"open"`
+	ConnMaxLifetime time.Duration `json:"lifetime" xml:"lifetime" yaml:"lifetime"`
 
 	dsn *url.URL
 }
 
 // DriverName returns database driver name.
-// Not thread-safe call. Error ignored.
-func (cnf *DBConfig) DriverName() string {
+// Error ignored, panic is possible (nil pointer).
+// Not thread-safe call.
+func (cnf *DatabaseConfig) DriverName() string {
 	if cnf.dsn == nil {
 		cnf.dsn, _ = url.Parse(string(cnf.DSN))
 	}
 	return cnf.dsn.Scheme
 }
 
-// GRPCConfig contains configuration related to gRPC server.
+// GRPCConfig contains configuration related to the application gRPC server.
 type GRPCConfig struct {
 	Interface string            `json:"interface" xml:"interface" yaml:"interface"`
 	Timeout   time.Duration     `json:"timeout"   xml:"timeout"   yaml:"timeout"`
@@ -46,13 +48,13 @@ type GRPCConfig struct {
 	Gateway   GRPCGatewayConfig `json:"gateway"   xml:"gateway"   yaml:"gateway"`
 }
 
-// GRPCGatewayConfig contains configuration related to RESTful JSON API above gRPC.
+// GRPCGatewayConfig contains configuration related to the application RESTful JSON API above gRPC.
 type GRPCGatewayConfig struct {
 	Enabled   bool   `json:"enabled"   xml:"enabled"   yaml:"enabled"`
 	Interface string `json:"interface" xml:"interface" yaml:"interface"`
 }
 
-// MigrationConfig contains configuration related to migrations.
+// MigrationConfig contains configuration related to the application migrations.
 type MigrationConfig struct {
 	Table  string `json:"table"     xml:"table"     yaml:"table"`
 	Schema string `json:"schema"    xml:"schema"    yaml:"schema"`
@@ -60,22 +62,19 @@ type MigrationConfig struct {
 	DryRun bool   `json:"dry-run"   xml:"dry-run"   yaml:"dry-run"`
 }
 
-// MonitoringConfig contains configuration related to monitoring.
+// MonitoringConfig contains configuration related to monitoring the application.
 type MonitoringConfig struct {
 	Enabled   bool   `json:"enabled"   xml:"enabled"   yaml:"enabled"`
 	Interface string `json:"interface" xml:"interface" yaml:"interface"`
 }
 
-// ProfilingConfig contains configuration related to profiler.
+// ProfilingConfig contains configuration related to profiling the application.
 type ProfilingConfig struct {
 	Enabled   bool   `json:"enabled"   xml:"enabled"   yaml:"enabled"`
 	Interface string `json:"interface" xml:"interface" yaml:"interface"`
 }
 
-// RedisConfig contains configuration related to Redis server.
-type RedisConfig struct{}
-
-// ServerConfig contains configuration related to the server.
+// ServerConfig contains configuration related to the application web server.
 type ServerConfig struct {
 	Interface         string        `json:"interface"           xml:"interface"           yaml:"interface"`
 	CPUCount          uint          `json:"cpus"                xml:"cpus"                yaml:"cpus"`
@@ -84,3 +83,20 @@ type ServerConfig struct {
 	WriteTimeout      time.Duration `json:"write-timeout"       xml:"write-timeout"       yaml:"write-timeout"`
 	IdleTimeout       time.Duration `json:"idle-timeout"        xml:"idle-timeout"        yaml:"idle-timeout"`
 }
+
+// ServiceConfig contains configuration related to the main application service.
+type ServiceConfig struct {
+	Enabled bool `json:"enabled" xml:"enabled" yaml:"enabled"`
+}
+
+/*
+ *
+ * Future versions.
+ *
+ */
+
+// EtcdConfig contains configuration related to a Etcd cluster.
+type EtcdConfig struct{}
+
+// RedisConfig contains configuration related to a Redis cluster.
+type RedisConfig struct{}

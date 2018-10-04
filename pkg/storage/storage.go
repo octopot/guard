@@ -30,7 +30,7 @@ func New(configs ...Configurator) (*Storage, error) {
 }
 
 // Database returns Database Configurator.
-func Database(cnf config.DBConfig) Configurator {
+func Database(cnf config.DatabaseConfig) Configurator {
 	return func(instance *Storage) (err error) {
 		defer func() {
 			if r := recover(); r != nil {
@@ -45,9 +45,9 @@ func Database(cnf config.DBConfig) Configurator {
 		instance.exec = executor.New(cnf.DriverName())
 		instance.db, err = sql.Open(cnf.DriverName(), string(cnf.DSN))
 		if err == nil {
-			instance.db.SetMaxOpenConns(cnf.MaxOpen)
-			instance.db.SetMaxIdleConns(cnf.MaxIdle)
-			instance.db.SetConnMaxLifetime(cnf.MaxLifetime)
+			instance.db.SetMaxOpenConns(cnf.MaxOpenConns)
+			instance.db.SetMaxIdleConns(cnf.MaxIdleConns)
+			instance.db.SetConnMaxLifetime(cnf.ConnMaxLifetime)
 		}
 		return
 	}
