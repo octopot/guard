@@ -144,7 +144,7 @@ func startGRPCServer(cnf config.GRPCConfig, repository *storage.Storage) error {
 	go func(listener net.Listener) {
 		close(cascade)
 		log.Println("start gRPC server at", listener.Addr())
-		_ = grpc.New(cnf, repository).Serve(listener)
+		_ = grpc.New(cnf, repository, repository).Serve(listener)
 	}(listener)
 	go func(listener net.Listener) {
 		if listener == nil {

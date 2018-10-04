@@ -13,6 +13,12 @@ import (
 )
 
 func TestControl(t *testing.T) {
+	build := func() *commanderMock {
+		dummy := &commanderMock{}
+		dummy.On("AddCommand", cmd.Completion, cmd.Install, cmd.License, cmd.Version)
+		return dummy
+	}
+
 	tests := []struct {
 		name     string
 		executor commander
@@ -21,8 +27,7 @@ func TestControl(t *testing.T) {
 		{
 			name: "success",
 			executor: func() commander {
-				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.License, cmd.Version)
+				executor := build()
 				executor.On("Execute").Return(nil)
 				return executor
 			}(),
@@ -31,8 +36,7 @@ func TestControl(t *testing.T) {
 		{
 			name: "failure",
 			executor: func() commander {
-				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.License, cmd.Version)
+				executor := build()
 				executor.On("Execute").Return(errors.New("test"))
 				return executor
 			}(),
@@ -41,8 +45,7 @@ func TestControl(t *testing.T) {
 		{
 			name: "panic",
 			executor: func() commander {
-				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.License, cmd.Version)
+				executor := build()
 				executor.On("Execute").Run(func(mock.Arguments) { panic("test") })
 				return executor
 			}(),

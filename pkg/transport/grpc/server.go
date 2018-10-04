@@ -7,6 +7,7 @@ import (
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/kamilsk/guard/pkg/config"
@@ -16,11 +17,12 @@ import (
 )
 
 // New TODO issue#docs
-func New(_ config.GRPCConfig, storage ProtectedStorage) transport.Server {
-	return &server{storage}
+func New(_ config.GRPCConfig, service Maintenance, storage ProtectedStorage) transport.Server {
+	return &server{service, storage}
 }
 
 type server struct {
+	service Maintenance
 	storage ProtectedStorage
 }
 
@@ -29,15 +31,18 @@ func (server *server) Serve(listener net.Listener) error {
 	defer listener.Close()
 	srv := grpc.NewServer(
 		grpc_middleware.WithStreamServerChain(
-			grpc_auth.StreamServerInterceptor(middleware.TokenInjector),
 			grpc_prometheus.StreamServerInterceptor,
+			grpc_auth.StreamServerInterceptor(middleware.TokenInjector),
+			grpc_recovery.StreamServerInterceptor(),
 		),
 		grpc_middleware.WithUnaryServerChain(
-			grpc_auth.UnaryServerInterceptor(middleware.TokenInjector),
 			grpc_prometheus.UnaryServerInterceptor,
+			grpc_auth.UnaryServerInterceptor(middleware.TokenInjector),
+			grpc_recovery.UnaryServerInterceptor(),
 		),
 	)
 	RegisterLicenseServer(srv, NewLicenseServer(server.storage))
+	RegisterMaintenanceServer(srv, NewMaintenanceServer(server.service))
 	return srv.Serve(listener)
 }
 

@@ -24,3 +24,9 @@ type ProtectedStorage interface {
 	// RestoreLicense TODO issue#docs
 	RestoreLicense(context.Context, domain.Token, query.RestoreLicense) (repository.License, error)
 }
+
+// Maintenance TODO issue#docs
+type Maintenance interface {
+	// RegisterAccount TODO issue#docs
+	RegisterAccount(context.Context, query.RegisterAccount) (repository.Account, error)
+}

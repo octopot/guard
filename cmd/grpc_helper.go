@@ -26,6 +26,7 @@ var entities factory
 
 func init() {
 	entities = factory{
+		Install:         func() interface{} { return &pb.InstallRequest{} },
 		registerLicense: func() interface{} { return &pb.RegisterLicenseRequest{} },
 		createLicense:   func() interface{} { return &pb.CreateLicenseRequest{} },
 		readLicense:     func() interface{} { return &pb.ReadLicenseRequest{} },
@@ -140,20 +141,21 @@ func call(cnf config.GRPCConfig, request interface{}) (interface{}, error) {
 		middleware.AuthHeader,
 		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
 
-	client := pb.NewLicenseClient(conn)
 	switch in := request.(type) {
+	case *pb.InstallRequest:
+		return pb.NewMaintenanceClient(conn).Install(ctx, in)
 	case *pb.CreateLicenseRequest:
-		return client.Create(ctx, in)
+		return pb.NewLicenseClient(conn).Create(ctx, in)
 	case *pb.ReadLicenseRequest:
-		return client.Read(ctx, in)
+		return pb.NewLicenseClient(conn).Read(ctx, in)
 	case *pb.UpdateLicenseRequest:
-		return client.Update(ctx, in)
+		return pb.NewLicenseClient(conn).Update(ctx, in)
 	case *pb.DeleteLicenseRequest:
-		return client.Delete(ctx, in)
+		return pb.NewLicenseClient(conn).Delete(ctx, in)
 	case *pb.RestoreLicenseRequest:
-		return client.Restore(ctx, in)
+		return pb.NewLicenseClient(conn).Restore(ctx, in)
 	case *pb.RegisterLicenseRequest:
-		return client.Register(ctx, in)
+		return pb.NewLicenseClient(conn).Register(ctx, in)
 	default:
 		return nil, errors.Errorf("unknown request type %T", request)
 	}

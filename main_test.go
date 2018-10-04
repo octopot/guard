@@ -24,6 +24,12 @@ var (
 )
 
 func TestService(t *testing.T) {
+	build := func() *commanderMock {
+		dummy := &commanderMock{}
+		dummy.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
+		return dummy
+	}
+
 	tests := []struct {
 		name     string
 		executor commander
@@ -32,8 +38,7 @@ func TestService(t *testing.T) {
 		{
 			name: "success",
 			executor: func() commander {
-				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
+				executor := build()
 				executor.On("Execute").Return(nil)
 				return executor
 			}(),
@@ -42,8 +47,7 @@ func TestService(t *testing.T) {
 		{
 			name: "failure",
 			executor: func() commander {
-				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
+				executor := build()
 				executor.On("Execute").Return(errors.New("test"))
 				return executor
 			}(),
@@ -52,8 +56,7 @@ func TestService(t *testing.T) {
 		{
 			name: "panic",
 			executor: func() commander {
-				executor := &commanderMock{}
-				executor.On("AddCommand", cmd.Completion, cmd.Migrate, cmd.Run, cmd.Version)
+				executor := build()
 				executor.On("Execute").Run(func(mock.Arguments) { panic("test") })
 				return executor
 			}(),

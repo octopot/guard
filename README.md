@@ -96,6 +96,10 @@ $ guardctl --help
   
   Use "guardctl [command] --help" for more information about a command.
 
+$ guardctl install -f env/client/grpc/install.yaml
+
+$ export GUARD_TOKEN=10000000-2000-4000-8000-160000000003
+
 $ guardctl license register -f env/client/grpc/license.register.yml
 id: 10000000-2000-4000-8000-160000000004
 

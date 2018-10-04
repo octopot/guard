@@ -17,6 +17,8 @@ const (
 )
 
 var (
+	// Install TODO issue#docs
+	Install = &cobra.Command{Use: "install", Short: "Install application", RunE: communicate}
 	// License TODO issue#docs
 	License         = &cobra.Command{Use: "license", Short: "Guard License Management"}
 	registerLicense = &cobra.Command{Use: "register", Short: "Register client license", RunE: communicate}
@@ -42,6 +44,7 @@ func init() {
 		},
 		func() error {
 			flags := License.PersistentFlags()
+
 			flags.StringVarP(new(string), "filename", "f", "", "entity source (default is standard input)")
 			flags.StringVarP(new(string), "output", "o", yamlFormat, fmt.Sprintf(
 				"output format, one of: %s|%s",
@@ -51,8 +54,24 @@ func init() {
 				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
 			flags.DurationVarP(&cnf.Union.GRPCConfig.Timeout,
 				"timeout", "t", time.Second, "connection timeout")
+
 			flags.StringVarP((*string)(&cnf.Union.GRPCConfig.Token),
 				"token", "", v.GetString("guard_token"), "user access token")
+			return nil
+		},
+		func() error {
+			flags := Install.Flags()
+
+			flags.StringVarP(new(string), "filename", "f", "", "entity source (default is standard input)")
+			flags.StringVarP(new(string), "output", "o", yamlFormat, fmt.Sprintf(
+				"output format, one of: %s|%s",
+				jsonFormat, yamlFormat))
+			flags.Bool("dry-run", false, "if true, only print the object that would be sent, without sending it")
+			flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
+				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
+			flags.DurationVarP(&cnf.Union.GRPCConfig.Timeout,
+				"timeout", "t", time.Second, "connection timeout")
+
 			return nil
 		},
 	)
