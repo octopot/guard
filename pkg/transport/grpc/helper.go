@@ -36,15 +36,6 @@ func Time(ts *timestamp.Timestamp) *time.Time {
 	return &tp
 }
 
-func ptrToID(id string) *domain.ID {
-	if id == "" {
-		return nil
-	}
-	ptr := new(domain.ID)
-	*ptr = domain.ID(id)
-	return ptr
-}
-
 func convertFromDomainContract(from domain.Contract) *Contract {
 	to := &Contract{Requests: from.Requests, Workplaces: from.Workplaces}
 	to.Since, to.Until = Timestamp(from.Since), Timestamp(from.Until)
@@ -63,6 +54,24 @@ func convertToDomainContract(from *Contract) (to domain.Contract) {
 		to.Rate = domain.PackRate(domain.RateValue(from.Rate.Value), units.invert(from.Rate.Unit))
 	}
 	return
+}
+
+func ptrToID(id string) *domain.ID {
+	if id == "" {
+		return nil
+	}
+	ptr := new(domain.ID)
+	*ptr = domain.ID(id)
+	return ptr
+}
+
+func ptrToToken(token string) *domain.Token {
+	if token == "" {
+		return nil
+	}
+	ptr := new(domain.Token)
+	*ptr = domain.Token(token)
+	return ptr
 }
 
 type unitMap map[domain.RateUnit]Rate_Unit
