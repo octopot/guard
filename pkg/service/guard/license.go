@@ -11,11 +11,16 @@ import (
 )
 
 type licenseManager struct {
-	storage Storage
+	disabled bool
+	storage  Storage
 }
 
 // Check TODO issue#docs
 func (service *licenseManager) Check(request request.License) (response response.License) {
+	if service.disabled {
+		// TODO issue#59 only logging request problems
+		return
+	}
 	if rand.New(rand.NewSource(time.Now().Unix())).Intn(5) > 2 {
 		// TODO issue#6
 		// TODO issue#35

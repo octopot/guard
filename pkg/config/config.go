@@ -86,7 +86,7 @@ type ServerConfig struct {
 
 // ServiceConfig contains configuration related to the main application service.
 type ServiceConfig struct {
-	Enabled bool `json:"enabled" xml:"enabled" yaml:"enabled"`
+	Disabled bool `json:"disabled" xml:"disabled" yaml:"disabled"`
 }
 
 /*

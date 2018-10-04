@@ -29,20 +29,16 @@ var Run = &cobra.Command{
 			repository = storage.Must(
 				storage.Database(cnf.Union.DatabaseConfig),
 			)
-			service = guard.New(repository)
+			service = guard.New(cnf.Union.ServiceConfig, repository)
 		)
 		if err := startGRPCServer(cnf.Union.GRPCConfig, repository); err != nil {
 			return err
 		}
-		if cnf.Union.MonitoringConfig.Enabled {
-			if err := startMonitoring(cnf.Union.MonitoringConfig); err != nil {
-				return err
-			}
+		if err := startMonitoring(cnf.Union.MonitoringConfig); err != nil {
+			return err
 		}
-		if cnf.Union.ProfilingConfig.Enabled {
-			if err := startProfiler(cnf.Union.ProfilingConfig); err != nil {
-				return err
-			}
+		if err := startProfiler(cnf.Union.ProfilingConfig); err != nil {
+			return err
 		}
 		return startHTTPServer(cnf.Union.ServerConfig, service)
 	},
@@ -116,6 +112,8 @@ func init() {
 				"with-grpc-gateway", "", false, "enable RESTful JSON API above gRPC")
 			flags.StringVarP(&cnf.Union.GRPCConfig.Gateway.Interface,
 				"grpc-gateway-host", "", v.GetString("grpc_gateway_host"), "gRPC gateway server host")
+			flags.BoolVarP(&cnf.Union.ServiceConfig.Disabled,
+				"disabled", "", false, "disable any service barriers, only logging")
 			return nil
 		},
 	)
@@ -160,25 +158,29 @@ func startGRPCServer(cnf config.GRPCConfig, repository *storage.Storage) error {
 }
 
 func startMonitoring(cnf config.MonitoringConfig) error {
-	listener, err := net.Listen("tcp", cnf.Interface)
-	if err != nil {
-		return err
+	if cnf.Enabled {
+		listener, err := net.Listen("tcp", cnf.Interface)
+		if err != nil {
+			return err
+		}
+		go func(listener net.Listener) {
+			log.Println("start monitoring server at", listener.Addr())
+			_ = monitor.New(cnf).Serve(listener)
+		}(listener)
 	}
-	go func(listener net.Listener) {
-		log.Println("start monitoring server at", listener.Addr())
-		_ = monitor.New(cnf).Serve(listener)
-	}(listener)
 	return nil
 }
 
 func startProfiler(cnf config.ProfilingConfig) error {
-	listener, err := net.Listen("tcp", cnf.Interface)
-	if err != nil {
-		return err
+	if cnf.Enabled {
+		listener, err := net.Listen("tcp", cnf.Interface)
+		if err != nil {
+			return err
+		}
+		go func(listener net.Listener) {
+			log.Println("start profiling server at", listener.Addr())
+			_ = profiler.New(cnf).Serve(listener)
+		}(listener)
 	}
-	go func(listener net.Listener) {
-		log.Println("start profiling server at", listener.Addr())
-		_ = profiler.New(cnf).Serve(listener)
-	}(listener)
 	return nil
 }
