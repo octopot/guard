@@ -23,4 +23,6 @@ var service cli = func(executor commander, output io.Writer, shutdown func(code 
 	shutdown(success)
 }
 
-func main() { service(&cobra.Command{Use: "guard", Short: "Guard Service"}, os.Stderr, os.Exit) }
+func main() {
+	service(&cobra.Command{Use: "guard", Short: "Guard Service"}, os.Stderr, os.Exit)
+}

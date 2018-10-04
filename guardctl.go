@@ -23,4 +23,6 @@ var control cli = func(executor commander, output io.Writer, shutdown func(code 
 	shutdown(success)
 }
 
-func main() { control(&cobra.Command{Use: "guardctl", Short: "Guard Control"}, os.Stderr, os.Exit) }
+func main() {
+	control(&cobra.Command{Use: "guardctl", Short: "Guard Service Control"}, os.Stderr, os.Exit)
+}

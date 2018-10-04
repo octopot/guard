@@ -96,13 +96,13 @@ func (f factory) request(cmd *cobra.Command) (interface{}, error) {
 		return nil, err
 	}
 
-	var t json.RawMessage
-	if decodeErr := yaml.Unmarshal(data, &t); decodeErr != nil {
+	var raw json.RawMessage
+	if decodeErr := yaml.Unmarshal(data, &raw); decodeErr != nil {
 		return nil, errors.Wrap(decodeErr, "trying to decode YAML")
 	}
 
 	encoder, request := &runtime.JSONPb{OrigName: true}, f[cmd]()
-	encoder.Unmarshal(t, request)
+	encoder.Unmarshal(raw, request)
 	return request, nil
 }
 

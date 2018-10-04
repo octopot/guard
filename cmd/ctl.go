@@ -18,7 +18,7 @@ const (
 
 var (
 	// License TODO issue#docs
-	License         = &cobra.Command{Use: "license", Short: "Guard License"}
+	License         = &cobra.Command{Use: "license", Short: "Guard License Management"}
 	registerLicense = &cobra.Command{Use: "register", Short: "Register client license", RunE: communicate}
 	createLicense   = &cobra.Command{Use: "create", Short: "Create client license", RunE: communicate}
 	readLicense     = &cobra.Command{Use: "read", Short: "Read client license", RunE: communicate}
