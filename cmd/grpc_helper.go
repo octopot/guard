@@ -43,12 +43,12 @@ func communicate(cmd *cobra.Command, _ []string) error {
 	}
 
 	encoder := &runtime.JSONPb{OrigName: true}
-	writer := func(w io.Writer) writerFunc {
+	wrap := func(w io.Writer) writerFunc {
 		return func(p []byte) error {
 			_, err := w.Write(p)
 			return err
 		}
-	}(cmd.OutOrStdout())
+	}
 
 	if dry, _ := cmd.Flags().GetBool("dry-run"); dry {
 		cmd.Printf("%T would be sent with data: ", request)
@@ -57,28 +57,31 @@ func communicate(cmd *cobra.Command, _ []string) error {
 			return err
 		}
 		if cmd.Flag("output").Value.String() == jsonFormat {
-			return writer.Write(append(output, nl))
+			return wrap(cmd.OutOrStderr()).Write(append(output, nl))
 		}
 		output, err = yaml.JSONToYAML(output)
 		if err != nil {
 			return err
 		}
-		return writer.Write(append([]byte{nl}, output...))
+		return wrap(cmd.OutOrStderr()).Write(append([]byte{nl}, output...))
 	}
 
 	response, err := call(cnf.Union.GRPCConfig, request)
 	if err != nil {
-		return writer.Write(append([]byte(err.Error()), nl))
+		return wrap(cmd.OutOrStderr()).Write(append([]byte(err.Error()), nl))
 	}
 	output, err := encoder.Marshal(response)
+	if err != nil {
+		return err
+	}
 	if cmd.Flag("output").Value.String() == jsonFormat {
-		return writer.Write(append(output, nl))
+		return wrap(cmd.OutOrStdout()).Write(append(output, nl))
 	}
 	output, err = yaml.JSONToYAML(output)
 	if err != nil {
 		return err
 	}
-	return writer.Write(output)
+	return wrap(cmd.OutOrStdout()).Write(output)
 }
 
 type writerFunc func([]byte) error
