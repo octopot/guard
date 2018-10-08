@@ -4,6 +4,7 @@ package grpc;
 
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+import "protoc-gen-swagger/options/annotations.proto";
 
 message InstallRequest {
     message Account {
@@ -55,6 +56,9 @@ service Maintenance {
         option (google.api.http) = {
             post: "/install"
             body: "*"
+        };
+        option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {
+            security: {}
         };
     }
 }

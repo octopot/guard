@@ -193,7 +193,8 @@
         ],
         "tags": [
           "Maintenance"
-        ]
+        ],
+        "security": []
       }
     }
   },
