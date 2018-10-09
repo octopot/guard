@@ -6,13 +6,15 @@ import (
 	domain "github.com/kamilsk/guard/pkg/service/types"
 	repository "github.com/kamilsk/guard/pkg/storage/types"
 
+	"github.com/kamilsk/guard/pkg/service/types/request"
+	"github.com/kamilsk/guard/pkg/service/types/response"
 	"github.com/kamilsk/guard/pkg/storage/query"
 )
 
 // Maintenance TODO issue#docs
 type Maintenance interface {
-	// RegisterAccount TODO issue#docs
-	RegisterAccount(context.Context, *query.RegisterAccount) (repository.Account, error)
+	// Install TODO issue#docs
+	Install(context.Context, request.Install) response.Install
 }
 
 // ProtectedStorage TODO issue#docs

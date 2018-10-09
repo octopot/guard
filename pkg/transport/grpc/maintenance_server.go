@@ -1,10 +1,13 @@
 package grpc
 
 import (
+	"context"
+
 	repository "github.com/kamilsk/guard/pkg/storage/types"
 
+	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/storage/query"
-	"golang.org/x/net/context"
+	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
@@ -55,9 +58,9 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 		}).AddUser)
 	}
 
-	account, registerErr := server.service.RegisterAccount(ctx, walkAccount(req.Account))
-	if registerErr != nil {
-		return nil, status.Errorf(codes.Internal, "something happen: %v", registerErr) // TODO issue#6
+	resp := server.service.Install(ctx, request.Install{Account: walkAccount(req.Account)})
+	if resp.HasError() {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", errors.Cause(&resp)) // TODO issue#6
 	}
 
 	convertTokens := func(tokens []*repository.Token) []*InstallResponse_Token {
@@ -89,6 +92,7 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 		return out
 	}
 
+	account := resp.Account
 	return &InstallResponse{
 		Account: &InstallResponse_Account{
 			Id:        account.ID.String(),

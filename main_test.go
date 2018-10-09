@@ -19,7 +19,9 @@ import (
 
 // invariant
 var (
+	_ guard.Storage         = storage.Must()
 	_ grpc.ProtectedStorage = storage.Must()
+	_ grpc.Maintenance      = guard.New(config.ServiceConfig{}, nil)
 	_ http.Service          = guard.New(config.ServiceConfig{}, nil)
 )
 

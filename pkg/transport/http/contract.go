@@ -1,6 +1,8 @@
 package http
 
 import (
+	"context"
+
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
 )
@@ -8,5 +10,5 @@ import (
 // Service TODO issue#docs
 type Service interface {
 	// CheckLicense TODO issue#docs
-	CheckLicense(request.License) response.License
+	CheckLicense(context.Context, request.License) response.License
 }
