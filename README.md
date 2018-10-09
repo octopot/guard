@@ -36,6 +36,8 @@ guard_server_1      nginx -g daemon off;             Up       0.0.0.0:443->443/t
 guard_service_1     service run --with-profili ...   Up       80/tcp, 8090/tcp, 8091/tcp, 8092/tcp, 8093/tcp
 guard_spec_1        sh /usr/share/nginx/docker ...   Up       80/tcp, 8080/tcp
 
+$ ./env/client/grpc/install.sh
+
 $ open http://spec.127.0.0.1.xip.io/
 
 $ make help
