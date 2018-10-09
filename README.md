@@ -179,16 +179,12 @@ $ guardctl completion -f zsh  > /path/to/zsh-completions/_guardctl.zsh
 
 ### Brew
 
-Service:
-
 ```bash
 $ brew install kamilsk/tap/guard
-```
 
-Client:
-
-```bash
-$ brew install kamilsk/tap/guardctl
+$ which guard guardctl
+/usr/local/bin/guard
+/usr/local/bin/guardctl
 ```
 
 ### Binary
