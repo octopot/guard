@@ -1,6 +1,8 @@
 package guard
 
 import (
+	"context"
+
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
@@ -8,15 +10,21 @@ import (
 
 // New TODO issue#docs
 func New(cnf config.ServiceConfig, storage Storage) *Guard {
-	return &Guard{&licenseManager{cnf.Disabled, storage}}
+	return &Guard{&licenseService{cnf.Disabled, storage}, &maintenanceService{storage}}
 }
 
 // Guard TODO issue#docs
 type Guard struct {
-	licenseManager *licenseManager
+	license     *licenseService
+	maintenance *maintenanceService
 }
 
 // CheckLicense TODO issue#docs
-func (service Guard) CheckLicense(request request.License) response.License {
-	return service.licenseManager.Check(request)
+func (service Guard) CheckLicense(ctx context.Context, req request.License) response.License {
+	return service.license.Check(ctx, req)
+}
+
+// Install TODO issue#docs
+func (service Guard) Install(ctx context.Context, req request.Install) response.Install {
+	return service.maintenance.Install(ctx, req)
 }

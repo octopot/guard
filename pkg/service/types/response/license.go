@@ -6,25 +6,25 @@ type License struct {
 }
 
 // Cause TODO issue#docs
-func (l *License) Cause() error {
-	return l.err
+func (resp *License) Cause() error {
+	return resp.err
 }
 
 // Error TODO issue#docs
-func (l *License) Error() string {
-	if l.err != nil {
-		return l.err.Error()
+func (resp *License) Error() string {
+	if resp.err != nil {
+		return resp.err.Error()
 	}
 	return ""
 }
 
 // HasError TODO issue#docs
-func (l *License) HasError() bool {
-	return l.err != nil
+func (resp *License) HasError() bool {
+	return resp.err != nil
 }
 
 // With TODO issue#docs
-func (l License) With(err error) License {
-	l.err = err
-	return l
+func (resp License) With(err error) License {
+	resp.err = err
+	return resp
 }

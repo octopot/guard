@@ -1,6 +1,7 @@
 package guard
 
 import (
+	"context"
 	"errors"
 	"math/rand"
 	"net/http"
@@ -10,13 +11,13 @@ import (
 	"github.com/kamilsk/guard/pkg/service/types/response"
 )
 
-type licenseManager struct {
+type licenseService struct {
 	disabled bool
 	storage  Storage
 }
 
 // Check TODO issue#docs
-func (service *licenseManager) Check(request request.License) (response response.License) {
+func (service *licenseService) Check(ctx context.Context, req request.License) (resp response.License) {
 	if service.disabled {
 		// TODO issue#59 only logging request problems
 		return
@@ -24,7 +25,7 @@ func (service *licenseManager) Check(request request.License) (response response
 	if rand.New(rand.NewSource(time.Now().Unix())).Intn(5) > 2 {
 		// TODO issue#6
 		// TODO issue#35
-		return response.With(errors.New(http.StatusText(http.StatusPaymentRequired)))
+		return resp.With(errors.New(http.StatusText(http.StatusPaymentRequired)))
 	}
 	return
 }
