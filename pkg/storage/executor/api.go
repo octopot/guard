@@ -35,16 +35,28 @@ func New(dialect string) *Executor {
 
 // LicenseManager TODO issue#docs
 type LicenseManager interface {
+	// Create TODO issue#docs
 	Create(*repository.Token, query.CreateLicense) (repository.License, error)
+	// Read TODO issue#docs
 	Read(*repository.Token, query.ReadLicense) (repository.License, error)
+	// Update TODO issue#docs
 	Update(*repository.Token, query.UpdateLicense) (repository.License, error)
+	// Delete TODO issue#docs
 	Delete(*repository.Token, query.DeleteLicense) (repository.License, error)
+	// Restore TODO issue#docs
 	Restore(*repository.Token, query.RestoreLicense) (repository.License, error)
 }
 
 // UserManager TODO issue#docs
 type UserManager interface {
+	// AccessToken TODO issue#docs
 	AccessToken(domain.Token) (*repository.Token, error)
+	// RegisterAccount TODO issue#docs
+	RegisterAccount(query.RegisterAccount) (*repository.Account, error)
+	// RegisterUser TODO issue#docs
+	RegisterUser(query.RegisterUser) (*repository.User, error)
+	// RegisterToken TODO issue#docs
+	RegisterToken(query.RegisterToken) (*repository.Token, error)
 }
 
 // Executor TODO issue#docs
