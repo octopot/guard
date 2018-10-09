@@ -183,12 +183,12 @@
   version = "v1.0.1"
 
 [[projects]]
-  digest = "1:7ab17345d3ff52cee65e3f0494b5a53976955b090b8a99f93cb65f3d3322b2df"
+  digest = "1:a45ae66dea4c899d79fceb116accfa1892105c251f0dcd9a217ddc276b42ec68"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "fe40af7a9c397fa3ddba203c38a5042c5d0475ad"
-  version = "v1.1.1"
+  revision = "3536a929edddb9a5b34bd6861dc4a9647cb459fe"
+  version = "v1.1.2"
 
 [[projects]]
   digest = "1:51ea800cff51752ff68e12e04106f5887b4daec6f9356721238c28019f0b42db"
@@ -200,11 +200,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:ad23cc427f544a97fb1bae46291baa626e430d4513e279f9ffd9171aa797b288"
+  digest = "1:75386ee8a7a1b23cef8dc0d18f689834706742fd18c3046b6d7186a4e9c18c37"
   name = "github.com/pkg/errors"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "c059e472caf75dbe73903f6521a20abac245b17f"
+  revision = "2233dee583dcf88f3c8b22cb7a33f05a499800d8"
 
 [[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
@@ -248,7 +248,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:26a2f5e891cc4d2321f18a0caa84c8e788663c17bed6a487f3cbe2c4295292d0"
+  digest = "1:102dea0c03a915acfc634b7c67f2662012b5483b56d9025e33f5188e112759b6"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
@@ -257,7 +257,7 @@
     "xfs",
   ]
   pruneopts = "NUT"
-  revision = "418d78d0b9a7b7de3a6bbc8a23def624cc977bb2"
+  revision = "185b4288413d2a0dd0806f78c90dde719829e5ae"
 
 [[projects]]
   branch = "master"
@@ -409,15 +409,15 @@
     "trace",
   ]
   pruneopts = "NUT"
-  revision = "f5e5bdd778241bfefa8627f7124c39cd6ad8d74f"
+  revision = "146acd28ed5894421fb5aac80ca93bc1b1f46f87"
 
 [[projects]]
   branch = "master"
-  digest = "1:5f5dd22d92eccb0792de09b46a5b5b2634a90c278dd580a3ca0c2d60029ee81f"
+  digest = "1:a9bc64e1206f3d5ce2ac71e397ddfe81065ac706929d34fcb3f0a48e74cd6e3b"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "af653ce8b74f808d092db8ca9741fbb63d2a469d"
+  revision = "4497e2df6f9e69048a54498c7affbbec3294ad47"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -489,6 +489,14 @@
   version = "v1.15.0"
 
 [[projects]]
+  digest = "1:4fe5671ee9615984167403a07ea67e0cbb7396f3ab335294ef767ac79b972ffc"
+  name = "gopkg.in/DATA-DOG/go-sqlmock.v1"
+  packages = ["."]
+  pruneopts = "NUT"
+  revision = "d76b18b42f285b792bf985118980ce9eacea9d10"
+  version = "v1.3.0"
+
+[[projects]]
   digest = "1:05eff2c4f2ce868b5c9ced8b96607201155a812920eac4d30a85b6b9b72338ce"
   name = "gopkg.in/gorp.v1"
   packages = ["."]
@@ -497,12 +505,12 @@
   version = "v1.7.1"
 
 [[projects]]
-  branch = "v2"
   digest = "1:7c95b35057a0ff2e19f707173cc1a947fa43a6eb5c4d300d196ece0334046082"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
   pruneopts = "NUT"
   revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  version = "v2.2.1"
 
 [solve-meta]
   analyzer-name = "dep"
@@ -530,6 +538,7 @@
     "github.com/rakyll/statik/fs",
     "github.com/rubenv/sql-migrate",
     "github.com/spf13/cobra",
+    "github.com/spf13/pflag",
     "github.com/spf13/viper",
     "github.com/stretchr/testify/assert",
     "github.com/stretchr/testify/mock",
@@ -542,6 +551,7 @@
     "google.golang.org/grpc/grpclog",
     "google.golang.org/grpc/metadata",
     "google.golang.org/grpc/status",
+    "gopkg.in/DATA-DOG/go-sqlmock.v1",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1
