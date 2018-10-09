@@ -31,7 +31,7 @@ var Run = &cobra.Command{
 			)
 			service = guard.New(cnf.Union.ServiceConfig, repository)
 		)
-		if err := startGRPCServer(cnf.Union.GRPCConfig, repository); err != nil {
+		if err := startGRPCServer(cnf.Union.GRPCConfig, service, repository); err != nil {
 			return err
 		}
 		if err := startMonitoring(cnf.Union.MonitoringConfig); err != nil {
@@ -129,7 +129,7 @@ func startHTTPServer(cnf config.ServerConfig, service *guard.Guard) error {
 	return http.New(cnf, service).Serve(listener)
 }
 
-func startGRPCServer(cnf config.GRPCConfig, repository *storage.Storage) error {
+func startGRPCServer(cnf config.GRPCConfig, service *guard.Guard, repository *storage.Storage) error {
 	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
@@ -144,7 +144,7 @@ func startGRPCServer(cnf config.GRPCConfig, repository *storage.Storage) error {
 	go func(listener net.Listener) {
 		close(cascade)
 		log.Println("start gRPC server at", listener.Addr())
-		_ = grpc.New(cnf, repository, repository).Serve(listener)
+		_ = grpc.New(cnf, service, repository).Serve(listener)
 	}(listener)
 	go func(listener net.Listener) {
 		if listener == nil {
