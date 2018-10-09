@@ -7,6 +7,7 @@ import (
 	domain "github.com/kamilsk/guard/pkg/service/types"
 	repository "github.com/kamilsk/guard/pkg/storage/types"
 
+	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/pkg/errors"
 )
 
@@ -48,4 +49,52 @@ func (scope userManager) AccessToken(id domain.Token) (*repository.Token, error)
 	token.User, user.Account = &user, &account
 	user.Tokens, account.Users = append(user.Tokens, &token), append(account.Users, &user)
 	return &token, nil
+}
+
+// RegisterAccount TODO issue#docs
+func (scope userManager) RegisterAccount(data query.RegisterAccount) (*repository.Account, error) {
+	entity := repository.Account{Name: data.Name}
+	q := `INSERT INTO "account" ("id", "name")
+	      SELECT coalesce($1, uuid_generate_v4()), $2
+	       WHERE NOT exists(SELECT "id" FROM "account")
+	   RETURNING "id", "created_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.Name)
+	if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
+		return nil, errors.Wrap(scanErr, "trying to register a new account")
+	}
+	return &entity, nil
+}
+
+// RegisterUser TODO issue#docs
+func (scope userManager) RegisterUser(data query.RegisterUser) (*repository.User, error) {
+	entity, account := repository.User{Name: data.Name}, data.Account()
+	if account == nil || account.ID == nil {
+		return nil, errors.New("the account is not specified")
+	}
+	entity.AccountID = *account.ID
+	q := `INSERT INTO "user" ("id", "account_id", "name")
+	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
+	   RETURNING "id", "created_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.AccountID, entity.Name)
+	if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
+		return nil, errors.Wrap(scanErr, "trying to register a new user")
+	}
+	return &entity, nil
+}
+
+// RegisterToken TODO issue#docs
+func (scope userManager) RegisterToken(data query.RegisterToken) (*repository.Token, error) {
+	entity, user := repository.Token{ExpiredAt: data.ExpiredAt}, data.User()
+	if user == nil || user.ID == nil {
+		return nil, errors.New("the user is not specified")
+	}
+	entity.UserID = *user.ID
+	q := `INSERT INTO "token" ("id", "user_id", "expired_at")
+	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
+	   RETURNING "id", "created_at"`
+	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.UserID, entity.ExpiredAt)
+	if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
+		return nil, errors.Wrap(scanErr, "trying to register a new token")
+	}
+	return &entity, nil
 }
