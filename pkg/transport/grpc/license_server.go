@@ -12,12 +12,13 @@ import (
 )
 
 // NewLicenseServer TODO issue#docs
-func NewLicenseServer(storage ProtectedStorage) LicenseServer {
-	return &licenseServer{storage}
+func NewLicenseServer(storage ProtectedStorage, draft DraftStorage) LicenseServer {
+	return &licenseServer{storage, draft}
 }
 
 type licenseServer struct {
 	storage ProtectedStorage
+	draft   DraftStorage
 }
 
 // Register TODO issue#docs
@@ -113,32 +114,81 @@ func (server *licenseServer) Restore(ctx context.Context, req *RestoreLicenseReq
 	return &RestoreLicenseResponse{Id: license.ID.String(), UpdatedAt: Timestamp(license.UpdatedAt)}, nil
 }
 
+// TODO issue#draft {
+
 // AddEmployee TODO issue#docs
-func (server *licenseServer) AddEmployee(context.Context, *EmployeeRequest) (*EmptyResponse, error) {
-	resp := new(EmptyResponse)
-	return resp, nil
+func (server *licenseServer) AddEmployee(ctx context.Context, req *EmployeeRequest) (*EmptyResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	if addErr := server.draft.AddEmployee(ctx, token, query.LicenseEmployee{
+		ID:       domain.ID(req.Id),
+		Employee: domain.ID(req.Employee),
+	}); addErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", addErr) // TODO issue#6
+	}
+	return new(EmptyResponse), nil
 }
 
 // DeleteEmployee TODO issue#docs
-func (server *licenseServer) DeleteEmployee(context.Context, *EmployeeRequest) (*EmptyResponse, error) {
-	resp := new(EmptyResponse)
-	return resp, nil
+func (server *licenseServer) DeleteEmployee(ctx context.Context, req *EmployeeRequest) (*EmptyResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	if deleteErr := server.draft.DeleteEmployee(ctx, token, query.LicenseEmployee{
+		ID:       domain.ID(req.Id),
+		Employee: domain.ID(req.Employee),
+	}); deleteErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", deleteErr) // TODO issue#6
+	}
+	return new(EmptyResponse), nil
 }
 
 // AddWorkplace TODO issue#docs
-func (server *licenseServer) AddWorkplace(context.Context, *WorkplaceRequest) (*EmptyResponse, error) {
-	resp := new(EmptyResponse)
-	return resp, nil
+func (server *licenseServer) AddWorkplace(ctx context.Context, req *WorkplaceRequest) (*EmptyResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	if addErr := server.draft.AddWorkplace(ctx, token, query.LicenseWorkplace{
+		ID:        domain.ID(req.Id),
+		Workplace: domain.ID(req.Workplace),
+	}); addErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", addErr) // TODO issue#6
+	}
+	return new(EmptyResponse), nil
 }
 
 // DeleteWorkplace TODO issue#docs
-func (server *licenseServer) DeleteWorkplace(context.Context, *WorkplaceRequest) (*EmptyResponse, error) {
-	resp := new(EmptyResponse)
-	return resp, nil
+func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *WorkplaceRequest) (*EmptyResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	if deleteErr := server.draft.DeleteWorkplace(ctx, token, query.LicenseWorkplace{
+		ID:        domain.ID(req.Id),
+		Workplace: domain.ID(req.Workplace),
+	}); deleteErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", deleteErr) // TODO issue#6
+	}
+	return new(EmptyResponse), nil
 }
 
 // PushWorkplace TODO issue#docs
-func (server *licenseServer) PushWorkplace(context.Context, *WorkplaceRequest) (*EmptyResponse, error) {
-	resp := new(EmptyResponse)
-	return resp, nil
+func (server *licenseServer) PushWorkplace(ctx context.Context, req *WorkplaceRequest) (*EmptyResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	if pushErr := server.draft.PushWorkplace(ctx, token, query.LicenseWorkplace{
+		ID:        domain.ID(req.Id),
+		Workplace: domain.ID(req.Workplace),
+	}); pushErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", pushErr) // TODO issue#6
+	}
+	return new(EmptyResponse), nil
 }
+
+// issue#draft }

@@ -32,3 +32,21 @@ type ProtectedStorage interface {
 	// RestoreLicense TODO issue#docs
 	RestoreLicense(context.Context, domain.Token, query.RestoreLicense) (repository.License, error)
 }
+
+// TODO issue#draft {
+
+// DraftStorage TODO issue#docs
+type DraftStorage interface {
+	// AddEmployee TODO issue#docs
+	AddEmployee(context.Context, domain.Token, query.LicenseEmployee) error
+	// DeleteEmployee TODO issue#docs
+	DeleteEmployee(context.Context, domain.Token, query.LicenseEmployee) error
+	// AddWorkplace TODO issue#docs
+	AddWorkplace(context.Context, domain.Token, query.LicenseWorkplace) error
+	// DeleteWorkplace TODO issue#docs
+	DeleteWorkplace(context.Context, domain.Token, query.LicenseWorkplace) error
+	// PushWorkplace TODO issue#docs
+	PushWorkplace(context.Context, domain.Token, query.LicenseWorkplace) error
+}
+
+// issue#draft }
