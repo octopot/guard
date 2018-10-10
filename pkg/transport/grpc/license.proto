@@ -118,4 +118,22 @@ service License {
             patch: "/api/v1/license/{id}"
         };
     }
+
+    rpc AddEmployee (EmployeeRequest) returns (EmployeeResponse) {
+        option (google.api.http) = {
+            post: "/api/v1/license/{id}/employee/{employee}"
+        };
+    }
+    rpc DeleteEmployee(EmployeeRequest) returns (EmployeeResponse) {
+        option (google.api.http) = {
+            delete: "/api/v1/license/{id}/employee/{employee}"
+        };
+    }
 }
+
+message EmployeeRequest {
+    string id = 1;
+    string employee = 2;
+}
+
+message EmployeeResponse {}
