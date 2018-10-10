@@ -3,8 +3,8 @@ package postgres
 import (
 	repository "github.com/kamilsk/guard/pkg/storage/types"
 
-	"github.com/kamilsk/check/errors"
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/pkg/errors"
 )
 
 // TODO issue#draft {
