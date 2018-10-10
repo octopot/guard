@@ -27,6 +27,13 @@ func New(dialect string) *Executor {
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
+
+		// TODO issue#draft {
+		exec.factory.NewDraft = func(ctx context.Context, conn *sql.Conn) Draft {
+			return postgres.NewLicenseContext(ctx, conn)
+		}
+		// }
+
 	default:
 		panic(fmt.Sprintf("not supported dialect %q is provided", exec.dialect))
 	}
@@ -65,6 +72,10 @@ type Executor struct {
 	factory struct {
 		NewLicenseManager func(context.Context, *sql.Conn) LicenseManager
 		NewUserManager    func(context.Context, *sql.Conn) UserManager
+
+		// TODO issue#draft {
+		NewDraft func(context.Context, *sql.Conn) Draft
+		// }
 	}
 }
 
@@ -82,3 +93,26 @@ func (e *Executor) LicenseManager(ctx context.Context, conn *sql.Conn) LicenseMa
 func (e *Executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
 	return e.factory.NewUserManager(ctx, conn)
 }
+
+// TODO issue#draft {
+
+// Draft TODO issue#docs
+func (e *Executor) Draft(ctx context.Context, conn *sql.Conn) Draft {
+	return e.factory.NewDraft(ctx, conn)
+}
+
+// Draft TODO issue#docs
+type Draft interface {
+	// AddEmployee TODO issue#docs
+	AddEmployee(token *repository.Token, data query.LicenseEmployee) error
+	// DeleteEmployee TODO issue#docs
+	DeleteEmployee(token *repository.Token, data query.LicenseEmployee) error
+	// AddWorkplace TODO issue#docs
+	AddWorkplace(token *repository.Token, data query.LicenseWorkplace) error
+	// DeleteWorkplace TODO issue#docs
+	DeleteWorkplace(token *repository.Token, data query.LicenseWorkplace) error
+	// PushWorkplace TODO issue#docs
+	PushWorkplace(token *repository.Token, data query.LicenseWorkplace) error
+}
+
+// }

@@ -1,10 +1,9 @@
 package postgres
 
 import (
-	"github.com/kamilsk/check/errors"
-
 	repository "github.com/kamilsk/guard/pkg/storage/types"
 
+	"github.com/kamilsk/check/errors"
 	"github.com/kamilsk/guard/pkg/storage/query"
 )
 
