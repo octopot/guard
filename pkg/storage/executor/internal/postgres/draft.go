@@ -7,6 +7,8 @@ import (
 	"github.com/kamilsk/guard/pkg/storage/query"
 )
 
+// TODO issue#draft {
+
 // AddEmployee TODO issue#docs
 func (scope licenseManager) AddEmployee(token *repository.Token, data query.LicenseEmployee) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
@@ -89,3 +91,5 @@ func (scope licenseManager) PushWorkplace(token *repository.Token, data query.Li
 	}
 	return nil
 }
+
+// issue#draft }

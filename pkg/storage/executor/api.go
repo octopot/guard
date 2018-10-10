@@ -33,7 +33,7 @@ func New(dialect string) *Executor {
 		exec.factory.NewDraft = func(ctx context.Context, conn *sql.Conn) Draft {
 			return postgres.NewLicenseContext(ctx, conn)
 		}
-		// }
+		// issue#draft }
 
 	case mysqlDialect:
 		fallthrough
@@ -78,7 +78,7 @@ type Executor struct {
 
 		// TODO issue#draft {
 		NewDraft func(context.Context, *sql.Conn) Draft
-		// }
+		// issue#draft }
 	}
 }
 
@@ -118,4 +118,4 @@ type Draft interface {
 	PushWorkplace(*repository.Token, query.LicenseWorkplace) error
 }
 
-// }
+// issue#draft }

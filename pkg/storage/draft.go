@@ -90,4 +90,4 @@ func (storage *Storage) PushWorkplace(ctx context.Context, id domain.Token, data
 	return storage.exec.Draft(ctx, conn).PushWorkplace(token, data)
 }
 
-// }
+// issue#draft }

@@ -119,6 +119,8 @@ service License {
         };
     }
 
+    // TODO issue#draft {
+
     rpc AddEmployee (EmployeeRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             post: "/api/v1/license/{id}/employee/{employee}"
@@ -158,3 +160,5 @@ message WorkplaceRequest {
     string id = 1;
     string workplace = 2;
 }
+
+// issue#draft }
