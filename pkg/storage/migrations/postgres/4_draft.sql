@@ -1,3 +1,5 @@
+-- TODO issue#draft {
+
 -- +migrate Up
 
 CREATE TABLE "license_employee" (
@@ -22,3 +24,5 @@ CREATE TABLE "license_workplace" (
 DROP TABLE "license_workplace";
 
 DROP TABLE "license_employee";
+
+-- issue#draft }
