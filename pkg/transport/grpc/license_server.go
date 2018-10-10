@@ -112,3 +112,33 @@ func (server *licenseServer) Restore(ctx context.Context, req *RestoreLicenseReq
 	}
 	return &RestoreLicenseResponse{Id: license.ID.String(), UpdatedAt: Timestamp(license.UpdatedAt)}, nil
 }
+
+// AddEmployee TODO issue#docs
+func (server *licenseServer) AddEmployee(context.Context, *EmployeeRequest) (*EmptyResponse, error) {
+	resp := new(EmptyResponse)
+	return resp, nil
+}
+
+// DeleteEmployee TODO issue#docs
+func (server *licenseServer) DeleteEmployee(context.Context, *EmployeeRequest) (*EmptyResponse, error) {
+	resp := new(EmptyResponse)
+	return resp, nil
+}
+
+// AddWorkplace TODO issue#docs
+func (server *licenseServer) AddWorkplace(context.Context, *WorkplaceRequest) (*EmptyResponse, error) {
+	resp := new(EmptyResponse)
+	return resp, nil
+}
+
+// DeleteWorkplace TODO issue#docs
+func (server *licenseServer) DeleteWorkplace(context.Context, *WorkplaceRequest) (*EmptyResponse, error) {
+	resp := new(EmptyResponse)
+	return resp, nil
+}
+
+// PushWorkplace TODO issue#docs
+func (server *licenseServer) PushWorkplace(context.Context, *WorkplaceRequest) (*EmptyResponse, error) {
+	resp := new(EmptyResponse)
+	return resp, nil
+}
