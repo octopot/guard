@@ -6,7 +6,7 @@ COMPOSE = $(_base) -f env/docker/compose/docker-compose.dev.yml
 __env__:
 	@(cp -nrf env/docker/compose/.env.example .env)
 #|
-#|                    ---
+#|                    --- Docker Compose' generic commands
 #|
 .PHONY: ci
 ci:                #| Switch docker compose to CI/CD configuration.
@@ -48,7 +48,7 @@ destroy: __env__   #| Stops containers and removes them with networks, volumes, 
 status: __env__    #| List containers and their status.
 	@($(COMPOSE) ps)
 #|
-#|                    ---
+#|                    --- Service-specific commands
 #|
 SERVICES = db \
            legacy \
@@ -103,3 +103,29 @@ endef
 
 render_service_tpl = $(eval $(call service_tpl,$(service)))
 $(foreach service,$(SERVICES),$(render_service_tpl))
+#|                    --- Database-specific commands
+#|
+.PHONY: psql
+psql: __env__      #| Connect to the database.
+	@($(COMPOSE) exec db /bin/sh -c 'su - postgres -c psql')
+#|
+.PHONY: backup
+backup: __env__    #| Backup the database.
+	@($(COMPOSE) exec db /bin/sh -c 'su - postgres -c "pg_dump --format=custom --file=/tmp/db.dump $${POSTGRES_DB}"')
+	@(docker cp $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/db.dump ./env/docker/db/)
+	@($(COMPOSE) exec db rm /tmp/db.dump)
+	@(ls -l ./env/docker/db/db.dump)
+#|
+.PHONY: restore
+restore: __env__   #| Restore the database.
+	@(docker cp ./env/docker/db/reset.sql $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/)
+	@(docker cp ./env/docker/db/db.dump $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/)
+	@($(COMPOSE) exec db /bin/sh -c 'su - postgres -c "psql $${POSTGRES_DB} < /tmp/reset.sql"')
+	@($(COMPOSE) exec db /bin/sh -c 'su - postgres -c "pg_restore -Fc -d $${POSTGRES_DB} /tmp/db.dump"')
+	@($(COMPOSE) exec db rm /tmp/reset.sql /tmp/db.dump)
+#|
+.PHONY: truncate
+truncate: __env__  #| Truncate the database tables.
+	@(docker cp ./env/docker/db/truncate.sql $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/)
+	@($(COMPOSE) exec db /bin/sh -c 'su - postgres -c "psql $${POSTGRES_DB} < /tmp/truncate.sql"')
+	@($(COMPOSE) exec db rm /tmp/truncate.sql)

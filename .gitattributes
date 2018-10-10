@@ -23,7 +23,7 @@
 *.pb.gw.go        linguist-generated=true
 *_easyjson.go     -diff -merge
 *_easyjson.go     linguist-generated=true
-bindata.go        -diff -merge
-bindata.go        linguist-generated=true
 mock_*_test.go    -diff -merge
 mock_*_test.go    linguist-generated=true
+statik.go         -diff -merge
+statik.go         linguist-generated=true
