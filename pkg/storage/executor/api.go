@@ -30,9 +30,11 @@ func New(dialect string) *Executor {
 		}
 
 		// TODO issue#draft {
+
 		exec.factory.NewDraft = func(ctx context.Context, conn *sql.Conn) Draft {
 			return postgres.NewLicenseContext(ctx, conn)
 		}
+
 		// issue#draft }
 
 	case mysqlDialect:
@@ -77,7 +79,9 @@ type Executor struct {
 		NewUserManager    func(context.Context, *sql.Conn) UserManager
 
 		// TODO issue#draft {
+
 		NewDraft func(context.Context, *sql.Conn) Draft
+
 		// issue#draft }
 	}
 }

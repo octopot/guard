@@ -121,28 +121,28 @@ service License {
 
     // TODO issue#draft {
 
-    rpc AddEmployee (EmployeeRequest) returns (EmptyResponse) {
+    rpc AddEmployee (AddEmployeeRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             post: "/api/v1/license/{id}/employee/{employee}"
         };
     }
-    rpc DeleteEmployee(EmployeeRequest) returns (EmptyResponse) {
+    rpc DeleteEmployee(DeleteEmployeeRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             delete: "/api/v1/license/{id}/employee/{employee}"
         };
     }
 
-    rpc AddWorkplace (WorkplaceRequest) returns (EmptyResponse) {
+    rpc AddWorkplace (AddWorkplaceRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             post: "/api/v1/license/{id}/workplace/{workplace}"
         };
     }
-    rpc DeleteWorkplace (WorkplaceRequest) returns (EmptyResponse) {
+    rpc DeleteWorkplace (DeleteWorkplaceRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             delete: "/api/v1/license/{id}/workplace/{workplace}"
         };
     }
-    rpc PushWorkplace (WorkplaceRequest) returns (EmptyResponse) {
+    rpc PushWorkplace (PushWorkplaceRequest) returns (EmptyResponse) {
         option (google.api.http) = {
             put: "/api/v1/license/{id}/workplace/{workplace}"
         };
@@ -151,12 +151,27 @@ service License {
 
 message EmptyResponse {}
 
-message EmployeeRequest {
+message AddEmployeeRequest {
     string id = 1;
     string employee = 2;
 }
 
-message WorkplaceRequest {
+message DeleteEmployeeRequest {
+    string id = 1;
+    string employee = 2;
+}
+
+message AddWorkplaceRequest {
+    string id = 1;
+    string workplace = 2;
+}
+
+message DeleteWorkplaceRequest {
+    string id = 1;
+    string workplace = 2;
+}
+
+message PushWorkplaceRequest {
     string id = 1;
     string workplace = 2;
 }

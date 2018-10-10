@@ -167,7 +167,7 @@ func request_License_Restore_0(ctx context.Context, marshaler runtime.Marshaler,
 }
 
 func request_License_AddEmployee_0(ctx context.Context, marshaler runtime.Marshaler, client LicenseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmployeeRequest
+	var protoReq AddEmployeeRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -205,7 +205,7 @@ func request_License_AddEmployee_0(ctx context.Context, marshaler runtime.Marsha
 }
 
 func request_License_DeleteEmployee_0(ctx context.Context, marshaler runtime.Marshaler, client LicenseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq EmployeeRequest
+	var protoReq DeleteEmployeeRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -243,7 +243,7 @@ func request_License_DeleteEmployee_0(ctx context.Context, marshaler runtime.Mar
 }
 
 func request_License_AddWorkplace_0(ctx context.Context, marshaler runtime.Marshaler, client LicenseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WorkplaceRequest
+	var protoReq AddWorkplaceRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -281,7 +281,7 @@ func request_License_AddWorkplace_0(ctx context.Context, marshaler runtime.Marsh
 }
 
 func request_License_DeleteWorkplace_0(ctx context.Context, marshaler runtime.Marshaler, client LicenseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WorkplaceRequest
+	var protoReq DeleteWorkplaceRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -319,7 +319,7 @@ func request_License_DeleteWorkplace_0(ctx context.Context, marshaler runtime.Ma
 }
 
 func request_License_PushWorkplace_0(ctx context.Context, marshaler runtime.Marshaler, client LicenseClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq WorkplaceRequest
+	var protoReq PushWorkplaceRequest
 	var metadata runtime.ServerMetadata
 
 	var (

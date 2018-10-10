@@ -28,6 +28,18 @@ var (
 	updateLicense   = &cobra.Command{Use: "update", Short: "Update client license", RunE: communicate}
 	deleteLicense   = &cobra.Command{Use: "delete", Short: "Delete client license", RunE: communicate}
 	restoreLicense  = &cobra.Command{Use: "restore", Short: "Restore client license", RunE: communicate}
+
+	// TODO issue#draft {
+
+	employee        = &cobra.Command{Use: "employee", Short: "Works with client employees (draft)"}
+	addEmployee     = &cobra.Command{Use: "add", Short: "Add employee to a client license", RunE: communicate}
+	deleteEmployee  = &cobra.Command{Use: "delete", Short: "Delete employee from a client license", RunE: communicate}
+	workplace       = &cobra.Command{Use: "workplace", Short: "Works with client workplaces (draft)"}
+	addWorkplace    = &cobra.Command{Use: "add", Short: "Add workplace to a client license", RunE: communicate}
+	deleteWorkplace = &cobra.Command{Use: "delete", Short: "Delete workplace from a client license", RunE: communicate}
+	pushWorkplace   = &cobra.Command{Use: "push", Short: "Push workplace of a client license up", RunE: communicate}
+
+	// issue#draft }
 )
 
 func init() {
@@ -58,15 +70,21 @@ func init() {
 			return nil
 		},
 		func() error {
+			configure(Install.Flags())
 			configure(License.PersistentFlags()).
 				StringVarP((*string)(&cnf.Union.GRPCConfig.Token),
 					"token", "", v.GetString("guard_token"), "user access token")
 			return nil
 		},
-		func() error {
-			configure(Install.Flags())
-			return nil
-		},
 	)
 	License.AddCommand(registerLicense, createLicense, readLicense, updateLicense, deleteLicense, restoreLicense)
+
+	// TODO issue#draft {
+
+	License.AddCommand(employee, workplace)
+	employee.AddCommand(addEmployee, deleteEmployee)
+	workplace.AddCommand(addWorkplace, deleteWorkplace, pushWorkplace)
+
+	// issue#draft }
+
 }

@@ -33,6 +33,16 @@ func init() {
 		updateLicense:   func() interface{} { return &pb.UpdateLicenseRequest{} },
 		deleteLicense:   func() interface{} { return &pb.DeleteLicenseRequest{} },
 		restoreLicense:  func() interface{} { return &pb.RestoreLicenseRequest{} },
+
+		// TODO issue#draft {
+
+		addEmployee:     func() interface{} { return &pb.AddEmployeeRequest{} },
+		deleteEmployee:  func() interface{} { return &pb.DeleteEmployeeRequest{} },
+		addWorkplace:    func() interface{} { return &pb.AddWorkplaceRequest{} },
+		deleteWorkplace: func() interface{} { return &pb.DeleteWorkplaceRequest{} },
+		pushWorkplace:   func() interface{} { return &pb.PushWorkplaceRequest{} },
+
+		// issue#draft }
 	}
 }
 
@@ -159,6 +169,22 @@ func call(cnf config.GRPCConfig, request interface{}) (interface{}, error) {
 		return pb.NewLicenseClient(conn).Restore(ctx, in)
 	case *pb.RegisterLicenseRequest:
 		return pb.NewLicenseClient(conn).Register(ctx, in)
+
+	// TODO issue#draft {
+
+	case *pb.AddEmployeeRequest:
+		return pb.NewLicenseClient(conn).AddEmployee(ctx, in)
+	case *pb.DeleteEmployeeRequest:
+		return pb.NewLicenseClient(conn).DeleteEmployee(ctx, in)
+	case *pb.AddWorkplaceRequest:
+		return pb.NewLicenseClient(conn).AddWorkplace(ctx, in)
+	case *pb.DeleteWorkplaceRequest:
+		return pb.NewLicenseClient(conn).DeleteWorkplace(ctx, in)
+	case *pb.PushWorkplaceRequest:
+		return pb.NewLicenseClient(conn).PushWorkplace(ctx, in)
+
+	// issue#draft }
+
 	default:
 		return nil, errors.Errorf("unknown request type %T", request)
 	}

@@ -117,7 +117,7 @@ func (server *licenseServer) Restore(ctx context.Context, req *RestoreLicenseReq
 // TODO issue#draft {
 
 // AddEmployee TODO issue#docs
-func (server *licenseServer) AddEmployee(ctx context.Context, req *EmployeeRequest) (*EmptyResponse, error) {
+func (server *licenseServer) AddEmployee(ctx context.Context, req *AddEmployeeRequest) (*EmptyResponse, error) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -132,7 +132,7 @@ func (server *licenseServer) AddEmployee(ctx context.Context, req *EmployeeReque
 }
 
 // DeleteEmployee TODO issue#docs
-func (server *licenseServer) DeleteEmployee(ctx context.Context, req *EmployeeRequest) (*EmptyResponse, error) {
+func (server *licenseServer) DeleteEmployee(ctx context.Context, req *DeleteEmployeeRequest) (*EmptyResponse, error) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -147,7 +147,7 @@ func (server *licenseServer) DeleteEmployee(ctx context.Context, req *EmployeeRe
 }
 
 // AddWorkplace TODO issue#docs
-func (server *licenseServer) AddWorkplace(ctx context.Context, req *WorkplaceRequest) (*EmptyResponse, error) {
+func (server *licenseServer) AddWorkplace(ctx context.Context, req *AddWorkplaceRequest) (*EmptyResponse, error) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -162,7 +162,7 @@ func (server *licenseServer) AddWorkplace(ctx context.Context, req *WorkplaceReq
 }
 
 // DeleteWorkplace TODO issue#docs
-func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *WorkplaceRequest) (*EmptyResponse, error) {
+func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *DeleteWorkplaceRequest) (*EmptyResponse, error) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -177,7 +177,7 @@ func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *Workplace
 }
 
 // PushWorkplace TODO issue#docs
-func (server *licenseServer) PushWorkplace(ctx context.Context, req *WorkplaceRequest) (*EmptyResponse, error) {
+func (server *licenseServer) PushWorkplace(ctx context.Context, req *PushWorkplaceRequest) (*EmptyResponse, error) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
