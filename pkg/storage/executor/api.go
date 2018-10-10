@@ -13,6 +13,7 @@ import (
 )
 
 const (
+	mysqlDialect    = "mysql"
 	postgresDialect = "postgres"
 )
 
@@ -34,6 +35,8 @@ func New(dialect string) *Executor {
 		}
 		// }
 
+	case mysqlDialect:
+		fallthrough
 	default:
 		panic(fmt.Sprintf("not supported dialect %q is provided", exec.dialect))
 	}
@@ -104,15 +107,15 @@ func (e *Executor) Draft(ctx context.Context, conn *sql.Conn) Draft {
 // Draft TODO issue#docs
 type Draft interface {
 	// AddEmployee TODO issue#docs
-	AddEmployee(token *repository.Token, data query.LicenseEmployee) error
+	AddEmployee(*repository.Token, query.LicenseEmployee) error
 	// DeleteEmployee TODO issue#docs
-	DeleteEmployee(token *repository.Token, data query.LicenseEmployee) error
+	DeleteEmployee(*repository.Token, query.LicenseEmployee) error
 	// AddWorkplace TODO issue#docs
-	AddWorkplace(token *repository.Token, data query.LicenseWorkplace) error
+	AddWorkplace(*repository.Token, query.LicenseWorkplace) error
 	// DeleteWorkplace TODO issue#docs
-	DeleteWorkplace(token *repository.Token, data query.LicenseWorkplace) error
+	DeleteWorkplace(*repository.Token, query.LicenseWorkplace) error
 	// PushWorkplace TODO issue#docs
-	PushWorkplace(token *repository.Token, data query.LicenseWorkplace) error
+	PushWorkplace(*repository.Token, query.LicenseWorkplace) error
 }
 
 // }
