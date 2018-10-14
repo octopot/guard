@@ -10,19 +10,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-// Timestamp converts a time.Time to a google.protobuf.Timestamp proto.
-// It panics if the resulting Timestamp is invalid.
-func Timestamp(tp *time.Time) *timestamp.Timestamp {
-	if tp == nil {
-		return nil
-	}
-	ts, err := ptypes.TimestampProto(*tp)
-	if err != nil {
-		panic(errors.Wrapf(err, "converting %#v into google.protobuf.Timestamp", *tp))
-	}
-	return ts
-}
-
 // Time converts a google.protobuf.Timestamp proto to a time.Time.
 // It panics if the passed Timestamp is invalid.
 func Time(ts *timestamp.Timestamp) *time.Time {
@@ -34,6 +21,19 @@ func Time(ts *timestamp.Timestamp) *time.Time {
 		panic(errors.Wrapf(err, "converting %#v into time.Time", *ts))
 	}
 	return &tp
+}
+
+// Timestamp converts a time.Time to a google.protobuf.Timestamp proto.
+// It panics if the resulting Timestamp is invalid.
+func Timestamp(tp *time.Time) *timestamp.Timestamp {
+	if tp == nil {
+		return nil
+	}
+	ts, err := ptypes.TimestampProto(*tp)
+	if err != nil {
+		panic(errors.Wrapf(err, "converting %#v into google.protobuf.Timestamp", *tp))
+	}
+	return ts
 }
 
 func convertFromDomainContract(from domain.Contract) *Contract {
