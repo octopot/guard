@@ -6,7 +6,8 @@ CREATE TABLE "license_employee" (
   "license"    UUID      NOT NULL,
   "employee"   UUID      NOT NULL,
   "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
-  UNIQUE ("license", "employee")
+  UNIQUE ("employee")
+  --   UNIQUE ("license", "employee")
 );
 
 CREATE TABLE "license_workplace" (
@@ -14,7 +15,8 @@ CREATE TABLE "license_workplace" (
   "workplace"  UUID      NOT NULL,
   "created_at" TIMESTAMP NOT NULL             DEFAULT now(),
   "updated_at" TIMESTAMP NULL                 DEFAULT NULL,
-  UNIQUE ("license", "workplace")
+  UNIQUE ("workplace")
+  --   UNIQUE ("license", "workplace")
 );
 
 
