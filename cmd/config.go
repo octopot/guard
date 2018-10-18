@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"runtime"
 	"time"
 
 	"github.com/kamilsk/go-kit/pkg/fn"
@@ -12,7 +13,7 @@ import (
 var (
 	cnf      = config.ApplicationConfig{}
 	defaults = map[string]interface{}{
-		"max_cpus":            1,
+		"max_cpus":            runtime.GOMAXPROCS(0),
 		"bind":                "127.0.0.1",
 		"http_port":           80,
 		"profiling_port":      8090,
@@ -24,8 +25,8 @@ var (
 		"write_timeout":       time.Duration(0),
 		"idle_timeout":        time.Duration(0),
 		"dsn":                 "postgres://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=1&sslmode=disable",
-		"open_conn":           1,
-		"idle_conn":           1,
+		"open_conn":           runtime.GOMAXPROCS(0),
+		"idle_conn":           runtime.GOMAXPROCS(0),
 		"conn_max_lt":         0,
 		"table":               "migration",
 		"schema":              "public",
