@@ -7,5 +7,4 @@ type License struct {
 	ID        domain.ID
 	Employee  domain.ID
 	Workplace domain.ID
-	Metadata
 }

@@ -14,8 +14,6 @@ func Configure(api router.API) http.Handler {
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Logger)
-	r.Route("/api/v1/license", func(r chi.Router) {
-		r.Post("/check", api.CheckLicenseV1)
-	})
+	r.Post("/api/v1/license/check", api.CheckLicenseV1)
 	return r
 }

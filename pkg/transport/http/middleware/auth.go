@@ -12,9 +12,9 @@ import (
 
 const (
 	// AuthHeader defines authorization header.
-	AuthHeader = "authorization"
+	AuthHeader = "Authorization"
 	// AuthScheme defines authorization scheme.
-	AuthScheme = "bearer"
+	AuthScheme = "Bearer"
 )
 
 // TokenInjector TODO issue#docs
