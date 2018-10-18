@@ -6,10 +6,10 @@ import (
 	"fmt"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
 
 	"github.com/kamilsk/guard/pkg/storage/executor/internal/postgres"
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/kamilsk/guard/pkg/storage/types"
 )
 
 const (
@@ -48,27 +48,27 @@ func New(dialect string) *Executor {
 // LicenseManager TODO issue#docs
 type LicenseManager interface {
 	// Create TODO issue#docs
-	Create(*repository.Token, query.CreateLicense) (repository.License, error)
+	Create(*types.Token, query.CreateLicense) (types.License, error)
 	// Read TODO issue#docs
-	Read(*repository.Token, query.ReadLicense) (repository.License, error)
+	Read(*types.Token, query.ReadLicense) (types.License, error)
 	// Update TODO issue#docs
-	Update(*repository.Token, query.UpdateLicense) (repository.License, error)
+	Update(*types.Token, query.UpdateLicense) (types.License, error)
 	// Delete TODO issue#docs
-	Delete(*repository.Token, query.DeleteLicense) (repository.License, error)
+	Delete(*types.Token, query.DeleteLicense) (types.License, error)
 	// Restore TODO issue#docs
-	Restore(*repository.Token, query.RestoreLicense) (repository.License, error)
+	Restore(*types.Token, query.RestoreLicense) (types.License, error)
 }
 
 // UserManager TODO issue#docs
 type UserManager interface {
 	// AccessToken TODO issue#docs
-	AccessToken(domain.Token) (*repository.Token, error)
+	AccessToken(domain.Token) (*types.Token, error)
 	// RegisterAccount TODO issue#docs
-	RegisterAccount(query.RegisterAccount) (*repository.Account, error)
+	RegisterAccount(query.RegisterAccount) (*types.Account, error)
 	// RegisterUser TODO issue#docs
-	RegisterUser(query.RegisterUser) (*repository.User, error)
+	RegisterUser(query.RegisterUser) (*types.User, error)
 	// RegisterToken TODO issue#docs
-	RegisterToken(query.RegisterToken) (*repository.Token, error)
+	RegisterToken(query.RegisterToken) (*types.Token, error)
 }
 
 // Executor TODO issue#docs
@@ -111,15 +111,15 @@ func (e *Executor) Draft(ctx context.Context, conn *sql.Conn) Draft {
 // Draft TODO issue#docs
 type Draft interface {
 	// AddEmployee TODO issue#docs
-	AddEmployee(*repository.Token, query.LicenseEmployee) error
+	AddEmployee(*types.Token, query.LicenseEmployee) error
 	// DeleteEmployee TODO issue#docs
-	DeleteEmployee(*repository.Token, query.LicenseEmployee) error
+	DeleteEmployee(*types.Token, query.LicenseEmployee) error
 	// AddWorkplace TODO issue#docs
-	AddWorkplace(*repository.Token, query.LicenseWorkplace) error
+	AddWorkplace(*types.Token, query.LicenseWorkplace) error
 	// DeleteWorkplace TODO issue#docs
-	DeleteWorkplace(*repository.Token, query.LicenseWorkplace) error
+	DeleteWorkplace(*types.Token, query.LicenseWorkplace) error
 	// PushWorkplace TODO issue#docs
-	PushWorkplace(*repository.Token, query.LicenseWorkplace) error
+	PushWorkplace(*types.Token, query.LicenseWorkplace) error
 }
 
 // issue#draft }

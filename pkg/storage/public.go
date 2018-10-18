@@ -4,13 +4,12 @@ import (
 	"context"
 	"database/sql"
 
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/kamilsk/guard/pkg/storage/types"
 )
 
 // RegisterAccount TODO issue#docs
-func (storage Storage) RegisterAccount(ctx context.Context, data *query.RegisterAccount) (*repository.Account, error) {
+func (storage Storage) RegisterAccount(ctx context.Context, data *query.RegisterAccount) (*types.Account, error) {
 
 	// register is possible if no account exists
 	// it is checked on executor layer (postgres)
@@ -27,7 +26,7 @@ func (storage Storage) RegisterAccount(ctx context.Context, data *query.Register
 	}
 
 	var (
-		account *repository.Account
+		account *types.Account
 		err     error
 	)
 	func() {
@@ -46,7 +45,7 @@ func (storage Storage) RegisterAccount(ctx context.Context, data *query.Register
 		}
 		data.ID = &account.ID
 		for _, regUser := range data.Users() {
-			var user *repository.User
+			var user *types.User
 			user, err = manager.RegisterUser(*regUser)
 			if err != nil {
 				return
@@ -54,7 +53,7 @@ func (storage Storage) RegisterAccount(ctx context.Context, data *query.Register
 			regUser.ID = &user.ID
 			user.Account, account.Users = account, append(account.Users, user)
 			for _, regToken := range regUser.Tokens() {
-				var token *repository.Token
+				var token *types.Token
 				token, err = manager.RegisterToken(*regToken)
 				token.User, user.Tokens = user, append(user.Tokens, token)
 			}

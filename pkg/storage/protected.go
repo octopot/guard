@@ -5,19 +5,19 @@ import (
 	"database/sql"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
 
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/kamilsk/guard/pkg/storage/types"
 )
 
 // RegisterLicense TODO issue#docs
-func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (repository.License, error) {
+func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (types.License, error) {
 	return storage.CreateLicense(ctx, id, query.CreateLicense{ID: &data.ID, Contract: data.Contract})
 }
 
 // CreateLicense TODO issue#docs
-func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (repository.License, error) {
-	var license repository.License
+func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (types.License, error) {
+	var license types.License
 
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {
@@ -43,8 +43,8 @@ func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data
 }
 
 // ReadLicense TODO issue#docs
-func (storage *Storage) ReadLicense(ctx context.Context, id domain.Token, data query.ReadLicense) (repository.License, error) {
-	var license repository.License
+func (storage *Storage) ReadLicense(ctx context.Context, id domain.Token, data query.ReadLicense) (types.License, error) {
+	var license types.License
 
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {
@@ -61,8 +61,8 @@ func (storage *Storage) ReadLicense(ctx context.Context, id domain.Token, data q
 }
 
 // UpdateLicense TODO issue#docs
-func (storage *Storage) UpdateLicense(ctx context.Context, id domain.Token, data query.UpdateLicense) (repository.License, error) {
-	var license repository.License
+func (storage *Storage) UpdateLicense(ctx context.Context, id domain.Token, data query.UpdateLicense) (types.License, error) {
+	var license types.License
 
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {
@@ -88,8 +88,8 @@ func (storage *Storage) UpdateLicense(ctx context.Context, id domain.Token, data
 }
 
 // DeleteLicense TODO issue#docs
-func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data query.DeleteLicense) (repository.License, error) {
-	var license repository.License
+func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data query.DeleteLicense) (types.License, error) {
+	var license types.License
 
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {
@@ -115,8 +115,8 @@ func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data
 }
 
 // RestoreLicense TODO issue#docs
-func (storage *Storage) RestoreLicense(ctx context.Context, id domain.Token, data query.RestoreLicense) (repository.License, error) {
-	var license repository.License
+func (storage *Storage) RestoreLicense(ctx context.Context, id domain.Token, data query.RestoreLicense) (types.License, error) {
+	var license types.License
 
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {

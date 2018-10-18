@@ -1,16 +1,15 @@
 package postgres
 
 import (
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/kamilsk/guard/pkg/storage/types"
 	"github.com/pkg/errors"
 )
 
 // TODO issue#draft {
 
 // AddEmployee TODO issue#docs
-func (scope licenseManager) AddEmployee(token *repository.Token, data query.LicenseEmployee) error {
+func (scope licenseManager) AddEmployee(token *types.Token, data query.LicenseEmployee) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return readErr
@@ -27,7 +26,7 @@ func (scope licenseManager) AddEmployee(token *repository.Token, data query.Lice
 }
 
 // DeleteEmployee TODO issue#docs
-func (scope licenseManager) DeleteEmployee(token *repository.Token, data query.LicenseEmployee) error {
+func (scope licenseManager) DeleteEmployee(token *types.Token, data query.LicenseEmployee) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return readErr
@@ -43,7 +42,7 @@ func (scope licenseManager) DeleteEmployee(token *repository.Token, data query.L
 }
 
 // AddWorkplace TODO issue#docs
-func (scope licenseManager) AddWorkplace(token *repository.Token, data query.LicenseWorkplace) error {
+func (scope licenseManager) AddWorkplace(token *types.Token, data query.LicenseWorkplace) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return readErr
@@ -60,7 +59,7 @@ func (scope licenseManager) AddWorkplace(token *repository.Token, data query.Lic
 }
 
 // DeleteWorkplace TODO issue#docs
-func (scope licenseManager) DeleteWorkplace(token *repository.Token, data query.LicenseWorkplace) error {
+func (scope licenseManager) DeleteWorkplace(token *types.Token, data query.LicenseWorkplace) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return readErr
@@ -76,7 +75,7 @@ func (scope licenseManager) DeleteWorkplace(token *repository.Token, data query.
 }
 
 // PushWorkplace TODO issue#docs
-func (scope licenseManager) PushWorkplace(token *repository.Token, data query.LicenseWorkplace) error {
+func (scope licenseManager) PushWorkplace(token *types.Token, data query.LicenseWorkplace) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})
 	if readErr != nil {
 		return readErr

@@ -5,9 +5,9 @@ import (
 	"database/sql"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
 
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/kamilsk/guard/pkg/storage/types"
 	"github.com/pkg/errors"
 )
 
@@ -22,11 +22,11 @@ type userManager struct {
 }
 
 // AccessToken TODO issue#docs
-func (scope userManager) AccessToken(id domain.Token) (*repository.Token, error) {
+func (scope userManager) AccessToken(id domain.Token) (*types.Token, error) {
 	var (
-		account = repository.Account{}
-		token   = repository.Token{ID: id}
-		user    = repository.User{}
+		account = types.Account{}
+		token   = types.Token{ID: id}
+		user    = types.User{}
 	)
 	q := `SELECT "t"."user_id", "t"."expired_at", "t"."created_at",
 	             "u"."account_id", "u"."name", "u"."created_at", "u"."updated_at",
@@ -52,8 +52,8 @@ func (scope userManager) AccessToken(id domain.Token) (*repository.Token, error)
 }
 
 // RegisterAccount TODO issue#docs
-func (scope userManager) RegisterAccount(data query.RegisterAccount) (*repository.Account, error) {
-	entity := repository.Account{Name: data.Name}
+func (scope userManager) RegisterAccount(data query.RegisterAccount) (*types.Account, error) {
+	entity := types.Account{Name: data.Name}
 	q := `INSERT INTO "account" ("id", "name")
 	      SELECT coalesce($1, uuid_generate_v4()), $2
 	       WHERE NOT exists(SELECT "id" FROM "account")
@@ -66,8 +66,8 @@ func (scope userManager) RegisterAccount(data query.RegisterAccount) (*repositor
 }
 
 // RegisterUser TODO issue#docs
-func (scope userManager) RegisterUser(data query.RegisterUser) (*repository.User, error) {
-	entity, account := repository.User{Name: data.Name}, data.Account()
+func (scope userManager) RegisterUser(data query.RegisterUser) (*types.User, error) {
+	entity, account := types.User{Name: data.Name}, data.Account()
 	if account == nil || account.ID == nil {
 		return nil, errors.New("the account is not specified")
 	}
@@ -83,8 +83,8 @@ func (scope userManager) RegisterUser(data query.RegisterUser) (*repository.User
 }
 
 // RegisterToken TODO issue#docs
-func (scope userManager) RegisterToken(data query.RegisterToken) (*repository.Token, error) {
-	entity, user := repository.Token{ExpiredAt: data.ExpiredAt}, data.User()
+func (scope userManager) RegisterToken(data query.RegisterToken) (*types.Token, error) {
+	entity, user := types.Token{ExpiredAt: data.ExpiredAt}, data.User()
 	if user == nil || user.ID == nil {
 		return nil, errors.New("the user is not specified")
 	}
