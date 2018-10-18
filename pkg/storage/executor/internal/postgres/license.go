@@ -29,13 +29,13 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
 			"user %q of account %q with token %q tried to encode to JSON empty license contract",
-			token.UserID, token.User.AccountID, token.UserID)
+			token.UserID, token.User.AccountID, token.ID)
 	}
 	after, encodeErr := json.Marshal(entity.Contract)
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
 			"user %q of account %q with token %q tried to encode to JSON license contract %+v",
-			token.UserID, token.User.AccountID, token.UserID, entity.Contract)
+			token.UserID, token.User.AccountID, token.ID, entity.Contract)
 	}
 	q := `INSERT INTO "license" ("id", "account_id", "contract")
 	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
@@ -44,7 +44,7 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 	if scanErr := row.Scan(&entity.ID, &entity.CreatedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
 			"user %q of account %q with token %q tried to create new license with contract %s",
-			token.UserID, token.User.AccountID, token.UserID, after)
+			token.UserID, token.User.AccountID, token.ID, after)
 	}
 	{
 		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
@@ -53,7 +53,7 @@ func (scope licenseManager) Create(token *repository.Token, data query.CreateLic
 			repository.Create, entity.CreatedAt, token.UserID, token.ID); execErr != nil {
 			return entity, errors.Wrapf(execErr,
 				"audit: user %q of account %q with token %q tried to create new license with contract %s",
-				token.UserID, token.User.AccountID, token.UserID, after)
+				token.UserID, token.User.AccountID, token.ID, after)
 		}
 	}
 	entity.Account = token.User.Account
@@ -70,12 +70,12 @@ func (scope licenseManager) Read(token *repository.Token, data query.ReadLicense
 	if scanErr := row.Scan(&encoded, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
 			"user %q of account %q with token %q tried to read license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.ID)
 	}
 	if decodeErr := json.Unmarshal(encoded, &entity.Contract); decodeErr != nil {
 		return entity, errors.Wrapf(decodeErr,
 			"user %q of account %q with token %q tried to decode contract %s of license %q from JSON",
-			token.UserID, token.User.AccountID, token.UserID, encoded, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, encoded, entity.ID)
 	}
 	entity.Account = token.User.Account
 	return entity, nil
@@ -91,13 +91,13 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
 			"user %q of account %q with token %q tried to encode to JSON current contract %+v of license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.Contract, entity.ID)
 	}
 	after, encodeErr := json.Marshal(data.Contract)
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
 			"user %q of account %q with token %q tried to encode to JSON new contract %+v of license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.Contract, entity.ID)
 	}
 	q := `UPDATE "license"
 	         SET "contract" = $1
@@ -107,7 +107,7 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
 			"user %q of account %q with token %q tried to update license %q with new contract %s",
-			token.UserID, token.User.AccountID, token.UserID, entity.ID, after)
+			token.UserID, token.User.AccountID, token.ID, entity.ID, after)
 	}
 	if prev == nil || !prev.Equal(*entity.UpdatedAt) {
 		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
@@ -116,7 +116,7 @@ func (scope licenseManager) Update(token *repository.Token, data query.UpdateLic
 			repository.Update, entity.UpdatedAt, token.UserID, token.ID); execErr != nil {
 			return entity, errors.Wrapf(execErr,
 				"audit: user %q of account %q with token %q tried to update license %q with new contract %s",
-				token.UserID, token.User.AccountID, token.UserID, entity.ID, after)
+				token.UserID, token.User.AccountID, token.ID, entity.ID, after)
 		}
 	}
 	entity.Account = token.User.Account
@@ -136,7 +136,7 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
 			"user %q of account %q with token %q tried to encode to JSON current contract %+v of license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.Contract, entity.ID)
 	}
 	q := `UPDATE "license"
 	         SET "deleted_at" = now()
@@ -146,7 +146,7 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 	if scanErr := row.Scan(&entity.DeletedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
 			"user %q of account %q with token %q tried to delete license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.ID)
 	}
 	{
 		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
@@ -155,7 +155,7 @@ func (scope licenseManager) Delete(token *repository.Token, data query.DeleteLic
 			repository.Delete, entity.DeletedAt, token.UserID, token.ID); execErr != nil {
 			return entity, errors.Wrapf(execErr,
 				"audit: user %q of account %q with token %q tried to delete license %q",
-				token.UserID, token.User.AccountID, token.UserID, entity.ID)
+				token.UserID, token.User.AccountID, token.ID, entity.ID)
 		}
 	}
 	entity.Account = token.User.Account
@@ -175,7 +175,7 @@ func (scope licenseManager) Restore(token *repository.Token, data query.RestoreL
 	if encodeErr != nil {
 		return entity, errors.Wrapf(encodeErr,
 			"user %q of account %q with token %q tried to encode to JSON current contract %+v of license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.Contract, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.Contract, entity.ID)
 	}
 	q := `UPDATE "license"
 	         SET "deleted_at" = NULL
@@ -185,7 +185,7 @@ func (scope licenseManager) Restore(token *repository.Token, data query.RestoreL
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Wrapf(scanErr,
 			"user %q of account %q with token %q tried to restore license %q",
-			token.UserID, token.User.AccountID, token.UserID, entity.ID)
+			token.UserID, token.User.AccountID, token.ID, entity.ID)
 	}
 	{
 		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
@@ -194,7 +194,7 @@ func (scope licenseManager) Restore(token *repository.Token, data query.RestoreL
 			repository.Restore, entity.UpdatedAt, token.UserID, token.ID); execErr != nil {
 			return entity, errors.Wrapf(execErr,
 				"audit: user %q of account %q with token %q tried to restore license %q",
-				token.UserID, token.User.AccountID, token.UserID, entity.ID)
+				token.UserID, token.User.AccountID, token.ID, entity.ID)
 		}
 	}
 	entity.Account = token.User.Account

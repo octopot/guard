@@ -21,7 +21,7 @@ func (scope licenseManager) AddEmployee(token *repository.Token, data query.Lice
 	if _, execErr := scope.conn.ExecContext(scope.ctx, q, license.ID, data.Employee); execErr != nil {
 		return errors.Wrapf(execErr,
 			"user %q of account %q with token %q tried to add employee %q to the license %q",
-			token.UserID, token.User.AccountID, token.UserID, data.Employee, license.ID)
+			token.UserID, token.User.AccountID, token.ID, data.Employee, license.ID)
 	}
 	return nil
 }
@@ -37,7 +37,7 @@ func (scope licenseManager) DeleteEmployee(token *repository.Token, data query.L
 	if _, execErr := scope.conn.ExecContext(scope.ctx, q, license.ID, data.Employee); execErr != nil {
 		return errors.Wrapf(execErr,
 			"user %q of account %q with token %q tried to delete employee %q from the license %q",
-			token.UserID, token.User.AccountID, token.UserID, data.Employee, license.ID)
+			token.UserID, token.User.AccountID, token.ID, data.Employee, license.ID)
 	}
 	return nil
 }
@@ -54,7 +54,7 @@ func (scope licenseManager) AddWorkplace(token *repository.Token, data query.Lic
 	if _, execErr := scope.conn.ExecContext(scope.ctx, q, license.ID, data.Workplace); execErr != nil {
 		return errors.Wrapf(execErr,
 			"user %q of account %q with token %q tried to add workplace %q to the license %q",
-			token.UserID, token.User.AccountID, token.UserID, data.Workplace, license.ID)
+			token.UserID, token.User.AccountID, token.ID, data.Workplace, license.ID)
 	}
 	return nil
 }
@@ -70,7 +70,7 @@ func (scope licenseManager) DeleteWorkplace(token *repository.Token, data query.
 	if _, execErr := scope.conn.ExecContext(scope.ctx, q, license.ID, data.Workplace); execErr != nil {
 		return errors.Wrapf(execErr,
 			"user %q of account %q with token %q tried to delete workplace %q from the license %q",
-			token.UserID, token.User.AccountID, token.UserID, data.Workplace, license.ID)
+			token.UserID, token.User.AccountID, token.ID, data.Workplace, license.ID)
 	}
 	return nil
 }
@@ -87,7 +87,7 @@ func (scope licenseManager) PushWorkplace(token *repository.Token, data query.Li
 	if _, execErr := scope.conn.ExecContext(scope.ctx, q, license.ID, data.Workplace); execErr != nil {
 		return errors.Wrapf(execErr,
 			"user %q of account %q with token %q tried to push workplace %q of the license %q",
-			token.UserID, token.User.AccountID, token.UserID, data.Workplace, license.ID)
+			token.UserID, token.User.AccountID, token.ID, data.Workplace, license.ID)
 	}
 	return nil
 }
