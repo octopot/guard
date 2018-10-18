@@ -16,6 +16,7 @@ services:
     depends_on:
     - db
     env_file: ../service/.env
+    restart: on-failure
 
   service:
     image: guard-service:latest
