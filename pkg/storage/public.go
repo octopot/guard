@@ -36,7 +36,7 @@ func (storage Storage) RegisterAccount(ctx context.Context, data *query.Register
 			if err != nil {
 				finalize = tx.Rollback
 			}
-			err = finalize()
+			_ = finalize() // TODO issue#composite
 		}()
 
 		manager := storage.exec.UserManager(ctx, conn)
