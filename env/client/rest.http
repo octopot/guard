@@ -1,65 +1,35 @@
-### Protect Legacy
-
-POST http://localhost/legacy/protected
-X-Token:      10000000-2000-4000-8000-160000000005
-X-UDID:       10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
-
-### - the same effect request
-
-POST http://localhost/legacy/protected
-X-Employee:   10000000-2000-4000-8000-160000000005
-X-Workplace:  10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
-
-### - the same effect request
-
-POST http://localhost/legacy/protected
-X-License:    10000000-2000-4000-8000-160000000004
-X-Workplace:  10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
-
-### - under the hood
-
-POST http://localhost:8080/api/v1/license/check
-X-Employee:   10000000-2000-4000-8000-160000000005
-X-Workplace:  10000000-2000-4000-8000-160000000006
-X-Request-ID: 10000000-2000-4000-8000-160000000007
-
 ### API v1
 
-POST http://localhost:8093/api/v1/license
+POST http://localhost:8093/api/v1/license/register
 Authorization: Bearer 10000000-2000-4000-8000-160000000003
-Content-Type: application/json
+Content-Type:  application/json
+X-Request-ID:  10000000-2000-4000-8000-160000000000
 
 {
+  "id": "10000000-2000-4000-8000-160000000004",
   "contract": {
     "since": "2018-09-29T17:11:43.264Z",
-    "until": null,
+    "until": "2018-09-29T17:11:43.264Z",
     "rate": { "value": 10, "unit": "rph" },
     "requests": 1000,
-    "workplaes": 100
+    "workplaces": 10
   }
 }
 
 ###
 
-GET http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004
-Authorization: Bearer 10000000-2000-4000-8000-160000000003
-
-###
-
 PUT http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004
 Authorization: Bearer 10000000-2000-4000-8000-160000000003
-Content-Type: application/json
+Content-Type:  application/json
+X-Request-ID:  10000000-2000-4000-8000-160000000000
 
 {
   "contract": {
     "since": "2018-09-29T17:11:43.264Z",
-    "until": "2018-09-29T17:11:43.264Z",
+    "until": null,
     "rate": { "value": 10, "unit": "rpd" },
     "requests": 1000,
-    "workplaes": 100
+    "workplaces": 10
   }
 }
 
@@ -67,26 +37,117 @@ Content-Type: application/json
 
 DELETE http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004
 Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
 
 ###
 
 PATCH http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004
 Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
 
 ###
 
-POST http://localhost:8093/api/v1/license/register
+GET http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004
 Authorization: Bearer 10000000-2000-4000-8000-160000000003
-Content-Type: application/json
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+###
+
+POST http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004/employee/10000000-2000-4000-8000-160000000005
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+###
+
+DELETE http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004/employee/10000000-2000-4000-8000-160000000005
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+###
+
+POST http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004/workplace/10000000-2000-4000-8000-160000000006
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+###
+
+PUT http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004/workplace/10000000-2000-4000-8000-160000000006
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+###
+
+DELETE http://localhost:8093/api/v1/license/10000000-2000-4000-8000-160000000004/workplace/10000000-2000-4000-8000-160000000006
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+###
+
+POST http://localhost:8093/api/v1/license
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
+Content-Type:  application/json
+X-Request-ID:  10000000-2000-4000-8000-160000000000
 
 {
-  "id": "10000000-2000-4000-8000-160000000004",
   "contract": {
     "since": "2018-09-29T17:11:43.264Z",
     "until": null,
     "rate": { "value": 10, "unit": "rph" },
     "requests": 1000,
-    "workplaes": 100
+    "workplaces": 10
+  }
+}
+
+### Protect Legacy
+
+POST http://localhost/legacy/protected
+X-Token:      10000000-2000-4000-8000-160000000005
+X-UDID:       10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000000
+
+### - the same effect request
+
+POST http://localhost/legacy/protected
+X-Employee:   10000000-2000-4000-8000-160000000005
+X-Workplace:  10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000000
+
+### - the same effect request
+
+POST http://localhost/legacy/protected
+X-License:    10000000-2000-4000-8000-160000000004
+X-Workplace:  10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000000
+
+### - under the hood
+
+POST http://localhost:8080/api/v1/license/check
+X-Employee:   10000000-2000-4000-8000-160000000005
+X-Workplace:  10000000-2000-4000-8000-160000000006
+X-Request-ID: 10000000-2000-4000-8000-160000000000
+
+### Maintenance
+
+POST http://localhost:8093/install
+Content-Type:  application/json
+X-Request-ID:  10000000-2000-4000-8000-160000000000
+
+{
+  "account": {
+    "id": "10000000-2000-4000-8000-160000000001",
+    "name": "Demo Account",
+    "users": [
+      {
+        "id": "10000000-2000-4000-8000-160000000002",
+        "name": "Demo User",
+        "tokens": [
+          {
+            "id": "10000000-2000-4000-8000-160000000003",
+            "expired_at": null
+          }
+        ]
+      }
+    ]
   }
 }
 

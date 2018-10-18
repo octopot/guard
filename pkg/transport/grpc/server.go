@@ -69,5 +69,14 @@ func (gateway *gateway) Serve(listener net.Listener) error {
 	if err = RegisterLicenseHandler(ctx, mux, conn); err != nil {
 		return err
 	}
-	return http.Serve(listener, mux)
+	if err = RegisterMaintenanceHandler(ctx, mux, conn); err != nil {
+		return err
+	}
+	// TODO issue#configure
+	return (&http.Server{Handler: mux,
+		ReadTimeout:       0,
+		ReadHeaderTimeout: 0,
+		WriteTimeout:      0,
+		IdleTimeout:       0,
+	}).Serve(listener)
 }
