@@ -65,8 +65,9 @@ docker-run-etcd:
 .PHONY: docker-run-service
 docker-run-service:
 	docker run --rm -it \
-	           -p 8080:80 \
+	           -p 8080:8080 \
 	           -p 8090:8090 \
 	           -p 8091:8091 \
 	           -p 8092:8092 \
-	           guard-service:$(VERSION) run --with-profiling --with-monitoring
+	           -p 8093:8093 \
+	           guard-service:$(VERSION) run --with-profiling --with-monitoring --with-grpc-gateway
