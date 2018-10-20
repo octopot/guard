@@ -1,12 +1,19 @@
 required = [
-  "go.uber.org/zap",
-  "go.etcd.io/etcd/client",
+  # replace
+  "github.com/rakyll/statik/fs",
 
+  # generated content
   "github.com/golang/protobuf/proto",
   "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
   "github.com/grpc-ecosystem/grpc-gateway/utilities",
-  "github.com/rakyll/statik/fs",
   "google.golang.org/genproto/googleapis/api/annotations",
+
+  # future deps
+  "github.com/golang/mock/gomock",
+  "github.com/mailru/easyjson/jlexer",
+  "github.com/mailru/easyjson/jwriter",
+  "go.uber.org/zap",
+  "go.etcd.io/etcd/client",
 ]
 
 [[constraint]]
@@ -16,6 +23,10 @@ required = [
 [[constraint]]
   name = "github.com/go-chi/chi"
   version = "^3.3.0"
+
+[[constraint]]
+  name = "github.com/golang/mock"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/golang/protobuf"
@@ -39,6 +50,10 @@ required = [
 
 [[constraint]]
   name = "github.com/lib/pq"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/mailru/easyjson"
   branch = "master"
 
 [[constraint]]
