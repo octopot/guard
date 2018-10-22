@@ -64,10 +64,10 @@ type LicenseManager interface {
 
 // LicenseReader TODO issue#docs
 type LicenseReader interface {
-	// ReadByID TODO issue#docs
-	ReadByID(query.ReadByIDLicense) (types.License, error)
-	// ReadByEmployee TODO issue#docs
-	ReadByEmployee(query.ReadByEmployeeLicense) (types.License, error)
+	// GetByID TODO issue#docs
+	GetByID(query.GetLicenseWithID) (types.License, error)
+	// GetByEmployee TODO issue#docs
+	GetByEmployee(query.GetEmployeeLicense) (types.License, error)
 }
 
 // UserManager TODO issue#docs

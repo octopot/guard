@@ -35,13 +35,13 @@ type UpdateLicense struct {
 	Contract domain.Contract
 }
 
-// ReadByIDLicense TODO issue#docs
-type ReadByIDLicense struct {
+// GetLicenseWithID TODO issue#docs
+type GetLicenseWithID struct {
 	ID domain.ID
 }
 
-// ReadByEmployeeLicense TODO issue#docs
-type ReadByEmployeeLicense struct {
+// GetEmployeeLicense TODO issue#docs
+type GetEmployeeLicense struct {
 	Employee domain.ID
 }
 
