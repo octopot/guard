@@ -25,6 +25,9 @@ func New(dialect string) *Executor {
 		exec.factory.NewLicenseManager = func(ctx context.Context, conn *sql.Conn) LicenseManager {
 			return postgres.NewLicenseContext(ctx, conn)
 		}
+		exec.factory.NewLicenseReader = func(ctx context.Context, conn *sql.Conn) LicenseReader {
+			return postgres.NewLicenseContext(ctx, conn)
+		}
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
@@ -59,6 +62,14 @@ type LicenseManager interface {
 	Restore(*types.Token, query.RestoreLicense) (types.License, error)
 }
 
+// LicenseReader TODO issue#docs
+type LicenseReader interface {
+	// ReadByID TODO issue#docs
+	ReadByID(query.ReadByIDLicense) (types.License, error)
+	// ReadByEmployee TODO issue#docs
+	ReadByEmployee(query.ReadByEmployeeLicense) (types.License, error)
+}
+
 // UserManager TODO issue#docs
 type UserManager interface {
 	// AccessToken TODO issue#docs
@@ -76,6 +87,7 @@ type Executor struct {
 	dialect string
 	factory struct {
 		NewLicenseManager func(context.Context, *sql.Conn) LicenseManager
+		NewLicenseReader  func(context.Context, *sql.Conn) LicenseReader
 		NewUserManager    func(context.Context, *sql.Conn) UserManager
 
 		// TODO issue#draft {
@@ -87,25 +99,30 @@ type Executor struct {
 }
 
 // Dialect TODO issue#docs
-func (e *Executor) Dialect() string {
-	return e.dialect
+func (exec *Executor) Dialect() string {
+	return exec.dialect
 }
 
 // LicenseManager TODO issue#docs
-func (e *Executor) LicenseManager(ctx context.Context, conn *sql.Conn) LicenseManager {
-	return e.factory.NewLicenseManager(ctx, conn)
+func (exec *Executor) LicenseManager(ctx context.Context, conn *sql.Conn) LicenseManager {
+	return exec.factory.NewLicenseManager(ctx, conn)
+}
+
+// LicenseReader TODO issue#docs
+func (exec *Executor) LicenseReader(ctx context.Context, conn *sql.Conn) LicenseReader {
+	return exec.factory.NewLicenseReader(ctx, conn)
 }
 
 // UserManager TODO issue#docs
-func (e *Executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
-	return e.factory.NewUserManager(ctx, conn)
+func (exec *Executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
+	return exec.factory.NewUserManager(ctx, conn)
 }
 
 // TODO issue#draft {
 
 // Draft TODO issue#docs
-func (e *Executor) Draft(ctx context.Context, conn *sql.Conn) Draft {
-	return e.factory.NewDraft(ctx, conn)
+func (exec *Executor) Draft(ctx context.Context, conn *sql.Conn) Draft {
+	return exec.factory.NewDraft(ctx, conn)
 }
 
 // Draft TODO issue#docs
