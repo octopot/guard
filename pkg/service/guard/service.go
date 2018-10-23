@@ -20,7 +20,7 @@ type Guard struct {
 }
 
 // CheckLicense TODO issue#docs
-func (service Guard) CheckLicense(ctx context.Context, req request.License) response.License {
+func (service Guard) CheckLicense(ctx context.Context, req request.CheckLicense) response.CheckLicense {
 	return service.license.Check(ctx, req)
 }
 

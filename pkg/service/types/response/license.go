@@ -1,17 +1,17 @@
 package response
 
-// License TODO issue#docs
-type License struct {
+// CheckLicense TODO issue#docs
+type CheckLicense struct {
 	err error
 }
 
 // Cause TODO issue#docs
-func (resp *License) Cause() error {
+func (resp *CheckLicense) Cause() error {
 	return resp.err
 }
 
 // Error TODO issue#docs
-func (resp *License) Error() string {
+func (resp *CheckLicense) Error() string {
 	if resp.err != nil {
 		return resp.err.Error()
 	}
@@ -19,12 +19,12 @@ func (resp *License) Error() string {
 }
 
 // HasError TODO issue#docs
-func (resp *License) HasError() bool {
+func (resp *CheckLicense) HasError() bool {
 	return resp.err != nil
 }
 
 // With TODO issue#docs
-func (resp License) With(err error) License {
+func (resp CheckLicense) With(err error) CheckLicense {
 	resp.err = err
 	return resp
 }
