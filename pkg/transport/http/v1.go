@@ -9,9 +9,9 @@ import (
 )
 
 // CheckLicenseV1 TODO issue#docs
-func (srv *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
+func (server *webServer) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	metadata := domain.MetadataFromRequest(req)
-	if response := srv.service.CheckLicense(req.Context(), request.License{
+	if response := server.service.CheckLicense(req.Context(), request.CheckLicense{
 		ID:        metadata.License(),
 		Employee:  metadata.Employee(),
 		Workplace: metadata.Workplace(),

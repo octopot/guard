@@ -10,5 +10,5 @@ import (
 // Service TODO issue#docs
 type Service interface {
 	// CheckLicense TODO issue#docs
-	CheckLicense(context.Context, request.License) response.License
+	CheckLicense(context.Context, request.CheckLicense) response.CheckLicense
 }
