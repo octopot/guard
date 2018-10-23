@@ -85,7 +85,9 @@ func (service *licenseService) checkRateLimits(license *domain.License) error {
 }
 
 func (service *licenseService) checkRequestLimits(license *domain.License) error {
-	if license.Requests > 0 && license.Requests < internal.LicenseRequests.IncrementFor(license.ID) {
+	counter := internal.LicenseRequests
+	if license.Requests > 0 && license.Requests < counter.Increment(license.ID) {
+		go counter.Rollback(license.ID)
 		return errors.New(http.StatusText(http.StatusTooManyRequests))
 	}
 	return nil

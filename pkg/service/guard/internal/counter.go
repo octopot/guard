@@ -7,11 +7,20 @@ import (
 	domain "github.com/kamilsk/guard/pkg/service/types"
 )
 
-// LicenseRequests is blob of memory to store request counters.
-var LicenseRequests = lrCounter{
-	mu:   &sync.RWMutex{},
-	pool: make([]*uint32, 0, maxLicenses),
-	idx:  make(map[domain.ID]int, maxLicenses),
+// LicenseRequests is a blob of memory to store request counters.
+var LicenseRequests = NewLicenseRequestCounter(maxLicenses)
+
+// NewLicenseRequestCounter returns a blob of memory
+// to store license request counters.
+func NewLicenseRequestCounter(capacity int) interface {
+	Increment(license domain.ID) uint32
+	Rollback(license domain.ID)
+} {
+	return &lrCounter{
+		mu:   &sync.RWMutex{},
+		pool: make([]*uint32, 0, capacity),
+		idx:  make(map[domain.ID]int, capacity),
+	}
 }
 
 type lrCounter struct {
@@ -20,9 +29,9 @@ type lrCounter struct {
 	idx  map[domain.ID]int
 }
 
-// IncrementFor increments request counter
-// of the license and returns its new value.
-func (c *lrCounter) IncrementFor(license domain.ID) uint32 {
+// Increment increments request counter of the license
+// and returns its new value.
+func (c *lrCounter) Increment(license domain.ID) uint32 {
 	c.mu.RLock()
 	i, found := c.idx[license]
 	c.mu.RUnlock()
@@ -34,6 +43,23 @@ func (c *lrCounter) IncrementFor(license domain.ID) uint32 {
 	return atomic.AddUint32(c.pool[i], 1)
 }
 
+// Rollback decrements request counter of the license by 1.
+// It must be called after Increment. For example:
+//
+//     if limit < counter.Increment(license) {
+//         go counter.Rollback(license)
+//         return errors.New("limit exceeded")
+//     }
+//
+// Otherwise panic occurs.
+func (c *lrCounter) Rollback(license domain.ID) {
+	c.mu.RLock()
+	i := c.idx[license]
+	c.mu.RUnlock()
+
+	atomic.AddUint32(c.pool[i], ^uint32(0))
+}
+
 func (c *lrCounter) init(license domain.ID) int {
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -43,8 +69,8 @@ func (c *lrCounter) init(license domain.ID) int {
 		return i
 	}
 
-	if len(c.pool)+1 > maxLicenses {
-		panic("segmentation fault: increase maxLicenses const")
+	if len(c.pool)+1 > cap(c.pool) {
+		panic("segmentation fault: increase license request counter capacity")
 	}
 
 	i, counter := len(c.pool), new(uint32)
