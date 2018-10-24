@@ -173,7 +173,7 @@ func (s *slot) acquire(workplace domain.ID, capacity int) bool {
 
 	if i = len(s.pool); i < capacity {
 		s.idx[workplace] = i
-		s.pool = append(s.pool, record{id: workplace, lastActive: time.Now()})
+		s.pool = append(s.pool, record{workplace: workplace, lastActive: time.Now()})
 		return true
 	}
 
@@ -181,9 +181,9 @@ func (s *slot) acquire(workplace domain.ID, capacity int) bool {
 	now := time.Now()
 	for i = range s.pool {
 		if now.Sub(s.pool[i].lastActive) > workplaceTTL {
-			delete(s.idx, s.pool[i].id)
+			delete(s.idx, s.pool[i].workplace)
 			s.idx[workplace] = i
-			s.pool[i] = record{id: workplace, lastActive: now}
+			s.pool[i] = record{workplace: workplace, lastActive: now}
 			return true
 		}
 	}
@@ -195,12 +195,12 @@ func (s *slot) shrink(size int) {
 	sort.Sort(sort.Reverse(recordsByActivity(s.pool)))
 	s.pool = s.pool[:size]
 	for i := range s.pool {
-		s.idx[s.pool[i].id] = i
+		s.idx[s.pool[i].workplace] = i
 	}
 }
 
 type record struct {
-	id         domain.ID
+	workplace  domain.ID
 	lastActive time.Time
 }
 

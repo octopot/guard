@@ -9,7 +9,7 @@ import (
 )
 
 type maintenanceService struct {
-	storage Storage
+	storage accountStorage
 }
 
 // Install TODO issue#docs

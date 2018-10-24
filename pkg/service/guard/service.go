@@ -4,13 +4,17 @@ import (
 	"context"
 
 	"github.com/kamilsk/guard/pkg/config"
+	"github.com/kamilsk/guard/pkg/service/guard/internal"
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
 )
 
 // New TODO issue#docs
 func New(cnf config.ServiceConfig, storage Storage) *Guard {
-	return &Guard{&licenseService{cnf.Disabled, storage}, &maintenanceService{storage}}
+	return &Guard{
+		&licenseService{cnf.Disabled, internal.NewLicenseCache(storage)},
+		&maintenanceService{storage},
+	}
 }
 
 // Guard TODO issue#docs

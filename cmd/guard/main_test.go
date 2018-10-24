@@ -20,8 +20,6 @@ import (
 var (
 	_ api.Service           = guard.New(config.ServiceConfig{}, nil)
 	_ guard.Storage         = storage.Must()
-	_ guard.AccountStorage  = storage.Must()
-	_ guard.LicenseStorage  = storage.Must()
 	_ grpc.ProtectedStorage = storage.Must()
 	_ grpc.Maintenance      = guard.New(config.ServiceConfig{}, nil)
 )
