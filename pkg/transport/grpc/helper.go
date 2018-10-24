@@ -7,6 +7,7 @@ import (
 
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"github.com/pkg/errors"
 )
 
@@ -36,15 +37,15 @@ func Timestamp(tp *time.Time) *timestamp.Timestamp {
 	return ts
 }
 
-func convertFromDomainContract(from domain.Contract) *Contract {
-	to := &Contract{Requests: from.Requests, Workplaces: from.Workplaces}
+func convertFromDomainContract(from domain.Contract) *protobuf.Contract {
+	to := &protobuf.Contract{Requests: from.Requests, Workplaces: from.Workplaces}
 	to.Since, to.Until = Timestamp(from.Since), Timestamp(from.Until)
 	value, unit := from.Rate.Value()
-	to.Rate = &Rate{Value: value, Unit: units.convert(domain.RateUnit(unit))}
+	to.Rate = &protobuf.Rate{Value: value, Unit: units.convert(domain.RateUnit(unit))}
 	return to
 }
 
-func convertToDomainContract(from *Contract) (to domain.Contract) {
+func convertToDomainContract(from *protobuf.Contract) (to domain.Contract) {
 	if from == nil {
 		return
 	}
@@ -74,9 +75,9 @@ func ptrToToken(token string) *domain.Token {
 	return ptr
 }
 
-type unitMap map[domain.RateUnit]Rate_Unit
+type unitMap map[domain.RateUnit]protobuf.Rate_Unit
 
-func (m unitMap) convert(from domain.RateUnit) Rate_Unit {
+func (m unitMap) convert(from domain.RateUnit) protobuf.Rate_Unit {
 	to, found := m[from]
 	if !found {
 		panic(errors.Errorf("unexpected domain rate unit %v", from))
@@ -84,7 +85,7 @@ func (m unitMap) convert(from domain.RateUnit) Rate_Unit {
 	return to
 }
 
-func (m unitMap) invert(from Rate_Unit) domain.RateUnit {
+func (m unitMap) invert(from protobuf.Rate_Unit) domain.RateUnit {
 	for to, v := range m {
 		if v == from {
 			return to
@@ -94,9 +95,9 @@ func (m unitMap) invert(from Rate_Unit) domain.RateUnit {
 }
 
 var units = unitMap{
-	domain.RPS: Rate_rps,
-	domain.RPM: Rate_rpm,
-	domain.RPH: Rate_rph,
-	domain.RPD: Rate_rpd,
-	domain.RPW: Rate_rpw,
+	domain.RPS: protobuf.Rate_rps,
+	domain.RPM: protobuf.Rate_rpm,
+	domain.RPH: protobuf.Rate_rph,
+	domain.RPD: protobuf.Rate_rpd,
+	domain.RPW: protobuf.Rate_rpw,
 }

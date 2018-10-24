@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package grpc;
+package protobuf;
 
 import "protoc-gen-swagger/options/annotations.proto";
 

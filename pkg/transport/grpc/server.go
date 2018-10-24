@@ -13,18 +13,18 @@ import (
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"google.golang.org/grpc"
 )
 
 // New TODO issue#docs
-func New(_ config.GRPCConfig, service Maintenance, storage ProtectedStorage, draft DraftStorage) transport.Server {
-	return &server{service, storage, draft}
+func New(_ config.GRPCConfig, service Maintenance, storage ProtectedStorage) transport.Server {
+	return &server{service, storage}
 }
 
 type server struct {
 	service Maintenance
 	storage ProtectedStorage
-	draft   DraftStorage
 }
 
 // Serve TODO issue#docs
@@ -42,8 +42,8 @@ func (server *server) Serve(listener net.Listener) error {
 			grpc_recovery.UnaryServerInterceptor(),
 		),
 	)
-	RegisterLicenseServer(srv, NewLicenseServer(server.storage, server.draft))
-	RegisterMaintenanceServer(srv, NewMaintenanceServer(server.service))
+	protobuf.RegisterLicenseServer(srv, NewLicenseServer(server.storage))
+	protobuf.RegisterMaintenanceServer(srv, NewMaintenanceServer(server.service))
 	return srv.Serve(listener)
 }
 
@@ -66,10 +66,10 @@ func (gateway *gateway) Serve(listener net.Listener) error {
 	if err != nil {
 		return err
 	}
-	if err = RegisterLicenseHandler(ctx, mux, conn); err != nil {
+	if err = protobuf.RegisterLicenseHandler(ctx, mux, conn); err != nil {
 		return err
 	}
-	if err = RegisterMaintenanceHandler(ctx, mux, conn); err != nil {
+	if err = protobuf.RegisterMaintenanceHandler(ctx, mux, conn); err != nil {
 		return err
 	}
 	// TODO issue#configure

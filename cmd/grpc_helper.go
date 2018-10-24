@@ -7,13 +7,12 @@ import (
 	"io/ioutil"
 	"os"
 
-	pb "github.com/kamilsk/guard/pkg/transport/grpc"
-
 	"github.com/ghodss/yaml"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
@@ -26,21 +25,21 @@ var entities factory
 
 func init() {
 	entities = factory{
-		Install:         func() interface{} { return &pb.InstallRequest{} },
-		registerLicense: func() interface{} { return &pb.RegisterLicenseRequest{} },
-		createLicense:   func() interface{} { return &pb.CreateLicenseRequest{} },
-		readLicense:     func() interface{} { return &pb.ReadLicenseRequest{} },
-		updateLicense:   func() interface{} { return &pb.UpdateLicenseRequest{} },
-		deleteLicense:   func() interface{} { return &pb.DeleteLicenseRequest{} },
-		restoreLicense:  func() interface{} { return &pb.RestoreLicenseRequest{} },
+		Install:         func() interface{} { return &protobuf.InstallRequest{} },
+		registerLicense: func() interface{} { return &protobuf.RegisterLicenseRequest{} },
+		createLicense:   func() interface{} { return &protobuf.CreateLicenseRequest{} },
+		readLicense:     func() interface{} { return &protobuf.ReadLicenseRequest{} },
+		updateLicense:   func() interface{} { return &protobuf.UpdateLicenseRequest{} },
+		deleteLicense:   func() interface{} { return &protobuf.DeleteLicenseRequest{} },
+		restoreLicense:  func() interface{} { return &protobuf.RestoreLicenseRequest{} },
 
 		// TODO issue#draft {
 
-		addEmployee:     func() interface{} { return &pb.AddEmployeeRequest{} },
-		deleteEmployee:  func() interface{} { return &pb.DeleteEmployeeRequest{} },
-		addWorkplace:    func() interface{} { return &pb.AddWorkplaceRequest{} },
-		deleteWorkplace: func() interface{} { return &pb.DeleteWorkplaceRequest{} },
-		pushWorkplace:   func() interface{} { return &pb.PushWorkplaceRequest{} },
+		addEmployee:     func() interface{} { return &protobuf.AddEmployeeRequest{} },
+		deleteEmployee:  func() interface{} { return &protobuf.DeleteEmployeeRequest{} },
+		addWorkplace:    func() interface{} { return &protobuf.AddWorkplaceRequest{} },
+		deleteWorkplace: func() interface{} { return &protobuf.DeleteWorkplaceRequest{} },
+		pushWorkplace:   func() interface{} { return &protobuf.PushWorkplaceRequest{} },
 
 		// issue#draft }
 	}
@@ -155,33 +154,33 @@ func call(cnf config.GRPCConfig, request interface{}) (interface{}, error) {
 		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
 
 	switch in := request.(type) {
-	case *pb.InstallRequest:
-		return pb.NewMaintenanceClient(conn).Install(ctx, in)
-	case *pb.CreateLicenseRequest:
-		return pb.NewLicenseClient(conn).Create(ctx, in)
-	case *pb.ReadLicenseRequest:
-		return pb.NewLicenseClient(conn).Read(ctx, in)
-	case *pb.UpdateLicenseRequest:
-		return pb.NewLicenseClient(conn).Update(ctx, in)
-	case *pb.DeleteLicenseRequest:
-		return pb.NewLicenseClient(conn).Delete(ctx, in)
-	case *pb.RestoreLicenseRequest:
-		return pb.NewLicenseClient(conn).Restore(ctx, in)
-	case *pb.RegisterLicenseRequest:
-		return pb.NewLicenseClient(conn).Register(ctx, in)
+	case *protobuf.InstallRequest:
+		return protobuf.NewMaintenanceClient(conn).Install(ctx, in)
+	case *protobuf.CreateLicenseRequest:
+		return protobuf.NewLicenseClient(conn).Create(ctx, in)
+	case *protobuf.ReadLicenseRequest:
+		return protobuf.NewLicenseClient(conn).Read(ctx, in)
+	case *protobuf.UpdateLicenseRequest:
+		return protobuf.NewLicenseClient(conn).Update(ctx, in)
+	case *protobuf.DeleteLicenseRequest:
+		return protobuf.NewLicenseClient(conn).Delete(ctx, in)
+	case *protobuf.RestoreLicenseRequest:
+		return protobuf.NewLicenseClient(conn).Restore(ctx, in)
+	case *protobuf.RegisterLicenseRequest:
+		return protobuf.NewLicenseClient(conn).Register(ctx, in)
 
 	// TODO issue#draft {
 
-	case *pb.AddEmployeeRequest:
-		return pb.NewLicenseClient(conn).AddEmployee(ctx, in)
-	case *pb.DeleteEmployeeRequest:
-		return pb.NewLicenseClient(conn).DeleteEmployee(ctx, in)
-	case *pb.AddWorkplaceRequest:
-		return pb.NewLicenseClient(conn).AddWorkplace(ctx, in)
-	case *pb.DeleteWorkplaceRequest:
-		return pb.NewLicenseClient(conn).DeleteWorkplace(ctx, in)
-	case *pb.PushWorkplaceRequest:
-		return pb.NewLicenseClient(conn).PushWorkplace(ctx, in)
+	case *protobuf.AddEmployeeRequest:
+		return protobuf.NewLicenseClient(conn).AddEmployee(ctx, in)
+	case *protobuf.DeleteEmployeeRequest:
+		return protobuf.NewLicenseClient(conn).DeleteEmployee(ctx, in)
+	case *protobuf.AddWorkplaceRequest:
+		return protobuf.NewLicenseClient(conn).AddWorkplace(ctx, in)
+	case *protobuf.DeleteWorkplaceRequest:
+		return protobuf.NewLicenseClient(conn).DeleteWorkplace(ctx, in)
+	case *protobuf.PushWorkplaceRequest:
+		return protobuf.NewLicenseClient(conn).PushWorkplace(ctx, in)
 
 	// issue#draft }
 

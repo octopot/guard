@@ -24,7 +24,6 @@ var (
 	_ guard.AccountStorage  = storage.Must()
 	_ guard.LicenseStorage  = storage.Must()
 	_ grpc.ProtectedStorage = storage.Must()
-	_ grpc.DraftStorage     = storage.Must()
 	_ grpc.Maintenance      = guard.New(config.ServiceConfig{}, nil)
 )
 

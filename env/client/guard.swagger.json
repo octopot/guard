@@ -27,7 +27,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcCreateLicenseResponse"
+              "$ref": "#/definitions/protobufCreateLicenseResponse"
             }
           }
         },
@@ -37,7 +37,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/grpcCreateLicenseRequest"
+              "$ref": "#/definitions/protobufCreateLicenseRequest"
             }
           }
         ],
@@ -53,7 +53,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcRegisterLicenseResponse"
+              "$ref": "#/definitions/protobufRegisterLicenseResponse"
             }
           }
         },
@@ -63,7 +63,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/grpcRegisterLicenseRequest"
+              "$ref": "#/definitions/protobufRegisterLicenseRequest"
             }
           }
         ],
@@ -79,7 +79,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcReadLicenseResponse"
+              "$ref": "#/definitions/protobufReadLicenseResponse"
             }
           }
         },
@@ -101,7 +101,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcDeleteLicenseResponse"
+              "$ref": "#/definitions/protobufDeleteLicenseResponse"
             }
           }
         },
@@ -123,7 +123,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcUpdateLicenseResponse"
+              "$ref": "#/definitions/protobufUpdateLicenseResponse"
             }
           }
         },
@@ -139,7 +139,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/grpcUpdateLicenseRequest"
+              "$ref": "#/definitions/protobufUpdateLicenseRequest"
             }
           }
         ],
@@ -153,7 +153,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcRestoreLicenseResponse"
+              "$ref": "#/definitions/protobufRestoreLicenseResponse"
             }
           }
         },
@@ -177,7 +177,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcEmptyResponse"
+              "$ref": "#/definitions/protobufEmptyResponse"
             }
           }
         },
@@ -205,7 +205,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcEmptyResponse"
+              "$ref": "#/definitions/protobufEmptyResponse"
             }
           }
         },
@@ -235,7 +235,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcEmptyResponse"
+              "$ref": "#/definitions/protobufEmptyResponse"
             }
           }
         },
@@ -263,7 +263,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcEmptyResponse"
+              "$ref": "#/definitions/protobufEmptyResponse"
             }
           }
         },
@@ -291,7 +291,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcEmptyResponse"
+              "$ref": "#/definitions/protobufEmptyResponse"
             }
           }
         },
@@ -321,7 +321,7 @@
           "200": {
             "description": "",
             "schema": {
-              "$ref": "#/definitions/grpcInstallResponse"
+              "$ref": "#/definitions/protobufInstallResponse"
             }
           }
         },
@@ -331,7 +331,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/grpcInstallRequest"
+              "$ref": "#/definitions/protobufInstallRequest"
             }
           }
         ],
@@ -354,7 +354,7 @@
       ],
       "default": "rps"
     },
-    "grpcContract": {
+    "protobufContract": {
       "type": "object",
       "properties": {
         "since": {
@@ -366,7 +366,7 @@
           "format": "date-time"
         },
         "rate": {
-          "$ref": "#/definitions/grpcRate"
+          "$ref": "#/definitions/protobufRate"
         },
         "requests": {
           "type": "integer",
@@ -378,18 +378,18 @@
         }
       }
     },
-    "grpcCreateLicenseRequest": {
+    "protobufCreateLicenseRequest": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
         },
         "contract": {
-          "$ref": "#/definitions/grpcContract"
+          "$ref": "#/definitions/protobufContract"
         }
       }
     },
-    "grpcCreateLicenseResponse": {
+    "protobufCreateLicenseResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -401,7 +401,7 @@
         }
       }
     },
-    "grpcDeleteLicenseResponse": {
+    "protobufDeleteLicenseResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -413,18 +413,18 @@
         }
       }
     },
-    "grpcEmptyResponse": {
+    "protobufEmptyResponse": {
       "type": "object"
     },
-    "grpcInstallRequest": {
+    "protobufInstallRequest": {
       "type": "object",
       "properties": {
         "account": {
-          "$ref": "#/definitions/grpcInstallRequestAccount"
+          "$ref": "#/definitions/protobufInstallRequestAccount"
         }
       }
     },
-    "grpcInstallRequestAccount": {
+    "protobufInstallRequestAccount": {
       "type": "object",
       "properties": {
         "id": {
@@ -436,12 +436,12 @@
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/grpcInstallRequestUser"
+            "$ref": "#/definitions/protobufInstallRequestUser"
           }
         }
       }
     },
-    "grpcInstallRequestToken": {
+    "protobufInstallRequestToken": {
       "type": "object",
       "properties": {
         "id": {
@@ -453,7 +453,7 @@
         }
       }
     },
-    "grpcInstallRequestUser": {
+    "protobufInstallRequestUser": {
       "type": "object",
       "properties": {
         "id": {
@@ -465,20 +465,20 @@
         "tokens": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/grpcInstallRequestToken"
+            "$ref": "#/definitions/protobufInstallRequestToken"
           }
         }
       }
     },
-    "grpcInstallResponse": {
+    "protobufInstallResponse": {
       "type": "object",
       "properties": {
         "account": {
-          "$ref": "#/definitions/grpcInstallResponseAccount"
+          "$ref": "#/definitions/protobufInstallResponseAccount"
         }
       }
     },
-    "grpcInstallResponseAccount": {
+    "protobufInstallResponseAccount": {
       "type": "object",
       "properties": {
         "id": {
@@ -502,12 +502,12 @@
         "users": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/grpcInstallResponseUser"
+            "$ref": "#/definitions/protobufInstallResponseUser"
           }
         }
       }
     },
-    "grpcInstallResponseToken": {
+    "protobufInstallResponseToken": {
       "type": "object",
       "properties": {
         "id": {
@@ -531,7 +531,7 @@
         }
       }
     },
-    "grpcInstallResponseUser": {
+    "protobufInstallResponseUser": {
       "type": "object",
       "properties": {
         "id": {
@@ -555,12 +555,12 @@
         "tokens": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/grpcInstallResponseToken"
+            "$ref": "#/definitions/protobufInstallResponseToken"
           }
         }
       }
     },
-    "grpcRate": {
+    "protobufRate": {
       "type": "object",
       "properties": {
         "value": {
@@ -572,14 +572,14 @@
         }
       }
     },
-    "grpcReadLicenseResponse": {
+    "protobufReadLicenseResponse": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
         },
         "contract": {
-          "$ref": "#/definitions/grpcContract"
+          "$ref": "#/definitions/protobufContract"
         },
         "created_at": {
           "type": "string",
@@ -595,18 +595,18 @@
         }
       }
     },
-    "grpcRegisterLicenseRequest": {
+    "protobufRegisterLicenseRequest": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
         },
         "contract": {
-          "$ref": "#/definitions/grpcContract"
+          "$ref": "#/definitions/protobufContract"
         }
       }
     },
-    "grpcRegisterLicenseResponse": {
+    "protobufRegisterLicenseResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -614,7 +614,7 @@
         }
       }
     },
-    "grpcRestoreLicenseResponse": {
+    "protobufRestoreLicenseResponse": {
       "type": "object",
       "properties": {
         "id": {
@@ -626,18 +626,18 @@
         }
       }
     },
-    "grpcUpdateLicenseRequest": {
+    "protobufUpdateLicenseRequest": {
       "type": "object",
       "properties": {
         "id": {
           "type": "string"
         },
         "contract": {
-          "$ref": "#/definitions/grpcContract"
+          "$ref": "#/definitions/protobufContract"
         }
       }
     },
-    "grpcUpdateLicenseResponse": {
+    "protobufUpdateLicenseResponse": {
       "type": "object",
       "properties": {
         "id": {

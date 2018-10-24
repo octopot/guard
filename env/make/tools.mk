@@ -6,11 +6,11 @@
 
 .PHONY: protobuf
 protobuf:
-	protoc -Ipkg/transport/grpc \
+	protoc -Ipkg/transport/grpc/protobuf \
 	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway \
 	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-	       --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc \
-	       --grpc-gateway_out=logtostderr=true:pkg/transport/grpc \
+	       --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc/protobuf \
+	       --grpc-gateway_out=logtostderr=true:pkg/transport/grpc/protobuf \
 	       --swagger_out=logtostderr=true,allow_merge=true,merge_file_name=guard:env/client \
 	       common.proto license.proto maintenance.proto
 

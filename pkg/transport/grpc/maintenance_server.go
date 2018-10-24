@@ -7,13 +7,14 @@ import (
 
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/storage/query"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 // NewMaintenanceServer TODO issue#docs
-func NewMaintenanceServer(service Maintenance) MaintenanceServer {
+func NewMaintenanceServer(service Maintenance) protobuf.MaintenanceServer {
 	return &maintenanceServer{service}
 }
 
@@ -29,9 +30,9 @@ func (server *maintenanceServer) AuthFuncOverride(ctx context.Context, fullMetho
 }
 
 // Install TODO issue#docs
-func (server *maintenanceServer) Install(ctx context.Context, req *InstallRequest) (*InstallResponse, error) {
+func (server *maintenanceServer) Install(ctx context.Context, req *protobuf.InstallRequest) (*protobuf.InstallResponse, error) {
 	type tokenSetter func(token *query.RegisterToken) *query.RegisterUser
-	walkTokens := func(tokens []*InstallRequest_Token, set tokenSetter) (user *query.RegisterUser) {
+	walkTokens := func(tokens []*protobuf.InstallRequest_Token, set tokenSetter) (user *query.RegisterUser) {
 		for _, token := range tokens {
 			user = set(&query.RegisterToken{
 				ID: ptrToToken(token.Id),
@@ -41,7 +42,7 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 	}
 
 	type userSetter func(user *query.RegisterUser) *query.RegisterAccount
-	walkUsers := func(users []*InstallRequest_User, set userSetter) (account *query.RegisterAccount) {
+	walkUsers := func(users []*protobuf.InstallRequest_User, set userSetter) (account *query.RegisterAccount) {
 		for _, user := range users {
 			account = set(walkTokens(user.Tokens, (&query.RegisterUser{
 				ID:   ptrToID(user.Id),
@@ -51,7 +52,7 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 		return
 	}
 
-	walkAccount := func(account *InstallRequest_Account) *query.RegisterAccount {
+	walkAccount := func(account *protobuf.InstallRequest_Account) *query.RegisterAccount {
 		return walkUsers(account.Users, (&query.RegisterAccount{
 			ID:   ptrToID(account.Id),
 			Name: account.Name,
@@ -63,10 +64,10 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 		return nil, status.Errorf(codes.Internal, "something happen: %v", errors.Cause(&resp)) // TODO issue#6
 	}
 
-	convertTokens := func(tokens []*repository.Token) []*InstallResponse_Token {
-		out := make([]*InstallResponse_Token, 0, len(tokens))
+	convertTokens := func(tokens []*repository.Token) []*protobuf.InstallResponse_Token {
+		out := make([]*protobuf.InstallResponse_Token, 0, len(tokens))
 		for _, token := range tokens {
-			out = append(out, &InstallResponse_Token{
+			out = append(out, &protobuf.InstallResponse_Token{
 				Id:        token.ID.String(),
 				Revoked:   token.Revoked,
 				ExpiredAt: Timestamp(token.ExpiredAt),
@@ -77,10 +78,10 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 		return out
 	}
 
-	convertUsers := func(users []*repository.User) []*InstallResponse_User {
-		out := make([]*InstallResponse_User, 0, len(users))
+	convertUsers := func(users []*repository.User) []*protobuf.InstallResponse_User {
+		out := make([]*protobuf.InstallResponse_User, 0, len(users))
 		for _, user := range users {
-			out = append(out, &InstallResponse_User{
+			out = append(out, &protobuf.InstallResponse_User{
 				Id:        user.ID.String(),
 				Name:      user.Name,
 				CreatedAt: Timestamp(&user.CreatedAt),
@@ -93,8 +94,8 @@ func (server *maintenanceServer) Install(ctx context.Context, req *InstallReques
 	}
 
 	account := resp.Account
-	return &InstallResponse{
-		Account: &InstallResponse_Account{
+	return &protobuf.InstallResponse{
+		Account: &protobuf.InstallResponse_Account{
 			Id:        account.ID.String(),
 			Name:      account.Name,
 			CreatedAt: Timestamp(&account.CreatedAt),
