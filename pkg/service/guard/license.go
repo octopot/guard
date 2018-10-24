@@ -46,21 +46,24 @@ func (service *licenseService) Check(ctx context.Context, req request.CheckLicen
 		license.ID, license.Contract = entity.ID, entity.Contract
 	}
 
-	checkers := []func(*domain.License) error{
-		service.checkLifetimeLimits,
-		service.checkRateLimits,
-		service.checkRequestLimits,
-		service.checkWorkplaceLimits,
+	// TODO issue#composite
+	if err := service.checkLifetimeLimits(&license, req.Workplace); err != nil {
+		return resp.With(err)
 	}
-	results := make([]error, len(checkers))
-	for i, check := range checkers {
-		results[i] = check(&license)
+	if err := service.checkRateLimits(&license, req.Workplace); err != nil {
+		return resp.With(err)
+	}
+	if err := service.checkRequestLimits(&license, req.Workplace); err != nil {
+		return resp.With(err)
+	}
+	if err := service.checkWorkplaceLimits(&license, req.Workplace); err != nil {
+		return resp.With(err)
 	}
 
 	return
 }
 
-func (service *licenseService) checkLifetimeLimits(license *domain.License) error {
+func (service *licenseService) checkLifetimeLimits(license *domain.License, _ domain.ID) error {
 	now := time.Now()
 	if license.Since != nil {
 		if license.Since.After(now) {
@@ -75,7 +78,7 @@ func (service *licenseService) checkLifetimeLimits(license *domain.License) erro
 	return nil
 }
 
-func (service *licenseService) checkRateLimits(license *domain.License) error {
+func (service *licenseService) checkRateLimits(license *domain.License, _ domain.ID) error {
 	if license.Rate.IsValid() {
 		// TODO issue#future
 		// errors.New(http.StatusText(http.StatusTooManyRequests))
@@ -84,7 +87,7 @@ func (service *licenseService) checkRateLimits(license *domain.License) error {
 	return nil
 }
 
-func (service *licenseService) checkRequestLimits(license *domain.License) error {
+func (service *licenseService) checkRequestLimits(license *domain.License, _ domain.ID) error {
 	counter := internal.LicenseRequests
 	if license.Requests > 0 && license.Requests < counter.Increment(license.ID) {
 		go counter.Rollback(license.ID)
@@ -93,10 +96,9 @@ func (service *licenseService) checkRequestLimits(license *domain.License) error
 	return nil
 }
 
-func (service *licenseService) checkWorkplaceLimits(license *domain.License) error {
-	if license.Workplaces > 0 {
-		// errors.New(http.StatusText(http.StatusPaymentRequired))
-		return nil
+func (service *licenseService) checkWorkplaceLimits(license *domain.License, workplace domain.ID) error {
+	if !internal.LicenseWorkplaces.Acquire(license.ID, workplace, int(license.Workplaces)) {
+		return errors.New(http.StatusText(http.StatusPaymentRequired))
 	}
 	return nil
 }
