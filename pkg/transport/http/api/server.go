@@ -1,4 +1,4 @@
-package http
+package api
 
 import (
 	"net"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
-	"github.com/kamilsk/guard/pkg/transport/http/router/chi"
+	"github.com/kamilsk/guard/pkg/transport/http/api/internal/chi"
 )
 
 // New TODO issue#docs

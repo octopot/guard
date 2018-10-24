@@ -5,11 +5,11 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/kamilsk/guard/pkg/transport/http/router"
+	"github.com/kamilsk/guard/pkg/transport/http/api/internal"
 )
 
 // Configure TODO issue#docs
-func Configure(api router.API) http.Handler {
+func Configure(api internal.API) http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.RealIP)

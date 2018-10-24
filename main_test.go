@@ -12,18 +12,20 @@ import (
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/kamilsk/guard/pkg/transport/grpc"
-	"github.com/kamilsk/guard/pkg/transport/http"
+	"github.com/kamilsk/guard/pkg/transport/http/api"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
 
 // invariant
 var (
+	_ api.Service           = guard.New(config.ServiceConfig{}, nil)
 	_ guard.Storage         = storage.Must()
+	_ guard.AccountStorage  = storage.Must()
+	_ guard.LicenseStorage  = storage.Must()
 	_ grpc.ProtectedStorage = storage.Must()
 	_ grpc.DraftStorage     = storage.Must()
 	_ grpc.Maintenance      = guard.New(config.ServiceConfig{}, nil)
-	_ http.Service          = guard.New(config.ServiceConfig{}, nil)
 )
 
 func TestService(t *testing.T) {

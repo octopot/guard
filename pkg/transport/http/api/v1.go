@@ -1,4 +1,4 @@
-package http
+package api
 
 import (
 	"net/http"
@@ -12,7 +12,7 @@ import (
 func (server *webServer) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	metadata := domain.MetadataFromRequest(req)
 	if response := server.service.CheckLicense(req.Context(), request.CheckLicense{
-		ID:        metadata.License(),
+		License:   metadata.License(),
 		Employee:  metadata.Employee(),
 		Workplace: metadata.Workplace(),
 	}); response.HasError() {

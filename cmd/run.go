@@ -12,7 +12,7 @@ import (
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/kamilsk/guard/pkg/transport/grpc"
-	"github.com/kamilsk/guard/pkg/transport/http"
+	"github.com/kamilsk/guard/pkg/transport/http/api"
 	"github.com/kamilsk/guard/pkg/transport/http/monitor"
 	"github.com/kamilsk/guard/pkg/transport/http/profiler"
 	"github.com/spf13/cobra"
@@ -126,7 +126,7 @@ func startHTTPServer(cnf config.ServerConfig, service *guard.Guard) error {
 		return err
 	}
 	log.Println("start HTTP server at", listener.Addr())
-	return http.New(cnf, service).Serve(listener)
+	return api.New(cnf, service).Serve(listener)
 }
 
 func startGRPCServer(cnf config.GRPCConfig, service *guard.Guard, repository *storage.Storage) error {
