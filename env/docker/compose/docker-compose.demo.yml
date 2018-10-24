@@ -6,12 +6,6 @@ services:
     volumes:
     - pgdata:${PGDATA}
 
-  legacy: {}
-
-  migration: {}
-
-  service: {}
-
   server:
     depends_on:
     - spec

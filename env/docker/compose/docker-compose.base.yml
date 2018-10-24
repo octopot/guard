@@ -4,14 +4,24 @@ services:
 
   db:
     image: guard-db:latest
+    build:
+      context:    ../db/context
+      dockerfile: ../Dockerfile
     env_file: ../db/.env
 
   legacy:
     image: guard-legacy:latest
+    build:
+      context:    ../legacy/context
+      dockerfile: ../Dockerfile
     env_file: ../legacy/.env
 
   migration:
     image: guard-service:latest
+    build:
+      args:       { PACKAGE: "${PACKAGE}" }
+      context:    ../../../.
+      dockerfile: ./env/docker/service/Dockerfile
     command: [ "migrate" ]
     depends_on:
     - db
@@ -20,6 +30,10 @@ services:
 
   service:
     image: guard-service:latest
+    build:
+      args:       { PACKAGE: "${PACKAGE}" }
+      context:    ../../../.
+      dockerfile: ./env/docker/service/Dockerfile
     command: [ "run", "--with-profiling", "--with-monitoring", "--with-grpc-gateway" ]
     depends_on:
     - migration
@@ -27,6 +41,9 @@ services:
 
   server:
     image: guard-server:latest
+    build:
+      context:    ../server/context
+      dockerfile: ../Dockerfile
     depends_on:
     - legacy
     - service

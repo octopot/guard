@@ -11,11 +11,11 @@ ENV GOARCH      amd64
 ENV CGO_ENABLED 0
 
 RUN echo "os: ${GOOS}" "arch: ${GOARCH}" "cgo: ${CGO_ENABLED}" \
- && export _commit="-X ${PACKAGE}/cmd.commit=$(git rev-parse --short HEAD || echo 'none')" \
- && export _date="-X ${PACKAGE}/cmd.date=$(date -u +%FT%X%Z || echo 'unknown')" \
- && export _version="-X ${PACKAGE}/cmd.version=$(git describe --tags 2>&- || echo 'dev' | cut -d - -f 1)" \
+ && export _commit="-X ${PACKAGE}/pkg/cmd.commit=$(git rev-parse --short HEAD || echo 'none')" \
+ && export _date="-X ${PACKAGE}/pkg/cmd.date=$(date -u +%FT%X%Z || echo 'unknown')" \
+ && export _version="-X ${PACKAGE}/pkg/cmd.version=$(git describe --tags 2>&- || echo 'dev' | cut -d - -f 1)" \
  && go build -o /go/bin/service \
-             -ldflags "-s -w ${_commit} ${_date} ${_version}" .
+             -ldflags "-s -w ${_commit} ${_date} ${_version}" ./cmd/guard
 
 
 FROM alpine:latest AS service

@@ -3,30 +3,12 @@ version: "3"
 services:
 
   db:
-    build:
-      context:    ../db/context
-      dockerfile: ../Dockerfile
     ports:
     - ${LOCAL_DB_PORT}:5432
     volumes:
     - pgdata:${PGDATA}
 
-  legacy:
-    build:
-      context:    ../legacy/context
-      dockerfile: ../Dockerfile
-
-  migration:
-    build:
-      args:       { PACKAGE: "${PACKAGE}" }
-      context:    ../../../.
-      dockerfile: ./env/docker/service/Dockerfile
-
   service:
-    build:
-      args:       { PACKAGE: "${PACKAGE}" }
-      context:    ../../../.
-      dockerfile: ./env/docker/service/Dockerfile
     ports:
     - ${LOCAL_SERVICE_HTTP_PORT}:8080
     - ${LOCAL_SERVICE_PROFILING_PORT}:8090
@@ -35,9 +17,6 @@ services:
     - ${LOCAL_SERVICE_GRPC_GATEWAY_PORT}:8093
 
   server:
-    build:
-      context:    ../server/context
-      dockerfile: ../Dockerfile
     ports:
     - ${LOCAL_SERVER_HTTP_PORT}:80
     - ${LOCAL_SERVER_HTTPS_PORT}:443

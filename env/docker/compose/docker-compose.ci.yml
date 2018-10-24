@@ -1,13 +1,3 @@
 version: "3"
 
-services:
-
-  db: {}
-
-  legacy: {}
-
-  migration: {}
-
-  service: {}
-
-  server: {}
+services: {}
