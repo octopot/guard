@@ -1,12 +1,10 @@
-// +build !ctl
-
 package main
 
 import (
 	"io"
 	"os"
 
-	"github.com/kamilsk/guard/cmd"
+	"github.com/kamilsk/guard/pkg/cmd"
 	"github.com/spf13/cobra"
 )
 
@@ -25,4 +23,16 @@ var service cli = func(executor commander, output io.Writer, shutdown func(code 
 
 func main() {
 	service(&cobra.Command{Use: "guard", Short: "Guard Service"}, os.Stderr, os.Exit)
+}
+
+const (
+	success = 0
+	failure = 1
+)
+
+type cli func(executor commander, output io.Writer, shutdown func(code int))
+
+type commander interface {
+	AddCommand(...*cobra.Command)
+	Execute() error
 }

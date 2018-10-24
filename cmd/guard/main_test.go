@@ -1,5 +1,3 @@
-// +build !ctl
-
 package main
 
 import (
@@ -7,12 +5,13 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/kamilsk/guard/cmd"
+	"github.com/kamilsk/guard/pkg/cmd"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/kamilsk/guard/pkg/transport/grpc"
 	"github.com/kamilsk/guard/pkg/transport/http/api"
+	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -78,4 +77,22 @@ func TestService(t *testing.T) {
 			service(tc.executor, ioutil.Discard, shutdown)
 		})
 	}
+}
+
+type commanderMock struct {
+	mock.Mock
+	commands []*cobra.Command
+}
+
+func (m *commanderMock) AddCommand(cc ...*cobra.Command) {
+	m.commands = cc
+	converted := make([]interface{}, 0, len(cc))
+	for _, c := range cc {
+		converted = append(converted, c)
+	}
+	m.Called(converted...)
+}
+
+func (m *commanderMock) Execute() error {
+	return m.Called().Error(0)
 }

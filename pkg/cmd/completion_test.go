@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/kamilsk/guard/cmd"
+	. "github.com/kamilsk/guard/pkg/cmd"
 )
 
 func TestCompletion(t *testing.T) {

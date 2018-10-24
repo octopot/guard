@@ -15,7 +15,7 @@ script:
 - make test
 
 env:
-- META=github.com/kamilsk/guard/cmd
+- META=github.com/kamilsk/guard/pkg/cmd
 
 after_success:
 - echo $TRAVIS_GO_VERSION ":" $TRAVIS_TAG

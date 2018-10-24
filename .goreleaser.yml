@@ -38,6 +38,7 @@ builds:
   - windows
   ldflags:
   - -s -w -X {{.Env.META}}.version={{.Version}} -X {{.Env.META}}.commit={{.Commit}} -X {{.Env.META}}.date={{.Date}}
+  main: ./cmd/guard/main.go
 - binary: guardctl
   env:
   - CGO_ENABLED=0
@@ -52,6 +53,7 @@ builds:
   - windows
   ldflags:
   - -s -w -X {{.Env.META}}.version={{.Version}} -X {{.Env.META}}.commit={{.Commit}} -X {{.Env.META}}.date={{.Date}}
+  main: ./cmd/guardctl/main.go
 
 checksum: { name_template: checksums.txt }
 

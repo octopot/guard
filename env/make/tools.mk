@@ -16,14 +16,7 @@ protobuf:
 
 
 .PHONY: test
-test: test-control test-service
-
-.PHONY: test-control
-test-control:
-	go test -race -tags ctl -v .
-
-.PHONY: test-service
-test-service:
+test:
 	go test -race -v ./...
 
 .PHONY: test-integration
