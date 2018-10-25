@@ -61,3 +61,9 @@ service-cmd-version: __srv__ __cmd__
 
 .PHONY: service-install
 service-install: __srv__ __install__
+
+
+.PHONY: install
+install:
+	@(make control-install)
+	@(make service-install)

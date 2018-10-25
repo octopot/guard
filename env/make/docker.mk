@@ -7,6 +7,17 @@ $(error Please define VERSION variable)
 endif
 
 
+.PHONY: docker-build
+docker-build:
+	docker build -f env/docker/service/Dockerfile \
+	             -t kamilsk/guard:$(VERSION) \
+	             -t kamilsk/guard:latest \
+	             -t quay.io/kamilsk/guard:$(VERSION) \
+	             -t quay.io/kamilsk/guard:latest \
+	             --build-arg PACKAGE=$(PACKAGE) \
+	             --force-rm --no-cache --pull --rm \
+	             .
+
 .PHONY: docker-build-db
 docker-build-db:
 	docker build \
@@ -47,6 +58,17 @@ docker-build-service:
 	             --build-arg PACKAGE=$(PACKAGE) \
 	             --force-rm \
 	             .
+
+.PHONY: docker-push
+docker-push:
+	docker push kamilsk/guard:$(VERSION)
+	docker push kamilsk/guard:latest
+	docker push quay.io/kamilsk/guard:$(VERSION)
+	docker push quay.io/kamilsk/guard:latest
+
+
+.PHONY: publish
+publish: docker-build docker-push
 
 
 .PHONY: docker-run-db

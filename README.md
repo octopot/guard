@@ -193,7 +193,7 @@ $ which guard guardctl
 ### Binary
 
 ```bash
-$ export REQ_VER=0.0.1  # all available versions are on https://github.com/kamilsk/guard/releases/
+$ export REQ_VER=1.0.0  # all available versions are on https://github.com/kamilsk/guard/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
 # wget -q -O guard.tar.gz
@@ -205,15 +205,17 @@ $ tar xf guard.tar.gz -C "${GOPATH}"/bin/ && rm guard.tar.gz
 ### Docker Hub
 
 ```bash
-$ docker pull kamilsk/guard:latest
+$ docker pull kamilsk/guard:1.x
+# or use mirror
+$ docker pull quay.io/kamilsk/guard:1.x
 ```
 
 ### From source code
 
 ```bash
-$ egg github.com/kamilsk/guard -- make test install
+$ egg github.com/kamilsk/guard@^1.0.0 -- make test install
 # or use mirror
-$ egg bitbucket.org/kamilsk/guard -- make test install
+$ egg bitbucket.org/kamilsk/guard@^1.0.0 -- make test install
 ```
 
 > [egg](https://github.com/kamilsk/egg)<sup id="anchor-egg">[1](#egg)</sup> is an `extended go get`.
@@ -235,6 +237,7 @@ made with ❤️ by [OctoLab](https://www.octolab.org/)
 
 [analytics_pixel]: https://ga-beacon.appspot.com/UA-109817251-26/guard/readme?pixel
 
+[icon_build]:      https://travis-ci.org/kamilsk/guard.svg?branch=master
 [icon_gitter]:     https://badges.gitter.im/Join%20Chat.svg
 [icon_license]:    https://img.shields.io/badge/license-MIT-blue.svg
 [icon_patreon]:    https://img.shields.io/badge/patreon-donate-orange.svg
