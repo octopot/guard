@@ -3,17 +3,21 @@
 > Access Control as a Service &mdash; your personal paywall to protect any API or site's content.
 
 [![Patreon][icon_patreon]](https://www.patreon.com/octolab)
+[![Build Status][icon_build]][page_build]
 [![License][icon_license]](LICENSE)
 
 ## Roadmap
 
-- [ ] v1: [MVP][project_v1]
-  - [**September 20, 2018**][project_v1_dl]
+- [x] v1: [MVP][project_v1]
+  - [**October 20, 2018**][project_v1_dl]
   - Main concepts and working prototype.
+- [ ] v2: [Rate limiting][project_v2]
+  - [**December 16, 2018**][project_v2_dl]
+  - Request rate limiting and metrics related to license checking.
 
 ## Motivation
 
-- We have to limit access to some part of our content.
+- We have to limit access to some part of our content and APIs.
 
 ## Quick start
 
@@ -238,9 +242,13 @@ made with ❤️ by [OctoLab](https://www.octolab.org/)
 [icon_tw_sponsor]: https://img.shields.io/badge/sponsor-%40octolab-blue.svg
 [icon_twitter]:    https://img.shields.io/twitter/url/http/shields.io.svg?style=social
 
+[page_build]:      https://travis-ci.org/kamilsk/guard
 [page_promo]:      https://github.com/kamilsk/guard
+[page_research]:   ../../tree/research
 
 [project_v1]:      https://github.com/kamilsk/guard/projects/1
 [project_v1_dl]:   https://github.com/kamilsk/guard/milestone/1
+[project_v2]:      https://github.com/kamilsk/guard/projects/2
+[project_v2_dl]:   https://github.com/kamilsk/guard/milestone/2
 
 [twitter_publish]: https://twitter.com/intent/tweet?text=Access%20Control%20as%20a%20Service&url=https://kamilsk.github.io/guard/&via=ikamilsk&hashtags=go,service
