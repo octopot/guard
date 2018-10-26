@@ -17,8 +17,8 @@ type Maintenance interface {
 	Install(context.Context, request.Install) response.Install
 }
 
-// ProtectedStorage TODO issue#docs
-type ProtectedStorage interface {
+// Storage TODO issue#docs
+type Storage interface {
 	// RegisterLicense TODO issue#docs
 	RegisterLicense(context.Context, domain.Token, query.RegisterLicense) (repository.License, error)
 	// CreateLicense TODO issue#docs

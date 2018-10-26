@@ -15,13 +15,13 @@ import (
 )
 
 // New TODO issue#docs
-func New(_ config.GRPCConfig, service Maintenance, storage ProtectedStorage) transport.Server {
+func New(_ config.GRPCConfig, service Maintenance, storage Storage) transport.Server {
 	return &server{service, storage}
 }
 
 type server struct {
 	service Maintenance
-	storage ProtectedStorage
+	storage Storage
 }
 
 // Serve TODO issue#docs

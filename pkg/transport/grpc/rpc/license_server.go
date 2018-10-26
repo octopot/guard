@@ -13,7 +13,7 @@ import (
 )
 
 type licenseServer struct {
-	storage ProtectedStorage
+	storage Storage
 }
 
 // Register TODO issue#docs

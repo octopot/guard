@@ -18,10 +18,10 @@ import (
 
 // invariant
 var (
-	_ api.Service          = guard.New(config.ServiceConfig{}, nil)
-	_ guard.Storage        = storage.Must()
-	_ rpc.ProtectedStorage = storage.Must()
-	_ rpc.Maintenance      = guard.New(config.ServiceConfig{}, nil)
+	_ api.Service     = guard.New(config.ServiceConfig{}, nil)
+	_ guard.Storage   = storage.Must()
+	_ rpc.Storage     = storage.Must()
+	_ rpc.Maintenance = guard.New(config.ServiceConfig{}, nil)
 )
 
 func TestService(t *testing.T) {
