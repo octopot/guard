@@ -139,11 +139,11 @@ func (factory) data(filename string) ([]byte, error) {
 }
 
 func call(cnf config.GRPCConfig, request interface{}) (interface{}, error) {
-	deadline, cancel := context.WithTimeout(context.Background(), cnf.Timeout)
-	conn, err := grpc.DialContext(deadline, cnf.Interface, grpc.WithInsecure())
+	deadline, cancel := context.WithTimeout(context.Background(), cnf.RPC.Timeout)
+	conn, err := grpc.DialContext(deadline, cnf.RPC.Interface, grpc.WithInsecure())
 	cancel()
 	if err != nil {
-		return nil, errors.Wrapf(err, "connecting to the gRPC server at %q", cnf.Interface)
+		return nil, errors.Wrapf(err, "connecting to the gRPC server at %q", cnf.RPC.Interface)
 	}
 	defer conn.Close()
 
@@ -151,7 +151,7 @@ func call(cnf config.GRPCConfig, request interface{}) (interface{}, error) {
 	defer cancel()
 	ctx = metadata.AppendToOutgoingContext(ctx,
 		middleware.AuthHeader,
-		strings.Concat(middleware.AuthScheme, " ", string(cnf.Token)))
+		strings.Concat(middleware.AuthScheme, " ", string(cnf.RPC.Token)))
 
 	switch in := request.(type) {
 	case *protobuf.InstallRequest:

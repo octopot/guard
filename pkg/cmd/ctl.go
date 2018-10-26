@@ -51,9 +51,9 @@ func init() {
 			"output format, one of: %s|%s",
 			jsonFormat, yamlFormat))
 		flags.Bool("dry-run", false, "if true, only print the object that would be sent, without sending it")
-		flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
+		flags.StringVarP(&cnf.Union.GRPCConfig.RPC.Interface,
 			"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
-		flags.DurationVarP(&cnf.Union.GRPCConfig.Timeout,
+		flags.DurationVarP(&cnf.Union.GRPCConfig.RPC.Timeout,
 			"timeout", "t", time.Second, "connection timeout")
 		return flags
 	}
@@ -72,7 +72,7 @@ func init() {
 		func() error {
 			configure(Install.Flags())
 			configure(License.PersistentFlags()).
-				StringVarP((*string)(&cnf.Union.GRPCConfig.Token),
+				StringVarP((*string)(&cnf.Union.GRPCConfig.RPC.Token),
 					"token", "", v.GetString("guard_token"), "user access token")
 			return nil
 		},

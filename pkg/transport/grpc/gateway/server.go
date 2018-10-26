@@ -26,7 +26,7 @@ func (server *server) Serve(listener net.Listener) error {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	mux := runtime.NewServeMux()
-	conn, err := grpc.DialContext(ctx, server.config.Interface, grpc.WithInsecure())
+	conn, err := grpc.DialContext(ctx, server.config.RPC.Interface, grpc.WithInsecure())
 	if err != nil {
 		return err
 	}
@@ -36,11 +36,10 @@ func (server *server) Serve(listener net.Listener) error {
 	if err = RegisterMaintenanceHandler(ctx, mux, conn); err != nil {
 		return err
 	}
-	// TODO issue#configure
 	return (&http.Server{Handler: mux,
-		ReadTimeout:       0,
-		ReadHeaderTimeout: 0,
-		WriteTimeout:      0,
-		IdleTimeout:       0,
+		ReadTimeout:       server.config.Gateway.ReadTimeout,
+		ReadHeaderTimeout: server.config.Gateway.ReadHeaderTimeout,
+		WriteTimeout:      server.config.Gateway.WriteTimeout,
+		IdleTimeout:       server.config.Gateway.IdleTimeout,
 	}).Serve(listener)
 }

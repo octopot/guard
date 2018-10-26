@@ -107,7 +107,7 @@ func init() {
 				"with-monitoring", "", false, "enable prometheus on /monitoring and expvar on /vars")
 			flags.StringVarP(&cnf.Union.MonitoringConfig.Interface,
 				"monitoring-host", "", v.GetString("monitoring_host"), "monitoring host")
-			flags.StringVarP(&cnf.Union.GRPCConfig.Interface,
+			flags.StringVarP(&cnf.Union.GRPCConfig.RPC.Interface,
 				"grpc-host", "", v.GetString("grpc_host"), "gRPC server host")
 			flags.BoolVarP(&cnf.Union.GRPCConfig.Gateway.Enabled,
 				"with-grpc-gateway", "", false, "enable RESTful JSON API above gRPC")
@@ -131,7 +131,7 @@ func startHTTPServer(cnf config.ServerConfig, service *guard.Guard) error {
 }
 
 func startGRPCServer(cnf config.GRPCConfig, service *guard.Guard, repository *storage.Storage) error {
-	rpcListener, err := net.Listen("tcp", cnf.Interface)
+	rpcListener, err := net.Listen("tcp", cnf.RPC.Interface)
 	if err != nil {
 		return err
 	}

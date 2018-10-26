@@ -42,16 +42,25 @@ func (cnf *DatabaseConfig) DriverName() string {
 
 // GRPCConfig contains configuration related to the application gRPC server.
 type GRPCConfig struct {
-	Interface string            `json:"interface" xml:"interface" yaml:"interface"`
-	Timeout   time.Duration     `json:"timeout"   xml:"timeout"   yaml:"timeout"`
-	Token     config.Secret     `json:"token"     xml:"token"     yaml:"token"`
-	Gateway   GRPCGatewayConfig `json:"gateway"   xml:"gateway"   yaml:"gateway"`
+	RPC     RPCConfig     `json:"rpc"     xml:"rpc"     yaml:"rpc"`
+	Gateway GatewayConfig `json:"gateway" xml:"gateway" yaml:"gateway"`
 }
 
-// GRPCGatewayConfig contains configuration related to the application RESTful JSON API above gRPC.
-type GRPCGatewayConfig struct {
-	Enabled   bool   `json:"enabled"   xml:"enabled"   yaml:"enabled"`
-	Interface string `json:"interface" xml:"interface" yaml:"interface"`
+// RPCConfig contains configuration related to the application RPC server.
+type RPCConfig struct {
+	Interface string        `json:"interface" xml:"interface" yaml:"interface"`
+	Timeout   time.Duration `json:"timeout"   xml:"timeout"   yaml:"timeout"`
+	Token     config.Secret `json:"token"     xml:"token"     yaml:"token"`
+}
+
+// GatewayConfig contains configuration related to the application REST JSON API server above RPC server.
+type GatewayConfig struct {
+	Enabled           bool          `json:"enabled"             xml:"enabled"             yaml:"enabled"`
+	Interface         string        `json:"interface"           xml:"interface"           yaml:"interface"`
+	ReadTimeout       time.Duration `json:"read-timeout"        xml:"read-timeout"        yaml:"read-timeout"`
+	ReadHeaderTimeout time.Duration `json:"read-header-timeout" xml:"read-header-timeout" yaml:"read-header-timeout"`
+	WriteTimeout      time.Duration `json:"write-timeout"       xml:"write-timeout"       yaml:"write-timeout"`
+	IdleTimeout       time.Duration `json:"idle-timeout"        xml:"idle-timeout"        yaml:"idle-timeout"`
 }
 
 // MigrationConfig contains configuration related to the application migrations.

@@ -8,12 +8,12 @@
 .PHONY: protobuf
 protobuf:
 	@(protoc -Ienv/api \
-	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway \
-	       -Ivendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
-	       --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc/protobuf \
-	       --grpc-gateway_out=logtostderr=true,import_path=gateway:pkg/transport/grpc/gateway \
-	       --swagger_out=logtostderr=true,allow_merge=true,merge_file_name=guard:env/api \
-	       common.proto license.proto maintenance.proto)
+	         -Ivendor/github.com/grpc-ecosystem/grpc-gateway \
+	         -Ivendor/github.com/grpc-ecosystem/grpc-gateway/third_party/googleapis \
+	         --go_out=plugins=grpc,logtostderr=true:pkg/transport/grpc/protobuf \
+	         --grpc-gateway_out=logtostderr=true,import_path=gateway:pkg/transport/grpc/gateway \
+	         --swagger_out=logtostderr=true,allow_merge=true,merge_file_name=guard:env/api \
+	         common.proto license.proto maintenance.proto)
 	@(mv env/api/guard.swagger.json env/api/swagger.json)
 
 
