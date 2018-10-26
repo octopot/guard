@@ -1,4 +1,4 @@
-package grpc
+package rpc
 
 import (
 	"context"
@@ -11,11 +11,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
-
-// NewLicenseServer TODO issue#docs
-func NewLicenseServer(storage ProtectedStorage) protobuf.LicenseServer {
-	return &licenseServer{storage}
-}
 
 type licenseServer struct {
 	storage ProtectedStorage

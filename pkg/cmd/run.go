@@ -11,7 +11,8 @@ import (
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
-	"github.com/kamilsk/guard/pkg/transport/grpc"
+	"github.com/kamilsk/guard/pkg/transport/grpc/gateway"
+	"github.com/kamilsk/guard/pkg/transport/grpc/rpc"
 	"github.com/kamilsk/guard/pkg/transport/http/api"
 	"github.com/kamilsk/guard/pkg/transport/http/monitor"
 	"github.com/kamilsk/guard/pkg/transport/http/profiler"
@@ -130,13 +131,13 @@ func startHTTPServer(cnf config.ServerConfig, service *guard.Guard) error {
 }
 
 func startGRPCServer(cnf config.GRPCConfig, service *guard.Guard, repository *storage.Storage) error {
-	listener, err := net.Listen("tcp", cnf.Interface)
+	rpcListener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
-	gateway, cascade := net.Listener(nil), make(chan struct{})
+	gwListener, cascade := net.Listener(nil), make(chan struct{})
 	if cnf.Gateway.Enabled {
-		gateway, err = net.Listen("tcp", cnf.Gateway.Interface)
+		gwListener, err = net.Listen("tcp", cnf.Gateway.Interface)
 		if err != nil {
 			return err
 		}
@@ -144,16 +145,16 @@ func startGRPCServer(cnf config.GRPCConfig, service *guard.Guard, repository *st
 	go func(listener net.Listener) {
 		close(cascade)
 		log.Println("start gRPC server at", listener.Addr())
-		_ = grpc.New(cnf, service, repository).Serve(listener)
-	}(listener)
+		_ = rpc.New(cnf, service, repository).Serve(listener)
+	}(rpcListener)
 	go func(listener net.Listener) {
 		if listener == nil {
 			return
 		}
 		<-cascade
 		log.Println("start gRPC gateway server at", listener.Addr())
-		_ = grpc.Gateway(cnf).Serve(listener)
-	}(gateway)
+		_ = gateway.New(cnf).Serve(listener)
+	}(gwListener)
 	return nil
 }
 

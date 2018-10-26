@@ -1,4 +1,4 @@
-package grpc
+package rpc
 
 import (
 	"context"
@@ -12,11 +12,6 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
-
-// NewMaintenanceServer TODO issue#docs
-func NewMaintenanceServer(service Maintenance) protobuf.MaintenanceServer {
-	return &maintenanceServer{service}
-}
 
 type maintenanceServer struct {
 	service Maintenance

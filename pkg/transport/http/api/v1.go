@@ -9,7 +9,7 @@ import (
 )
 
 // CheckLicenseV1 TODO issue#docs
-func (server *webServer) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
+func (server *server) CheckLicenseV1(rw http.ResponseWriter, req *http.Request) {
 	metadata := domain.MetadataFromRequest(req)
 	if response := server.service.CheckLicense(req.Context(), request.CheckLicense{
 		License:   metadata.License(),

@@ -39,7 +39,7 @@ guard_server_1    nginx -g daemon off;             Up      0.0.0.0:443->443/tcp,
 guard_service_1   service run --with-profili ...   Up      8080/tcp, 8090/tcp, 8091/tcp, 8092/tcp, 8093/tcp
 guard_spec_1      sh /usr/share/nginx/docker ...   Up      80/tcp, 8080/tcp
 
-$ ./env/client/grpc/install.sh localhost:443
+$ ./env/client/rpc/install.sh localhost:443
 
 $ open http://spec.127.0.0.1.xip.io/
 
@@ -105,11 +105,11 @@ $ guardctl --help
   
   Use "guardctl [command] --help" for more information about a command.
 
-$ guardctl install -f env/client/grpc/install.yaml
+$ guardctl install -f env/client/rpc/install.yaml
 
 $ export GUARD_TOKEN=10000000-2000-4000-8000-160000000003
 
-$ guardctl license register -f env/client/grpc/license.register.yml
+$ guardctl license register -f env/client/rpc/license.register.yml
 id: 10000000-2000-4000-8000-160000000004
 
 $ echo '{id: 10000000-2000-4000-8000-160000000004}' | guardctl license read
@@ -123,11 +123,11 @@ contract:
 created_at: "2018-10-04T09:32:19.102216Z"
 id: 10000000-2000-4000-8000-160000000004
 
-$ cat env/client/grpc/license.update.yml | guardctl license update
+$ cat env/client/rpc/license.update.yml | guardctl license update
 id: 10000000-2000-4000-8000-160000000004
 updated_at: "2018-10-04T09:33:32.487454Z"
 
-$ guardctl license create -f env/client/grpc/license.create.yml | guardctl license delete | guardctl license read
+$ guardctl license create -f env/client/rpc/license.create.yml | guardctl license delete | guardctl license read
 contract:
   rate:
     unit: rph
@@ -140,7 +140,7 @@ deleted_at: "2018-10-04T09:57:16.666664Z"
 id: 9ba7b564-3248-4401-b853-9dc32559b95b
 updated_at: "2018-10-04T09:57:16.666664Z"
 
-$ guardctl license delete -f env/client/grpc/license.delete.yml
+$ guardctl license delete -f env/client/rpc/license.delete.yml
 deleted_at: "2018-10-04T09:58:27.365193Z"
 id: 10000000-2000-4000-8000-160000000004
 

@@ -20,7 +20,7 @@ services:
     depends_on:
     - service
     volumes:
-    - ../../client/guard.swagger.json:/app/swagger.json:ro
+    - ../../api/swagger.json:/app/swagger.json:ro
 
 volumes:
 

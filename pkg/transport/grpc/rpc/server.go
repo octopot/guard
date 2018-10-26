@@ -1,15 +1,12 @@
-package grpc
+package rpc
 
 import (
-	"context"
 	"net"
-	"net/http"
 
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-prometheus"
-	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
@@ -42,41 +39,7 @@ func (server *server) Serve(listener net.Listener) error {
 			grpc_recovery.UnaryServerInterceptor(),
 		),
 	)
-	protobuf.RegisterLicenseServer(srv, NewLicenseServer(server.storage))
-	protobuf.RegisterMaintenanceServer(srv, NewMaintenanceServer(server.service))
+	protobuf.RegisterLicenseServer(srv, &licenseServer{server.storage})
+	protobuf.RegisterMaintenanceServer(srv, &maintenanceServer{server.service})
 	return srv.Serve(listener)
-}
-
-// Gateway TODO issue#docs
-func Gateway(cnf config.GRPCConfig) transport.Server {
-	return &gateway{config: cnf}
-}
-
-type gateway struct {
-	config config.GRPCConfig
-}
-
-// Serve TODO issue#docs
-func (gateway *gateway) Serve(listener net.Listener) error {
-	defer listener.Close()
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-	mux := runtime.NewServeMux()
-	conn, err := grpc.DialContext(ctx, gateway.config.Interface, grpc.WithInsecure())
-	if err != nil {
-		return err
-	}
-	if err = protobuf.RegisterLicenseHandler(ctx, mux, conn); err != nil {
-		return err
-	}
-	if err = protobuf.RegisterMaintenanceHandler(ctx, mux, conn); err != nil {
-		return err
-	}
-	// TODO issue#configure
-	return (&http.Server{Handler: mux,
-		ReadTimeout:       0,
-		ReadHeaderTimeout: 0,
-		WriteTimeout:      0,
-		IdleTimeout:       0,
-	}).Serve(listener)
 }

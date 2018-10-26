@@ -1,4 +1,4 @@
-package grpc_test
+package rpc_test
 
 import (
 	"math"
@@ -8,7 +8,7 @@ import (
 	"github.com/golang/protobuf/ptypes/timestamp"
 	"github.com/stretchr/testify/assert"
 
-	. "github.com/kamilsk/guard/pkg/transport/grpc"
+	. "github.com/kamilsk/guard/pkg/transport/grpc/rpc"
 )
 
 func TestTime(t *testing.T) {
