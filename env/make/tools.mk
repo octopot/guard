@@ -5,6 +5,11 @@
 # TODO add . "github.com/kamilsk/guard/pkg/transport/grpc/protobuf" to the import
 
 
+.PHONY: mocks
+mocks:
+	find . -name "mock_*_test.go" | grep -v /vendor/ | xargs rm || true
+	go generate -run="mockgen" ./...
+
 .PHONY: protobuf
 protobuf:
 	@(protoc -Ienv/api \
@@ -19,6 +24,9 @@ protobuf:
 .PHONY: static
 static:
 	statik -c '' -f -dest pkg/storage -p migrations -src pkg/storage/migrations
+
+.PHONY: generate
+generate: mocks protobuf static
 
 
 .PHONY: test
