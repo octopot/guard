@@ -3,13 +3,14 @@ required = [
   "github.com/rakyll/statik/fs",
 
   # generated content
+  "github.com/golang/mock/gomock",
+  "github.com/golang/mock/mockgen/model",
   "github.com/golang/protobuf/proto",
   "github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger/options",
   "github.com/grpc-ecosystem/grpc-gateway/utilities",
   "google.golang.org/genproto/googleapis/api/annotations",
 
   # future deps
-  "github.com/golang/mock/gomock",
   "github.com/mailru/easyjson/jlexer",
   "github.com/mailru/easyjson/jwriter",
   "go.uber.org/zap",

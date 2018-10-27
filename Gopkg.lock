@@ -67,11 +67,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2e292c0e36117b617c4df3f10ac9a7fe05e3c90bf057f1e61867c913d866e0c9"
+  digest = "1:8e2e9d89f806c2830ed880fa4dc417e9ed53edb9b071d1bf59f6ea57cfb0e0fc"
   name = "github.com/golang/mock"
-  packages = ["gomock"]
+  packages = [
+    "gomock",
+    "mockgen/model",
+  ]
   pruneopts = "NUT"
-  revision = "600781dde9cca80734169b9e969d9054ccc57937"
+  revision = "8a44ef6e8be577e050008c7886f24fc705d709fb"
 
 [[projects]]
   digest = "1:9b117ac202b9de210a7093bca0c29d0d2424e4c9235c9e025ae0d6ef6b121c82"
@@ -224,7 +227,7 @@
   name = "github.com/pkg/errors"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "2233dee583dcf88f3c8b22cb7a33f05a499800d8"
+  revision = "059132a15dd08d6704c67711dae0cf35ab991756"
 
 [[projects]]
   digest = "1:0028cb19b2e4c3112225cd871870f2d9cf49b9b4276531f03438a88e94be86fe"
@@ -236,7 +239,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:aa2da1df3327c3a338bb42f978407c07de74cd0a5bef35e9411881dffd444214"
+  digest = "1:c9012ab05cd49f0e9d8803f1030ee0be47db2a903b6b66c442b1b773efd818aa"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -244,7 +247,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "NUT"
-  revision = "1cafe34db7fdec6022e17e00e1c1ea501022f3e4"
+  revision = "f30f428035633da15d00d3dfefb0128c5e569ef4"
 
 [[projects]]
   branch = "master"
@@ -256,7 +259,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:83bbf84553fd78c94be448156c7786adc805fd676f8ffa416315582b21b675cd"
+  digest = "1:06375f3b602de9c99fa99b8484f0e949fd5273e6e9c6592b5a0dd4cd9085f3ea"
   name = "github.com/prometheus/common"
   packages = [
     "expfmt",
@@ -264,7 +267,7 @@
     "model",
   ]
   pruneopts = "NUT"
-  revision = "16b4535ad14a9ef20a9d9fd8055143c5faa15224"
+  revision = "7e9e6cabbd393fc208072eedef99188d0ce788b6"
 
 [[projects]]
   branch = "master"
@@ -310,20 +313,20 @@
   version = "v1.1.2"
 
 [[projects]]
-  digest = "1:3fa7947ca83b98ae553590d993886e845a4bff19b7b007e869c6e0dd3b9da9cd"
+  digest = "1:c5e6b121ef3d2043505edaf4c80e5a008cec2513dc8804795eb0479d1555bcf7"
   name = "github.com/spf13/cast"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "8965335b8c7107321228e3e3702cab9832751bac"
-  version = "v1.2.0"
+  revision = "8c9545af88b134710ab1cd196795e7f2388358d7"
+  version = "v1.3.0"
 
 [[projects]]
   branch = "master"
-  digest = "1:455a9e33f7716f9a2e0d1f65e2d04941d311cd5cc40a96f957b2e4e8724a2faa"
+  digest = "1:62caa436b82f9045674f41ac847d526df121b6583b0cc904c2172b586acef4e3"
   name = "github.com/spf13/cobra"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "40172f1635de1c5888b70b1917dd9a6b2ffd46c6"
+  revision = "fe5e611709b0c57fa4a89136deaa8e1d4004d053"
 
 [[projects]]
   digest = "1:f29f83301ed096daed24a90f4af591b7560cb14b9cc3e1827abbf04db7269ab5"
@@ -429,15 +432,15 @@
     "trace",
   ]
   pruneopts = "NUT"
-  revision = "04a2e542c03f1d053ab3e4d6e5abcd4b66e2be8e"
+  revision = "9b4f9f5ad5197c79fd623a3638e70d8b26cef344"
 
 [[projects]]
   branch = "master"
-  digest = "1:9976581dd4c7206d2573fc4b118bf3251ecf7a53ae5ef9cfba451fc8d7f8060a"
+  digest = "1:3393dbc238e6b9c79779c9228b967039d260fd7fc91974b2f58ae25aee3bb4f5"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "8e24a49d80f82323e1c4db1b5da3e0f31171a151"
+  revision = "95b1ffbd15a57cc5abb3f04402b9e8ec0016a52c"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -471,10 +474,10 @@
     "googleapis/rpc/status",
   ]
   pruneopts = "NUT"
-  revision = "94acd270e44e65579b9ee3cdab25034d33fed608"
+  revision = "8b5d7a19e2d98fbad9aaf9c599776bf066d7c70f"
 
 [[projects]]
-  digest = "1:5b805b8e03b29399b344655cac16873f026e54dc0a7c17b381f6f4d4c7b6d741"
+  digest = "1:2f91d3e11b666570f8c923912f1cc8cf2f0c6b7371b2687ee67a8f73f08c6272"
   name = "google.golang.org/grpc"
   packages = [
     ".",
@@ -505,8 +508,8 @@
     "tap",
   ]
   pruneopts = "NUT"
-  revision = "8dea3dc473e90c8179e519d91302d0597c0ca1d1"
-  version = "v1.15.0"
+  revision = "2e463a05d100327ca47ac218281906921038fd95"
+  version = "v1.16.0"
 
 [[projects]]
   digest = "1:4fe5671ee9615984167403a07ea67e0cbb7396f3ab335294ef767ac79b972ffc"
@@ -540,6 +543,7 @@
     "github.com/go-chi/chi",
     "github.com/go-chi/chi/middleware",
     "github.com/golang/mock/gomock",
+    "github.com/golang/mock/mockgen/model",
     "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/ptypes",
     "github.com/golang/protobuf/ptypes/timestamp",
