@@ -16,6 +16,10 @@ protobuf:
 	         common.proto license.proto maintenance.proto)
 	@(mv env/api/guard.swagger.json env/api/swagger.json)
 
+.PHONY: static
+static:
+	statik -c '' -f -dest pkg/storage -p migrations -src pkg/storage/migrations
+
 
 .PHONY: test
 test:
