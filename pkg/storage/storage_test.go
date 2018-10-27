@@ -1,3 +1,5 @@
+//go:generate echo $PWD/$GOPACKAGE/$GOFILE
+//go:generate mockgen -package storage_test -destination $PWD/pkg/storage/mock_executor_test.go github.com/kamilsk/guard/pkg/storage/internal Executor
 package storage_test
 
 import (

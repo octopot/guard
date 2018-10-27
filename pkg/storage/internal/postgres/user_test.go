@@ -8,11 +8,11 @@ import (
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
 
-	"github.com/kamilsk/guard/pkg/storage/executor"
+	"github.com/kamilsk/guard/pkg/storage/internal"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/DATA-DOG/go-sqlmock.v1"
 
-	. "github.com/kamilsk/guard/pkg/storage/executor/internal/postgres"
+	. "github.com/kamilsk/guard/pkg/storage/internal/postgres"
 )
 
 func TestUserManager(t *testing.T) {
@@ -44,7 +44,7 @@ func TestUserManager(t *testing.T) {
 						),
 				)
 
-			var exec executor.UserManager = NewUserContext(ctx, conn)
+			var exec internal.UserManager = NewUserContext(ctx, conn)
 			tkn, err := exec.AccessToken(token)
 			assert.NoError(t, err)
 			assert.NotEmpty(t, tkn.UserID)
@@ -74,7 +74,7 @@ func TestUserManager(t *testing.T) {
 				WithArgs(id).
 				WillReturnError(errors.New("test"))
 
-			var exec executor.UserManager = NewUserContext(ctx, conn)
+			var exec internal.UserManager = NewUserContext(ctx, conn)
 			tkn, err := exec.AccessToken(token)
 			assert.Error(t, err)
 			assert.Nil(t, tkn)

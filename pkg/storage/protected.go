@@ -156,7 +156,7 @@ func (storage *Storage) AddEmployee(ctx context.Context, id domain.Token, data q
 		return authErr
 	}
 
-	return storage.exec.Draft(ctx, conn).AddEmployee(token, data)
+	return storage.exec.LicenseManager(ctx, conn).AddEmployee(token, data)
 }
 
 // DeleteEmployee TODO issue#docs
@@ -172,7 +172,7 @@ func (storage *Storage) DeleteEmployee(ctx context.Context, id domain.Token, dat
 		return authErr
 	}
 
-	return storage.exec.Draft(ctx, conn).DeleteEmployee(token, data)
+	return storage.exec.LicenseManager(ctx, conn).DeleteEmployee(token, data)
 }
 
 // AddWorkplace TODO issue#docs
@@ -188,7 +188,7 @@ func (storage *Storage) AddWorkplace(ctx context.Context, id domain.Token, data 
 		return authErr
 	}
 
-	return storage.exec.Draft(ctx, conn).AddWorkplace(token, data)
+	return storage.exec.LicenseManager(ctx, conn).AddWorkplace(token, data)
 }
 
 // DeleteWorkplace TODO issue#docs
@@ -204,7 +204,7 @@ func (storage *Storage) DeleteWorkplace(ctx context.Context, id domain.Token, da
 		return authErr
 	}
 
-	return storage.exec.Draft(ctx, conn).DeleteWorkplace(token, data)
+	return storage.exec.LicenseManager(ctx, conn).DeleteWorkplace(token, data)
 }
 
 // PushWorkplace TODO issue#docs
@@ -220,7 +220,7 @@ func (storage *Storage) PushWorkplace(ctx context.Context, id domain.Token, data
 		return authErr
 	}
 
-	return storage.exec.Draft(ctx, conn).PushWorkplace(token, data)
+	return storage.exec.LicenseManager(ctx, conn).PushWorkplace(token, data)
 }
 
 // issue#draft }

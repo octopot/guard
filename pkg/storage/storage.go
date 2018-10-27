@@ -6,7 +6,7 @@ import (
 	"errors"
 
 	"github.com/kamilsk/guard/pkg/config"
-	"github.com/kamilsk/guard/pkg/storage/executor"
+	"github.com/kamilsk/guard/pkg/storage/internal"
 )
 
 // Must returns a new instance of the Storage or panics if it cannot configure it.
@@ -42,7 +42,7 @@ func Database(cnf config.DatabaseConfig) Configurator {
 				}
 			}
 		}()
-		instance.exec = executor.New(cnf.DriverName())
+		instance.exec = internal.New(cnf.DriverName())
 		instance.db, err = sql.Open(cnf.DriverName(), string(cnf.DSN))
 		if err == nil {
 			instance.db.SetMaxOpenConns(cnf.MaxOpenConns)
@@ -59,7 +59,7 @@ type Configurator func(*Storage) error
 // Storage is an implementation of Data Access Object.
 type Storage struct {
 	db   *sql.DB
-	exec *executor.Executor
+	exec internal.Executor
 }
 
 // Database returns the current database handle.

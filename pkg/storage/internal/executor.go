@@ -1,4 +1,4 @@
-package executor
+package internal
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
 
-	"github.com/kamilsk/guard/pkg/storage/executor/internal/postgres"
+	"github.com/kamilsk/guard/pkg/storage/internal/postgres"
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/storage/types"
 )
@@ -17,9 +17,24 @@ const (
 	postgresDialect = "postgres"
 )
 
+// Constructor TODO issue#docs
+type Constructor func(dialect string) Executor
+
+// Executor TODO issue#docs
+type Executor interface {
+	// Dialect TODO issue#docs
+	Dialect() string
+	// LicenseManager TODO issue#docs
+	LicenseManager(context.Context, *sql.Conn) LicenseManager
+	// LicenseReader TODO issue#docs
+	LicenseReader(context.Context, *sql.Conn) LicenseReader
+	// UserManager TODO issue#docs
+	UserManager(context.Context, *sql.Conn) UserManager
+}
+
 // New TODO issue#docs
-func New(dialect string) *Executor {
-	exec := &Executor{dialect: dialect}
+func New(dialect string) Executor {
+	exec := &executor{dialect: dialect}
 	switch exec.dialect {
 	case postgresDialect:
 		exec.factory.NewLicenseManager = func(ctx context.Context, conn *sql.Conn) LicenseManager {
@@ -31,15 +46,6 @@ func New(dialect string) *Executor {
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
-
-		// TODO issue#draft {
-
-		exec.factory.NewDraft = func(ctx context.Context, conn *sql.Conn) Draft {
-			return postgres.NewLicenseContext(ctx, conn)
-		}
-
-		// issue#draft }
-
 	case mysqlDialect:
 		fallthrough
 	default:
@@ -60,6 +66,21 @@ type LicenseManager interface {
 	Delete(*types.Token, query.DeleteLicense) (types.License, error)
 	// Restore TODO issue#docs
 	Restore(*types.Token, query.RestoreLicense) (types.License, error)
+
+	// Draft TODO issue#docs
+
+	// AddEmployee TODO issue#docs
+	AddEmployee(*types.Token, query.LicenseEmployee) error
+	// DeleteEmployee TODO issue#docs
+	DeleteEmployee(*types.Token, query.LicenseEmployee) error
+	// AddWorkplace TODO issue#docs
+	AddWorkplace(*types.Token, query.LicenseWorkplace) error
+	// DeleteWorkplace TODO issue#docs
+	DeleteWorkplace(*types.Token, query.LicenseWorkplace) error
+	// PushWorkplace TODO issue#docs
+	PushWorkplace(*types.Token, query.LicenseWorkplace) error
+
+	// issue#draft }
 }
 
 // LicenseReader TODO issue#docs
@@ -82,61 +103,31 @@ type UserManager interface {
 	RegisterToken(query.RegisterToken) (*types.Token, error)
 }
 
-// Executor TODO issue#docs
-type Executor struct {
+type executor struct {
 	dialect string
 	factory struct {
 		NewLicenseManager func(context.Context, *sql.Conn) LicenseManager
 		NewLicenseReader  func(context.Context, *sql.Conn) LicenseReader
 		NewUserManager    func(context.Context, *sql.Conn) UserManager
-
-		// TODO issue#draft {
-
-		NewDraft func(context.Context, *sql.Conn) Draft
-
-		// issue#draft }
 	}
 }
 
 // Dialect TODO issue#docs
-func (exec *Executor) Dialect() string {
-	return exec.dialect
+func (executor *executor) Dialect() string {
+	return executor.dialect
 }
 
 // LicenseManager TODO issue#docs
-func (exec *Executor) LicenseManager(ctx context.Context, conn *sql.Conn) LicenseManager {
-	return exec.factory.NewLicenseManager(ctx, conn)
+func (executor *executor) LicenseManager(ctx context.Context, conn *sql.Conn) LicenseManager {
+	return executor.factory.NewLicenseManager(ctx, conn)
 }
 
 // LicenseReader TODO issue#docs
-func (exec *Executor) LicenseReader(ctx context.Context, conn *sql.Conn) LicenseReader {
-	return exec.factory.NewLicenseReader(ctx, conn)
+func (executor *executor) LicenseReader(ctx context.Context, conn *sql.Conn) LicenseReader {
+	return executor.factory.NewLicenseReader(ctx, conn)
 }
 
 // UserManager TODO issue#docs
-func (exec *Executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
-	return exec.factory.NewUserManager(ctx, conn)
+func (executor *executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
+	return executor.factory.NewUserManager(ctx, conn)
 }
-
-// TODO issue#draft {
-
-// Draft TODO issue#docs
-func (exec *Executor) Draft(ctx context.Context, conn *sql.Conn) Draft {
-	return exec.factory.NewDraft(ctx, conn)
-}
-
-// Draft TODO issue#docs
-type Draft interface {
-	// AddEmployee TODO issue#docs
-	AddEmployee(*types.Token, query.LicenseEmployee) error
-	// DeleteEmployee TODO issue#docs
-	DeleteEmployee(*types.Token, query.LicenseEmployee) error
-	// AddWorkplace TODO issue#docs
-	AddWorkplace(*types.Token, query.LicenseWorkplace) error
-	// DeleteWorkplace TODO issue#docs
-	DeleteWorkplace(*types.Token, query.LicenseWorkplace) error
-	// PushWorkplace TODO issue#docs
-	PushWorkplace(*types.Token, query.LicenseWorkplace) error
-}
-
-// issue#draft }
