@@ -54,7 +54,7 @@ message InstallResponse {
 service Maintenance {
     rpc Install (InstallRequest) returns (InstallResponse) {
         option (google.api.http) = {
-            post: "/install"
+            post: "/api/v1/install"
             body: "*"
         };
         option (grpc.gateway.protoc_gen_swagger.options.openapiv2_operation) = {

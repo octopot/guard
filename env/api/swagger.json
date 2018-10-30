@@ -20,6 +20,33 @@
     "application/json"
   ],
   "paths": {
+    "/api/v1/install": {
+      "post": {
+        "operationId": "Install",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufInstallResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/protobufInstallRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Maintenance"
+        ],
+        "security": []
+      }
+    },
     "/api/v1/license": {
       "post": {
         "operationId": "Create",
@@ -312,33 +339,6 @@
         "tags": [
           "License"
         ]
-      }
-    },
-    "/install": {
-      "post": {
-        "operationId": "Install",
-        "responses": {
-          "200": {
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/protobufInstallResponse"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/protobufInstallRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Maintenance"
-        ],
-        "security": []
       }
     }
   },
