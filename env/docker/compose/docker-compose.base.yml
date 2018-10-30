@@ -40,11 +40,14 @@ services:
     env_file: ../service/.env
 
   server:
-    image: guard-server:latest
-    build:
-      context:    ../server/context
-      dockerfile: ../Dockerfile
+    image: nginx:alpine
+    # build:
+    #   context:    ../server/context
+    #   dockerfile: ../Dockerfile
     depends_on:
     - legacy
     - service
     env_file: ../server/.env
+    volumes:
+    - ../server/context/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
+    - ../server/context/nginx.conf:/etc/nginx/nginx.conf:ro
