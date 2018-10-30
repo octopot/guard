@@ -3,10 +3,10 @@ version: "3"
 services:
 
   db:
-    image: guard-db:latest
-    build:
-      context:    ../db/context
-      dockerfile: ../Dockerfile
+    image: postgres:10-alpine
+    # build:
+    #   context:    ../db/context
+    #   dockerfile: ../Dockerfile
     env_file: ../db/.env
 
   legacy:
