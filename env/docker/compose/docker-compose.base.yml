@@ -10,11 +10,13 @@ services:
     env_file: ../db/.env
 
   legacy:
-    image: guard-legacy:latest
-    build:
-      context:    ../legacy/context
-      dockerfile: ../Dockerfile
+    image: php:fpm-alpine
+    # build:
+    #   context:    ../legacy/context
+    #   dockerfile: ../Dockerfile
     env_file: ../legacy/.env
+    volumes:
+    - ../legacy/context/:/var/www/html/:ro
 
   migration:
     image: kamilsk/guard:latest
