@@ -330,7 +330,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c9012ab05cd49f0e9d8803f1030ee0be47db2a903b6b66c442b1b773efd818aa"
+  digest = "1:a8512715947d49f24e6aa2d0fdd06f46bdd8d2e792517ba0ac95a2c089eaae28"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -338,7 +338,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "NUT"
-  revision = "f30f428035633da15d00d3dfefb0128c5e569ef4"
+  revision = "abad2d1bd44235a26707c172eab6bca5bf2dbad3"
 
 [[projects]]
   branch = "master"
@@ -383,14 +383,14 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:31ec59331b363458da45d6be29fefd94d07d9393eb402280bf764601ae7cb421"
+  digest = "1:b17429fda5090115e1c1e3bacde0d01ddec96008cbd3f43df994ccbfff05bcab"
   name = "github.com/rubenv/sql-migrate"
   packages = [
     ".",
     "sqlparse",
   ]
   pruneopts = "NUT"
-  revision = "3f452fc0ebebbb784fdab91f7bc79a31dcacab5c"
+  revision = "ba2c6a7295c59448dbc195cef2f41df5163b3892"
 
 [[projects]]
   digest = "1:cb24eec7a9478395847671abfbea162885f0be9c7ff6ef20b699dc20804ae1a4"
@@ -519,7 +519,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:d39e451e542c7c064d7e29050eb50993a7484d4a3b538387c0f2ac32b5b9cdd8"
+  digest = "1:3a99e492780d323c9f56d033de877ece7735ed5957e6cb57e9f3dd6f1b85d443"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -531,15 +531,15 @@
     "trace",
   ]
   pruneopts = "NUT"
-  revision = "9b4f9f5ad5197c79fd623a3638e70d8b26cef344"
+  revision = "a544f70c90f196e50d198126db0c4cb2b562fec0"
 
 [[projects]]
   branch = "master"
-  digest = "1:3393dbc238e6b9c79779c9228b967039d260fd7fc91974b2f58ae25aee3bb4f5"
+  digest = "1:9bd6854e281142fd6b6361929b62d379459d3e1aa7a662192e0d459245c89940"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "95b1ffbd15a57cc5abb3f04402b9e8ec0016a52c"
+  revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -581,7 +581,7 @@
     "googleapis/rpc/status",
   ]
   pruneopts = "NUT"
-  revision = "8b5d7a19e2d98fbad9aaf9c599776bf066d7c70f"
+  revision = "c830210a61dfaa790e1920f8d0470fc27bc2efbe"
 
 [[projects]]
   digest = "1:2f91d3e11b666570f8c923912f1cc8cf2f0c6b7371b2687ee67a8f73f08c6272"
