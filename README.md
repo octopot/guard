@@ -1,6 +1,6 @@
 > # 💂‍♂️ Guard [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="126" src=".github/character.png">
 > [![Analytics][analytics_pixel]][page_promo]
-> Access Control as a Service &mdash; your personal paywall to protect any API or site's content.
+> Paywall as a Service &mdash; your personal guard to restrict access to content via a paid subscription.
 
 [![Patreon][icon_patreon]](https://www.patreon.com/octolab)
 [![Build Status][icon_build]][page_build]
@@ -12,7 +12,7 @@
   - [**October 20, 2018**][project_v1_dl]
   - Main concepts and working prototype.
 - [ ] v2: [Rate limiting][project_v2]
-  - [**December 16, 2018**][project_v2_dl]
+  - [**Someday, 20xx**][project_v2_dl]
   - Request rate limiting and metrics related to license checking.
 
 ## Motivation
@@ -39,11 +39,15 @@ guard_server_1    nginx -g daemon off;             Up      0.0.0.0:443->443/tcp,
 guard_service_1   service run --with-profili ...   Up      8080/tcp, 8090/tcp, 8091/tcp, 8092/tcp, 8093/tcp
 guard_spec_1      sh /usr/share/nginx/docker ...   Up      80/tcp, 8080/tcp
 
+$ make install
+
 $ ./env/client/rpc/install.sh localhost:443
 
 $ open http://spec.127.0.0.1.xip.io/
 
 $ make help
+
+$ make demo destroy
 ```
 
 ## Specification

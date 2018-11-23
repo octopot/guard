@@ -8,6 +8,8 @@ services:
     #   context:    ../db/context
     #   dockerfile: ../Dockerfile
     env_file: ../db/.env
+    volumes:
+    - ../db/context/initdb.d:/docker-entrypoint-initdb.d
 
   legacy:
     image: php:fpm-alpine

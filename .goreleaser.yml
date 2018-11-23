@@ -18,7 +18,7 @@ brew:
   commit_author:
     name:  Kamil Samigullin
     email: kamil@samigullin.info
-  description: Access Control as a Service
+  description: Paywall as a Service
   folder: Formula
   github:
     name:  homebrew-tap

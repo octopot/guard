@@ -6,7 +6,7 @@ import "protoc-gen-swagger/options/annotations.proto";
 
 option (grpc.gateway.protoc_gen_swagger.options.openapiv2_swagger) = {
     info: {
-        title: "Access Control as a Service";
+        title: "Paywall as a Service";
         version: "dev";
         contact: {
             name:  "Guard project of Hugs Platform";

@@ -24,7 +24,7 @@ var (
 		"read_header_timeout": time.Duration(0),
 		"write_timeout":       time.Duration(0),
 		"idle_timeout":        time.Duration(0),
-		"dsn":                 "postgres://postgres:postgres@127.0.0.1:5432/postgres?connect_timeout=1&sslmode=disable",
+		"dsn":                 "postgres://guard:guard@127.0.0.1:5432/guard?connect_timeout=1&sslmode=disable",
 		"open_conn":           runtime.GOMAXPROCS(0),
 		"idle_conn":           runtime.GOMAXPROCS(0),
 		"conn_max_lt":         0,
