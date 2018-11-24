@@ -109,7 +109,7 @@ func (scope licenseManager) Update(token *types.Token, data query.UpdateLicense)
 			"user %q of account %q with token %q tried to update license %q with new contract %s",
 			token.UserID, token.User.AccountID, token.ID, entity.ID, after)
 	}
-	if prev == nil || !prev.Equal(*entity.UpdatedAt) {
+	if entity.UpdatedAt != nil && (prev == nil || !prev.Equal(*entity.UpdatedAt)) {
 		audit := `INSERT INTO "license_audit" ("license_id", "contract", "what", "when", "who", "with")
 		          VALUES ($1, $2, $3, $4, $5, $6)`
 		if _, execErr := scope.conn.ExecContext(scope.ctx, audit, entity.ID, before,

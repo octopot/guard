@@ -128,7 +128,7 @@ X-Request-ID: 10000000-2000-4000-8000-160000000000
 
 ### Maintenance
 
-POST http://localhost:8093/install
+POST http://localhost:8093/api/v1/install
 Content-Type:  application/json
 X-Request-ID:  10000000-2000-4000-8000-160000000000
 

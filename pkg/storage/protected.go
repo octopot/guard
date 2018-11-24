@@ -8,22 +8,18 @@ import (
 
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/storage/types"
+	"github.com/pkg/errors"
 )
 
 // RegisterLicense TODO issue#docs
 func (storage *Storage) RegisterLicense(ctx context.Context, id domain.Token, data query.RegisterLicense) (types.License, error) {
-	return storage.CreateLicense(ctx, id, query.CreateLicense{ID: &data.ID, Contract: data.Contract})
-}
-
-// CreateLicense TODO issue#docs
-func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (types.License, error) {
 	var license types.License
 
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -34,9 +30,45 @@ func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data
 	if txErr != nil {
 		return license, txErr
 	}
+	defer func() { _ = tx.Rollback() }()
+
+	manager := storage.exec.LicenseManager(ctx, conn)
+	license, execErr := manager.Read(token, query.ReadLicense{ID: data.ID})
+	if execErr == nil {
+		license, execErr = manager.Update(token, query.UpdateLicense{ID: data.ID, Contract: data.Contract})
+	} else if errors.Cause(execErr) == sql.ErrNoRows {
+		license, execErr = manager.Create(token, query.CreateLicense{ID: &data.ID, Contract: data.Contract})
+	}
+	if execErr != nil {
+		return license, execErr
+	}
+
+	return license, tx.Commit()
+}
+
+// CreateLicense TODO issue#docs
+func (storage *Storage) CreateLicense(ctx context.Context, id domain.Token, data query.CreateLicense) (types.License, error) {
+	var license types.License
+
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return license, connErr
+	}
+	defer func() { _ = closer() }()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return license, authErr
+	}
+
+	tx, txErr := conn.BeginTx(ctx, &sql.TxOptions{})
+	if txErr != nil {
+		return license, txErr
+	}
+	defer func() { _ = tx.Rollback() }()
+
 	license, execErr := storage.exec.LicenseManager(ctx, conn).Create(token, data)
 	if execErr != nil {
-		_ = tx.Rollback() // TODO issue#composite
 		return license, execErr
 	}
 	return license, tx.Commit()
@@ -50,7 +82,7 @@ func (storage *Storage) ReadLicense(ctx context.Context, id domain.Token, data q
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -68,7 +100,7 @@ func (storage *Storage) UpdateLicense(ctx context.Context, id domain.Token, data
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -79,9 +111,10 @@ func (storage *Storage) UpdateLicense(ctx context.Context, id domain.Token, data
 	if txErr != nil {
 		return license, txErr
 	}
+	defer func() { _ = tx.Rollback() }()
+
 	license, execErr := storage.exec.LicenseManager(ctx, conn).Update(token, data)
 	if execErr != nil {
-		_ = tx.Rollback() // TODO issue#composite
 		return license, execErr
 	}
 	return license, tx.Commit()
@@ -95,7 +128,7 @@ func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -106,9 +139,10 @@ func (storage *Storage) DeleteLicense(ctx context.Context, id domain.Token, data
 	if txErr != nil {
 		return license, txErr
 	}
+	defer func() { _ = tx.Rollback() }()
+
 	license, execErr := storage.exec.LicenseManager(ctx, conn).Delete(token, data)
 	if execErr != nil {
-		_ = tx.Rollback() // TODO issue#composite
 		return license, execErr
 	}
 	return license, tx.Commit()
@@ -122,7 +156,7 @@ func (storage *Storage) RestoreLicense(ctx context.Context, id domain.Token, dat
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -133,9 +167,10 @@ func (storage *Storage) RestoreLicense(ctx context.Context, id domain.Token, dat
 	if txErr != nil {
 		return license, txErr
 	}
+	defer func() { _ = tx.Rollback() }()
+
 	license, execErr := storage.exec.LicenseManager(ctx, conn).Restore(token, data)
 	if execErr != nil {
-		_ = tx.Rollback() // TODO issue#composite
 		return license, execErr
 	}
 	return license, tx.Commit()
@@ -149,7 +184,7 @@ func (storage *Storage) AddEmployee(ctx context.Context, id domain.Token, data q
 	if connErr != nil {
 		return connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -165,7 +200,7 @@ func (storage *Storage) DeleteEmployee(ctx context.Context, id domain.Token, dat
 	if connErr != nil {
 		return connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -181,7 +216,7 @@ func (storage *Storage) AddWorkplace(ctx context.Context, id domain.Token, data 
 	if connErr != nil {
 		return connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -197,7 +232,7 @@ func (storage *Storage) DeleteWorkplace(ctx context.Context, id domain.Token, da
 	if connErr != nil {
 		return connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {
@@ -213,7 +248,7 @@ func (storage *Storage) PushWorkplace(ctx context.Context, id domain.Token, data
 	if connErr != nil {
 		return connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
 	if authErr != nil {

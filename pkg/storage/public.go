@@ -18,7 +18,7 @@ func (storage *Storage) LicenseByID(ctx context.Context, id domain.ID) (types.Li
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	return storage.exec.LicenseReader(ctx, conn).GetByID(query.GetLicenseWithID{ID: id})
 }
@@ -31,7 +31,7 @@ func (storage *Storage) LicenseByEmployee(ctx context.Context, employee domain.I
 	if connErr != nil {
 		return license, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	return storage.exec.LicenseReader(ctx, conn).GetByEmployee(query.GetEmployeeLicense{Employee: employee})
 }
@@ -46,7 +46,7 @@ func (storage *Storage) RegisterAccount(ctx context.Context, data *query.Registe
 	if connErr != nil {
 		return nil, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	tx, txErr := conn.BeginTx(ctx, &sql.TxOptions{})
 	if txErr != nil {
