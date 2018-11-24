@@ -27,34 +27,36 @@ func (server *maintenanceServer) AuthFuncOverride(ctx context.Context, fullMetho
 // Install TODO issue#docs
 func (server *maintenanceServer) Install(ctx context.Context, req *protobuf.InstallRequest) (*protobuf.InstallResponse, error) {
 	type tokenSetter func(token *query.RegisterToken) *query.RegisterUser
-	walkTokens := func(tokens []*protobuf.InstallRequest_Token, set tokenSetter) (user *query.RegisterUser) {
+	setTokens := func(tokens []*protobuf.InstallRequest_Token, set tokenSetter) {
 		for _, token := range tokens {
-			user = set(&query.RegisterToken{
+			_ = set(&query.RegisterToken{
 				ID: ptrToToken(token.Id),
 			})
 		}
-		return
 	}
 
 	type userSetter func(user *query.RegisterUser) *query.RegisterAccount
-	walkUsers := func(users []*protobuf.InstallRequest_User, set userSetter) (account *query.RegisterAccount) {
+	setUsers := func(users []*protobuf.InstallRequest_User, set userSetter) {
 		for _, user := range users {
-			account = set(walkTokens(user.Tokens, (&query.RegisterUser{
+			q := &query.RegisterUser{
 				ID:   ptrToID(user.Id),
 				Name: user.Name,
-			}).AddToken))
+			}
+			setTokens(user.Tokens, q.AddToken)
+			_ = set(q)
 		}
-		return
 	}
 
-	walkAccount := func(account *protobuf.InstallRequest_Account) *query.RegisterAccount {
-		return walkUsers(account.Users, (&query.RegisterAccount{
+	setAccount := func(account *protobuf.InstallRequest_Account) *query.RegisterAccount {
+		q := &query.RegisterAccount{
 			ID:   ptrToID(account.Id),
 			Name: account.Name,
-		}).AddUser)
+		}
+		setUsers(account.Users, q.AddUser)
+		return q
 	}
 
-	resp := server.service.Install(ctx, request.Install{Account: walkAccount(req.Account)})
+	resp := server.service.Install(ctx, request.Install{Account: setAccount(req.Account)})
 	if resp.HasError() {
 		return nil, status.Errorf(codes.Internal, "something happen: %v", errors.Cause(&resp)) // TODO issue#6
 	}

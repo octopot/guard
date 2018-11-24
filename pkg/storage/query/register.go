@@ -54,6 +54,11 @@ func (q *RegisterUser) Tokens() []*RegisterToken {
 	return q.tokens
 }
 
+// WithDefaultToken TODO issue#docs
+func (q *RegisterUser) WithDefaultToken() *RegisterUser {
+	return q.AddToken(&RegisterToken{})
+}
+
 // RegisterToken TODO issue#docs
 type RegisterToken struct {
 	ID        *domain.Token
