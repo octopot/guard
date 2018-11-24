@@ -74,7 +74,7 @@
     "mockgen/model",
   ]
   pruneopts = "NUT"
-  revision = "8a44ef6e8be577e050008c7886f24fc705d709fb"
+  revision = "49a60242bb5c086a9aacc67bdd056e88f75f3c3e"
 
 [[projects]]
   digest = "1:9b117ac202b9de210a7093bca0c29d0d2424e4c9235c9e025ae0d6ef6b121c82"
@@ -160,12 +160,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  branch = "master"
-  digest = "1:f299bf12387ef9e1e36571851c4bb2c5024b5e66d16cfa77b220ad488b47d196"
+  digest = "1:50269ac9be4c33d45b631f187cf8d4c8dd4cb22402993895d33ef27ef36a42a5"
   name = "github.com/hashicorp/go-retryablehttp"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "e651d75abec6fbd4f2c09508f72ae7af8a8b7171"
+  revision = "4502c0ecdaf0b50d857611af23831260f99be6bf"
+  version = "v0.5.0"
 
 [[projects]]
   branch = "master"
@@ -215,8 +215,8 @@
     "helper/strutil",
   ]
   pruneopts = "NUT"
-  revision = "612120e76de651ef669c9af5e77b27a749b0dba3"
-  version = "v0.11.4"
+  revision = "a59ffa4a0f09bbf198241fe6793a96722789b639"
+  version = "v0.11.5"
 
 [[projects]]
   digest = "1:406338ad39ab2e37b7f4452906442a3dbf0eb3379dd1f06aafb5c07e769a5fbb"
@@ -330,7 +330,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:a8512715947d49f24e6aa2d0fdd06f46bdd8d2e792517ba0ac95a2c089eaae28"
+  digest = "1:69c96554af95dcf0afbabae18949708bd165a5c8393ee6e7299fc5a583f595a4"
   name = "github.com/prometheus/client_golang"
   packages = [
     "prometheus",
@@ -338,7 +338,7 @@
     "prometheus/promhttp",
   ]
   pruneopts = "NUT"
-  revision = "abad2d1bd44235a26707c172eab6bca5bf2dbad3"
+  revision = "32b1bb4674c4db541df5b547bb1a325337522022"
 
 [[projects]]
   branch = "master"
@@ -358,7 +358,7 @@
     "model",
   ]
   pruneopts = "NUT"
-  revision = "7e9e6cabbd393fc208072eedef99188d0ce788b6"
+  revision = "aeab699e26f4d4089dba5e522e5d9babd2adbaf7"
 
 [[projects]]
   branch = "master"
@@ -519,7 +519,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:3a99e492780d323c9f56d033de877ece7735ed5957e6cb57e9f3dd6f1b85d443"
+  digest = "1:dc5dcbb306af980306fab456d4788e88c880177227bd488a92d5bef7d8743497"
   name = "golang.org/x/net"
   packages = [
     "context",
@@ -531,15 +531,15 @@
     "trace",
   ]
   pruneopts = "NUT"
-  revision = "a544f70c90f196e50d198126db0c4cb2b562fec0"
+  revision = "adae6a3d119ae4890b46832a2e88a95adc62b8e7"
 
 [[projects]]
   branch = "master"
-  digest = "1:9bd6854e281142fd6b6361929b62d379459d3e1aa7a662192e0d459245c89940"
+  digest = "1:6579cd293298feb18c9b3c3c62dc523d842e2d35bb0dbca3420c3c71a7f64774"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "3a76605856fddce5718553cbb8bd50ca492a7274"
+  revision = "62eef0e2fa9b2c385f7b2778e763486da6880d37"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -566,11 +566,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:c9e7a4b4d47c0ed205d257648b0e5b0440880cb728506e318f8ac7cd36270bc4"
+  digest = "1:9fdc2b55e8e0fafe4b41884091e51e77344f7dc511c5acedcfd98200003bff90"
   name = "golang.org/x/time"
   packages = ["rate"]
   pruneopts = "NUT"
-  revision = "fbb02b2291d28baffd63558aa44b4b56f178d650"
+  revision = "85acf8d2951cb2a3bde7632f9ff273ef0379bcbd"
 
 [[projects]]
   branch = "master"
@@ -581,7 +581,7 @@
     "googleapis/rpc/status",
   ]
   pruneopts = "NUT"
-  revision = "c830210a61dfaa790e1920f8d0470fc27bc2efbe"
+  revision = "b5d43981345bdb2c233eb4bf3277847b48c6fdc6"
 
 [[projects]]
   digest = "1:2f91d3e11b666570f8c923912f1cc8cf2f0c6b7371b2687ee67a8f73f08c6272"
@@ -627,12 +627,12 @@
   version = "v1.3.0"
 
 [[projects]]
-  digest = "1:05eff2c4f2ce868b5c9ced8b96607201155a812920eac4d30a85b6b9b72338ce"
+  digest = "1:1bfe1fa433123b451bb1a2a1a5d094322821b9463f5bf8eade67e71d7532e3d0"
   name = "gopkg.in/gorp.v1"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "c87af80f3cc5036b55b83d77171e156791085e2e"
-  version = "v1.7.1"
+  revision = "6a667da9c028871f98598d85413e3fc4c6daa52e"
+  version = "v1.7.2"
 
 [[projects]]
   digest = "1:7c95b35057a0ff2e19f707173cc1a947fa43a6eb5c4d300d196ece0334046082"
