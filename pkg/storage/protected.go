@@ -258,4 +258,23 @@ func (storage *Storage) PushWorkplace(ctx context.Context, id domain.Token, data
 	return storage.exec.LicenseManager(ctx, conn).PushWorkplace(token, data)
 }
 
+// LicenseWorkplaces TODO issue#docs
+func (storage *Storage) LicenseWorkplaces(ctx context.Context, id domain.Token, data query.WorkplaceList) (
+	[]types.Workplace,
+	error,
+) {
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return nil, connErr
+	}
+	defer func() { _ = closer() }()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return nil, authErr
+	}
+
+	return storage.exec.LicenseManager(ctx, conn).Workplaces(token, data)
+}
+
 // issue#draft }

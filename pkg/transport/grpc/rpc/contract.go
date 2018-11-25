@@ -44,6 +44,8 @@ type Storage interface {
 	DeleteWorkplace(context.Context, domain.Token, query.LicenseWorkplace) error
 	// PushWorkplace TODO issue#docs
 	PushWorkplace(context.Context, domain.Token, query.LicenseWorkplace) error
+	// LicenseWorkplaces TODO issue#docs
+	LicenseWorkplaces(context.Context, domain.Token, query.WorkplaceList) ([]repository.Workplace, error)
 
 	// issue#draft }
 }

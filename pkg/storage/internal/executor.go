@@ -79,6 +79,8 @@ type LicenseManager interface {
 	DeleteWorkplace(*types.Token, query.LicenseWorkplace) error
 	// PushWorkplace TODO issue#docs
 	PushWorkplace(*types.Token, query.LicenseWorkplace) error
+	// Workplaces TODO issue#docs
+	Workplaces(*types.Token, query.WorkplaceList) ([]types.Workplace, error)
 
 	// issue#draft }
 }

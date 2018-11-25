@@ -16,3 +16,11 @@ type License struct {
 	DeletedAt *time.Time      `db:"deleted_at"`
 	Account   *Account        `db:"-"`
 }
+
+// Workplace TODO issue#docs
+type Workplace struct {
+	ID        domain.ID  `db:"workplace"`
+	License   domain.ID  `db:"license"`
+	CreatedAt time.Time  `db:"created_at"`
+	UpdatedAt *time.Time `db:"updated_at"`
+}

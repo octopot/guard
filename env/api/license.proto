@@ -25,6 +25,12 @@ message Rate {
     Unit unit = 2;
 }
 
+message Workplace {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 2;
+    google.protobuf.Timestamp updated_at = 3;
+}
+
 message RegisterLicenseRequest {
     string id = 1;
     Contract contract = 2;
@@ -147,33 +153,46 @@ service License {
             put: "/api/v1/license/{id}/workplace/{workplace}"
         };
     }
+    rpc Workplaces (WorkplaceListRequest) returns (WorkplaceListResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/license/{license}/workplaces"
+        };
+    }
 }
 
 message EmptyResponse {}
 
 message AddEmployeeRequest {
-    string id = 1;
+    string id = 1; // TODO issue#refactoring rename to license
     string employee = 2;
 }
 
 message DeleteEmployeeRequest {
-    string id = 1;
+    string id = 1; // TODO issue#refactoring rename to license
     string employee = 2;
 }
 
 message AddWorkplaceRequest {
-    string id = 1;
+    string id = 1; // TODO issue#refactoring rename to license
     string workplace = 2;
 }
 
 message DeleteWorkplaceRequest {
-    string id = 1;
+    string id = 1; // TODO issue#refactoring rename to license
     string workplace = 2;
 }
 
 message PushWorkplaceRequest {
-    string id = 1;
+    string id = 1; // TODO issue#refactoring rename to license
     string workplace = 2;
+}
+
+message WorkplaceListRequest {
+    string license = 1;
+}
+
+message WorkplaceListResponse {
+    repeated Workplace workplaces = 1;
 }
 
 // issue#draft }

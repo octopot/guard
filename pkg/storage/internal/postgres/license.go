@@ -327,4 +327,31 @@ func (scope licenseManager) PushWorkplace(token *types.Token, data query.License
 	return nil
 }
 
+// Workplaces TODO issue#docs
+func (scope licenseManager) Workplaces(token *types.Token, data query.WorkplaceList) ([]types.Workplace, error) {
+	license, readErr := scope.Read(token, query.ReadLicense{ID: data.License})
+	if readErr != nil {
+		return nil, readErr
+	}
+	q := `SELECT "license", "workplace", "created_at", "updated_at"
+	        FROM "license_workplace"
+	       WHERE "license" = $1`
+	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, license.ID)
+	if queryErr != nil {
+		return nil, queryErr
+	}
+	workplaces := make([]types.Workplace, 0, 4)
+	for rows.Next() {
+		var workplace types.Workplace
+		if scanErr := rows.Scan(&workplace.License, &workplace.ID,
+			&workplace.CreatedAt, &workplace.UpdatedAt); scanErr != nil {
+			return nil, errors.Wrapf(scanErr,
+				"user %q of account %q with token %q tried to read workplaces of license %q",
+				token.UserID, token.User.AccountID, token.ID, license.ID)
+		}
+		workplaces = append(workplaces, workplace)
+	}
+	return workplaces, nil
+}
+
 // issue#draft }

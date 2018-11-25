@@ -340,6 +340,30 @@
           "License"
         ]
       }
+    },
+    "/api/v1/license/{license}/workplaces": {
+      "get": {
+        "operationId": "Workplaces",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufWorkplaceListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "license",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "License"
+        ]
+      }
     }
   },
   "definitions": {
@@ -646,6 +670,33 @@
         "updated_at": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "protobufWorkplace": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protobufWorkplaceListResponse": {
+      "type": "object",
+      "properties": {
+        "workplaces": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufWorkplace"
+          }
         }
       }
     }

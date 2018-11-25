@@ -4,6 +4,7 @@ import (
 	"context"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
+	repository "github.com/kamilsk/guard/pkg/storage/types"
 
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
@@ -17,7 +18,10 @@ type licenseServer struct {
 }
 
 // Register TODO issue#docs
-func (server *licenseServer) Register(ctx context.Context, req *protobuf.RegisterLicenseRequest) (*protobuf.RegisterLicenseResponse, error) {
+func (server *licenseServer) Register(ctx context.Context, req *protobuf.RegisterLicenseRequest) (
+	*protobuf.RegisterLicenseResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -33,7 +37,10 @@ func (server *licenseServer) Register(ctx context.Context, req *protobuf.Registe
 }
 
 // Create TODO issue#docs
-func (server *licenseServer) Create(ctx context.Context, req *protobuf.CreateLicenseRequest) (*protobuf.CreateLicenseResponse, error) {
+func (server *licenseServer) Create(ctx context.Context, req *protobuf.CreateLicenseRequest) (
+	*protobuf.CreateLicenseResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -49,7 +56,10 @@ func (server *licenseServer) Create(ctx context.Context, req *protobuf.CreateLic
 }
 
 // Read TODO issue#docs
-func (server *licenseServer) Read(ctx context.Context, req *protobuf.ReadLicenseRequest) (*protobuf.ReadLicenseResponse, error) {
+func (server *licenseServer) Read(ctx context.Context, req *protobuf.ReadLicenseRequest) (
+	*protobuf.ReadLicenseResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -68,7 +78,10 @@ func (server *licenseServer) Read(ctx context.Context, req *protobuf.ReadLicense
 }
 
 // Update TODO issue#docs
-func (server *licenseServer) Update(ctx context.Context, req *protobuf.UpdateLicenseRequest) (*protobuf.UpdateLicenseResponse, error) {
+func (server *licenseServer) Update(ctx context.Context, req *protobuf.UpdateLicenseRequest) (
+	*protobuf.UpdateLicenseResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -84,7 +97,10 @@ func (server *licenseServer) Update(ctx context.Context, req *protobuf.UpdateLic
 }
 
 // Delete TODO issue#docs
-func (server *licenseServer) Delete(ctx context.Context, req *protobuf.DeleteLicenseRequest) (*protobuf.DeleteLicenseResponse, error) {
+func (server *licenseServer) Delete(ctx context.Context, req *protobuf.DeleteLicenseRequest) (
+	*protobuf.DeleteLicenseResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -97,7 +113,10 @@ func (server *licenseServer) Delete(ctx context.Context, req *protobuf.DeleteLic
 }
 
 // Restore TODO issue#docs
-func (server *licenseServer) Restore(ctx context.Context, req *protobuf.RestoreLicenseRequest) (*protobuf.RestoreLicenseResponse, error) {
+func (server *licenseServer) Restore(ctx context.Context, req *protobuf.RestoreLicenseRequest) (
+	*protobuf.RestoreLicenseResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -112,7 +131,10 @@ func (server *licenseServer) Restore(ctx context.Context, req *protobuf.RestoreL
 // TODO issue#draft {
 
 // AddEmployee TODO issue#docs
-func (server *licenseServer) AddEmployee(ctx context.Context, req *protobuf.AddEmployeeRequest) (*protobuf.EmptyResponse, error) {
+func (server *licenseServer) AddEmployee(ctx context.Context, req *protobuf.AddEmployeeRequest) (
+	*protobuf.EmptyResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -127,7 +149,10 @@ func (server *licenseServer) AddEmployee(ctx context.Context, req *protobuf.AddE
 }
 
 // DeleteEmployee TODO issue#docs
-func (server *licenseServer) DeleteEmployee(ctx context.Context, req *protobuf.DeleteEmployeeRequest) (*protobuf.EmptyResponse, error) {
+func (server *licenseServer) DeleteEmployee(ctx context.Context, req *protobuf.DeleteEmployeeRequest) (
+	*protobuf.EmptyResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -142,7 +167,10 @@ func (server *licenseServer) DeleteEmployee(ctx context.Context, req *protobuf.D
 }
 
 // AddWorkplace TODO issue#docs
-func (server *licenseServer) AddWorkplace(ctx context.Context, req *protobuf.AddWorkplaceRequest) (*protobuf.EmptyResponse, error) {
+func (server *licenseServer) AddWorkplace(ctx context.Context, req *protobuf.AddWorkplaceRequest) (
+	*protobuf.EmptyResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -157,7 +185,10 @@ func (server *licenseServer) AddWorkplace(ctx context.Context, req *protobuf.Add
 }
 
 // DeleteWorkplace TODO issue#docs
-func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *protobuf.DeleteWorkplaceRequest) (*protobuf.EmptyResponse, error) {
+func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *protobuf.DeleteWorkplaceRequest) (
+	*protobuf.EmptyResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -172,7 +203,10 @@ func (server *licenseServer) DeleteWorkplace(ctx context.Context, req *protobuf.
 }
 
 // PushWorkplace TODO issue#docs
-func (server *licenseServer) PushWorkplace(ctx context.Context, req *protobuf.PushWorkplaceRequest) (*protobuf.EmptyResponse, error) {
+func (server *licenseServer) PushWorkplace(ctx context.Context, req *protobuf.PushWorkplaceRequest) (
+	*protobuf.EmptyResponse,
+	error,
+) {
 	token, authErr := middleware.TokenExtractor(ctx)
 	if authErr != nil {
 		return nil, authErr
@@ -184,6 +218,36 @@ func (server *licenseServer) PushWorkplace(ctx context.Context, req *protobuf.Pu
 		return nil, status.Errorf(codes.Internal, "something happen: %v", pushErr) // TODO issue#6
 	}
 	return new(protobuf.EmptyResponse), nil
+}
+
+// Workplaces TODO issue#docs
+func (server *licenseServer) Workplaces(ctx context.Context, req *protobuf.WorkplaceListRequest) (
+	*protobuf.WorkplaceListResponse,
+	error,
+) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	workplaces, readErr := server.storage.LicenseWorkplaces(ctx, token, query.WorkplaceList{
+		License: domain.ID(req.License),
+	})
+	if readErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", readErr) // TODO issue#6
+	}
+	return &protobuf.WorkplaceListResponse{
+		Workplaces: func(in []repository.Workplace) (out []*protobuf.Workplace) {
+			out = make([]*protobuf.Workplace, 0, len(in))
+			for _, workplace := range in {
+				out = append(out, &protobuf.Workplace{
+					Id:        workplace.ID.String(),
+					CreatedAt: Timestamp(&workplace.CreatedAt),
+					UpdatedAt: Timestamp(workplace.UpdatedAt),
+				})
+			}
+			return out
+		}(workplaces),
+	}, nil
 }
 
 // issue#draft }
