@@ -234,6 +234,7 @@ but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compat
 
 ---
 
+[![Gitter][icon_gitter]](https://gitter.im/kamilsk/guard)
 [![@kamilsk][icon_tw_author]](https://twitter.com/ikamilsk)
 [![@octolab][icon_tw_sponsor]](https://twitter.com/octolab_inc)
 

@@ -12,7 +12,7 @@ matrix:
 sudo: false
 
 script:
-- make test
+- make test ARGS='-timeout=1s'
 
 env:
 - META=github.com/kamilsk/guard/pkg/cmd
@@ -20,3 +20,12 @@ env:
 after_success:
 - echo $TRAVIS_GO_VERSION ":" $TRAVIS_TAG
 - if [[ $TRAVIS_GO_VERSION == 1.11* ]] && [ -n "$TRAVIS_TAG" ]; then curl -sL https://git.io/goreleaser | bash; fi
+
+notifications:
+  slack: octolab:1eMS7IqOArBipiu31jYVd0cN
+  webhooks:
+    urls:
+    - https://webhooks.gitter.im/e/aa9de39b74705c395a27
+    on_success: change
+    on_failure: always
+    on_start:   never
