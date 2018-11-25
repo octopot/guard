@@ -40,8 +40,10 @@ func Timestamp(tp *time.Time) *timestamp.Timestamp {
 func convertFromDomainContract(from domain.Contract) *protobuf.Contract {
 	to := &protobuf.Contract{Requests: from.Requests, Workplaces: from.Workplaces}
 	to.Since, to.Until = Timestamp(from.Since), Timestamp(from.Until)
-	value, unit := from.Rate.Value()
-	to.Rate = &protobuf.Rate{Value: value, Unit: units.convert(domain.RateUnit(unit))}
+	if !from.Rate.IsEmpty() {
+		value, unit := from.Rate.Value()
+		to.Rate = &protobuf.Rate{Value: value, Unit: units.convert(domain.RateUnit(unit))}
+	}
 	return to
 }
 
