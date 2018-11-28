@@ -23,5 +23,5 @@ guardctl license workplace delete -f env/client/rpc/license.workplace.yml --grpc
 guardctl license workplace add    -f env/client/rpc/license.workplace.yml --grpc-host=${HOST}
 
 guardctl license create           -f env/client/rpc/license.create.yml    --grpc-host=${HOST} | \
-guardctl license delete                                                    --grpc-host=${HOST} | \
-guardctl license read                                                      --grpc-host=${HOST}
+guardctl license delete                                                   --grpc-host=${HOST} | \
+guardctl license read                                                     --grpc-host=${HOST}

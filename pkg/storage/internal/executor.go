@@ -73,6 +73,8 @@ type LicenseManager interface {
 	AddEmployee(*types.Token, query.LicenseEmployee) error
 	// DeleteEmployee TODO issue#docs
 	DeleteEmployee(*types.Token, query.LicenseEmployee) error
+	// Employees TODO issue#docs
+	Employees(*types.Token, query.EmployeeList) ([]types.Employee, error)
 	// AddWorkplace TODO issue#docs
 	AddWorkplace(*types.Token, query.LicenseWorkplace) error
 	// DeleteWorkplace TODO issue#docs

@@ -13,6 +13,11 @@ message Contract {
     uint32 workplaces = 5;
 }
 
+message Employee {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 2;
+}
+
 message Rate {
     uint32 value = 1;
     enum Unit {
@@ -137,6 +142,11 @@ service License {
             delete: "/api/v1/license/{id}/employee/{employee}"
         };
     }
+    rpc Employees (EmployeeListRequest) returns (EmployeeListResponse) {
+        option (google.api.http) = {
+            get: "/api/v1/license/{license}/employees"
+        };
+    }
 
     rpc AddWorkplace (AddWorkplaceRequest) returns (EmptyResponse) {
         option (google.api.http) = {
@@ -170,6 +180,14 @@ message AddEmployeeRequest {
 message DeleteEmployeeRequest {
     string id = 1; // TODO issue#refactoring rename to license
     string employee = 2;
+}
+
+message EmployeeListRequest {
+    string license = 1;
+}
+
+message EmployeeListResponse {
+    repeated Employee employees = 1;
 }
 
 message AddWorkplaceRequest {

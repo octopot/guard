@@ -110,6 +110,19 @@ func (mr *MockStorageMockRecorder) DeleteWorkplace(arg0, arg1, arg2 interface{})
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteWorkplace", reflect.TypeOf((*MockStorage)(nil).DeleteWorkplace), arg0, arg1, arg2)
 }
 
+// LicenseEmployees mocks base method
+func (m *MockStorage) LicenseEmployees(arg0 context.Context, arg1 types.Token, arg2 query.EmployeeList) ([]types0.Employee, error) {
+	ret := m.ctrl.Call(m, "LicenseEmployees", arg0, arg1, arg2)
+	ret0, _ := ret[0].([]types0.Employee)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// LicenseEmployees indicates an expected call of LicenseEmployees
+func (mr *MockStorageMockRecorder) LicenseEmployees(arg0, arg1, arg2 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LicenseEmployees", reflect.TypeOf((*MockStorage)(nil).LicenseEmployees), arg0, arg1, arg2)
+}
+
 // LicenseWorkplaces mocks base method
 func (m *MockStorage) LicenseWorkplaces(arg0 context.Context, arg1 types.Token, arg2 query.WorkplaceList) ([]types0.Workplace, error) {
 	ret := m.ctrl.Call(m, "LicenseWorkplaces", arg0, arg1, arg2)

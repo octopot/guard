@@ -166,6 +166,35 @@ func (server *licenseServer) DeleteEmployee(ctx context.Context, req *protobuf.D
 	return new(protobuf.EmptyResponse), nil
 }
 
+// Employees TODO issue#docs
+func (server *licenseServer) Employees(ctx context.Context, req *protobuf.EmployeeListRequest) (
+	*protobuf.EmployeeListResponse,
+	error,
+) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	employees, readErr := server.storage.LicenseEmployees(ctx, token, query.EmployeeList{
+		License: domain.ID(req.License),
+	})
+	if readErr != nil {
+		return nil, status.Errorf(codes.Internal, "something happen: %v", readErr) // TODO issue#6
+	}
+	return &protobuf.EmployeeListResponse{
+		Employees: func(in []repository.Employee) (out []*protobuf.Employee) {
+			out = make([]*protobuf.Employee, 0, len(in))
+			for _, employee := range in {
+				out = append(out, &protobuf.Employee{
+					Id:        employee.ID.String(),
+					CreatedAt: Timestamp(&employee.CreatedAt),
+				})
+			}
+			return out
+		}(employees),
+	}, nil
+}
+
 // AddWorkplace TODO issue#docs
 func (server *licenseServer) AddWorkplace(ctx context.Context, req *protobuf.AddWorkplaceRequest) (
 	*protobuf.EmptyResponse,

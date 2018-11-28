@@ -17,6 +17,13 @@ type License struct {
 	Account   *Account        `db:"-"`
 }
 
+// Employee TODO issue#docs
+type Employee struct {
+	ID        domain.ID `db:"employee"`
+	License   domain.ID `db:"license"`
+	CreatedAt time.Time `db:"created_at"`
+}
+
 // Workplace TODO issue#docs
 type Workplace struct {
 	ID        domain.ID  `db:"workplace"`

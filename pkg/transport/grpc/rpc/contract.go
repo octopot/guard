@@ -38,6 +38,8 @@ type Storage interface {
 	AddEmployee(context.Context, domain.Token, query.LicenseEmployee) error
 	// DeleteEmployee TODO issue#docs
 	DeleteEmployee(context.Context, domain.Token, query.LicenseEmployee) error
+	// LicenseEmployees TODO issue#docs
+	LicenseEmployees(context.Context, domain.Token, query.EmployeeList) ([]repository.Employee, error)
 	// AddWorkplace TODO issue#docs
 	AddWorkplace(context.Context, domain.Token, query.LicenseWorkplace) error
 	// DeleteWorkplace TODO issue#docs

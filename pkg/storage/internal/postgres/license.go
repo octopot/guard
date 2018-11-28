@@ -277,6 +277,32 @@ func (scope licenseManager) DeleteEmployee(token *types.Token, data query.Licens
 	return nil
 }
 
+// Employees TODO issue#docs
+func (scope licenseManager) Employees(token *types.Token, data query.EmployeeList) ([]types.Employee, error) {
+	license, readErr := scope.Read(token, query.ReadLicense{ID: data.License})
+	if readErr != nil {
+		return nil, readErr
+	}
+	q := `SELECT "license", "employee", "created_at"
+	        FROM "license_employee"
+	       WHERE "license" = $1`
+	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, license.ID)
+	if queryErr != nil {
+		return nil, queryErr
+	}
+	employees := make([]types.Employee, 0, 4)
+	for rows.Next() {
+		var employee types.Employee
+		if scanErr := rows.Scan(&employee.License, &employee.ID, &employee.CreatedAt); scanErr != nil {
+			return nil, errors.Wrapf(scanErr,
+				"user %q of account %q with token %q tried to read employees of license %q",
+				token.UserID, token.User.AccountID, token.ID, license.ID)
+		}
+		employees = append(employees, employee)
+	}
+	return employees, nil
+}
+
 // AddWorkplace TODO issue#docs
 func (scope licenseManager) AddWorkplace(token *types.Token, data query.LicenseWorkplace) error {
 	license, readErr := scope.Read(token, query.ReadLicense{ID: data.ID})

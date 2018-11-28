@@ -59,6 +59,11 @@ type LicenseWorkplace struct {
 	Workplace domain.ID
 }
 
+// EmployeeList TODO issue#docs
+type EmployeeList struct {
+	License domain.ID
+}
+
 // WorkplaceList TODO issue#docs
 type WorkplaceList struct {
 	License domain.ID

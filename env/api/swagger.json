@@ -341,6 +341,30 @@
         ]
       }
     },
+    "/api/v1/license/{license}/employees": {
+      "get": {
+        "operationId": "Employees",
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/protobufEmployeeListResponse"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "license",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "License"
+        ]
+      }
+    },
     "/api/v1/license/{license}/workplaces": {
       "get": {
         "operationId": "Workplaces",
@@ -434,6 +458,29 @@
         "deleted_at": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "protobufEmployee": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protobufEmployeeListResponse": {
+      "type": "object",
+      "properties": {
+        "employees": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufEmployee"
+          }
         }
       }
     },

@@ -210,6 +210,25 @@ func (storage *Storage) DeleteEmployee(ctx context.Context, id domain.Token, dat
 	return storage.exec.LicenseManager(ctx, conn).DeleteEmployee(token, data)
 }
 
+// LicenseEmployees TODO issue#docs
+func (storage *Storage) LicenseEmployees(ctx context.Context, id domain.Token, data query.EmployeeList) (
+	[]types.Employee,
+	error,
+) {
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return nil, connErr
+	}
+	defer func() { _ = closer() }()
+
+	token, authErr := storage.exec.UserManager(ctx, conn).AccessToken(id)
+	if authErr != nil {
+		return nil, authErr
+	}
+
+	return storage.exec.LicenseManager(ctx, conn).Employees(token, data)
+}
+
 // AddWorkplace TODO issue#docs
 func (storage *Storage) AddWorkplace(ctx context.Context, id domain.Token, data query.LicenseWorkplace) error {
 	conn, closer, connErr := storage.connection(ctx)
