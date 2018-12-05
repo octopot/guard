@@ -8,9 +8,11 @@ import (
 	domain "github.com/kamilsk/guard/pkg/service/types"
 
 	"github.com/kamilsk/guard/pkg/service/guard/internal"
+	"github.com/kamilsk/guard/pkg/service/logger"
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
 	"github.com/pkg/errors"
+	"go.uber.org/zap"
 )
 
 type licenseService struct {
@@ -21,9 +23,23 @@ type licenseService struct {
 // Check TODO issue#docs
 func (service *licenseService) Check(ctx context.Context, req request.CheckLicense) (resp response.CheckLicense) {
 	defer func() {
-		if service.disabled && resp.HasError() {
+		if resp.HasError() {
 			// TODO issue#59 only logging request problems
-			resp = resp.With(nil)
+			l := logger.Default.With(zap.String("reason", resp.Error()))
+			if !req.License.IsEmpty() {
+				l = l.With(zap.String("license", req.License.String()))
+			}
+			if !req.Employee.IsEmpty() {
+				l = l.With(zap.String("employee", req.Employee.String()))
+			}
+			if !req.Workplace.IsEmpty() {
+				l = l.With(zap.String("workplace", req.Workplace.String()))
+			}
+			l.Error("license check")
+			if service.disabled {
+				resp = resp.With(nil)
+			}
+			_ = l.Sync()
 		}
 	}()
 
