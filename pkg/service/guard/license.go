@@ -7,8 +7,8 @@ import (
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
 
+	"github.com/kamilsk/guard/pkg/platform/logger"
 	"github.com/kamilsk/guard/pkg/service/guard/internal"
-	"github.com/kamilsk/guard/pkg/service/logger"
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
 	"github.com/pkg/errors"
