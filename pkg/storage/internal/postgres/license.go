@@ -300,6 +300,11 @@ func (scope licenseManager) Employees(token *types.Token, data query.EmployeeLis
 		}
 		employees = append(employees, employee)
 	}
+	if rows.Err() != nil {
+		return nil, errors.Wrapf(rows.Err(),
+			"user %q of account %q with token %q tried to read employees of license %q",
+			token.UserID, token.User.AccountID, token.ID, license.ID)
+	}
 	return employees, nil
 }
 
@@ -376,6 +381,11 @@ func (scope licenseManager) Workplaces(token *types.Token, data query.WorkplaceL
 				token.UserID, token.User.AccountID, token.ID, license.ID)
 		}
 		workplaces = append(workplaces, workplace)
+	}
+	if rows.Err() != nil {
+		return nil, errors.Wrapf(rows.Err(),
+			"user %q of account %q with token %q tried to read employees of license %q",
+			token.UserID, token.User.AccountID, token.ID, license.ID)
 	}
 	return workplaces, nil
 }
