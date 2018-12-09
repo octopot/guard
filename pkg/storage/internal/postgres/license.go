@@ -290,6 +290,7 @@ func (scope licenseManager) Employees(token *types.Token, data query.EmployeeLis
 	if queryErr != nil {
 		return nil, queryErr
 	}
+	defer func() { _ = rows.Close() }()
 	employees := make([]types.Employee, 0, 4)
 	for rows.Next() {
 		var employee types.Employee
@@ -300,8 +301,8 @@ func (scope licenseManager) Employees(token *types.Token, data query.EmployeeLis
 		}
 		employees = append(employees, employee)
 	}
-	if rows.Err() != nil {
-		return nil, errors.Wrapf(rows.Err(),
+	if loopErr := rows.Err(); loopErr != nil {
+		return nil, errors.Wrapf(loopErr,
 			"user %q of account %q with token %q tried to read employees of license %q",
 			token.UserID, token.User.AccountID, token.ID, license.ID)
 	}
@@ -371,6 +372,7 @@ func (scope licenseManager) Workplaces(token *types.Token, data query.WorkplaceL
 	if queryErr != nil {
 		return nil, queryErr
 	}
+	defer func() { _ = rows.Close() }()
 	workplaces := make([]types.Workplace, 0, 4)
 	for rows.Next() {
 		var workplace types.Workplace
@@ -382,8 +384,8 @@ func (scope licenseManager) Workplaces(token *types.Token, data query.WorkplaceL
 		}
 		workplaces = append(workplaces, workplace)
 	}
-	if rows.Err() != nil {
-		return nil, errors.Wrapf(rows.Err(),
+	if loopErr := rows.Err(); loopErr != nil {
+		return nil, errors.Wrapf(loopErr,
 			"user %q of account %q with token %q tried to read employees of license %q",
 			token.UserID, token.User.AccountID, token.ID, license.ID)
 	}
