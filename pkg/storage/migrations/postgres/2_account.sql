@@ -1,5 +1,7 @@
 -- +migrate Up
 
+BEGIN;
+
 CREATE TABLE "account" (
   "id"         UUID         NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   "name"       VARCHAR(128) NOT NULL,
@@ -37,9 +39,11 @@ CREATE TRIGGER "user_updated"
   ON "user"
   FOR EACH ROW EXECUTE PROCEDURE update_timestamp();
 
-
+COMMIT;
 
 -- +migrate Down
+
+BEGIN;
 
 DROP TRIGGER "user_updated" ON "user";
 
@@ -50,3 +54,5 @@ DROP TABLE "token";
 DROP TABLE "user";
 
 DROP TABLE "account";
+
+COMMIT;

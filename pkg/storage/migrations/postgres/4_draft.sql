@@ -2,6 +2,8 @@
 
 -- +migrate Up
 
+BEGIN;
+
 CREATE TABLE "license_employee" (
   "license"    UUID      NOT NULL,
   "employee"   UUID      NOT NULL,
@@ -19,12 +21,16 @@ CREATE TABLE "license_workplace" (
   --   UNIQUE ("license", "workplace")
 );
 
-
+COMMIT;
 
 -- +migrate Down
+
+BEGIN;
 
 DROP TABLE "license_workplace";
 
 DROP TABLE "license_employee";
+
+COMMIT;
 
 -- issue#draft }
