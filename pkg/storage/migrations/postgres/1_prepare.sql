@@ -1,7 +1,5 @@
 -- +migrate Up
 
-BEGIN;
-
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- +migrate StatementBegin
@@ -32,16 +30,10 @@ LANGUAGE plpgsql;
 
 CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete', 'restore');
 
-COMMIT;
-
 -- +migrate Down
-
-BEGIN;
 
 DROP FUNCTION ignore_update();
 
 DROP FUNCTION update_timestamp();
 
 DROP TYPE ACTION;
-
-COMMIT;

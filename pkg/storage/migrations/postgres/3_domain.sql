@@ -1,7 +1,5 @@
 -- +migrate Up
 
-BEGIN;
-
 CREATE TABLE "license" (
   "id"         UUID      NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   "account_id" UUID      NOT NULL,
@@ -31,11 +29,7 @@ CREATE TRIGGER "immutable_license_audit"
   ON "license_audit"
   FOR EACH ROW EXECUTE PROCEDURE ignore_update();
 
-COMMIT;
-
 -- +migrate Down
-
-BEGIN;
 
 DROP TRIGGER "immutable_license_audit" ON "license_audit";
 
@@ -44,5 +38,3 @@ DROP TRIGGER "license_updated" ON "license";
 DROP TABLE "license_audit";
 
 DROP TABLE "license";
-
-COMMIT;
