@@ -1,21 +1,21 @@
 FROM golang:latest AS build
 
-ARG PACKAGE
-
-WORKDIR /go/src/${PACKAGE}
+WORKDIR /src
 
 ADD . .
 
 ENV GOOS        linux
 ENV GOARCH      amd64
 ENV CGO_ENABLED 0
+ENV GO111MODULE on
+ENV PACKAGE     github.com/kamilsk/guard
 
-RUN echo "os: ${GOOS}" "arch: ${GOARCH}" "cgo: ${CGO_ENABLED}" \
+RUN go env \
  && export _commit="-X ${PACKAGE}/pkg/cmd.commit=$(git rev-parse --short HEAD || echo 'none')" \
  && export _date="-X ${PACKAGE}/pkg/cmd.date=$(date -u +%FT%X%Z || echo 'unknown')" \
  && export _version="-X ${PACKAGE}/pkg/cmd.version=$(git describe --tags 2>&- || echo 'dev' | cut -d - -f 1)" \
  && go build -o /go/bin/service \
-             -ldflags "-s -w ${_commit} ${_date} ${_version}" ./cmd/guard
+             -ldflags "-s -w ${_commit} ${_date} ${_version}" -mod vendor ./cmd/guard
 
 
 FROM alpine:latest AS service

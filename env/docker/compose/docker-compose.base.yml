@@ -4,18 +4,12 @@ services:
 
   db:
     image: postgres:10-alpine
-    # build:
-    #   context:    ../db/context
-    #   dockerfile: ../Dockerfile
     env_file: ../db/.env
     volumes:
     - ../db/context/initdb.d:/docker-entrypoint-initdb.d
 
   legacy:
     image: php:fpm-alpine
-    # build:
-    #   context:    ../legacy/context
-    #   dockerfile: ../Dockerfile
     env_file: ../legacy/.env
     volumes:
     - ../legacy/context/:/var/www/html/:ro
@@ -23,7 +17,6 @@ services:
   migration:
     image: kamilsk/guard:latest
     build:
-      args:       { PACKAGE: "${PACKAGE}" }
       context:    ../../../.
       dockerfile: ./env/docker/service/Dockerfile
     command: [ "migrate" ]
@@ -35,7 +28,6 @@ services:
   service:
     image: kamilsk/guard:latest
     build:
-      args:       { PACKAGE: "${PACKAGE}" }
       context:    ../../../.
       dockerfile: ./env/docker/service/Dockerfile
     command: [ "run", "--with-profiling", "--with-monitoring", "--with-grpc-gateway" ]
@@ -45,9 +37,6 @@ services:
 
   server:
     image: nginx:alpine
-    # build:
-    #   context:    ../server/context
-    #   dockerfile: ../Dockerfile
     depends_on:
     - legacy
     - service
