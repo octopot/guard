@@ -15,7 +15,7 @@ services:
     - ../legacy/context/:/var/www/html/:ro
 
   migration:
-    image: kamilsk/guard:latest
+    image: kamilsk/guard:${VERSION}
     build:
       context:    ../../../.
       dockerfile: ./env/docker/service/Dockerfile
@@ -26,7 +26,7 @@ services:
     restart: on-failure
 
   service:
-    image: kamilsk/guard:latest
+    image: kamilsk/guard:${VERSION}
     build:
       context:    ../../../.
       dockerfile: ./env/docker/service/Dockerfile
