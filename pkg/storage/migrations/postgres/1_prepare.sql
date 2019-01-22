@@ -32,8 +32,8 @@ CREATE TYPE ACTION AS ENUM ('create', 'update', 'delete', 'restore');
 
 -- +migrate Down
 
+DROP TYPE ACTION;
+
 DROP FUNCTION ignore_update();
 
 DROP FUNCTION update_timestamp();
-
-DROP TYPE ACTION;

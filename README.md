@@ -1,5 +1,5 @@
 > # 💂‍♂️ Guard [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="126" src=".github/character.png">
-> [![Analytics][analytics_pixel]][page_promo]
+>
 > Paywall as a Service &mdash; your personal guard to restrict access to content via a paid subscription.
 
 [![Patreon][icon_patreon]](https://www.patreon.com/octolab)
