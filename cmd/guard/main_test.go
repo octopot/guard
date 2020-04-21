@@ -9,12 +9,12 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/kamilsk/guard/pkg/cmd"
-	"github.com/kamilsk/guard/pkg/config"
-	"github.com/kamilsk/guard/pkg/service/guard"
-	"github.com/kamilsk/guard/pkg/storage"
-	"github.com/kamilsk/guard/pkg/transport/grpc/rpc"
-	"github.com/kamilsk/guard/pkg/transport/http/api"
+	cmd "go.octolab.org/ecosystem/guard/internal/cmd/legacy"
+	"go.octolab.org/ecosystem/guard/internal/config"
+	"go.octolab.org/ecosystem/guard/internal/service/guard"
+	"go.octolab.org/ecosystem/guard/internal/storage"
+	"go.octolab.org/ecosystem/guard/internal/transport/grpc/rpc"
+	"go.octolab.org/ecosystem/guard/internal/transport/http/api"
 )
 
 // invariant

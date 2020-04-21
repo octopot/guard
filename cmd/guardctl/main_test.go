@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 
-	"github.com/kamilsk/guard/pkg/cmd"
+	cmd "go.octolab.org/ecosystem/guard/internal/cmd/legacy"
 )
 
 func TestControl(t *testing.T) {

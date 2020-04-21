@@ -1,4 +1,4 @@
-module github.com/kamilsk/guard
+module go.octolab.org/ecosystem/guard
 
 go 1.12
 

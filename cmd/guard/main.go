@@ -6,7 +6,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/kamilsk/guard/pkg/cmd"
+	cmd "go.octolab.org/ecosystem/guard/internal/cmd/legacy"
 )
 
 var service cli = func(executor commander, output io.Writer, shutdown func(code int)) {
