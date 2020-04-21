@@ -5,15 +5,16 @@ import (
 	"io/ioutil"
 	"testing"
 
+	"github.com/spf13/cobra"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
+
 	"github.com/kamilsk/guard/pkg/cmd"
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/kamilsk/guard/pkg/transport/grpc/rpc"
 	"github.com/kamilsk/guard/pkg/transport/http/api"
-	"github.com/spf13/cobra"
-	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/mock"
 )
 
 // invariant

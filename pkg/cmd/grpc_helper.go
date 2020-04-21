@@ -9,14 +9,15 @@ import (
 
 	"github.com/ghodss/yaml"
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
-	"github.com/kamilsk/go-kit/pkg/strings"
+	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
+	"go.octolab.org/strings"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
+
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
 	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
-	"github.com/pkg/errors"
-	"github.com/spf13/cobra"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/metadata"
 )
 
 const nl = 10 // \n

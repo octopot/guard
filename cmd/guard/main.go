@@ -4,8 +4,9 @@ import (
 	"io"
 	"os"
 
-	"github.com/kamilsk/guard/pkg/cmd"
 	"github.com/spf13/cobra"
+
+	"github.com/kamilsk/guard/pkg/cmd"
 )
 
 var service cli = func(executor commander, output io.Writer, shutdown func(code int)) {

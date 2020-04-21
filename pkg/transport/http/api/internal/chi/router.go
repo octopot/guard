@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+
 	"github.com/kamilsk/guard/pkg/transport/http/api/internal"
 )
 

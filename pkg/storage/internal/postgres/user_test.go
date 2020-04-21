@@ -6,12 +6,11 @@ import (
 	"testing"
 	"time"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-
-	"github.com/kamilsk/guard/pkg/storage/internal"
+	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/DATA-DOG/go-sqlmock.v1"
 
+	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/guard/pkg/storage/internal"
 	. "github.com/kamilsk/guard/pkg/storage/internal/postgres"
 )
 

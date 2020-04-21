@@ -6,10 +6,12 @@ package api_test
 
 import (
 	context "context"
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+
 	request "github.com/kamilsk/guard/pkg/service/types/request"
 	response "github.com/kamilsk/guard/pkg/service/types/response"
-	reflect "reflect"
 )
 
 // MockService is a mock of Service interface
@@ -37,6 +39,7 @@ func (m *MockService) EXPECT() *MockServiceMockRecorder {
 
 // CheckLicense mocks base method
 func (m *MockService) CheckLicense(arg0 context.Context, arg1 request.CheckLicense) response.CheckLicense {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CheckLicense", arg0, arg1)
 	ret0, _ := ret[0].(response.CheckLicense)
 	return ret0
@@ -44,5 +47,6 @@ func (m *MockService) CheckLicense(arg0 context.Context, arg1 request.CheckLicen
 
 // CheckLicense indicates an expected call of CheckLicense
 func (mr *MockServiceMockRecorder) CheckLicense(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CheckLicense", reflect.TypeOf((*MockService)(nil).CheckLicense), arg0, arg1)
 }

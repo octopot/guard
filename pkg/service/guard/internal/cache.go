@@ -4,11 +4,11 @@ import (
 	"context"
 	"time"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
-	"github.com/kamilsk/guard/pkg/storage/types"
 	"github.com/pkg/errors"
+
+	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/guard/pkg/storage/types"
+	repository "github.com/kamilsk/guard/pkg/storage/types"
 )
 
 // TODO issue#draft {

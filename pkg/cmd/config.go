@@ -4,10 +4,11 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/kamilsk/go-kit/pkg/fn"
-	"github.com/kamilsk/guard/pkg/config"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"go.octolab.org/fn"
+
+	"github.com/kamilsk/guard/pkg/config"
 )
 
 var (

@@ -6,11 +6,13 @@ package guard_test
 
 import (
 	context "context"
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+
 	types "github.com/kamilsk/guard/pkg/service/types"
 	query "github.com/kamilsk/guard/pkg/storage/query"
 	types0 "github.com/kamilsk/guard/pkg/storage/types"
-	reflect "reflect"
 )
 
 // MockStorage is a mock of Storage interface
@@ -38,6 +40,7 @@ func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 
 // LicenseByEmployee mocks base method
 func (m *MockStorage) LicenseByEmployee(arg0 context.Context, arg1 types.ID) (types0.License, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LicenseByEmployee", arg0, arg1)
 	ret0, _ := ret[0].(types0.License)
 	ret1, _ := ret[1].(error)
@@ -46,11 +49,13 @@ func (m *MockStorage) LicenseByEmployee(arg0 context.Context, arg1 types.ID) (ty
 
 // LicenseByEmployee indicates an expected call of LicenseByEmployee
 func (mr *MockStorageMockRecorder) LicenseByEmployee(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LicenseByEmployee", reflect.TypeOf((*MockStorage)(nil).LicenseByEmployee), arg0, arg1)
 }
 
 // LicenseByID mocks base method
 func (m *MockStorage) LicenseByID(arg0 context.Context, arg1 types.ID) (types0.License, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LicenseByID", arg0, arg1)
 	ret0, _ := ret[0].(types0.License)
 	ret1, _ := ret[1].(error)
@@ -59,11 +64,13 @@ func (m *MockStorage) LicenseByID(arg0 context.Context, arg1 types.ID) (types0.L
 
 // LicenseByID indicates an expected call of LicenseByID
 func (mr *MockStorageMockRecorder) LicenseByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LicenseByID", reflect.TypeOf((*MockStorage)(nil).LicenseByID), arg0, arg1)
 }
 
 // RegisterAccount mocks base method
 func (m *MockStorage) RegisterAccount(arg0 context.Context, arg1 *query.RegisterAccount) (*types0.Account, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RegisterAccount", arg0, arg1)
 	ret0, _ := ret[0].(*types0.Account)
 	ret1, _ := ret[1].(error)
@@ -72,5 +79,6 @@ func (m *MockStorage) RegisterAccount(arg0 context.Context, arg1 *query.Register
 
 // RegisterAccount indicates an expected call of RegisterAccount
 func (mr *MockStorageMockRecorder) RegisterAccount(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RegisterAccount", reflect.TypeOf((*MockStorage)(nil).RegisterAccount), arg0, arg1)
 }

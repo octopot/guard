@@ -6,9 +6,10 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
+	"google.golang.org/grpc"
+
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
-	"google.golang.org/grpc"
 )
 
 // New TODO issue#docs

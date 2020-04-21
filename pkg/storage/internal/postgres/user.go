@@ -4,11 +4,11 @@ import (
 	"context"
 	"database/sql"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/pkg/errors"
 
+	domain "github.com/kamilsk/guard/pkg/service/types"
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/storage/types"
-	"github.com/pkg/errors"
 )
 
 // NewUserContext TODO issue#docs

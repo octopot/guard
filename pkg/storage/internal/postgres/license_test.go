@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/kamilsk/guard/pkg/storage/internal"
-
 	. "github.com/kamilsk/guard/pkg/storage/internal/postgres"
 )
 

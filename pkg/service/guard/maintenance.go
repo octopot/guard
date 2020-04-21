@@ -3,9 +3,10 @@ package guard
 import (
 	"context"
 
+	"github.com/pkg/errors"
+
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
-	"github.com/pkg/errors"
 )
 
 type maintenanceService struct {

@@ -5,14 +5,14 @@ import (
 	"net/http"
 	"time"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/pkg/errors"
+	"go.uber.org/zap"
 
 	"github.com/kamilsk/guard/pkg/platform/logger"
 	"github.com/kamilsk/guard/pkg/service/guard/internal"
+	domain "github.com/kamilsk/guard/pkg/service/types"
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
-	"github.com/pkg/errors"
-	"go.uber.org/zap"
 )
 
 type licenseService struct {

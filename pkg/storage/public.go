@@ -5,7 +5,6 @@ import (
 	"database/sql"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/storage/types"
 )

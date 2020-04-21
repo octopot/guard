@@ -3,12 +3,12 @@ package rpc
 import (
 	"time"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-
 	"github.com/golang/protobuf/ptypes"
 	"github.com/golang/protobuf/ptypes/timestamp"
-	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"github.com/pkg/errors"
+
+	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 )
 
 // Time converts a google.protobuf.Timestamp proto to a time.Time.

@@ -3,15 +3,16 @@ package rpc
 import (
 	"net"
 
-	"github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
-	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
-	"github.com/grpc-ecosystem/go-grpc-prometheus"
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	grpc_recovery "github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-prometheus"
+	"google.golang.org/grpc"
+
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/transport"
 	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
 	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
-	"google.golang.org/grpc"
 )
 
 // New TODO issue#docs

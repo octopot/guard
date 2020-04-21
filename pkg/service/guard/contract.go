@@ -4,9 +4,8 @@ import (
 	"context"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
 	"github.com/kamilsk/guard/pkg/storage/query"
+	repository "github.com/kamilsk/guard/pkg/storage/types"
 )
 
 // Storage TODO issue#docs

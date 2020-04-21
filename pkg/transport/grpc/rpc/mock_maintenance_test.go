@@ -6,10 +6,12 @@ package rpc_test
 
 import (
 	context "context"
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+
 	request "github.com/kamilsk/guard/pkg/service/types/request"
 	response "github.com/kamilsk/guard/pkg/service/types/response"
-	reflect "reflect"
 )
 
 // MockMaintenance is a mock of Maintenance interface
@@ -37,6 +39,7 @@ func (m *MockMaintenance) EXPECT() *MockMaintenanceMockRecorder {
 
 // Install mocks base method
 func (m *MockMaintenance) Install(arg0 context.Context, arg1 request.Install) response.Install {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Install", arg0, arg1)
 	ret0, _ := ret[0].(response.Install)
 	return ret0
@@ -44,5 +47,6 @@ func (m *MockMaintenance) Install(arg0 context.Context, arg1 request.Install) re
 
 // Install indicates an expected call of Install
 func (mr *MockMaintenanceMockRecorder) Install(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Install", reflect.TypeOf((*MockMaintenance)(nil).Install), arg0, arg1)
 }

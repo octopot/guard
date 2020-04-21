@@ -7,9 +7,11 @@ package storage_test
 import (
 	context "context"
 	sql "database/sql"
-	gomock "github.com/golang/mock/gomock"
-	internal "github.com/kamilsk/guard/pkg/storage/internal"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
+
+	internal "github.com/kamilsk/guard/pkg/storage/internal"
 )
 
 // MockExecutor is a mock of Executor interface
@@ -37,6 +39,7 @@ func (m *MockExecutor) EXPECT() *MockExecutorMockRecorder {
 
 // Dialect mocks base method
 func (m *MockExecutor) Dialect() string {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Dialect")
 	ret0, _ := ret[0].(string)
 	return ret0
@@ -44,11 +47,13 @@ func (m *MockExecutor) Dialect() string {
 
 // Dialect indicates an expected call of Dialect
 func (mr *MockExecutorMockRecorder) Dialect() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Dialect", reflect.TypeOf((*MockExecutor)(nil).Dialect))
 }
 
 // LicenseManager mocks base method
 func (m *MockExecutor) LicenseManager(arg0 context.Context, arg1 *sql.Conn) internal.LicenseManager {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LicenseManager", arg0, arg1)
 	ret0, _ := ret[0].(internal.LicenseManager)
 	return ret0
@@ -56,11 +61,13 @@ func (m *MockExecutor) LicenseManager(arg0 context.Context, arg1 *sql.Conn) inte
 
 // LicenseManager indicates an expected call of LicenseManager
 func (mr *MockExecutorMockRecorder) LicenseManager(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LicenseManager", reflect.TypeOf((*MockExecutor)(nil).LicenseManager), arg0, arg1)
 }
 
 // LicenseReader mocks base method
 func (m *MockExecutor) LicenseReader(arg0 context.Context, arg1 *sql.Conn) internal.LicenseReader {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LicenseReader", arg0, arg1)
 	ret0, _ := ret[0].(internal.LicenseReader)
 	return ret0
@@ -68,11 +75,13 @@ func (m *MockExecutor) LicenseReader(arg0 context.Context, arg1 *sql.Conn) inter
 
 // LicenseReader indicates an expected call of LicenseReader
 func (mr *MockExecutorMockRecorder) LicenseReader(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LicenseReader", reflect.TypeOf((*MockExecutor)(nil).LicenseReader), arg0, arg1)
 }
 
 // UserManager mocks base method
 func (m *MockExecutor) UserManager(arg0 context.Context, arg1 *sql.Conn) internal.UserManager {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UserManager", arg0, arg1)
 	ret0, _ := ret[0].(internal.UserManager)
 	return ret0
@@ -80,5 +89,6 @@ func (m *MockExecutor) UserManager(arg0 context.Context, arg1 *sql.Conn) interna
 
 // UserManager indicates an expected call of UserManager
 func (mr *MockExecutorMockRecorder) UserManager(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserManager", reflect.TypeOf((*MockExecutor)(nil).UserManager), arg0, arg1)
 }

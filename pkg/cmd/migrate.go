@@ -7,14 +7,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kamilsk/go-kit/pkg/fn"
-	"github.com/kamilsk/guard/pkg/storage"
 	"github.com/pkg/errors"
 	"github.com/rakyll/statik/fs"
-	"github.com/rubenv/sql-migrate"
+	migrate "github.com/rubenv/sql-migrate"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"go.octolab.org/fn"
 
+	"github.com/kamilsk/guard/pkg/storage"
 	_ "github.com/kamilsk/guard/pkg/storage/migrations"
 )
 

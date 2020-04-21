@@ -5,9 +5,10 @@
 package chi_test
 
 import (
-	gomock "github.com/golang/mock/gomock"
 	http "net/http"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockAPI is a mock of API interface
@@ -35,10 +36,12 @@ func (m *MockAPI) EXPECT() *MockAPIMockRecorder {
 
 // CheckLicenseV1 mocks base method
 func (m *MockAPI) CheckLicenseV1(arg0 http.ResponseWriter, arg1 *http.Request) {
+	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "CheckLicenseV1", arg0, arg1)
 }
 
 // CheckLicenseV1 indicates an expected call of CheckLicenseV1
 func (mr *MockAPIMockRecorder) CheckLicenseV1(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CheckLicenseV1", reflect.TypeOf((*MockAPI)(nil).CheckLicenseV1), arg0, arg1)
 }

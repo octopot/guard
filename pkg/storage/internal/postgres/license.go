@@ -5,11 +5,11 @@ import (
 	"database/sql"
 	"encoding/json"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/pkg/errors"
 
+	domain "github.com/kamilsk/guard/pkg/service/types"
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/storage/types"
-	"github.com/pkg/errors"
 )
 
 // NewLicenseContext TODO issue#docs

@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-
 	"github.com/kamilsk/guard/pkg/service/types/request"
 )
 

@@ -6,8 +6,11 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/kamilsk/go-kit/pkg/fn"
-	"github.com/kamilsk/go-kit/pkg/strings"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
+	"go.octolab.org/fn"
+	"go.octolab.org/strings"
+
 	"github.com/kamilsk/guard/pkg/config"
 	"github.com/kamilsk/guard/pkg/service/guard"
 	"github.com/kamilsk/guard/pkg/storage"
@@ -16,8 +19,6 @@ import (
 	"github.com/kamilsk/guard/pkg/transport/http/api"
 	"github.com/kamilsk/guard/pkg/transport/http/monitor"
 	"github.com/kamilsk/guard/pkg/transport/http/profiler"
-	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 // Run starts HTTP server.

@@ -3,14 +3,14 @@ package rpc
 import (
 	"context"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
-	"github.com/kamilsk/guard/pkg/storage/query"
-	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
-	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	domain "github.com/kamilsk/guard/pkg/service/types"
+	"github.com/kamilsk/guard/pkg/storage/query"
+	repository "github.com/kamilsk/guard/pkg/storage/types"
+	"github.com/kamilsk/guard/pkg/transport/grpc/middleware"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 )
 
 type licenseServer struct {

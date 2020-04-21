@@ -5,10 +5,11 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/kamilsk/guard/pkg/cmd"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+
+	"github.com/kamilsk/guard/pkg/cmd"
 )
 
 func TestControl(t *testing.T) {

@@ -3,14 +3,14 @@ package rpc
 import (
 	"context"
 
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
-	"github.com/kamilsk/guard/pkg/service/types/request"
-	"github.com/kamilsk/guard/pkg/storage/query"
-	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/kamilsk/guard/pkg/service/types/request"
+	"github.com/kamilsk/guard/pkg/storage/query"
+	repository "github.com/kamilsk/guard/pkg/storage/types"
+	"github.com/kamilsk/guard/pkg/transport/grpc/protobuf"
 )
 
 type maintenanceServer struct {

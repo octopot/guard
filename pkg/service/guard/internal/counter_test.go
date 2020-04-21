@@ -9,9 +9,8 @@ import (
 	"testing"
 	"time"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-
 	. "github.com/kamilsk/guard/pkg/service/guard/internal"
+	domain "github.com/kamilsk/guard/pkg/service/types"
 )
 
 func TestLicenseRequestCounter(t *testing.T) {

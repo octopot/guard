@@ -6,7 +6,6 @@ import (
 	"fmt"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-
 	"github.com/kamilsk/guard/pkg/storage/internal/postgres"
 	"github.com/kamilsk/guard/pkg/storage/query"
 	"github.com/kamilsk/guard/pkg/storage/types"

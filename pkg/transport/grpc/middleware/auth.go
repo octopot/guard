@@ -3,11 +3,11 @@ package middleware
 import (
 	"context"
 
-	domain "github.com/kamilsk/guard/pkg/service/types"
-
-	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	grpc_auth "github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	domain "github.com/kamilsk/guard/pkg/service/types"
 )
 
 const (

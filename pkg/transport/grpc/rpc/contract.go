@@ -4,11 +4,10 @@ import (
 	"context"
 
 	domain "github.com/kamilsk/guard/pkg/service/types"
-	repository "github.com/kamilsk/guard/pkg/storage/types"
-
 	"github.com/kamilsk/guard/pkg/service/types/request"
 	"github.com/kamilsk/guard/pkg/service/types/response"
 	"github.com/kamilsk/guard/pkg/storage/query"
+	repository "github.com/kamilsk/guard/pkg/storage/types"
 )
 
 // Maintenance TODO issue#docs
