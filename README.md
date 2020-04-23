@@ -1,10 +1,9 @@
-> # 💂‍♂️ Guard [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="126" src=".github/character.png">
+> # 💂‍♂️ Guard
 >
 > Paywall as a Service &mdash; your personal guard to restrict access to content via a paid subscription.
 
-[![Patreon][icon_patreon]](https://www.patreon.com/octolab)
-[![Build Status][icon_build]][page_build]
-[![License][icon_license]](LICENSE)
+[![Build][build.icon]][build.page]
+[![Template][template.icon]][template.page]
 
 ## Roadmap
 
@@ -188,10 +187,6 @@ $ guardctl completion -f zsh  > /path/to/zsh-completions/_guardctl.zsh
 
 ```bash
 $ brew install kamilsk/tap/guard
-
-$ which guard guardctl
-/usr/local/bin/guard
-/usr/local/bin/guardctl
 ```
 
 ### Binary
@@ -224,39 +219,22 @@ $ egg bitbucket.org/kamilsk/guard@^1.0.0 -- make test install
 
 > [egg](https://github.com/kamilsk/egg)<sup id="anchor-egg">[1](#egg)</sup> is an `extended go get`.
 
-## Update
-
-This application is in a state of [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) and under active
-development. [SemVer](https://semver.org/) is used for releases, and you can easily be updated within minor versions,
-but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compatibility)-safe.
-
-<sup id="egg">1</sup> The project is still in prototyping. [↩](#anchor-egg)
+<sup id="egg">1</sup> The project is still in prototyping.[↩](#anchor-egg)
 
 ---
 
-[![Gitter][icon_gitter]](https://gitter.im/kamilsk/guard)
-[![@kamilsk][icon_tw_author]](https://twitter.com/ikamilsk)
-[![@octolab][icon_tw_sponsor]](https://twitter.com/octolab_inc)
+made with ❤️ for everyone
 
-made with ❤️ by [OctoLab](https://www.octolab.org/)
+[build.page]:       https://travis-ci.com/octopot/guard
+[build.icon]:       https://travis-ci.com/octopot/guard.svg?branch=master
+[design.page]:      https://www.notion.so/octolab/Guard-b6579c8a78714b8787f631508eff5451?r=0b753cbf767346f5a6fd51194829a2f3
+[promo.page]:       https://octopot.github.io/guard/
+[template.page]:    https://github.com/octomation/go-service
+[template.icon]:    https://img.shields.io/badge/template-go--service-blue
 
-[analytics_pixel]: https://ga-beacon.appspot.com/UA-109817251-26/guard/readme?pixel
+[egg]:              https://github.com/kamilsk/egg
 
-[icon_build]:      https://travis-ci.org/kamilsk/guard.svg?branch=master
-[icon_gitter]:     https://badges.gitter.im/Join%20Chat.svg
-[icon_license]:    https://img.shields.io/badge/license-MIT-blue.svg
-[icon_patreon]:    https://img.shields.io/badge/patreon-donate-orange.svg
-[icon_tw_author]:  https://img.shields.io/badge/author-%40kamilsk-blue.svg
-[icon_tw_sponsor]: https://img.shields.io/badge/sponsor-%40octolab-blue.svg
-[icon_twitter]:    https://img.shields.io/twitter/url/http/shields.io.svg?style=social
-
-[page_build]:      https://travis-ci.org/kamilsk/guard
-[page_promo]:      https://github.com/kamilsk/guard
-[page_research]:   ../../tree/research
-
-[project_v1]:      https://github.com/kamilsk/guard/projects/1
-[project_v1_dl]:   https://github.com/kamilsk/guard/milestone/1
-[project_v2]:      https://github.com/kamilsk/guard/projects/2
-[project_v2_dl]:   https://github.com/kamilsk/guard/milestone/2
-
-[twitter_publish]: https://twitter.com/intent/tweet?text=Access%20Control%20as%20a%20Service&url=https://kamilsk.github.io/guard/&via=ikamilsk&hashtags=go,service
+[project_v1]:       https://github.com/octopot/guard/projects/1
+[project_v1_dl]:    https://github.com/octopot/guard/milestone/1
+[project_v2]:       https://github.com/octopot/guard/projects/2
+[project_v2_dl]:    https://github.com/octopot/guard/milestone/2
