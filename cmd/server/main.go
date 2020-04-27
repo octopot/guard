@@ -1,13 +1,31 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"os"
+	"runtime/debug"
 
 	"github.com/spf13/cobra"
 
 	cmd "go.octolab.org/ecosystem/guard/internal/cmd/legacy"
 )
+
+const unknown = "unknown"
+
+var (
+	commit  = unknown
+	date    = unknown
+	version = "dev"
+)
+
+//nolint:gochecknoinits
+func init() {
+	if info, available := debug.ReadBuildInfo(); available && commit == unknown {
+		version = info.Main.Version
+		commit = fmt.Sprintf("%s, mod sum: %s", commit, info.Main.Sum)
+	}
+}
 
 var service cli = func(executor commander, output io.Writer, shutdown func(code int)) {
 	defer func() {
