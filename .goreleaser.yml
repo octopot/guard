@@ -1,66 +1,79 @@
-archive:
-  files:
-  - LICENSE
-  format: tar.gz
-  format_overrides:
-  - goos:   windows
-    format: zip
-  name_template: "{{.Binary}}_{{.Version}}_{{.Os}}-{{.Arch}}"
-  replacements:
-    386:     32bit
-    amd64:   64bit
-    darwin:  macOS
-    linux:   Linux
-    windows: Windows
-
-brew:
-  caveats: Use `--help` to see detailed help message
-  commit_author:
-    name:  Kamil Samigullin
-    email: kamil@samigullin.info
-  description: Paywall as a Service
-  folder: Formula
-  github:
-    name:  homebrew-tap
-    owner: kamilsk
-  homepage: https://kamilsk.github.io/guard/
-
-builds:
-- binary: guard
-  env:
-  - CGO_ENABLED=0
-  goarch:
-  - 386
-  - amd64
-  goos:
-  - darwin
-  - linux
-  - windows
-  ldflags:
-  - -s -w -X {{.Env.META}}.version={{.Version}} -X {{.Env.META}}.commit={{.Commit}} -X {{.Env.META}}.date={{.Date}}
-  main: ./cmd/server/main.go
-- binary: guardctl
-  env:
-  - CGO_ENABLED=0
-  flags:
-  - -tags=ctl
-  goarch:
-  - 386
-  - amd64
-  goos:
-  - darwin
-  - linux
-  - windows
-  ldflags:
-  - -s -w -X {{.Env.META}}.version={{.Version}} -X {{.Env.META}}.commit={{.Commit}} -X {{.Env.META}}.date={{.Date}}
-  main: ./cmd/client/main.go
-
-checksum: { name_template: checksums.txt }
+version: 2
 
 project_name: guard
 
+archives:
+  - id: guard
+    ids:
+      - guard
+      - guardctl
+    files:
+      - LICENSE
+    formats: [tar.gz]
+    name_template: "{{.ProjectName}}_{{.Version}}_{{.Os}}-{{.Arch}}"
+
+# brews is deprecated upstream, but it is the only GoReleaser generator of a
+# Formula (as octopot/indexit and octomation/maintainer). Keep GoReleaser
+# pinned in CI.
+brews:
+  - name: guard
+    ids: [guard]
+    # a prerelease tag (vX.Y.Z-rcN) leaves the tap as it is
+    skip_upload: auto
+    commit_author:
+      use_github_app_token: true
+    description: "Paywall as a Service"
+    directory: Formula
+    homepage: https://github.com/octopot/guard
+    repository:
+      owner: octolab
+      name: homebrew-tap
+      token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
+    install: |
+      bin.install "guard"
+      generate_completions_from_executable(bin/"guard", "completion", shell_parameter_format: "--format=")
+      bin.install "guardctl"
+      generate_completions_from_executable(bin/"guardctl", "completion", shell_parameter_format: "--format=")
+      prefix.install_metafiles
+    test: |
+      system "#{bin}/guard", "version"
+      system "#{bin}/guardctl", "version"
+
+builds:
+  - id: guard
+    binary: guard
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - darwin
+      - linux
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: ./cmd/server
+  - id: guardctl
+    binary: guardctl
+    env:
+      - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    goarch:
+      - amd64
+      - arm64
+    goos:
+      - darwin
+      - linux
+    ldflags:
+      - -s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+    main: ./cmd/client
+
+checksum: { name_template: checksums.txt }
+
 release:
-  draft: false
-  github:
-    name:  guard
-    owner: kamilsk
+  # the repository comes from the git remote; a prerelease tag (vX.Y.Z-rcN)
+  # is published as a prerelease, never as Latest
+  prerelease: auto
